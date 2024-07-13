@@ -68,11 +68,6 @@ const TABLE_HEAD = [
   { id: 'orderNumber', label: 'Whatapp Number', width: 288 },
   { id: 'name', label: 'Webhook URL (For Receiving Messages) ', width: 592 },
   { id: 'createdAt', label: 'Date', width: 137 },
-  // {
-  //   id: 'totalQuantity',
-  //   label: 'Status',
-  //   width: 209,
-  // },
   { id: 'status', label: 'Status', width: 110 },
   { id: 'totalAmount', label: 'Action', width: 140, align: 'right' },
   { id: '', width: 88 },
