@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+
 import { Typography } from '@mui/material';
 
 import { CONFIG } from 'src/config-global';
@@ -7,7 +8,7 @@ import { CONFIG } from 'src/config-global';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Page three | Dashboard - ${CONFIG.site.name}` };
+const metadata = { title: `Page two | Dashboard - ${CONFIG.site.name}` };
 
 export default function Page() {
   return (
@@ -16,11 +17,10 @@ export default function Page() {
         <title> {metadata.title}</title>
       </Helmet>
 
-      {/* <BlankView title="Contacts" /> */}
+      {/* <BlankView title="Inbox" /> */}
       <Typography>
-        Contact
+       Flows
       </Typography>
     </>
-    
   );
 }
