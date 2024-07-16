@@ -5,7 +5,7 @@ import { CONFIG } from 'src/config-global';
 import { SvgColor } from "../svg-color";
 
 
-export default function StatsCards({sx,cardtitle,cardstats,...other}){
+export default function StatsCards({sx,cardtitle,cardstats,icon_name,icon_color,bg_gradient,...other}){
     return(
         
         <Card
@@ -26,14 +26,14 @@ export default function StatsCards({sx,cardtitle,cardstats,...other}){
           </Box>
 
           <SvgColor
-            src={`${CONFIG.site.basePath}/assets/icons/courses//whatsapp-icon.svg`}
+            src={`${CONFIG.site.basePath}/assets/icons/courses/${icon_name}`}
             sx={{
               top: 24,
               right: 20,
               width: 36,
               height: 36,
               position: 'absolute',
-              background: `#28A645`,
+              background: icon_color,
             }}
           />
 
@@ -49,7 +49,7 @@ export default function StatsCards({sx,cardtitle,cardstats,...other}){
               borderRadius: 3,
               position: 'absolute',
               transform: 'rotate(40deg)',
-              background: 'linear-gradient(120deg, #22C55E 0%, #FFFFFF 100%)',
+              background: `linear-gradient(120deg,${bg_gradient} 0%, #FFFFFF 100%)`,
             }}
           />
         </Card>

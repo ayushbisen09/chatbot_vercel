@@ -1,26 +1,19 @@
 import 'react-modal-video/css/modal-video.min.css';
 
-import ModalVideo from 'react-modal-video';
 import { useState, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import { useTheme } from '@mui/material/styles';
 import Grid from '@mui/material/Unstable_Grid2';
-import Typography from '@mui/material/Typography';
 import {
   Tab,
-  Link,
-  List,
   Tabs,
   Table,
   Button,
   Tooltip,
-  ListItem,
   TableBody,
-  CardMedia,
   IconButton,
-  ListItemText,
   useMediaQuery,
 } from '@mui/material';
 
@@ -40,8 +33,8 @@ import { _orders, ORDER_STATUS_OPTIONS } from 'src/_mock';
 import { Label } from 'src/components/label';
 import { toast } from 'src/components/snackbar';
 import { Iconify } from 'src/components/iconify';
-import { SvgColor } from 'src/components/svg-color';
 import { Scrollbar } from 'src/components/scrollbar';
+import BigCard from 'src/components/big-card/bigCard';
 import StatsCards from 'src/components/stats-card/stats-card';
 import PageHeader from 'src/components/page-header/page_header';
 import {
@@ -55,6 +48,8 @@ import {
   TableSelectedAction,
   TablePaginationCustom,
 } from 'src/components/table';
+
+import { WhatsAppDialog } from 'src/sections/dashbaord/hooks/add-whatsApp-number';
 
 import { OrderTableRow } from './order-table-row';
 import { OrderTableToolbar } from './order-table-toolbar';
@@ -75,9 +70,6 @@ const TABLE_HEAD = [
 ];
 
 export default function Page({ sx, icon, title, total, color = 'warning', ...other }) {
-  const [isOpen, setOpen] = useState(false);
-  const videoId = 'CoIfgN0tfhE'; // Replace with your YouTube video ID
-  const coverSrc = `${CONFIG.site.basePath}/assets/background/Pabbly Broadcast Card.png`;
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -157,11 +149,34 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
   const dialog = useBoolean();
   return (
     <DashboardContent maxWidth="xl">
-      <PageHeader
-        title="Dashboard"
-        Subheading="Connecting Brands and Customers through WhatsApp Engagement and Marketing."
-      />
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: isMobile ? 'column' : 'row',
+          alignItems: isMobile ? 'flex-start' : 'center',
+          justifyContent: 'space-between',
+          mb: 0,
+        }}
+      >
+        <PageHeader
+          title="Dashboard"
+          Subheading="Connecting Brands and Customers through WhatsApp Engagement and Marketing."
+        />
+        <Button
+          onClick={dialog.onTrue}
+          sx={{ mt: isMobile ? 2 : 0 }}
+          startIcon={
+            <Iconify icon="heroicons:plus-circle-16-solid" style={{ width: 18, height: 18 }} />
+          }
+          size="large"
+          variant="contained"
+          color="primary"
+        >
+          Add WhatsApp Number
+        </Button>
 
+        <WhatsAppDialog open={dialog.value} onClose={dialog.onFalse} />
+      </Box>
       {/* Cards Section */}
 
       <Box
@@ -173,100 +188,31 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
         }}
       >
         {/* WhatsApp Number Added */}
-        
-        <StatsCards cardtitle="dsdsd" cardstats="34" />
+
+        <StatsCards
+          cardtitle="WhatsApp Number Added"
+          cardstats="8"
+          icon_name="whatsapp-icon.svg"
+          icon_color="#28A645"
+          bg_gradient="#22C55E"
+        />
         {/* WhatsApp Message Quota (Outgoing) */}
-        <Card
-          sx={{
-            boxShadow: '0px 12px 24px -4px rgba(145, 158, 171, 0.2)',
-            py: 3,
-            pl: 3,
-            pr: 2.5,
-            ...sx,
-          }}
-          {...other}
-        >
-          <Box sx={{ flexGrow: 1 }}>
-            <Box sx={{ typography: 'h3' }}>45</Box>
-            <Typography noWrap variant="subtitle2" component="div" sx={{ color: 'text.secondary' }}>
-              WhatsApp Message Quota (Outgoing)
-            </Typography>
-          </Box>
+        <StatsCards
+          cardtitle="WhatsApp Message Quota (Outgoing)"
+          cardstats="10,000"
+          icon_name="2card.png"
+          icon_color="#FFA92E"
+          bg_gradient={theme.vars.palette[color].main}
+        />
 
-          <SvgColor
-            src={`${CONFIG.site.basePath}/assets/icons/courses/2card.png`}
-            sx={{
-              top: 24,
-              right: 20,
-              width: 36,
-              height: 36,
-              position: 'absolute',
-              background: `#FFA92E`,
-            }}
-          />
-
-          <Box
-            icon={`${CONFIG.site.basePath}/assets/icons/courses/2card.png`}
-            sx={{
-              top: -44,
-              width: 160,
-              zIndex: -1,
-              height: 160,
-              right: -104,
-              opacity: 0.12,
-              borderRadius: 3,
-              position: 'absolute',
-              transform: 'rotate(40deg)',
-              background: `linear-gradient(120deg, ${theme.vars.palette[color].main} 0%, ${varAlpha(theme.vars.palette[color].mainChannel, 0)} 100%)`,
-            }}
-          />
-        </Card>
         {/* Messaage Quota Used */}
-        <Card
-          sx={{
-            boxShadow: '0px 12px 24px -4px rgba(145, 158, 171, 0.2)',
-            py: 3,
-            pl: 3,
-            pr: 2.5,
-            ...sx,
-          }}
-          {...other}
-        >
-          <Box sx={{ flexGrow: 1 }}>
-            <Box sx={{ typography: 'h3' }}>45</Box>
-            <Typography noWrap variant="subtitle2" component="div" sx={{ color: 'text.secondary' }}>
-              Message Quota Used
-            </Typography>
-          </Box>
-
-          <SvgColor
-            src={`${CONFIG.site.basePath}/assets/icons/courses/3card.svg`}
-            sx={{
-              top: 24,
-              right: 20,
-              width: 36,
-              height: 36,
-              position: 'absolute',
-              background: `#7D6ADB`,
-            }}
-          />
-
-          <Box
-            icon={`${CONFIG.site.basePath}/assets/icons/courses/3card.svg`}
-            sx={{
-              top: -44,
-              width: 160,
-              zIndex: -1,
-              height: 160,
-              right: -104,
-              opacity: 0.12,
-              borderRadius: 3,
-              position: 'absolute',
-              transform: 'rotate(40deg)',
-              background: 'linear-gradient(120deg, #8E33FF 0%, #FFFFFF 100%)',
-            }}
-          />
-        </Card>
+        <StatsCards
+          cardtitle="Message Quota Used"
+          cardstats="2,000"
+          icon_name="3card.svg"
+          icon_color="#7D6ADB"
+          bg_gradient="#8E33FF"
+        />
       </Box>
 
       {/* Cards Section */}
@@ -274,204 +220,7 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
       {/* Big Card Section */}
 
       <Grid xs={12} md={8}>
-        <Box
-          sx={{
-            boxShadow: '0px 12px 24px -4px rgba(145, 158, 171, 0.2)',
-
-            backgroundColor: 'common.white',
-            mt: '24px',
-            pt: 5,
-            pb: 5,
-            pr: 3,
-            gap: 5,
-            borderRadius: 2,
-            display: 'flex',
-            height: { md: 1 },
-            position: 'relative',
-            pl: { xs: 3, md: 5 },
-            alignItems: { xs: 'left', md: 'left' },
-            justifyContent: { xs: 'left', md: 'left' },
-            color: 'common.white',
-            textAlign: { xs: 'left', md: 'left' },
-            flexDirection: { xs: 'column', md: 'row' },
-
-            ...sx,
-          }}
-          {...other}
-        >
-          <Box
-            sx={{
-              display: 'flex',
-              flex: '1 1 auto',
-              flexDirection: 'column',
-              alignItems: { xs: 'flex-start', md: 'flex-start' },
-            }}
-          >
-            <Typography variant="h6" sx={{ color: 'grey.800', mb: 1 }}>
-              Points To Remember
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{
-                fontSize: '14px',
-                fontWeight: '500',
-                color: 'grey.600',
-
-                ...(true && { mb: 3 }), // Example conditional margin bottom
-              }}
-            >
-              <List sx={{ color: 'grey.600' }}>
-                <ListItem disablePadding>
-                  <ListItemText
-                    primaryTypographyProps={{
-                      sx: {
-                        fontSize: '14px',
-                        fontWeight: '500',
-                        '&::before': { content: '"•"', paddingRight: '0.5rem' },
-                      },
-                    }}
-                    primary="Choose a WhatsApp Business API provider that suits your needs and requirements."
-                  />
-                </ListItem>
-                <ListItem disablePadding>
-                  <ListItemText
-                    primaryTypographyProps={{
-                      sx: {
-                        fontSize: '14px',
-                        fontWeight: '500',
-                        '&::before': { content: '"•"', paddingRight: '0.5rem' },
-                      },
-                    }}
-                    primary="Familiarize yourself with the requirements for using the WhatsApp Business API."
-                  />
-                </ListItem>
-                <ListItem disablePadding>
-                  <ListItemText
-                    primaryTypographyProps={{
-                      sx: {
-                        fontSize: '14px',
-                        fontWeight: '500',
-                        '&::before': { content: '"•"', paddingRight: '0.5rem' },
-                      },
-                    }}
-                    primary="Apply for access to the WhatsApp Business API through your chosen provider."
-                  />
-                </ListItem>
-                <ListItem disablePadding>
-                  <ListItemText
-                    primaryTypographyProps={{
-                      sx: {
-                        fontSize: '14px',
-                        fontWeight: '500',
-                        '&::before': { content: '"•"', paddingRight: '0.5rem' },
-                      },
-                    }}
-                    primary="Review and agree to the terms and conditions set by WhatsApp and your chosen provider."
-                  />
-                </ListItem>
-                <ListItem disablePadding>
-                  <ListItemText
-                    primaryTypographyProps={{
-                      sx: {
-                        fontSize: '14px',
-                        fontWeight: '500',
-                        '&::before': { content: '"•"', paddingRight: '0.5rem' },
-                      },
-                    }}
-                    primary="Verify your business and phone number with WhatsApp."
-                  />
-                </ListItem>
-                <ListItem disablePadding>
-                  <ListItemText
-                    primaryTypographyProps={{
-                      sx: {
-                        fontSize: '14px',
-                        fontWeight: '500',
-                        '&::before': { content: '"•"', paddingRight: '0.5rem' },
-                      },
-                    }}
-                    primary="Work with your chosen provider to complete the setup process. "
-                  />
-                </ListItem>
-                <ListItem disablePadding>
-                  <ListItemText
-                    primaryTypographyProps={{
-                      sx: {
-                        fontSize: '14px',
-                        fontWeight: '500',
-                        '&::before': { content: '"•"', paddingRight: '0.5rem' },
-                      },
-                    }}
-                    primary="Iterate on your messaging strategies to improve engagement and achieve your business goals."
-                  />
-                </ListItem>
-                <ListItem disablePadding>
-                  <ListItemText
-                    primaryTypographyProps={{
-                      component: 'div',
-                      sx: {
-                        fontSize: '14px',
-                        fontWeight: '500',
-                        '&::before': { content: '"•"', paddingRight: '0.5rem' },
-                      },
-                    }}
-                    primary={
-                      <>
-                        Stay informed about updates and changes to policies that may affect your use
-                        of the API.{' '}
-                        <Link href="#" underline="always">
-                          Learn more
-                        </Link>
-                      </>
-                    }
-                  />
-                </ListItem>
-                {/* Add more list items as needed */}
-              </List>
-            </Typography>
-            <Button
-              onClick={dialog.onTrue}
-              sx={{ mt: isMobile ? 2 : 0 }}
-              size="large"
-              variant="outlined"
-              color="primary"
-            >
-              Add WhatsApp Number
-            </Button>
-          </Box>
-
-          {/* {img && <Box sx={{ maxWidth: 260 }}>{img}</Box>} */}
-          <Box
-            sx={{
-              marginRight: '16px', // Default margin-right for all screen sizes
-              ...(isMobile && {
-                marginRight: '0px', // Adjusted margin-right for screens matching 'sm' breakpoint and up
-              }),
-            }}
-          >
-            <Card>
-              <CardMedia
-                component="img"
-                src={coverSrc}
-                title="Cover Image"
-                style={{
-                  height: '100%',
-                  width: '100%',
-                  cursor: 'pointer',
-                  objectFit: 'contain',
-                }}
-                onClick={() => setOpen(true)}
-              />
-            </Card>
-            <ModalVideo
-              channel="youtube"
-              autoplay="true"
-              isOpen={isOpen}
-              videoId={videoId}
-              onClose={() => setOpen(false)}
-            />
-          </Box>
-        </Box>
+        <BigCard />
       </Grid>
 
       {/* Big Card Section */}

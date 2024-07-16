@@ -25,22 +25,6 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
       <ChatView />
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </DashboardContent>
   );
 }
