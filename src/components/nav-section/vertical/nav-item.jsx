@@ -125,7 +125,7 @@ const StyledNavItem = styled(ButtonBase, {
       paddingRight: 'var(--nav-item-pr)',
       paddingBottom: 'var(--nav-item-pb)',
       borderRadius: 'var(--nav-item-radius)',
-      color: 'var(--nav-item-color)',
+      color: '#ffffff',
       '&:hover': {
         backgroundColor: 'var(--nav-item-hover-bg)',
       },

@@ -113,7 +113,7 @@ const StyledNavItem = styled(ButtonBase, {
     item: {
       width: '100%',
       borderRadius: 'var(--nav-item-radius)',
-      color: 'var(--nav-item-color)',
+      color: '#ffffff',
       '&:hover': {
         backgroundColor: 'var(--nav-item-hover-bg)',
       },
@@ -216,11 +216,11 @@ const StyledNavItem = styled(ButtonBase, {
       [`& .${navSectionClasses.item.info}`]: { ...baseStyles.info },
       // State
       ...(active && {
-        color: 'var(--nav-item-sub-active-color)',
+        color: 'var(--nav-item-root-active-color)',
         backgroundColor: 'var(--nav-item-sub-active-bg)',
       }),
       ...(open && {
-        color: 'var(--nav-item-sub-open-color)',
+        color: '#ffffff',
         backgroundColor: 'var(--nav-item-sub-open-bg)',
       }),
     }),
