@@ -1,26 +1,46 @@
-import { Helmet } from 'react-helmet-async';
-
-import { Typography } from '@mui/material';
 
 import { CONFIG } from 'src/config-global';
+import { useBoolean } from 'src/hooks/use-boolean';
 
-// import { BlankView } from 'src/sections/blank/view';
+import { DashboardContent } from 'src/layouts/dashboard';
+
+import PageHeader from 'src/components/page-header/page_header';
+
+import { ChatView } from 'src/sections/chat/view';
+
+const metadata = { title: `Inbox | Dashboard - ${CONFIG.site.name}` };
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Page two | Dashboard - ${CONFIG.site.name}` };
 
-export default function Page() {
+export default function Page({ sx, icon, title, total, color = 'warning', ...other }) {
+  const dialog = useBoolean();
   return (
-    <>
-      <Helmet>
-        <title> {metadata.title}</title>
-      </Helmet>
+    <DashboardContent maxWidth="xl">
+      <PageHeader
+        title="Inbox"
+        Subheading="Connecting Brands and Customers through WhatsApp Engagement and Marketing."
+        showButton={false}
+      />
+      <ChatView />
 
-      {/* <BlankView title="Inbox" /> */}
-      <Typography>
-        Inbox title
-      </Typography>
-    </>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </DashboardContent>
   );
 }

@@ -21,7 +21,7 @@ import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Iconify } from '../iconify';
 
-export default function PageHeader({ title, Subheading }) {
+export default function PageHeader({ title, Subheading, showButton = true  }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const isWeb = useMediaQuery(theme.breakpoints.up('sm'));
@@ -52,18 +52,20 @@ export default function PageHeader({ title, Subheading }) {
         </Typography>
       </Box>
 
-      <Button
-        onClick={dialog.onTrue}
-        sx={{ mt: isMobile ? 2 : 0 }}
-        startIcon={
-          <Iconify icon="heroicons:plus-circle-16-solid" style={{ width: 18, height: 18 }} />
-        }
-        size="large"
-        variant="contained"
-        color="primary"
-      >
-        Add WhatsApp Number
-      </Button>
+      {showButton && (
+        <Button
+          onClick={dialog.onTrue}
+          sx={{ mt: isMobile ? 2 : 0 }}
+          startIcon={
+            <Iconify icon="heroicons:plus-circle-16-solid" style={{ width: 18, height: 18 }} />
+          }
+          size="large"
+          variant="contained"
+          color="primary"
+        >
+          Add WhatsApp Number
+        </Button>
+      )}
       <Dialog
         open={dialog.value}
         onClose={dialog.onFalse}
