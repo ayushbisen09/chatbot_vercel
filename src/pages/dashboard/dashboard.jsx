@@ -42,6 +42,7 @@ import { toast } from 'src/components/snackbar';
 import { Iconify } from 'src/components/iconify';
 import { SvgColor } from 'src/components/svg-color';
 import { Scrollbar } from 'src/components/scrollbar';
+import StatsCards from 'src/components/stats-card/stats-card';
 import PageHeader from 'src/components/page-header/page_header';
 import {
   useTable,
@@ -172,51 +173,8 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
         }}
       >
         {/* WhatsApp Number Added */}
-        <Card
-          sx={{
-            boxShadow: '0px 12px 24px -4px rgba(145, 158, 171, 0.2)',
-            py: 3,
-            pl: 3,
-            pr: 2.5,
-            ...sx,
-          }}
-          {...other}
-        >
-          <Box sx={{ flexGrow: 1 }}>
-            <Box sx={{ typography: 'h3' }}>45</Box>
-            <Typography noWrap variant="subtitle2" component="div" sx={{ color: 'text.secondary' }}>
-              WhatsApp Number Added
-            </Typography>
-          </Box>
-
-          <SvgColor
-            src={`${CONFIG.site.basePath}/assets/icons/courses//whatsapp-icon.svg`}
-            sx={{
-              top: 24,
-              right: 20,
-              width: 36,
-              height: 36,
-              position: 'absolute',
-              background: `#28A645`,
-            }}
-          />
-
-          <Box
-            icon={`${CONFIG.site.basePath}/assets/icons/courses/whatsapp-icon.svg`}
-            sx={{
-              top: -44,
-              width: 160,
-              zIndex: -1,
-              height: 160,
-              right: -104,
-              opacity: 0.12,
-              borderRadius: 3,
-              position: 'absolute',
-              transform: 'rotate(40deg)',
-              background: 'linear-gradient(120deg, #22C55E 0%, #FFFFFF 100%)',
-            }}
-          />
-        </Card>
+        
+        <StatsCards cardtitle="dsdsd" cardstats="34" />
         {/* WhatsApp Message Quota (Outgoing) */}
         <Card
           sx={{
