@@ -1,26 +1,47 @@
-import { Helmet } from 'react-helmet-async';
-
-import { Typography } from '@mui/material';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import { Box, Card, Divider, CardHeader } from '@mui/material';
 
 import { CONFIG } from 'src/config-global';
+import { DashboardContent } from 'src/layouts/dashboard';
 
-// import { BlankView } from 'src/sections/blank/view';
+import PageHeader from 'src/components/page-header/page_header';
+
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Page two | Dashboard - ${CONFIG.site.name}` };
+const metadata = { title: `Page four | Dashboard - ${CONFIG.site.name}` };
 
 export default function Page() {
   return (
     <>
-      <Helmet>
-        <title> {metadata.title}</title>
-      </Helmet>
-
-      {/* <BlankView title="Inbox" /> */}
-      <Typography>
-      Notification Preferences
-      </Typography>
+      {/* <BlankView title="Notification Preferences" /> */}
+      <DashboardContent maxWidth="xl">
+        <PageHeader title="Notification Preferences" Subheading="You can customize different notificatons for user chats requesting for intervention." showButton= {false}/>
+        <Box sx={{ mt: 4 }}>
+          {' '}
+          {/* Add margin-top and padding for spacing */}
+          <Card>
+            <CardHeader
+              title="Sound Notification"
+              // subheader="Title, short description, image..."
+              sx={{ mb: 3 }}
+            />
+            <Divider />
+            <FormControlLabel
+              control={
+                <Switch
+                  id="toggle-taxes"
+                  // checked={includeTaxes}
+                  // onChange={handleChangeIncludeTaxes}
+                />
+              }
+              label="Disable sound notification"
+              sx={{ paddingLeft: 3, mt: 2, mb: 2 }}
+            />
+          </Card>
+        </Box>
+      </DashboardContent>
     </>
   );
 }
