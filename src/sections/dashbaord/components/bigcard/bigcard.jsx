@@ -19,11 +19,13 @@ import { useBoolean } from 'src/hooks/use-boolean';
 
 import { CONFIG } from 'src/config-global';
 
+import { WhatsAppDialog } from 'src/sections/dashbaord/hooks/add-whatsApp-number';
+
 
 
 
 export default function BigCard(sx, ...other) {
-  const videoId = 'CoIfgN0tfhE'; // Replace with your YouTube video ID
+  const videoId = 'CoIfgN0tfhE'; // Repalace with your YouTube video ID
   const coverSrc = `${CONFIG.site.basePath}/assets/background/Pabbly Broadcast Card.png`;
   const [isOpen, setOpen] = useState(false);
 
@@ -197,6 +199,7 @@ export default function BigCard(sx, ...other) {
         >
           Add WhatsApp Number
         </Button>
+        <WhatsAppDialog open={dialog.value} onClose={dialog.onFalse} />
       </Box>
 
       {/* {img && <Box sx={{ maxWidth: 260 }}>{img}</Box>} */}
