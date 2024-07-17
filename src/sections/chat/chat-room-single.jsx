@@ -53,7 +53,10 @@ export function ChatRoomSingle({ participant }) {
       {renderInfo}
 
       <CollapseButton selected={collapse.value} onClick={collapse.onToggle}>
-        Information
+      Chat information
+      </CollapseButton>
+      <CollapseButton selected={collapse.value} onClick={collapse.onToggle}>
+      Chat information
       </CollapseButton>
 
       <Collapse in={collapse.value}>{renderContact}</Collapse>
