@@ -62,7 +62,7 @@ export function WhatsAppDialog({ title, content, action, open, onClose, ...other
           helperText={
             <span>
               Enter your access token here.{' '}
-              <Link href="#" color="primary" underline="always">
+              <Link href="#" style={{ color: '#078DEE' }} underline="always">
                 Learn more
               </Link>
             </span>
@@ -94,7 +94,7 @@ export function WhatsAppDialog({ title, content, action, open, onClose, ...other
           helperText={
             <span>
               Enter your WhatsApp business account ID here.{' '}
-              <Link href="#" color="primary" underline="always">
+              <Link href="#" style={{ color: '#078DEE' }} underline="always">
                 Learn more
               </Link>
             </span>
@@ -126,7 +126,7 @@ export function WhatsAppDialog({ title, content, action, open, onClose, ...other
           helperText={
             <span>
               Enter your phone number ID here.{' '}
-              <Link href="#" color="primary" underline="always">
+              <Link href="#" style={{ color: '#078DEE' }} underline="always">
                 Learn more
               </Link>
             </span>

@@ -22,6 +22,7 @@ import { ChatHeaderDetail } from '../chat-header-detail';
 import { ChatHeaderCompose } from '../chat-header-compose';
 import { useCollapseNav } from '../hooks/use-collapse-nav';
 
+
 // ----------------------------------------------------------------------
 
 export function ChatView() {
@@ -53,7 +54,8 @@ export function ChatView() {
 
   useEffect(() => {
     if (conversationError || !selectedConversationId) {
-      router.push(paths.dashboard.chat);
+      // router.push(paths.dashboard.inbox);
+      // router.push(paths.dashboard.chat);
     }
   }, [conversationError, router, selectedConversationId]);
 
@@ -62,16 +64,13 @@ export function ChatView() {
   }, []);
 
   return (
-    <DashboardContent
-      maxWidth={1456}
-      sx={{ display: 'flex', flex: '1 1 auto', flexDirection: 'column' }}
+    <
     >
-      {/* <Typography variant="h4" sx={{ mb: { xs: 3, md: 5 } }}>
-        Chat
-      </Typography> */}
+     
 
       <Layout
         sx={{
+          mt: "40px",
           minHeight: 0,
           flex: '1 1 0',
           borderRadius: 2,
@@ -132,6 +131,6 @@ export function ChatView() {
           ),
         }}
       />
-    </DashboardContent>
+    </>
   );
 }

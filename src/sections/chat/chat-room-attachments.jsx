@@ -49,7 +49,7 @@ export function ChatRoomAttachments({ attachments }) {
         disabled={!totalAttachments}
         onClick={collapse.onToggle}
       >
-        {`Attachments (${totalAttachments})`}
+        {`USER ATTRIBUTES (${totalAttachments})`}
       </CollapseButton>
 
       {!!totalAttachments && (

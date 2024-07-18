@@ -8,7 +8,7 @@ import axios, { fetcher, endpoints } from 'src/utils/axios';
 
 const enableServer = false;
 
-const CHART_ENDPOINT = endpoints.chat;
+const CHART_ENDPOINT = endpoints.inbox;
 
 const swrOptions = {
   revalidateIfStale: enableServer,

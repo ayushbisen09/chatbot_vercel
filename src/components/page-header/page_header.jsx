@@ -7,7 +7,7 @@ import { Box, Typography, useMediaQuery } from '@mui/material';
 import { useBoolean } from 'src/hooks/use-boolean';
 
 
-export default function PageHeader({ title, Subheading, showButton = true }) {
+export default function PageHeader({ title, Subheading,link_added }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const isWeb = useMediaQuery(theme.breakpoints.up('sm'));
@@ -30,7 +30,7 @@ export default function PageHeader({ title, Subheading, showButton = true }) {
         </Typography>
         <Typography sx={{ color: 'text.secondary' }}>
           {Subheading}{' '}
-          <Link style={{ color: '#078DEE' }} underline="always" href="#">
+          <Link style={{ color: '#078DEE' }} underline="always" to={link_added}>
             Learn More
           </Link>
         </Typography>

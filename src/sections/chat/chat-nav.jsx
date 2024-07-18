@@ -67,7 +67,8 @@ export function ChatNav({ loading, contacts, conversations, collapseNav, selecte
     if (!mdUp) {
       onCloseMobile();
     }
-    router.push(paths.dashboard.chat);
+    router.push(paths.dashboard.inbox);
+    // router.push(paths.dashboard.chat);
   }, [mdUp, onCloseMobile, router]);
 
   const handleSearchContacts = useCallback(
@@ -93,7 +94,7 @@ export function ChatNav({ loading, contacts, conversations, collapseNav, selecte
     (result) => {
       handleClickAwaySearch();
 
-      router.push(`${paths.dashboard.chat}?id=${result.id}`);
+      router.push(`${paths.dashboard.inbox}?id=${result.id}`);
     },
     [handleClickAwaySearch, router]
   );
