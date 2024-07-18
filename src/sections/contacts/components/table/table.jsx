@@ -17,7 +17,9 @@ import { fIsAfter, fIsBetween } from 'src/utils/format-time';
 
 import { CONFIG } from 'src/config-global';
 import { varAlpha } from 'src/theme/styles';
-import { _orders, ORDER_STATUS_OPTIONS } from 'src/_mock';
+// import { _orders, ORDER_STATUS_OPTIONS } from 'src/_mock';
+import { _contacts } from 'src/_mock';
+import { CONTACT_STATUS_OPTIONS } from 'src/_mock/_contact';
 
 import { Label } from 'src/components/label';
 import { toast } from 'src/components/snackbar';
@@ -35,25 +37,25 @@ import {
   TablePaginationCustom,
 } from 'src/components/table';
 
-import { OrderTableRow } from './order-table-row';
-import { OrderTableToolbar } from './order-table-toolbar';
-import { OrderTableFiltersResult } from './order-table-filters-result';
+import { OrderTableRow } from './contact-table-row';
+import { OrderTableToolbar } from './contact-table-toolbar';
+import { OrderTableFiltersResult } from './contact-table-filters-result';
 
 // ----------------------------------------------------------------------
 
 const metadata = { title: `Page one | Dashboard - ${CONFIG.site.name}` };
-const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...ORDER_STATUS_OPTIONS];
+const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...CONTACT_STATUS_OPTIONS];
 
 const TABLE_HEAD = [
-  { id: 'orderNumber', label: 'Whatapp Number', width: 288 },
-  { id: 'name', label: 'Webhook URL (For Receiving Messages) ', width: 592 },
-  { id: 'createdAt', label: 'Date', width: 137 },
-  { id: 'status', label: 'Status', width: 110 },
-  { id: 'totalAmount', label: 'Action', width: 140, align: 'right' },
+  { id: 'orderNumber', label: 'Status/Created at', width: 353 },
+  { id: 'name', label: 'Mobile Number/Name', width: 298 },
+  { id: 'createdAt', label: 'State/Incoming status', width: 262 },
+  { id: 'status', label: '24 Hours Status/Last active', width: 515 },
+ 
   { id: '', width: 88 },
 ];
 
-export default function DashboardTable({ sx, icon, title, total, color = 'warning', ...other }) {
+export default function ContactsTable({ sx, icon, title, total, color = 'warning', ...other }) {
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -63,7 +65,7 @@ export default function DashboardTable({ sx, icon, title, total, color = 'warnin
 
   const confirm = useBoolean();
 
-  const [tableData, setTableData] = useState(_orders);
+  const [tableData, setTableData] = useState(_contacts);
 
   const filters = useSetState({
     name: '',
@@ -94,7 +96,7 @@ export default function DashboardTable({ sx, icon, title, total, color = 'warnin
     (id) => {
       const deleteRow = tableData.filter((row) => row.id !== id);
 
-      toast.success('WhatsApp Number Removed Successfully!');
+      toast.success('Contact Removed Successfully!');
 
       setTableData(deleteRow);
 
@@ -163,12 +165,12 @@ export default function DashboardTable({ sx, icon, title, total, color = 'warnin
                     'soft'
                   }
                   color={
-                    (tab.value === 'active' && 'success') ||
-                    (tab.value === 'inactive' && 'error') ||
+                    (tab.value === 'opted-in' && 'success') ||
+                    (tab.value === 'opted-out' && 'error') ||
                     'default'
                   }
                 >
-                  {['active', 'inactive'].includes(tab.value)
+                  {['opted-in', 'opted-out'].includes(tab.value)
                     ? tableData.filter((user) => user.status === tab.value).length
                     : tableData.length}
                 </Label>
@@ -212,10 +214,9 @@ export default function DashboardTable({ sx, icon, title, total, color = 'warnin
             }
           />
 
-          <Scrollbar sx={{ minHeight: 444 }}>
-            <Table size={table.dense ? 'small' : 'medium'} sx={{ minWidth: 960 }}>
+          <Scrollbar sx={{ minHeight: 300,   }}>
+            <Table size={table.dense ? 'small' : 'medium'}>
               <TableHeadCustom
-                showCheckbox={false}
                 order={table.order}
                 orderBy={table.orderBy}
                 headLabel={TABLE_HEAD}

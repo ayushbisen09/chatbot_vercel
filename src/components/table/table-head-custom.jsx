@@ -4,6 +4,7 @@ import TableHead from '@mui/material/TableHead';
 import TableCell from '@mui/material/TableCell';
 import { useTheme } from '@mui/material/styles';
 import TableSortLabel from '@mui/material/TableSortLabel';
+import { Checkbox } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -30,43 +31,67 @@ export function TableHeadCustom({
   rowCount = 0,
   numSelected = 0,
   onSelectAllRows,
+  showCheckbox = true,
 }) {
   const theme = useTheme();
   return (
-    <TableHead sx={{ width: '1456px' }}>
-      <TableRow>
-        {headLabel.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            align={headCell.align || 'left'}
-            sortDirection={orderBy === headCell.id ? order : false}
-            sx={{
-              width: headCell.width,
-              minWidth: headCell.minWidth,
-              // bgcolor: '#ffffff',
+    <TableHead>
+    <TableRow>
+      {showCheckbox && onSelectAllRows && (
+        <TableCell
+          hover
+          padding="checkbox"
+          sx={{
+            borderWidth: 1,
+            borderStyle: 'solid',
+            borderColor: '#0000000',
+            // bgcolor: '#ffffff',
+          }}
+        >
+          <Checkbox
+            indeterminate={!!numSelected && numSelected < rowCount}
+            checked={!!rowCount && numSelected === rowCount}
+            onChange={(event) => onSelectAllRows(event.target.checked)}
+            inputProps={{
+              name: 'select-all-rows',
+              'aria-label': 'select all rows',
             }}
-          >
-            {onSort ? (
-              <TableSortLabel
-                hideSortIcon
-                active={orderBy === headCell.id}
-                direction={orderBy === headCell.id ? order : 'asc'}
-                onClick={() => onSort(headCell.id)}
-              >
-                {headCell.label}
+          />
+        </TableCell>
+      )}
 
-                {orderBy === headCell.id ? (
-                  <Box sx={{ ...visuallyHidden }}>
-                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                  </Box>
-                ) : null}
-              </TableSortLabel>
-            ) : (
-              headCell.label
-            )}
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
+      {headLabel.map((headCell) => (
+        <TableCell
+          key={headCell.id}
+          align={headCell.align || 'left'}
+          sortDirection={orderBy === headCell.id ? order : false}
+          sx={{
+            width: headCell.width,
+            minWidth: headCell.minWidth,
+            // bgcolor: '#ffffff',
+          }}
+        >
+          {onSort ? (
+            <TableSortLabel
+              hideSortIcon
+              active={orderBy === headCell.id}
+              direction={orderBy === headCell.id ? order : 'asc'}
+              onClick={() => onSort(headCell.id)}
+            >
+              {headCell.label}
+
+              {orderBy === headCell.id ? (
+                <Box sx={{ ...visuallyHidden }}>
+                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                </Box>
+              ) : null}
+            </TableSortLabel>
+          ) : (
+            headCell.label
+          )}
+        </TableCell>
+      ))}
+    </TableRow>
+  </TableHead>
   );
 }
