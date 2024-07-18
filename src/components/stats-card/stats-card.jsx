@@ -26,7 +26,7 @@ export default function StatsCards({sx,cardtitle,cardstats,icon_name,icon_color,
           </Box>
 
           <SvgColor
-            src={`${CONFIG.site.basePath}/assets/icons/courses/${icon_name}`}
+            src={`${CONFIG.site.basePath}/assets/icons/stats-card/${icon_name}`}
             sx={{
               top: 24,
               right: 20,

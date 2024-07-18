@@ -34,8 +34,7 @@ export const _addressBooks = [...Array(24)].map((_, index) => ({
 // ----------------------------------------------------------------------
 
 export const _contacts = [...Array(20)].map((_, index) => {
-  const status =
-    (index % 2 && 'online') || (index % 3 && 'offline') || (index % 4 && 'alway') || 'busy';
+  const status = index % 2 === 0 ? 'opted-in' : 'opted-out';
 
   return {
     id: _mock.id(index),

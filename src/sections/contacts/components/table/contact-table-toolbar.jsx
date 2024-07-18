@@ -16,12 +16,16 @@ import { usePopover, CustomPopover } from 'src/components/custom-popover';
 import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@emotion/react';
 
+import IconButton from '@mui/material/IconButton';
+import { useBoolean } from 'src/hooks/use-boolean';
+
 // ----------------------------------------------------------------------
 
 export function OrderTableToolbar({ filters, onResetPage, dateError }) {
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const confirm = useBoolean();
 
   const popover = usePopover();
   const [filterAnchorEl, setFilterAnchorEl] = useState(null);
@@ -30,7 +34,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
   const [filterValue, setFilterValue] = useState('');
 
   const whatsapp_status = ['Active', 'Inactive']; // Add your actual column names here
-  const columns= ['Active', 'Inactive']; // Add your actual column names here
+  const columns = ['Active', 'Inactive']; // Add your actual column names here
 
   const handleFilterName = useCallback(
     (event) => {
@@ -90,7 +94,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
             fullWidth
             value={filters.state.name}
             onChange={handleFilterName}
-            placeholder="Search contacts WhatsApp number..."
+            placeholder="Search contacts by Mobile number or Name..."
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -107,9 +111,30 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
           >
             Filters
           </Button>
+          <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
+            <Iconify icon="eva:more-vertical-fill" />
+          </IconButton>
         </Stack>
       </Stack>
-
+      <CustomPopover
+        open={popover.open}
+        anchorEl={popover.anchorEl}
+        onClose={popover.onClose}
+        slotProps={{ arrow: { placement: 'right-top' } }}
+      >
+        <MenuList>
+          <MenuItem
+            onClick={() => {
+              confirm.onTrue();
+              popover.onClose();
+            }}
+            sx={{ color: 'primary' }}
+          >
+            <Iconify icon="line-md:uploading-loop" />
+            Export
+          </MenuItem>
+        </MenuList>
+      </CustomPopover>
       <Popover
         open={Boolean(filterAnchorEl)}
         anchorEl={filterAnchorEl}
@@ -140,7 +165,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
             gap: 2,
           }}
         >
-          <FormControl fullWidth sx={{ mb:{ xs:2,sm:2,md:0} }}>
+          <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
             {/* <InputLabel>Whatsapp number Status</InputLabel> */}
             <TextField
               id="select-currency-label-x"
@@ -157,7 +182,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
             </TextField>
           </FormControl>
 
-          <FormControl fullWidth sx={{ mb:{ xs:2,sm:2,md:0} }}>
+          <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
             <TextField
               id="select-currency-label-x"
               variant="outlined"
@@ -172,7 +197,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
               ))}
             </TextField>
           </FormControl>
-          <FormControl fullWidth sx={{ mb:{ xs:2,sm:2,md:0} }}>
+          <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
             <TextField
               id="select-currency-label-x"
               variant="outlined"
@@ -187,8 +212,6 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
               ))}
             </TextField>
           </FormControl>
-
-          
         </Box>
       </Popover>
     </>
