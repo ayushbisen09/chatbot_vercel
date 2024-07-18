@@ -1,7 +1,6 @@
-
-import { CONFIG } from 'src/config-global';
 import { useBoolean } from 'src/hooks/use-boolean';
 
+import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';
 
 import PageHeader from 'src/components/page-header/page_header';
