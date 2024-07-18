@@ -25,6 +25,7 @@ import { useNavItem } from './hooks/use-nav-item';
 // ----------------------------------------------------------------------
 
 export function ChatNavItem({ selected, collapse, conversation, onCloseMobile }) {
+   const names = ["John Doe", "Jane Smith", "Alex Johnson", "Emily Brown"];
   const { user } = useMockedUser();
 
   const mdUp = useResponsive('up', 'md');
@@ -52,24 +53,14 @@ export function ChatNavItem({ selected, collapse, conversation, onCloseMobile })
     }
   }, [conversation.id, mdUp, onCloseMobile, router]);
 
-  const renderGroup = (
-    <Badge
-      variant={hasOnlineInGroup ? 'online' : 'invisible'}
-      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-    >
-      <AvatarGroup variant="compact" sx={{ width: 48, height: 48 }}>
-        {participants.slice(0, 2).map((participant) => (
-          <Avatar key={participant.id} alt={participant.name} src={participant.avatarUrl} />
-        ))}
-      </AvatarGroup>
-    </Badge>
-  );
+  
 
   const renderSingle = (
     <Badge key={status} variant={status} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
-      <Avatar alt={name} src={avatarUrl} sx={{ width: 48, height: 48 }} />
+      <Avatar alt={name} src= "/assets/images/chatavatar/Ayush.png" sx={{ width: 48, height: 48 }} />
     </Badge>
   );
+  
 
   return (
     <Box component="li" sx={{ display: 'flex' }}>
@@ -87,13 +78,13 @@ export function ChatNavItem({ selected, collapse, conversation, onCloseMobile })
           overlap="circular"
           badgeContent={collapse ? conversation.unreadCount : 0}
         >
-          {group ? renderGroup : renderSingle}
+          {renderSingle}
         </Badge>
 
         {!collapse && (
           <>
             <ListItemText
-              primary={displayName}
+              primary="Ayush Bisen"
               primaryTypographyProps={{ noWrap: true, component: 'span', variant: 'subtitle2' }}
               secondary={displayText}
               secondaryTypographyProps={{

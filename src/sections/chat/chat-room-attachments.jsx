@@ -42,23 +42,23 @@ export function ChatRoomAttachments({ attachments }) {
     </Stack>
   ));
 
-  return (
-    <>
-      <CollapseButton
-        selected={collapse.value}
-        disabled={!totalAttachments}
-        onClick={collapse.onToggle}
-      >
-        {`USER ATTRIBUTES (${totalAttachments})`}
-      </CollapseButton>
+  // return (
+  //   <>
+  //     <CollapseButton
+  //       selected={collapse.value}
+  //       disabled={!totalAttachments}
+  //       onClick={collapse.onToggle}
+  //     >
+  //       {`GENERAL DETAILS `}
+  //     </CollapseButton>
 
-      {!!totalAttachments && (
-        <Collapse in={collapse.value}>
-          <Stack spacing={2} sx={{ p: 2 }}>
-            {renderList}
-          </Stack>
-        </Collapse>
-      )}
-    </>
-  );
+  //     {!!totalAttachments && (
+  //       <Collapse in={collapse.value}>
+  //         <Stack spacing={2} sx={{ p: 2 }}>
+  //           {renderList}
+  //         </Stack>
+  //       </Collapse>
+  //     )}
+  //   </>
+  // );
 }

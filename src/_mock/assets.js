@@ -128,7 +128,7 @@ export const _emails = [
 
 export const _fullNames = [
   `Jayvion Simon`,
-  `Neeraj Agrawal`,
+  `Neeraj Agarwal`,
   `Deja Brady`,
   `Harrison Stein`,
   `Reece Chung`,
@@ -624,7 +624,7 @@ export const _sentences = [
   `The children giggled with joy as they ran through the sprinklers on a hot summer day.`,
   `He carefully crafted a beautiful sculpture out of clay, his hands skillfully shaping the intricate details.`,
   `The concert was a mesmerizing experience, with the music filling the venue and the crowd cheering in delight.`,
-  `The waves crashed against the shore, creating a soothing symphony of sound.`,
+  `dsfhdshco`,
   `The scent of blooming flowers wafted through the garden, creating a fragrant paradise.`,
   `She gazed up at the night sky, marveling at the twinkling stars that dotted the darkness.`,
   `The professor delivered a captivating lecture, engaging the students with thought-provoking ideas.`,

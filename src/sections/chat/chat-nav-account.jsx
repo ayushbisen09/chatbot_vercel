@@ -20,6 +20,13 @@ import { usePopover, CustomPopover } from 'src/components/custom-popover';
 import { useMockedUser } from 'src/auth/hooks';
 
 // ----------------------------------------------------------------------
+// const CustomAvatar = () => (
+//   <Avatar
+//     alt="Custom Avatar"
+//     src="/assets/images/chatavatar/Neerajsir.png" // Replace with your custom avatar image path
+//     sx={{ cursor: 'pointer', width: 48, height: 48 }}
+//   />
+// );
 
 export function ChatNavAccount() {
   const { user } = useMockedUser();
@@ -31,19 +38,21 @@ export function ChatNavAccount() {
   const handleChangeStatus = useCallback((event) => {
     setStatus(event.target.value);
   }, []);
+  const customName = 'Neeraj Agarwal';
+  const email = 'neeraj.agrawal@gmail.com';
 
   return (
     <>
       <Badge variant={status} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
         <Avatar
-          src={user?.photoURL}
-          alt={user?.displayName}
+          src="/assets/images/chatavatar/Neerajsir.png" // Replace with your custom avatar image path
           onClick={popover.onOpen}
           sx={{ cursor: 'pointer', width: 48, height: 48 }}
         >
           {user?.displayName?.charAt(0).toUpperCase()}
         </Avatar>
       </Badge>
+      {/* <CustomAvatar  /> */}
 
       <CustomPopover
         open={popover.open}
@@ -56,8 +65,8 @@ export function ChatNavAccount() {
       >
         <Stack direction="row" alignItems="center" spacing={2} sx={{ py: 2, pr: 1, pl: 2 }}>
           <ListItemText
-            primary={user?.displayName}
-            secondary={user?.email}
+            primary={` ${customName}`} // Include the custom name
+            secondary={` ${email}`} // include the email here
             secondaryTypographyProps={{ component: 'span' }}
           />
 

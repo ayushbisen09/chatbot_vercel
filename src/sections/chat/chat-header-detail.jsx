@@ -41,13 +41,7 @@ export function ChatHeaderDetail({ collapseNav, participants, loading }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lgUp]);
 
-  const renderGroup = (
-    <AvatarGroup max={3} sx={{ [`& .${avatarGroupClasses.avatar}`]: { width: 32, height: 32 } }}>
-      {participants.map((participant) => (
-        <Avatar key={participant.id} alt={participant.name} src={participant.avatarUrl} />
-      ))}
-    </AvatarGroup>
-  );
+  
 
   const renderSingle = (
     <Stack direction="row" alignItems="center" spacing={2}>
@@ -55,11 +49,11 @@ export function ChatHeaderDetail({ collapseNav, participants, loading }) {
         variant={singleParticipant?.status}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       >
-        <Avatar src={singleParticipant?.avatarUrl} alt={singleParticipant?.name} />
+        <Avatar src="/assets/images/chatavatar/Ayush.png" alt={singleParticipant?.name} />
       </Badge>
 
       <ListItemText
-        primary={singleParticipant?.name}
+        primary="Ayush Bisen"
         secondary={
           singleParticipant?.status === 'offline'
             ? fToNow(singleParticipant?.lastActivity)
@@ -79,7 +73,7 @@ export function ChatHeaderDetail({ collapseNav, participants, loading }) {
 
   return (
     <>
-      {group ? renderGroup : renderSingle}
+      {renderSingle}
 
       <Stack direction="row" flexGrow={1} justifyContent="flex-end">
         <IconButton onClick={handleToggleNav}>
