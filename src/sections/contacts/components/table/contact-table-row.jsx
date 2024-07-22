@@ -20,7 +20,7 @@ import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
 
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
-import { Checkbox, Typography } from '@mui/material';
+import { Checkbox, Divider, Typography } from '@mui/material';
 import { ConfirmDialog } from '../custom-dialog';
 
 export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteRow }) {
@@ -166,7 +166,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                   sx={{
                     mt: 0.5,
                     whiteSpace: ',',
-                    mr:'5px'
+                    mr: '5px',
                     // Negative margin to remove any gap
                   }}
                 >
@@ -179,7 +179,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                   sx={{
                     mt: 0.5,
                     whiteSpace: ',',
-                    mr:'5px'
+                    mr: '5px',
                     // Negative margin to remove any gap
                   }}
                 >
@@ -198,9 +198,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                 </Typography>
               </Box>
             </Stack>
-            
 
-           
             <Stack
               sx={{
                 p: (theme) => theme.spacing(1.5, 2, 1.5, 1.5),
@@ -209,10 +207,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                 },
               }}
             >
-              <ListItemText
-                primary="Tags"
-                primaryTypographyProps={{ typography: 'body2' }}
-              />
+              <ListItemText primary="Tags" primaryTypographyProps={{ typography: 'body2' }} />
               <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                 <Typography
                   fontSize="14px"
@@ -221,7 +216,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                   sx={{
                     mt: 0.5,
                     whiteSpace: ',',
-                    mr:'5px'
+                    mr: '5px',
                     // Negative margin to remove any gap
                   }}
                 >
@@ -234,7 +229,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                   sx={{
                     mt: 0.5,
                     whiteSpace: ',',
-                    mr:'5px'
+                    mr: '5px',
                     // Negative margin to remove any gap
                   }}
                 >
@@ -272,6 +267,20 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
         slotProps={{ arrow: { placement: 'right-top' } }}
       >
         <MenuList>
+          <MenuItem sx={{ color: '' }}>
+            <Iconify icon="solar:bill-list-bold" />
+            Manage Tags
+          </MenuItem>
+          <MenuItem sx={{ color: '' }}>
+            <Iconify icon="solar:user-block-bold" />
+            Block & Opt
+          </MenuItem>
+          <MenuItem sx={{ color: '' }}>
+            <Iconify icon="solar:pen-bold" />
+            Edit Contact
+          </MenuItem>
+          
+          <Divider style={{borderStyle:'dashed'}}/>
           <MenuItem
             onClick={() => {
               confirm.onTrue();
@@ -280,7 +289,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             sx={{ color: 'error.main' }}
           >
             <Iconify icon="solar:trash-bin-trash-bold" />
-            Remove
+            Delete
           </MenuItem>
         </MenuList>
       </CustomPopover>

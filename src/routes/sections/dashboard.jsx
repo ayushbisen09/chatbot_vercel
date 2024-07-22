@@ -14,6 +14,7 @@ import { AuthGuard } from 'src/auth/guard';
 const IndexPage = lazy(() => import('src/pages/dashboard/dashboard'));
 const Inbox = lazy(() => import('src/pages/dashboard/inbox'));
 const Contact = lazy(() => import('src/pages/dashboard/contacts'));
+const Addcontact = lazy(() => import('src/pages/dashboard/addcontact'));
 const AgentQueue = lazy(() => import('src/pages/dashboard/agent_queue'));
 const Templates = lazy(() => import('src/pages/dashboard/templates'));
 const Broadcast = lazy(() => import('src/pages/dashboard/broadcast'));
@@ -62,6 +63,7 @@ export const dashboardRoutes = [
       { element: <IndexPage />, index: true },
       { path: 'inbox', element: <Inbox /> },
       { path: 'contact', element: <Contact /> },
+      { path: 'contact/addcontact', element: <Addcontact /> },
       { path: 'agentQueue', element: <AgentQueue /> },
       { path: 'template', element: <Templates /> },
       { path: 'broadcast', element: <Broadcast /> },

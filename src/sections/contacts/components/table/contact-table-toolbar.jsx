@@ -88,9 +88,10 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
           alignItems="center"
           spacing={2}
           flexGrow={1}
-          sx={{ pr: '12px', width: 1 }}
+          sx={{  width: 1 }}
         >
           <TextField
+          sx={{mr:'5px'}}
             fullWidth
             value={filters.state.name}
             onChange={handleFilterName}
@@ -104,6 +105,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
             }}
           />
           <Button
+           sx={{ml:'5px'}}
             size="large"
             variant=""
             startIcon={<Iconify icon="mdi:filter" />}
@@ -111,7 +113,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
           >
             Filters
           </Button>
-          <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
+          <IconButton  color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
             <Iconify icon="eva:more-vertical-fill" />
           </IconButton>
         </Stack>

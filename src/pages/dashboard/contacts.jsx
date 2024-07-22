@@ -12,6 +12,8 @@ import StatsCards from 'src/components/stats-card/stats-card';
 import ContactsTable from 'src/sections/contacts/components/table/table';
 import { useState } from 'react';
 import BigCard from 'src/sections/contacts/components/bigcard/bigcard';
+import { useNavigate } from 'react-router';
+
 
 // import { BlankView } from 'src/sections/blank/view';
 
@@ -49,7 +51,11 @@ export default function Page() {
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const navigate = useNavigate();
 
+  const handleAddContact = () => {
+    navigate('/dashboard/contact/addcontact');
+  };
   return (
     <DashboardContent maxWidth="xl">
       <Box
@@ -68,6 +74,7 @@ export default function Page() {
         />
 
         <Button
+          onClick={handleAddContact}
           sx={{ mt: isMobile ? 2 : 0 }}
           startIcon={
             <Iconify icon="heroicons:plus-circle-16-solid" style={{ width: 18, height: 18 }} />
@@ -89,9 +96,8 @@ export default function Page() {
           mt: '40px',
         }}
       >
-          <ContactList onItemSelect={handleListItemSelect} />
+        <ContactList onItemSelect={handleListItemSelect} />
         <Box sx={{ width: '100%' }}>
-          
           <Box
             sx={{
               mt: 0,
@@ -128,8 +134,8 @@ export default function Page() {
               bg_gradient="#F86672"
             />
           </Box>
-          <BigCard/>
-          <ContactsTable/>
+          <BigCard />
+          <ContactsTable />
         </Box>
       </Box>
     </DashboardContent>
