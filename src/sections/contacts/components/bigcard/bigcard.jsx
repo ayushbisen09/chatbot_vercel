@@ -18,9 +18,9 @@ import {
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import { CONFIG } from 'src/config-global';
+import { useNavigate } from 'react-router';
 
-import { WhatsAppDialog } from 'src/sections/dashbaord/hooks/add-whatsApp-number';
-import { ContactsDialog } from '../../hook/add-contact-list';
+
 
 export default function BigCard(sx, ...other) {
   const videoId = 'CoIfgN0tfhE'; // Repalace with your YouTube video ID
@@ -31,7 +31,11 @@ export default function BigCard(sx, ...other) {
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const navigate = useNavigate();
 
+  const handleAddContact = () => {
+    navigate('/dashboard/contact/addcontact');
+  };
   return (
     <Box
       sx={{
@@ -158,7 +162,7 @@ export default function BigCard(sx, ...other) {
           </List>
         </Typography>
         <Button
-         
+         onClick={handleAddContact}
           sx={{ mt: isMobile ? 2 : 0 }}
           size="large"
           variant="outlined"
