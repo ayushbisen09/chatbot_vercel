@@ -19,6 +19,7 @@ import { DashboardContent } from 'src/layouts/dashboard';
 
 import { Iconify } from 'src/components/iconify';
 import PageHeader from 'src/components/page-header/page_header';
+import BigCard from 'src/sections/api&webhook/components/bigcard/bigcard';
 
 // ----------------------------------------------------------------------
 
@@ -99,7 +100,8 @@ export default function Page() {
             </Box>
           </Card>
           {/* card section started */}
-          <Card sx={{ mt: 4, p: 3, display: 'flex', justifyContent: 'space-between' }}>
+          <BigCard/>
+          {/* <Card sx={{ mt: 4, p: 3, display: 'flex', justifyContent: 'space-between' }}>
             <Box>
               <Typography sx={{ mb: 2 }} variant="h6">
                 Add Opt-Out Webhook URL
@@ -166,7 +168,7 @@ export default function Page() {
               component="img"
               src={`${CONFIG.site.basePath}/assets/background/Get Help Photo.png`}
             />
-          </Card>
+          </Card> */}
         </Box>
       </DashboardContent>
     </>
