@@ -19,7 +19,7 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
       <PageHeader
         title="Inbox"
         Subheading="Connecting Brands and Customers through WhatsApp Engagement and Marketing."
-        showButton={false}
+       
       />
       <ChatView />
 

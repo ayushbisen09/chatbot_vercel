@@ -49,7 +49,10 @@ export const paths = {
       addcontact: `${ROOTS.DASHBOARD}/contact/addcontact`,
     },
     agentQueue: `${ROOTS.DASHBOARD}/agentQueue`,
-    template: `${ROOTS.DASHBOARD}/template`,
+    template: {
+      root:`${ROOTS.DASHBOARD}/template`,
+      addtemplate:`${ROOTS.DASHBOARD}/template/addtemplate`
+    },
     broadcast: `${ROOTS.DASHBOARD}/broadcast`,
     flows: `${ROOTS.DASHBOARD}/flows`,
 

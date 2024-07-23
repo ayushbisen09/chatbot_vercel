@@ -63,11 +63,18 @@ export const navData = [
         children: [
           { title: 'Contact List', path: paths.dashboard.contact.root },
           { title: 'Add Contact', path: paths.dashboard.contact.addcontact },
-          
         ],
       },
       { title: 'Agent Queues', path: paths.dashboard.agentQueue, icon: ICONS.agentqueues },
-      { title: 'Templates', path: paths.dashboard.template, icon: ICONS.templates },
+      {
+        title: 'Templates',
+        path: paths.dashboard.template.root,
+        icon: ICONS.templates,
+        children: [
+          { title: 'Templates List', path: paths.dashboard.template.root },
+          { title: 'Add Template', path: paths.dashboard.template.addtemplate },
+        ],
+      },
       { title: 'Broadcast', path: paths.dashboard.broadcast, icon: ICONS.broadcast },
       { title: 'Flows', path: paths.dashboard.flows, icon: ICONS.flows },
     ],
@@ -94,8 +101,11 @@ export const navData = [
           { title: 'WhatsApp Widget', path: paths.dashboard.group.whatsAppwidget },
           { title: 'API & Webhooks', path: paths.dashboard.group.apiwebhooks },
           { title: 'Activity Log', path: paths.dashboard.group.activitylogs },
-          { title: 'Notification Preferences', path: paths.dashboard.group.notificationpreferences },
-          { title: 'Time Zone', path: paths.dashboard.group.timezone},
+          {
+            title: 'Notification Preferences',
+            path: paths.dashboard.group.notificationpreferences,
+          },
+          { title: 'Time Zone', path: paths.dashboard.group.timezone },
         ],
       },
     ],

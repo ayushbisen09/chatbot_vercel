@@ -13,6 +13,7 @@ import {
   Menu,
   MenuItem,
   Container,
+  useMediaQuery,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete'; // Ensure this is imported correctly
 import MoreVertIcon from '@mui/icons-material/MoreVert'; // Ensure this is imported correctly
@@ -22,6 +23,8 @@ import { CONFIG } from 'src/config-global'; // Ensure this path is correct
 import { Label } from 'src/components/label';
 import { toast } from 'sonner';
 import { distance } from 'framer-motion';
+import PageHeader from 'src/components/page-header/page_header';
+import { useTheme } from '@emotion/react';
 
 const OPTIONS = ['Option 1', 'Option 2', 'Option 3'];
 
@@ -51,6 +54,9 @@ const WhatsAppWidgetPage = () => {
     setTimeout(() => setCopied(false), 2000);
     // showToast('API Token copied to clipboard');
   };
+  const theme = useTheme();
+
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const codeSnippet = `<script type="text/javascript" async defer>
 (function (w, d, s, o, f, js, fjs) {
@@ -60,85 +66,78 @@ const WhatsAppWidgetPage = () => {
       (w[o].q = w[o].q || []).push(arguments);
     };
 </script>`;
-return (
-  <DashboardContent maxWidth="xl">
-    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <Box>
-        <Typography sx={{ mt: 4, mb: 1 }} variant="h4">
-          WhatsApp Widget
-        </Typography>
-        <Typography sx={{ color: 'text.secondary' }}>
-          Manage your WhatsApp widget settings.{' '}
-          <Link
-            href="https://your-link-here.com"
-            target="_blank"
-            rel="noopener"
-            underline="always"
-          >
-            Learn More
-          </Link>
-        </Typography>
-      </Box>
-      <Button
+  return (
+    <DashboardContent maxWidth="xl">
+      <Box
         sx={{
-          marginTop: 5,
-          backgroundColor: '#078dee',
-          '&:hover': {
-            backgroundColor: '#0351ab',
-          },
-          // Remove unnecessary styles for vertical centering
+          display: 'flex',
+          flexDirection: isMobile ? 'column' : 'row',
+          alignItems: isMobile ? 'flex-start' : 'center',
+          justifyContent: 'space-between',
+          mb: 0,
         }}
-        startIcon={
-          <Iconify icon="heroicons:plus-circle-16-solid" style={{ width: 18, height: 18 }} />
-        }
-        size="large"
-        variant="contained"
       >
-        Add Widget
-      </Button>
-    </Box>
-
-    <Box sx={{ mt: 4 }}>
-      <Card>
-        <CardHeader
-          title="Widget Name : Quicksell"
-          subheader="Created on : Jan 19, 2023 17:19:24"
-          sx={{ mb: 3 }}
-          action={
-            <>
-              <Label color="success" variant="soft">
-                Active
-              </Label>
-              <IconButton
-                sx={{ ml: 1 }}
-                aria-label="more options"
-                aria-controls="lock-menu"
-                aria-haspopup="true"
-                onClick={handleOpen}
-              >
-                <MoreVertIcon />
-              </IconButton>
-              <Menu
-                id="lock-menu"
-                anchorEl={isOpenList}
-                onClose={handleClose}
-                open={Boolean(isOpenList)}
-              >
-                {OPTIONS.map((option, index) => (
-                  <MenuItem
-                    key={option}
-                    disabled={index === 0}
-                    selected={index === selectedIndex}
-                    onClick={(event) => handleMenuItemClick(event, index)}
-                  >
-                    {option}
-                  </MenuItem>
-                ))}
-              </Menu>
-            </>
-          }
+        <PageHeader
+          title="WhatsApp Widget"
+          Subheading="Manage your WhatsApp widget settings."
+          link_added="#"
         />
-        <Divider />
+
+        <Button
+          sx={{ mt: isMobile ? 2 : 0 }}
+          startIcon={
+            <Iconify icon="heroicons:plus-circle-16-solid" style={{ width: 18, height: 18 }} />
+          }
+          size="large"
+          variant="contained"
+          color="primary"
+        >
+          Add Widget
+        </Button>
+      </Box>
+    
+
+      <Box sx={{ mt: 4 }}>
+        <Card>
+          <CardHeader
+            title="Widget Name : Quicksell"
+            subheader="Created on : Jan 19, 2023 17:19:24"
+            sx={{ mb: 3 }}
+            action={
+              <>
+                <Label color="success" variant="soft">
+                  Active
+                </Label>
+                <IconButton
+                  sx={{ ml: 1 }}
+                  aria-label="more options"
+                  aria-controls="lock-menu"
+                  aria-haspopup="true"
+                  onClick={handleOpen}
+                >
+                  <MoreVertIcon />
+                </IconButton>
+                <Menu
+                  id="lock-menu"
+                  anchorEl={isOpenList}
+                  onClose={handleClose}
+                  open={Boolean(isOpenList)}
+                >
+                  {OPTIONS.map((option, index) => (
+                    <MenuItem
+                      key={option}
+                      disabled={index === 0}
+                      selected={index === selectedIndex}
+                      onClick={(event) => handleMenuItemClick(event, index)}
+                    >
+                      {option}
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </>
+            }
+          />
+          <Divider />
           <Box sx={{ mt: 3, p: 3, pt: 0, position: 'relative' }}>
             <TextField
               variant="outlined"
@@ -196,7 +195,7 @@ return (
             />
           </Box>
         </Card>
-        </Box>
+      </Box>
       <Box sx={{ mt: 4 }}>
         <Card>
           <CardHeader

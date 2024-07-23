@@ -48,6 +48,16 @@ export const _contacts = [...Array(20)].map((_, index) => {
     address: _mock.fullAddress(index),
   };
 });
+export const _templates = [...Array(20)].map((_, index) => {
+  const statuses = ['approved', 'pending', 'draft', 'rejected', 'deleted'];
+  const status = statuses[index % 5];
+
+  return {
+  
+    status,
+    
+  };
+});
 
 // ----------------------------------------------------------------------
 
