@@ -1,642 +1,5 @@
-// import Switch from '@mui/material/Switch';
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import { Box, Card, Divider, CardHeader, FormHelperText, Avatar, Button } from '@mui/material';
-
-// import { CONFIG } from 'src/config-global';
-// import { DashboardContent } from 'src/layouts/dashboard';
-
-// import PageHeader from 'src/components/page-header/page_header';
-// import Autocomplete from '@mui/material/Autocomplete';
-// import Typography from '@mui/material/Typography';
-// import Stack from '@mui/material/Stack';
-// import { useState } from 'react';
-// import Chip from '@mui/material/Chip'; // Added import for Chip
-// import TextField from '@mui/material/TextField';
-// import InputAdornment from '@mui/material/InputAdornment'; // Added import for InputAdornment
-
-// // ----------------------------------------------------------------------
-
-// const metadata = { title: `Page four | Dashboard - ${CONFIG.site.name}` };
-
-// export default function Page() {
-//   const [tags, setTags] = useState(['Purchase', 'Pabbly Connect', 'Pabbly Subscription Billing']); // Initialize with default tags
-//   const [tagInput, setTagInput] = useState(''); // Added state for tag input
-
-//   const handleAddTag = () => {
-//     if (tagInput.trim() !== '') {
-//       setTags([...tags, tagInput.trim()]);
-//       setTagInput('');
-//     }
-//   };
-
-//   return (
-//     <>
-//       {/* <BlankView title="Notification Preferences" /> */}
-//       <DashboardContent maxWidth="xl">
-//         <PageHeader
-//           title="Opt-In Management"
-//           Subheading="Setup keywords that user can type to Opt-in & Opt-out from messaging campaign."
-//           showButton={false}
-//         />
-//         <Box sx={{ mt: 4 }}>
-//           {' '}
-//           {/* Add margin-top and padding for spacing */}
-//           <Card>
-//             <CardHeader
-//               title="API Campaign Opt-out"
-//               // subheader="Title, short description, image..."
-//               sx={{ mb: 3 }}
-//             />
-//             <Divider />
-//             <FormControlLabel
-//               control={
-//                 <Switch
-//                   id="toggle-taxes"
-//                   // checked={includeTaxes}
-//                   // onChange={handleChangeIncludeTaxes}
-//                 />
-//               }
-//               label="Enable this if you don't wish to send api campaign to opted-out contacts"
-//               sx={{ paddingLeft: 3, mt: 2, mb: 2 }}
-//             />
-//           </Card>
-//         </Box>
-//         <Box sx={{ mt: 4 }}>
-//           {' '}
-//           {/* Add margin-top and padding for spacing */}
-//           <Card>
-//             <CardHeader
-//               title="Opt-out Settings"
-//               // subheader="Title, short description, image..."
-//               sx={{ mb: 3 }}
-//             />
-//             <Divider />
-//             <Stack sx={{ padding: '32px 24px 32px 24px' }}>
-//               <Typography sx={{ fontSize: '14px', fontWeight: '600', mb: '10px' }}>
-//                 Tags
-//               </Typography>
-
-//               <Autocomplete
-//                 multiple
-//                 freeSolo
-//                 options={[]}
-//                 value={tags}
-//                 onChange={(event, newValue) => setTags(newValue)}
-//                 inputValue={tagInput}
-//                 onInputChange={(event, newInputValue) => {
-//                   setTagInput(newInputValue);
-//                 }}
-//                 onKeyDown={(event) => {
-//                   if (event.key === 'Enter' && tagInput.trim()) {
-//                     setTags([...tags, tagInput.trim()]);
-//                     setTagInput('');
-//                     event.preventDefault();
-//                   }
-//                 }}
-//                 renderTags={(value, getTagProps) =>
-//                   value.map((option, index) => (
-//                     <Chip
-//                       variant="soft"
-//                       color="info"
-//                       size="small"
-//                       label={option}
-//                       {...getTagProps({ index })}
-//                     />
-//                   ))
-//                 }
-//                 renderInput={(params) => (
-//                   <TextField
-//                     onClick={handleAddTag}
-//                     {...params}
-//                     variant="outlined"
-//                     size="large"
-//                     // label="Tags" // Added label
-//                     helperText="Enter opt-out keywords"
-//                     placeholder="+ Add a tag"
-//                     InputProps={{
-//                       ...params.InputProps,
-//                       endAdornment: (
-//                         <InputAdornment position="Start">
-//                           {/* <IconButton  size="medium">
-//                       <AddIcon style={{ fontSize: 16 }} />
-//                     </IconButton> */}
-//                           {/* <Typography sx={{ fontSize: 12 }}>Add a tag</Typography> */}
-//                         </InputAdornment>
-//                       ),
-//                     }}
-//                     sx={{
-//                       '& .MuiAutocomplete-inputRoot': {
-//                         minHeight: 'auto',
-//                         display: 'flex', // Ensures input and adornment stay aligned
-//                         alignItems: 'center', // Aligns items vertically in the input
-//                         justifyContent: 'start',
-//                       },
-//                     }}
-//                   />
-//                 )}
-//               />
-//             </Stack>
-//             <Divider sx={{ ml: 3, mr: 3, borderStyle: 'dashed' }} />
-//             <CardHeader
-//               title={
-//                 <Typography variant="h7" sx={{ fontSize: '14px', fontWeight: '600'}}>
-//                   Opt-out Response
-//                 </Typography>
-//               }
-//               // subheader="Title, short description, image..."
-//             />
-//             <FormControlLabel
-//               control={
-//                 <Switch
-//                   id="toggle-taxes"
-//                   // checked={includeTaxes}
-//                   // onChange={handleChangeIncludeTaxes}
-//                 />
-//               }
-//               label="Setup a response message for opt-out user keywords"
-//               sx={{ paddingLeft: 3, mt: 2, mb: 2 }}
-//             />
-//             <Card sx={{ ml: 3, mr: 3, width: '25%', border: '1px solid #919EAB33', mb: 4 }}>
-//               <CardHeader
-//                 sx={{ mb: 2 }}
-//                 avatar={<Avatar aria-label="profile picture">MC</Avatar>}
-//                 title={
-//                   <Typography variant="h7" sx={{ fontSize: 14, fontWeight: '700' }}>
-//                     Mireya Conner
-//                   </Typography>
-//                 }
-//                 subheader={
-//                   <Typography variant="subtitle2" sx={{ fontSize: 12, fontWeight: '400' }}>
-//                     Online
-//                   </Typography>
-//                 }
-//               />
-//               <Divider />
-//               <Typography
-//                 variant="caption"
-//                 sx={{
-//                   pr: 2,
-//                   pt: 3,
-//                   display: 'flex',
-//                   color: '#919EAB',
-//                   justifyContent: 'end',
-//                 }}
-//               >
-//                 4:02 PM
-//               </Typography>
-//               <Box
-//                 sx={{
-//                   pt: 2,
-//                   pr: 2,
-//                   pl: 2,
-//                   pb: 2,
-//                   backgroundColor: '#CCF4FE',
-//                   borderRadius: '8px',
-//                   m: 2,
-//                 }}
-//               >
-//                 <Typography
-//                   variant="body2"
-//                   color="text.primary"
-//                   sx={{ fontSize: 14, fontWeight: '500' }}
-//                 >
-//                   Hey,
-//                   <br />
-//                   {
-//                     ' Thank you for opting-out. In future if you ever want to connect again just send "Hello". '
-//                   }
-//                 </Typography>
-//               </Box>
-//             </Card>
-//             <Button sx={{ ml: 3, mb: 3 }} variant="contained" color="inherit">
-//               Configure
-//             </Button>
-//           </Card>
-//         </Box>
-//       </DashboardContent>
-//     </>
-//   );
-// }
-
-// import Switch from '@mui/material/Switch';
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import { Box, Card, Divider, CardHeader, FormHelperText, Avatar, Button } from '@mui/material';
-
-// import { CONFIG } from 'src/config-global';
-// import { DashboardContent } from 'src/layouts/dashboard';
-
-// import PageHeader from 'src/components/page-header/page_header';
-// import Autocomplete from '@mui/material/Autocomplete';
-// import Typography from '@mui/material/Typography';
-// import Stack from '@mui/material/Stack';
-// import { useState } from 'react';
-// import Chip from '@mui/material/Chip';
-// import TextField from '@mui/material/TextField';
-// import InputAdornment from '@mui/material/InputAdornment';
-
-// // ----------------------------------------------------------------------
-
-// const metadata = { title: `Page four | Dashboard - ${CONFIG.site.name}` };
-
-// export default function Page() {
-//   const [tags, setTags] = useState(['Purchase', 'Pabbly Connect', 'Pabbly Subscription Billing']);
-//   const [tagInput, setTagInput] = useState('');
-
-//   const handleAddTag = () => {
-//     if (tagInput.trim() !== '') {
-//       setTags([...tags, tagInput.trim()]);
-//       setTagInput('');
-//     }
-//   };
-
-//   return (
-
-//       <DashboardContent maxWidth="xl">
-//         <PageHeader
-//           title="Opt-In Management"
-//           Subheading="Setup keywords that user can type to Opt-in & Opt-out from messaging campaign."
-//           showButton={false}
-//         />
-//         <Box sx={{ mt: 4 }}>
-//           <Card>
-//             <CardHeader
-//               title="API Campaign Opt-out"
-//               sx={{ mb: 3 }}
-//             />
-//             <Divider />
-//             <FormControlLabel
-//               control={
-//                 <Switch
-//                   id="toggle-taxes"
-//                 />
-//               }
-//               label="Enable this if you don't wish to send api campaign to opted-out contacts"
-//               sx={{ paddingLeft: 3, mt: 2, mb: 2 }}
-//             />
-//           </Card>
-//         </Box>
-//         <Box sx={{ mt: 4 }}>
-//           <Card>
-//             <CardHeader
-//               title="Opt-out Settings"
-//               sx={{ mb: 3 }}
-//             />
-//             <Divider />
-//             <Stack sx={{ padding: '32px 24px 32px 24px' }}>
-//               <Typography sx={{ fontSize: '14px', fontWeight: '600', mb: '10px' }}>
-//               Opt-Out Keywords:
-//               </Typography>
-
-//               <Autocomplete
-//                 multiple
-//                 freeSolo
-//                 options={[]}
-//                 value={tags}
-//                 onChange={(event, newValue) => setTags(newValue)}
-//                 inputValue={tagInput}
-//                 onInputChange={(event, newInputValue) => {
-//                   setTagInput(newInputValue);
-//                 }}
-//                 onKeyDown={(event) => {
-//                   if (event.key === 'Enter' && tagInput.trim()) {
-//                     setTags([...tags, tagInput.trim()]);
-//                     setTagInput('');
-//                     event.preventDefault();
-//                   }
-//                 }}
-//                 renderTags={(value, getTagProps) =>
-//                   value.map((option, index) => (
-//                     <Chip
-//                       variant="soft"
-//                       color="info"
-//                       size="small"
-//                       label={option}
-//                       {...getTagProps({ index })}
-//                     />
-//                   ))
-//                 }
-//                 renderInput={(params) => (
-//                   <TextField
-//                     onClick={handleAddTag}
-//                     {...params}
-//                     variant="outlined"
-//                     size="large"
-//                     helperText="Enter opt-out keywords"
-//                     placeholder="+ Add a tag"
-//                     InputProps={{
-//                       ...params.InputProps,
-//                       endAdornment: (
-//                         <InputAdornment position="Start"/>
-//                         // </InputAdornment>
-//                       ),
-//                     }}
-//                     sx={{
-//                       '& .MuiAutocomplete-inputRoot': {
-//                         minHeight: 'auto',
-//                         display: 'flex',
-//                         alignItems: 'center',
-//                         justifyContent: 'start',
-//                       },
-//                     }}
-//                   />
-//                 )}
-//               />
-//             </Stack>
-//             <Divider sx={{ ml: 3, mr: 3, borderStyle: 'dashed' }} />
-//             <CardHeader
-//               title={
-//                 <Typography variant="h7" sx={{ fontSize: '14px', fontWeight: '600'}}>
-//                   Opt-out Response
-//                 </Typography>
-//               }
-//             />
-//             <FormControlLabel
-//               control={
-//                 <Switch
-//                   id="toggle-taxes"
-//                 />
-//               }
-//               label="Setup a response message for opt-out user keywords"
-//               sx={{ paddingLeft: 3, mt: 2, mb: 2 }}
-//             />
-//             <Card sx={{
-//               ml: { xs: 1, sm: 2, md: 3 },
-//               mr: { xs: 1, sm: 2, md: 3 },
-//               border: '1px solid #919EAB33',
-//               mb: 4,
-//               width: {
-//                 xs: '90%',
-//                 sm: '70%',
-//                 md: '50%',
-//                 lg: '25%',
-//               },
-//               maxWidth: '500px',
-//             }}>
-//               <CardHeader
-//                 sx={{ mb: 2 }}
-//                 avatar={<Avatar aria-label="profile picture">MC</Avatar>}
-//                 title={
-//                   <Typography variant="h7" sx={{ fontSize: 14, fontWeight: '700' }}>
-//                     Mireya Conner
-//                   </Typography>
-//                 }
-//                 subheader={
-//                   <Typography variant="subtitle2" sx={{ fontSize: 12, fontWeight: '400' }}>
-//                     Online
-//                   </Typography>
-//                 }
-//               />
-//               <Divider />
-//               <Typography
-//                 variant="caption"
-//                 sx={{
-//                   pr: 2,
-//                   pt: 3,
-//                   display: 'flex',
-//                   color: '#919EAB',
-//                   justifyContent: 'end',
-//                 }}
-//               >
-//                 4:02 PM
-//               </Typography>
-//               <Box
-//                 sx={{
-//                   pt: 2,
-//                   pr: 2,
-//                   pl: 2,
-//                   pb: 2,
-//                   backgroundColor: '#CCF4FE',
-//                   borderRadius: '8px',
-//                   m: 2,
-//                 }}
-//               >
-//                 <Typography
-//                   variant="body2"
-//                   color="text.primary"
-//                   sx={{ fontSize: 14, fontWeight: '500' }}
-//                 >
-//                   Hey,
-//                   <br />
-//                   {' Thank you for opting-out. In future if you ever want to connect again just send "Hello". '}
-//                 </Typography>
-//               </Box>
-//             </Card>
-//             <Button sx={{ ml: 3, mb: 3 }} variant="contained" color="inherit">
-//               Configure
-//             </Button>
-//           </Card>
-//         </Box>
-//       </DashboardContent>
-
-//   );
-// }
-
-// import Switch from '@mui/material/Switch';
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import { Box, Card, Divider, CardHeader, FormHelperText, Avatar, Button } from '@mui/material';
-
-// import { CONFIG } from 'src/config-global';
-// import { DashboardContent } from 'src/layouts/dashboard';
-
-// import PageHeader from 'src/components/page-header/page_header';
-// import Autocomplete from '@mui/material/Autocomplete';
-// import Typography from '@mui/material/Typography';
-// import Stack from '@mui/material/Stack';
-// import { useState } from 'react';
-// import Chip from '@mui/material/Chip';
-// import TextField from '@mui/material/TextField';
-// import InputAdornment from '@mui/material/InputAdornment';
-
-// // ----------------------------------------------------------------------
-
-// const metadata = { title: `Page four | Dashboard - ${CONFIG.site.name}` };
-
-// export default function Page() {
-//   const [tags, setTags] = useState(['Purchase', 'Pabbly Connect', 'Pabbly Subscription Billing']);
-//   const [tagInput, setTagInput] = useState('');
-
-//   const handleAddTag = () => {
-//     if (tagInput.trim() !== '') {
-//       setTags([...tags, tagInput.trim()]);
-//       setTagInput('');
-//     }
-//   };
-
-//   return (
-//       <DashboardContent maxWidth="xl">
-//         <PageHeader
-//           title="Opt-In Management"
-//           Subheading="Setup keywords that user can type to Opt-in & Opt-out from messaging campaign."
-//           showButton={false}
-//         />
-//         <Box sx={{ mt: 4 }}>
-//           <Card>
-//             <CardHeader
-//               title="API Campaign Opt-out"
-//               sx={{ mb: 3 }}
-//             />
-//             <Divider />
-//             <FormControlLabel
-//               control={
-//                 <Switch
-//                   id="toggle-taxes"
-//                 />
-//               }
-//               label="Enable this if you don't wish to send api campaign to opted-out contacts"
-//               sx={{ paddingLeft: 3, mt: 2, mb: 2 }}
-//             />
-//           </Card>
-//         </Box>
-//         <Box sx={{ mt: 4 }}>
-//           <Card>
-//             <CardHeader
-//               title="Opt-out Settings"
-//               sx={{ mb: 3 }}
-//             />
-//             <Divider />
-//             <Stack sx={{ padding: '32px 24px 32px 24px' }}>
-//               <Typography sx={{ fontSize: '14px', fontWeight: '600', mb: '10px' }}>
-//                 Tags
-//               </Typography>
-
-//               <Autocomplete
-//                 multiple
-//                 freeSolo
-//                 options={[]}
-//                 value={tags}
-//                 onChange={(event, newValue) => setTags(newValue)}
-//                 inputValue={tagInput}
-//                 onInputChange={(event, newInputValue) => {
-//                   setTagInput(newInputValue);
-//                 }}
-//                 onKeyDown={(event) => {
-//                   if (event.key === 'Enter' && tagInput.trim()) {
-//                     setTags([...tags, tagInput.trim()]);
-//                     setTagInput('');
-//                     event.preventDefault();
-//                   }
-//                 }}
-//                 renderTags={(value, getTagProps) =>
-//                   value.map((option, index) => (
-//                     <Chip
-//                       variant="soft"
-//                       color="info"
-//                       size="small"
-//                       label={option}
-//                       {...getTagProps({ index })}
-//                     />
-//                   ))
-//                 }
-//                 renderInput={(params) => (
-//                   <TextField
-//                     onClick={handleAddTag}
-//                     {...params}
-//                     variant="outlined"
-//                     size="large"
-//                     helperText="Enter opt-out keywords"
-//                     placeholder="+ Add a tag"
-//                     InputProps={{
-//                       ...params.InputProps,
-//                       endAdornment: (
-//                         <InputAdornment position="Start"/>
-//                       ),
-//                     }}
-//                     sx={{
-//                       '& .MuiAutocomplete-inputRoot': {
-//                         minHeight: 'auto',
-//                         display: 'flex',
-//                         alignItems: 'center',
-//                         justifyContent: 'start',
-//                       },
-//                     }}
-//                   />
-//                 )}
-//               />
-//             </Stack>
-//             <Divider sx={{ ml: 3, mr: 3, borderStyle: 'dashed' }} />
-//             <CardHeader
-//               title={
-//                 <Typography variant="h7" sx={{ fontSize: '14px', fontWeight: '600'}}>
-//                   Opt-out Response
-//                 </Typography>
-//               }
-//             />
-//             <FormControlLabel
-//               control={
-//                 <Switch
-//                   id="toggle-taxes"
-//                 />
-//               }
-//               label="Setup a response message for opt-out user keywords"
-//               sx={{ paddingLeft: 3, mt: 2, mb: 2 }}
-//             />
-//             <Card sx={{
-//               ml: { xs: 2, sm: 3 },
-//               mr: { xs: 2, sm: 3 },
-//               border: '1px solid #919EAB33',
-//               mb: 4,
-//               width: 'clamp(280px, 100% - 32px, 500px)',
-//               maxWidth: '100%',
-//             }}>
-//               <CardHeader
-//                 sx={{ mb: 2 }}
-//                 avatar={<Avatar aria-label="profile picture">MC</Avatar>}
-//                 title={
-//                   <Typography variant="h7" sx={{ fontSize: 14, fontWeight: '700' }}>
-//                     Mireya Conner
-//                   </Typography>
-//                 }
-//                 subheader={
-//                   <Typography variant="subtitle2" sx={{ fontSize: 12, fontWeight: '400' }}>
-//                     Online
-//                   </Typography>
-//                 }
-//               />
-//               <Divider />
-//               <Typography
-//                 variant="caption"
-//                 sx={{
-//                   pr: 2,
-//                   pt: 3,
-//                   display: 'flex',
-//                   color: '#919EAB',
-//                   justifyContent: 'end',
-//                 }}
-//               >
-//                 4:02 PM
-//               </Typography>
-//               <Box
-//                 sx={{
-//                   pt: 2,
-//                   pr: 2,
-//                   pl: 2,
-//                   pb: 2,
-//                   backgroundColor: '#CCF4FE',
-//                   borderRadius: '8px',
-//                   m: 2,
-//                 }}
-//               >
-//                 <Typography
-//                   variant="body2"
-//                   color="text.primary"
-//                   sx={{ fontSize: 14, fontWeight: '500' }}
-//                 >
-//                   Hey,
-//                   <br />
-//                   {' Thank you for opting-out. In future if you ever want to connect again just send "Hello". '}
-//                 </Typography>
-//               </Box>
-//             </Card>
-//             <Button sx={{ ml: 3, mb: 3 }} variant="contained" color="inherit">
-//               Configure
-//             </Button>
-//           </Card>
-//         </Box>
-//       </DashboardContent>
-//   );
-// }
-
 import Switch from '@mui/material/Switch';
+import dayjs from 'dayjs';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Box, Card, Divider, CardHeader, FormHelperText, Avatar, Button } from '@mui/material';
 
@@ -651,12 +14,16 @@ import { useState } from 'react';
 import Chip from '@mui/material/Chip';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import ChatBox from 'src/components/chatbox/chatbox';
+import Images from '../../assets/images/chatImage/imagechat.png';
 
 // ----------------------------------------------------------------------
 
 const metadata = { title: `Page four | Dashboard - ${CONFIG.site.name}` };
 
 export default function Page() {
+  const [value, setValue] = useState(dayjs(new Date()));
   const [tags, setTags] = useState(['Purchase', 'Pabbly Connect', 'Pabbly Subscription Billing']);
   const [tagInput, setTagInput] = useState('');
 
@@ -665,6 +32,36 @@ export default function Page() {
       setTags([...tags, tagInput.trim()]);
       setTagInput('');
     }
+  };
+
+  const [timeValues, setTimeValues] = useState({
+    Mon: { start: dayjs(), end: dayjs() },
+    Tue: { start: dayjs(), end: dayjs() },
+    Wed: { start: dayjs(), end: dayjs() },
+    Thu: { start: dayjs(), end: dayjs() },
+    Fri: { start: dayjs(), end: dayjs() },
+    Sat: { start: dayjs(), end: dayjs() },
+    Sun: { start: dayjs(), end: dayjs() },
+  });
+  const [daysClosed, setDaysClosed] = useState({
+    Mon: false,
+    Tue: false,
+    Wed: false,
+    Thu: false,
+    Fri: false,
+    Sat: false,
+    Sun: true,
+  });
+
+  const handleToggle = (day) => {
+    setDaysClosed((prev) => ({ ...prev, [day]: !prev[day] }));
+  };
+
+  const handleTimeChange = (day, type, newValue) => {
+    setTimeValues((prev) => ({
+      ...prev,
+      [day]: { ...prev[day], [type]: newValue },
+    }));
   };
 
   return (
@@ -758,6 +155,26 @@ export default function Page() {
                 </Typography>
               </Box>
             </Card>
+            {/* <ChatBox
+              showImage
+              showLinks
+              showCall
+              coverSrc={Images}
+              text={
+                <>
+                  {`Hi {{1}}! 🎧🛒`}
+                  <br />
+                  Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌
+                  <br />
+                  {`Order Details:
+Product: {{2}}
+Quantity: {{3}}
+Order ID: {{4}}
+Delivery Address: {{5}}
+Estimated Delivery Date: {{6}}`}
+                </>
+              }
+            /> */}
             <Button sx={{ mt: 3 }} variant="contained" color="inherit">
               Configure
             </Button>
@@ -840,66 +257,65 @@ export default function Page() {
       </Box>
       <Box sx={{ mt: 4 }}>
         <Card>
-          <CardHeader title="Working Hours" sx={{ mb: 3 }} />
-          <Divider />
-          <Stack sx={{ padding: '32px 24px 32px 24px' }}>
-            <Typography variant="h7" sx={{ fontSize: '14px', fontWeight: '600', mb: '10px' }}>
-              Opt-Out Keywords:
-            </Typography>
-
-            <Autocomplete
-              multiple
-              freeSolo
-              options={[]}
-              value={tags}
-              onChange={(event, newValue) => setTags(newValue)}
-              inputValue={tagInput}
-              onInputChange={(event, newInputValue) => {
-                setTagInput(newInputValue);
+          <CardHeader
+            subheader="Configure day-wise working hours for automated replies."
+            title="Working Hours"
+            sx={{ mb: 3 }}
+          />
+          <Divider sx={{ mb: '12px' }} />
+          {Object.keys(daysClosed).map((day) => (
+            <Box
+              key={day}
+              sx={{
+                padding: '12px 24px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 2,
               }}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter' && tagInput.trim()) {
-                  setTags([...tags, tagInput.trim()]);
-                  setTagInput('');
-                  event.preventDefault();
-                }
-              }}
-              renderTags={(value, getTagProps) =>
-                value.map((option, index) => (
-                  <Chip
-                    variant="soft"
-                    color="info"
-                    size="small"
-                    label={option}
-                    {...getTagProps({ index })}
+            >
+              <Typography variant="h7" sx={{ fontSize: '14px', fontWeight: '600', width: '40px' }}>
+                {day}
+              </Typography>
+              <FormControlLabel
+                control={<Switch checked={!daysClosed[day]} onChange={() => handleToggle(day)} />}
+                label=""
+              />
+              {daysClosed[day] ? (
+                <Typography
+                  variant="h7"
+                  sx={{ fontSize: '14px', fontWeight: '600', ml: 2, minHeight: '55px' }}
+                  alignContent="center"
+                >
+                  Closed
+                </Typography>
+              ) : (
+                <>
+                  <TimePicker
+                    sx={{ width: '25%' }}
+                    ampm={false}
+                    value={timeValues[day].start}
+                    onChange={(newValue) => handleTimeChange(day, 'start', newValue)}
+                    slotProps={{ textField: { size: 'large' } }}
                   />
-                ))
-              }
-              renderInput={(params) => (
-                <TextField
-                  onClick={handleAddTag}
-                  {...params}
-                  variant="outlined"
-                  size="large"
-                  helperText="Enter opt-out keywords"
-                  placeholder="+ Add a tag"
-                  InputProps={{
-                    ...params.InputProps,
-                    endAdornment: <InputAdornment position="Start" />,
-                  }}
-                  sx={{
-                    '& .MuiAutocomplete-inputRoot': {
-                      minHeight: 'auto',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'start',
-                    },
-                  }}
-                />
+                  <Typography variant="h7" sx={{ fontSize: '14px', fontWeight: '600' }}>
+                    To
+                  </Typography>
+                  <TimePicker
+                    sx={{ width: '25%' }}
+                    ampm={false}
+                    value={timeValues[day].end}
+                    onChange={(newValue) => handleTimeChange(day, 'end', newValue)}
+                    slotProps={{ textField: { size: 'large' } }}
+                  />
+                </>
               )}
-            />
-          </Stack>
-          <Divider sx={{ mx: 3, borderStyle: 'dashed' }} />
+            </Box>
+          ))}
+          <Box sx={{ padding: '0px 24px 24px 24px' }}>
+            <Button variant="contained" color="inherit">
+              Save
+            </Button>
+          </Box>
         </Card>
       </Box>
     </DashboardContent>
