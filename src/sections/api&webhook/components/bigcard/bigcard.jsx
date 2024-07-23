@@ -18,9 +18,9 @@ import {
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import { CONFIG } from 'src/config-global';
-import { useNavigate } from 'react-router';
 
-
+import { WhatsAppDialog } from 'src/sections/dashbaord/hooks/add-whatsApp-number';
+import { WebhookDialog } from '../../hook/add-webhook';
 
 export default function BigCard(sx, ...other) {
   const videoId = 'CoIfgN0tfhE'; // Repalace with your YouTube video ID
@@ -31,11 +31,7 @@ export default function BigCard(sx, ...other) {
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const navigate = useNavigate();
 
-  const handleAddContact = () => {
-    navigate('/dashboard/contact/addcontact');
-  };
   return (
     <Box
       sx={{
@@ -71,7 +67,7 @@ export default function BigCard(sx, ...other) {
         }}
       >
         <Typography variant="h6" sx={{ color: 'grey.800', mb: 1 }}>
-          Points To Remember
+          Add Opt-Out Webhook URL
         </Typography>
         <Typography
           variant="body2"
@@ -90,10 +86,10 @@ export default function BigCard(sx, ...other) {
                   sx: {
                     fontSize: '14px',
                     fontWeight: '500',
-                    '&::before': { paddingRight: '0.5rem' },
+                    lineHeight: '22px',
                   },
                 }}
-                primary="There may be no contacts in this contact list. You can create a workflow by following the steps below-"
+                primary="Set up webhooks and receive notification for different events."
               />
             </ListItem>
             <ListItem disablePadding>
@@ -105,14 +101,7 @@ export default function BigCard(sx, ...other) {
                     '&::before': { content: '"•"', paddingRight: '0.5rem' },
                   },
                 }}
-                primary={
-                  <>
-                    <Typography fontSize={14} component="span" fontWeight="bold">
-                      Step 1:
-                    </Typography>{' '}{' '}
-                    Click on the {`"Add Contact"`} button available in the top right section.
-                  </>
-                }
+                primary="All the events will be triggered on the added webhook URL."
               />
             </ListItem>
             <ListItem disablePadding>
@@ -124,18 +113,11 @@ export default function BigCard(sx, ...other) {
                     '&::before': { content: '"•"', paddingRight: '0.5rem' },
                   },
                 }}
-                primary={
-                  <>
-                    <Typography fontSize={14} component="span" fontWeight="bold">
-                      Step 2:
-                    </Typography>{' '}
-                    Add an Single Contact or Import Bulk Contacts.
-                  </>
-                }
+                primary="You can set up upto 5 webhooks URLs."
               />
             </ListItem>
             <ListItem disablePadding>
-            <ListItemText
+              <ListItemText
                 primaryTypographyProps={{
                   sx: {
                     fontSize: '14px',
@@ -143,34 +125,22 @@ export default function BigCard(sx, ...other) {
                     '&::before': { content: '"•"', paddingRight: '0.5rem' },
                   },
                 }}
-                primary={
-                  <>
-                    <Typography fontSize={14} component="span" fontWeight="bold">
-                      Step 2:
-                    </Typography>{' '}
-                    Once the contact is added or imported click on {`"Add Contact"`} Button.{' '}
-                    <Link style={{ color: '#078DEE' }} href="#" underline="always">
-                      Learn more
-                    </Link>
-                  </>
-                }
+                primary="Review and agree to the terms and conditions set by WhatsApp and your chosen provider."
               />
-              
             </ListItem>
-
             {/* Add more list items as needed */}
           </List>
         </Typography>
         <Button
-         onClick={handleAddContact}
+          onClick={dialog.onTrue}
           sx={{ mt: isMobile ? 2 : 0 }}
           size="large"
           variant="outlined"
           color="primary"
         >
-          Add Contact
+          Add Webhook
         </Button>
-        
+        <WebhookDialog open={dialog.value} onClose={dialog.onFalse} />
       </Box>
 
       {/* {img && <Box sx={{ maxWidth: 260 }}>{img}</Box>} */}
@@ -182,7 +152,12 @@ export default function BigCard(sx, ...other) {
           }),
         }}
       >
-        <Card>
+        <Box
+          alt="logo"
+          component="img"
+          src={`${CONFIG.site.basePath}/assets/background/Get Help Photo.png`}
+        />
+        {/* <Card>
           <CardMedia
             component="img"
             src={coverSrc}
@@ -202,7 +177,7 @@ export default function BigCard(sx, ...other) {
           isOpen={isOpen}
           videoId={videoId}
           onClose={() => setOpen(false)}
-        />
+        /> */}
       </Box>
     </Box>
   );

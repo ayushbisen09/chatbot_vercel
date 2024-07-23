@@ -8,14 +8,15 @@ import { LoadingScreen } from 'src/components/loading-screen';
 
 import { AuthGuard } from 'src/auth/guard';
 
-
 // ----------------------------------------------------------------------
 
 const IndexPage = lazy(() => import('src/pages/dashboard/dashboard'));
 const Inbox = lazy(() => import('src/pages/dashboard/inbox'));
 const Contact = lazy(() => import('src/pages/dashboard/contacts'));
+const Addcontact = lazy(() => import('../../sections/contacts/addcontact'));
 const AgentQueue = lazy(() => import('src/pages/dashboard/agent_queue'));
 const Templates = lazy(() => import('src/pages/dashboard/templates'));
+const AddTemplate = lazy(() => import('../../sections/templates/addtemplate'));
 const Broadcast = lazy(() => import('src/pages/dashboard/broadcast'));
 const Flows = lazy(() => import('src/pages/dashboard/flows'));
 const OptInManagement = lazy(() => import('src/pages/dashboard/optInManagement'));
@@ -31,18 +32,6 @@ const APIWebhooks = lazy(() => import('src/pages/dashboard/api&webhooks'));
 const ActivityLogs = lazy(() => import('src/pages/dashboard/activitylogs'));
 const Notificationpreferences = lazy(() => import('src/pages/dashboard/notificationpreferences'));
 const TimeZone = lazy(() => import('src/pages/dashboard/timezone'));
-
-
-
-
-
-
-
-
-
-
-
-
 
 // ----------------------------------------------------------------------
 
@@ -62,12 +51,13 @@ export const dashboardRoutes = [
       { element: <IndexPage />, index: true },
       { path: 'inbox', element: <Inbox /> },
       { path: 'contact', element: <Contact /> },
+      { path: 'contact/addcontact', element: <Addcontact /> },
       { path: 'agentQueue', element: <AgentQueue /> },
       { path: 'template', element: <Templates /> },
+      { path: 'template/addtemplate', element: <AddTemplate /> },
+
       { path: 'broadcast', element: <Broadcast /> },
       { path: 'flows', element: <Flows /> },
-
-
 
       {
         path: 'group',
@@ -79,22 +69,12 @@ export const dashboardRoutes = [
           { path: 'quickreplies', element: <Quickreplies /> },
           { path: 'teammembers', element: <Teammembers /> },
           { path: 'chatassignmentrules', element: <Chatassignmentrules /> },
-          { path: 'configureslas', element: <ConfigureSLAs/> },
+          { path: 'configureslas', element: <ConfigureSLAs /> },
           { path: 'whatsAppwidget', element: <WhatsAppwidgets /> },
           { path: 'apiwebhooks', element: <APIWebhooks /> },
           { path: 'activitylogs', element: <ActivityLogs /> },
           { path: 'notificationpreferences', element: <Notificationpreferences /> },
           { path: 'timezone', element: <TimeZone /> },
-
-
-
-
-
-
-
-
-
-
 
           // { path: 'six', element: <PageSix /> },
         ],

@@ -95,7 +95,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
             fullWidth
             value={filters.state.name}
             onChange={handleFilterName}
-            placeholder="Search contacts by Mobile number or Name..."
+            placeholder="Search template by Name or Category..."
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
