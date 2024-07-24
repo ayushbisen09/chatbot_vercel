@@ -107,9 +107,9 @@ const handleSave  = () => {
                   <Box
                     sx={{
                       p: 2,
-                      position: 'Sticky',
+                      // position: 'Sticky',
                       top: 0,
-                      bgcolor: 'background.paper',
+                      // bgcolor: 'background.paper',
                       zIndex: 5,
                     }}
                   >
