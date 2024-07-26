@@ -38,8 +38,6 @@ import { SharedByYouTeammemberTableToolbar } from './Teammember-table-toolbar';
 import { SharedByYouTeammemberTableRow } from './Teammember-table-row';
 import { SharedByYouTeammemberTableFilter } from './teammembertablefilter';
 
-
-
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
@@ -56,7 +54,7 @@ export default function SharedbyYouTeamMemberTable({
   color = 'warning',
   ...other
 }) {
-  const theme = useTheme();
+  // const theme = useTheme();
 
   const table = useTable({ defaultOrderBy: 'orderNumber' });
 

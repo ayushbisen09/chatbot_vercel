@@ -19,7 +19,7 @@ import { DashboardContent } from 'src/layouts/dashboard';
 
 import { Iconify } from 'src/components/iconify';
 import PageHeader from 'src/components/page-header/page_header';
-import BigCard from 'src/sections/api&webhook/components/bigcard/bigcard';
+import BigCard from 'src/sections/api-&-webhook/components/bigcard/bigcard';
 
 // ----------------------------------------------------------------------
 

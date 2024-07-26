@@ -17,9 +17,6 @@ import { fIsAfter, fIsBetween } from 'src/utils/format-time';
 
 import { CONFIG } from 'src/config-global';
 import { varAlpha } from 'src/theme/styles';
-// import { _orders, ORDER_STATUS_OPTIONS } from 'src/_mock';
-import { _contacts } from 'src/_mock';
-import { CONTACT_STATUS_OPTIONS } from 'src/_mock/_contact';
 
 import { Label } from 'src/components/label';
 import { toast } from 'src/components/snackbar';
@@ -36,23 +33,39 @@ import {
   TableSelectedAction,
   TablePaginationCustom,
 } from 'src/components/table';
+import {
+  CHATASSIGNMENTRULE_STATUS_OPTIONS,
+  _chatassignmentrules,
+} from 'src/_mock/_chatassignmentrules';
 
-import { OrderTableRow } from './contact-table-row';
-import { OrderTableToolbar } from './contact-table-toolbar';
-import { OrderTableFiltersResult } from './contact-table-filters-result';
+import { ChatAssignmentTableToolbar } from './chat-assignment-rules-table-toolbar';
+import { ChatAssignmentTableRow } from './chat-assignment-rules-table-row';
+import { ChatAssignmentTableFiltersResult } from './chat-assignment-rules-table-filtter';
+
+// import { OrderTableRow } from './contact-table-row';
+// import { OrderTableToolbar } from './contact-table-toolbar';
+// import { OrderTableFiltersResult } from './contact-table-filters-result';
 
 // ----------------------------------------------------------------------
 
 const metadata = { title: `Page one | Dashboard - ${CONFIG.site.name}` };
-const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...CONTACT_STATUS_OPTIONS];
+const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...CHATASSIGNMENTRULE_STATUS_OPTIONS];
 
 const TABLE_HEAD = [
-  { id: 'orderNumber', label: 'Status/ at', width: 353 },
-  { id: 'name', label: 'Mobile Number/Name', width: 298 },
-  { id: 'createdAt', label: 'State/Incoming status', width: 262 },
-  { id: 'status', label: '24 Hours Status/Last active', width: 515 },
- 
+  { id: 'orderNumber', label: 'S.No', width: 353 },
+  { id: 'name', label: 'Rule Name', width: 298 },
+  { id: 'createdAt', label: 'Assigned To', width: 262 },
+
   { id: '', width: 88 },
+];
+const ruleNames = [
+  "Chat Assignment Rule",
+  "Assignment Name Rule",
+  "General Shift Rule",
+  "Priority Assignment Rule",
+  "Custom Rule 1",
+  "Custom Rule 2",
+  // Add more rule names as needed
 ];
 
 export default function ContactsTable({ sx, icon, title, total, color = 'warning', ...other }) {
@@ -65,7 +78,7 @@ export default function ContactsTable({ sx, icon, title, total, color = 'warning
 
   const confirm = useBoolean();
 
-  const [tableData, setTableData] = useState(_contacts);
+  const [tableData, setTableData] = useState(_chatassignmentrules);
 
   const filters = useSetState({
     name: '',
@@ -165,12 +178,13 @@ export default function ContactsTable({ sx, icon, title, total, color = 'warning
                     'soft'
                   }
                   color={
-                    (tab.value === 'opted-in' && 'success') ||
-                    (tab.value === 'opted-out' && 'error') ||
+                    (tab.value === 'online' && 'success') ||
+                    (tab.value === 'offline' && 'error') ||
+                    (tab.value === 'both' && 'warning') ||
                     'default'
                   }
                 >
-                  {['opted-in', 'opted-out'].includes(tab.value)
+                  {['online', 'offline', 'both'].includes(tab.value)
                     ? tableData.filter((user) => user.status === tab.value).length
                     : tableData.length}
                 </Label>
@@ -179,14 +193,14 @@ export default function ContactsTable({ sx, icon, title, total, color = 'warning
           ))}
         </Tabs>
 
-        <OrderTableToolbar
+        <ChatAssignmentTableToolbar
           filters={filters}
           onResetPage={table.onResetPage}
           dateError={dateError}
         />
 
         {canReset && (
-          <OrderTableFiltersResult
+          <ChatAssignmentTableFiltersResult
             filters={filters}
             totalResults={dataFiltered.length}
             onResetPage={table.onResetPage}
@@ -214,49 +228,51 @@ export default function ContactsTable({ sx, icon, title, total, color = 'warning
             }
           />
 
-          <Scrollbar sx={{ minHeight: 300,   }}>
-            <Table size={table.dense ? 'small' : 'medium'}>
-              <TableHeadCustom
-                order={table.order}
-                orderBy={table.orderBy}
-                headLabel={TABLE_HEAD}
-                rowCount={dataFiltered.length}
-                numSelected={table.selected.length}
-                onSort={table.onSort}
-                onSelectAllRows={(checked) =>
-                  table.onSelectAllRows(
-                    checked,
-                    dataFiltered.map((row) => row.id)
-                  )
-                }
+          <Table size={table.dense ? 'small' : 'medium'}>
+            <TableHeadCustom
+              order={table.order}
+              orderBy={table.orderBy}
+              headLabel={TABLE_HEAD}
+              rowCount={dataFiltered.length}
+              numSelected={table.selected.length}
+              onSort={table.onSort}
+              onSelectAllRows={(checked) =>
+                table.onSelectAllRows(
+                  checked,
+                  dataFiltered.map((row) => row.id)
+                )
+              }
+            />
+
+            <TableBody>
+              {dataFiltered
+                .slice(
+                  table.page * table.rowsPerPage,
+                  table.page * table.rowsPerPage + table.rowsPerPage
+                )
+                .map((row, index) => (
+                  <ChatAssignmentTableRow
+                    key={row.id}
+                    row={{
+                      ...row,
+                      ruleName: ruleNames[index % ruleNames.length],
+                    }}
+                    selected={table.selected.includes(row.id)}
+                    onSelectRow={() => table.onSelectRow(row.id)}
+                    onDeleteRow={() => handleDeleteRow(row.id)}
+                    onViewRow={() => handleViewRow(row.id)}
+                    serialNumber={table.page * table.rowsPerPage + index + 1}
+                  />
+                ))}
+
+              <TableEmptyRows
+                height={table.dense ? 56 : 56 + 20}
+                emptyRows={emptyRows(table.page, table.rowsPerPage, dataFiltered.length)}
               />
 
-              <TableBody>
-                {dataFiltered
-                  .slice(
-                    table.page * table.rowsPerPage,
-                    table.page * table.rowsPerPage + table.rowsPerPage
-                  )
-                  .map((row) => (
-                    <OrderTableRow
-                      key={row.id}
-                      row={row}
-                      selected={table.selected.includes(row.id)}
-                      onSelectRow={() => table.onSelectRow(row.id)}
-                      onDeleteRow={() => handleDeleteRow(row.id)}
-                      onViewRow={() => handleViewRow(row.id)}
-                    />
-                  ))}
-
-                <TableEmptyRows
-                  height={table.dense ? 56 : 56 + 20}
-                  emptyRows={emptyRows(table.page, table.rowsPerPage, dataFiltered.length)}
-                />
-
-                <TableNoData />
-              </TableBody>
-            </Table>
-          </Scrollbar>
+              <TableNoData />
+            </TableBody>
+          </Table>
         </Box>
 
         <TablePaginationCustom

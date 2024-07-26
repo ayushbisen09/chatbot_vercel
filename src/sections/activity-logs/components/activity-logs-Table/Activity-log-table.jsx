@@ -17,9 +17,7 @@ import { fIsAfter, fIsBetween } from 'src/utils/format-time';
 
 import { CONFIG } from 'src/config-global';
 import { varAlpha } from 'src/theme/styles';
-// import { _orders, ORDER_STATUS_OPTIONS } from 'src/_mock';
-import { _contacts } from 'src/_mock';
-import { CONTACT_STATUS_OPTIONS } from 'src/_mock/_contact';
+
 
 import { Label } from 'src/components/label';
 import { toast } from 'src/components/snackbar';
@@ -37,25 +35,28 @@ import {
   TablePaginationCustom,
 } from 'src/components/table';
 
-import { OrderTableRow } from './contact-table-row';
-import { OrderTableToolbar } from './contact-table-toolbar';
-import { OrderTableFiltersResult } from './contact-table-filters-result';
+
+import { ACTIVITYLOG_STATUS_OPTIONS,_activitylog } from 'src/_mock/_activitylog';
+import { ActivitylogTableRow } from 'src/sections/activity-logs/components/activity-logs-Table/Activity-log-table-row';
+import { ActivityLogTableToolbar } from 'src/sections/activity-logs/components/activity-logs-Table/Activity-log-table-toolbar';
+import { ActivityLogTableFilter } from 'src/sections/activity-logs/components/activity-logs-Table/Activity-log-table-filter';
+
 
 // ----------------------------------------------------------------------
 
 const metadata = { title: `Page one | Dashboard - ${CONFIG.site.name}` };
-const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...CONTACT_STATUS_OPTIONS];
+const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...ACTIVITYLOG_STATUS_OPTIONS];
 
 const TABLE_HEAD = [
-  { id: 'orderNumber', label: 'Status/ at', width: 353 },
-  { id: 'name', label: 'Mobile Number/Name', width: 298 },
-  { id: 'createdAt', label: 'State/Incoming status', width: 262 },
-  { id: 'status', label: '24 Hours Status/Last active', width: 515 },
- 
-  { id: '', width: 88 },
+  { id: 'orderNumber', label: 'Date/Time ', width: 300 },
+  { id: 'name', label: 'Actor ', width: 700 },
+  { id: 'createdAt', label: 'Event Source', width: 700 },
+  { id: 'status', label: 'Action', width: 700 },
+  { id: 'totalAmount', label: 'Event Data', width: 700,  },
+  
 ];
 
-export default function ContactsTable({ sx, icon, title, total, color = 'warning', ...other }) {
+export default function ActivityLogTable({ sx, icon, title, total, color = 'warning', ...other }) {
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -65,7 +66,7 @@ export default function ContactsTable({ sx, icon, title, total, color = 'warning
 
   const confirm = useBoolean();
 
-  const [tableData, setTableData] = useState(_contacts);
+  const [tableData, setTableData] = useState(_activitylog);
 
   const filters = useSetState({
     name: '',
@@ -96,7 +97,7 @@ export default function ContactsTable({ sx, icon, title, total, color = 'warning
     (id) => {
       const deleteRow = tableData.filter((row) => row.id !== id);
 
-      toast.success('Contact Removed Successfully!');
+      toast.success('WhatsApp Number Removed Successfully!');
 
       setTableData(deleteRow);
 
@@ -165,12 +166,12 @@ export default function ContactsTable({ sx, icon, title, total, color = 'warning
                     'soft'
                   }
                   color={
-                    (tab.value === 'opted-in' && 'success') ||
-                    (tab.value === 'opted-out' && 'error') ||
+                    (tab.value === 'created' && 'success') ||
+                    (tab.value === 'updated' && 'error') ||
                     'default'
                   }
                 >
-                  {['opted-in', 'opted-out'].includes(tab.value)
+                  {['created', 'updated'].includes(tab.value)
                     ? tableData.filter((user) => user.status === tab.value).length
                     : tableData.length}
                 </Label>
@@ -179,14 +180,14 @@ export default function ContactsTable({ sx, icon, title, total, color = 'warning
           ))}
         </Tabs>
 
-        <OrderTableToolbar
+        <ActivityLogTableToolbar
           filters={filters}
           onResetPage={table.onResetPage}
           dateError={dateError}
         />
 
         {canReset && (
-          <OrderTableFiltersResult
+          <ActivityLogTableFilter
             filters={filters}
             totalResults={dataFiltered.length}
             onResetPage={table.onResetPage}
@@ -214,9 +215,10 @@ export default function ContactsTable({ sx, icon, title, total, color = 'warning
             }
           />
 
-          <Scrollbar sx={{ minHeight: 300,   }}>
-            <Table size={table.dense ? 'small' : 'medium'}>
+          <Scrollbar sx={{ minHeight: 444 }}>
+            <Table size={table.dense ? 'small' : 'medium'} sx={{ minWidth: 960 }}>
               <TableHeadCustom
+                showCheckbox={false}
                 order={table.order}
                 orderBy={table.orderBy}
                 headLabel={TABLE_HEAD}
@@ -238,7 +240,7 @@ export default function ContactsTable({ sx, icon, title, total, color = 'warning
                     table.page * table.rowsPerPage + table.rowsPerPage
                   )
                   .map((row) => (
-                    <OrderTableRow
+                    <ActivitylogTableRow
                       key={row.id}
                       row={row}
                       selected={table.selected.includes(row.id)}

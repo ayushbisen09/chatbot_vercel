@@ -17,9 +17,6 @@ import { fIsAfter, fIsBetween } from 'src/utils/format-time';
 
 import { CONFIG } from 'src/config-global';
 import { varAlpha } from 'src/theme/styles';
-// import { _orders, ORDER_STATUS_OPTIONS } from 'src/_mock';
-import { _contacts } from 'src/_mock';
-import { CONTACT_STATUS_OPTIONS } from 'src/_mock/_contact';
 
 import { Label } from 'src/components/label';
 import { toast } from 'src/components/snackbar';
@@ -37,25 +34,42 @@ import {
   TablePaginationCustom,
 } from 'src/components/table';
 
-import { OrderTableRow } from './contact-table-row';
-import { OrderTableToolbar } from './contact-table-toolbar';
-import { OrderTableFiltersResult } from './contact-table-filters-result';
+import { FLOWBUILDER_STATUS_OPTIONS, _flowbuilder } from 'src/_mock/_flowbuilder';
 
-// ----------------------------------------------------------------------
+import { FlowBuilderTableFiltersResult } from './flow-builder-table-filter';
+import { FlowBuilderTableRow } from './flow-builder-table-row';
+import { FlowBuilderTableToolbar } from './flow-builder-table-toolbar';
 
-const metadata = { title: `Page one | Dashboard - ${CONFIG.site.name}` };
-const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...CONTACT_STATUS_OPTIONS];
+const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...FLOWBUILDER_STATUS_OPTIONS];
 
 const TABLE_HEAD = [
-  { id: 'orderNumber', label: 'Status/ at', width: 353 },
-  { id: 'name', label: 'Mobile Number/Name', width: 298 },
-  { id: 'createdAt', label: 'State/Incoming status', width: 262 },
-  { id: 'status', label: '24 Hours Status/Last active', width: 515 },
- 
+  { id: 'orderNumber', label: 'Flow Name', width: 353 },
+  { id: 'name', label: 'Date', width: 298 },
+  { id: 'createdAt', label: 'Status', width: 262 },
+
   { id: '', width: 88 },
 ];
 
-export default function ContactsTable({ sx, icon, title, total, color = 'warning', ...other }) {
+
+const flowNames = [
+  "send_offer_message_on_whatsapp",
+  "process_customer_inquiry",
+  "schedule_appointment",
+  "handle_product_return",
+  "send_order_confirmation",
+  // Add more flow names as needed
+];
+
+const secondaryNames = [
+  "Adam Zampa",
+  "Virat Kohli",
+  "Steve Smith",
+  "Joe Root",
+  "Kane Williamson",
+  // Add more secondary names as needed
+];
+
+export default function FlowBuilderTable({ sx, icon, title, total, color = 'warning', ...other }) {
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -65,7 +79,7 @@ export default function ContactsTable({ sx, icon, title, total, color = 'warning
 
   const confirm = useBoolean();
 
-  const [tableData, setTableData] = useState(_contacts);
+  const [tableData, setTableData] = useState(_flowbuilder);
 
   const filters = useSetState({
     name: '',
@@ -165,12 +179,12 @@ export default function ContactsTable({ sx, icon, title, total, color = 'warning
                     'soft'
                   }
                   color={
-                    (tab.value === 'opted-in' && 'success') ||
-                    (tab.value === 'opted-out' && 'error') ||
+                    (tab.value === 'active' && 'success') ||
+                    (tab.value === 'inactive' && 'error') ||
                     'default'
                   }
                 >
-                  {['opted-in', 'opted-out'].includes(tab.value)
+                  {['active', 'inactive'].includes(tab.value)
                     ? tableData.filter((user) => user.status === tab.value).length
                     : tableData.length}
                 </Label>
@@ -179,14 +193,14 @@ export default function ContactsTable({ sx, icon, title, total, color = 'warning
           ))}
         </Tabs>
 
-        <OrderTableToolbar
+        <FlowBuilderTableToolbar
           filters={filters}
           onResetPage={table.onResetPage}
           dateError={dateError}
         />
 
         {canReset && (
-          <OrderTableFiltersResult
+          <FlowBuilderTableFiltersResult
             filters={filters}
             totalResults={dataFiltered.length}
             onResetPage={table.onResetPage}
@@ -214,49 +228,48 @@ export default function ContactsTable({ sx, icon, title, total, color = 'warning
             }
           />
 
-          <Scrollbar sx={{ minHeight: 300,   }}>
-            <Table size={table.dense ? 'small' : 'medium'}>
-              <TableHeadCustom
-                order={table.order}
-                orderBy={table.orderBy}
-                headLabel={TABLE_HEAD}
-                rowCount={dataFiltered.length}
-                numSelected={table.selected.length}
-                onSort={table.onSort}
-                onSelectAllRows={(checked) =>
-                  table.onSelectAllRows(
-                    checked,
-                    dataFiltered.map((row) => row.id)
-                  )
-                }
+          <Table size={table.dense ? 'small' : 'medium'}>
+            <TableHeadCustom
+              order={table.order}
+              orderBy={table.orderBy}
+              headLabel={TABLE_HEAD}
+              rowCount={dataFiltered.length}
+              numSelected={table.selected.length}
+              onSort={table.onSort}
+              onSelectAllRows={(checked) =>
+                table.onSelectAllRows(
+                  checked,
+                  dataFiltered.map((row) => row.id)
+                )
+              }
+            />
+
+            <TableBody>
+              {dataFiltered
+                .slice(
+                  table.page * table.rowsPerPage,
+                  table.page * table.rowsPerPage + table.rowsPerPage
+                )
+                .map((row, index) => (
+                  <FlowBuilderTableRow
+                    key={row.id}
+                    row={row}
+                    selected={table.selected.includes(row.id)}
+                    onSelectRow={() => table.onSelectRow(row.id)}
+                    onDeleteRow={() => handleDeleteRow(row.id)}
+                    onViewRow={() => handleViewRow(row.id)}
+                    flowIndex={table.page * table.rowsPerPage + index}
+                  />
+                ))}
+
+              <TableEmptyRows
+                height={table.dense ? 56 : 56 + 20}
+                emptyRows={emptyRows(table.page, table.rowsPerPage, dataFiltered.length)}
               />
 
-              <TableBody>
-                {dataFiltered
-                  .slice(
-                    table.page * table.rowsPerPage,
-                    table.page * table.rowsPerPage + table.rowsPerPage
-                  )
-                  .map((row) => (
-                    <OrderTableRow
-                      key={row.id}
-                      row={row}
-                      selected={table.selected.includes(row.id)}
-                      onSelectRow={() => table.onSelectRow(row.id)}
-                      onDeleteRow={() => handleDeleteRow(row.id)}
-                      onViewRow={() => handleViewRow(row.id)}
-                    />
-                  ))}
-
-                <TableEmptyRows
-                  height={table.dense ? 56 : 56 + 20}
-                  emptyRows={emptyRows(table.page, table.rowsPerPage, dataFiltered.length)}
-                />
-
-                <TableNoData />
-              </TableBody>
-            </Table>
-          </Scrollbar>
+              <TableNoData />
+            </TableBody>
+          </Table>
         </Box>
 
         <TablePaginationCustom

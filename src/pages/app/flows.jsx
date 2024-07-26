@@ -12,11 +12,10 @@ import { DashboardContent } from 'src/layouts/dashboard';
 import { Iconify } from 'src/components/iconify';
 import StatsCards from 'src/components/stats-card/stats-card';
 import PageHeader from 'src/components/page-header/page_header';
+import ChatAssignmentTable from 'src/sections/chat-assignment-rules/component/chatassignmentrulestable/chat-assignment-rules-table';
 
-import BigCard from 'src/sections/teammember/components/bigcard/bigcard';
-import { TeamMemberDialog } from 'src/sections/teammember/hooks/add-team-member';
-import SharedWithYouTeamMemberTable from 'src/sections/teammember/components/Sharedwithyoutable/teammembertable';
-import SharedbyYouTeamMemberTable from 'src/sections/teammember/components/SharedByYouTable/teammembertable';
+import BigCard from 'src/sections/dashbaord/components/bigcard/bigcard';
+import FlowBuilderTable from 'src/sections/flow-builder/component/flowbuildertable/flow-builder-table';
 
 // ----------------------------------------------------------------------
 
@@ -38,8 +37,8 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
         }}
       >
         <PageHeader
-          title="Team Members"
-          Subheading="You can add members with varying access level to manage your business."
+          title="Flow Builder"
+          Subheading="You can connect with facebook to fetch catalogue and manage it from our platform."
           link_added="#"
         />
         <Button
@@ -52,9 +51,10 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
           variant="contained"
           color="primary"
         >
-          Add Team Member
+          Add Flow
         </Button>
-        <TeamMemberDialog open={dialog.value} onClose={dialog.onFalse} />
+
+        {/* <WhatsAppDialog open={dialog.value} onClose={dialog.onFalse} /> */}
       </Box>
       {/* Cards Section */}
 
@@ -63,50 +63,50 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
           mt: '40px',
           gap: 3,
           display: 'grid',
-          gridTemplateColumns: { xs: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' },
+          gridTemplateColumns: { xs: 'repeat(1, 1fr)', md: 'repeat(4, 1fr)' },
         }}
       >
-        {/* WhatsApp Number Added */}
+        {/* Total flows  */}
 
         <StatsCards
-          cardtitle="Unique Team Members Added"
-          cardstats="2"
-          icon_name="unique.png"
-          icon_color="#1A76FF"
-          bg_gradient="#1A76FF"
+          cardtitle="Total flows "
+          cardstats="20"
+          icon_name="flows_total.png"
+          icon_color="#2B78EA"
+          bg_gradient="#2B78EA"
         />
-        {/* WhatsApp Numbers Shared By You */}
+
+        {/* Active flows */}
+
         <StatsCards
-          cardtitle="WhatsApp Numbers Shared By You"
-          cardstats="2"
-          icon_name="byyou.png"
+          cardtitle="Active flows"
+          cardstats="10"
+          icon_name="flows_active.png"
           icon_color="#009C53"
           bg_gradient="#009C53"
         />
 
-        {/* WhatsApp Numbers Shared With You */}
+        {/* Inactive flows */}
         <StatsCards
-          cardtitle="WhatsApp Numbers Shared With You"
-          cardstats="10,000"
-          icon_name="sharedwithyou.png"
-          icon_color="#009CBB"
-          bg_gradient="#009CBB"
+          cardtitle="Inactive flows"
+          cardstats="10"
+          icon_name="flows_inactive.png"
+          icon_color="#F86672"
+          bg_gradient="#F86672"
+        />
+        {/* Total flows quota */}
+        <StatsCards
+          cardtitle="Total flows quota"
+          cardstats="2,000"
+          icon_name="flows_qota.png"
+          icon_color="#FFA92E"
+          bg_gradient="#FFA92E"
         />
       </Box>
 
-      {/* Cards Section */}
-
-      {/* Big Card Section */}
-
-      <Grid xs={12} md={8}>
-        <BigCard />
-      </Grid>
-
-      {/* Big Card Section */}
-
       {/* Table */}
-      <SharedbyYouTeamMemberTable/>
-      <SharedWithYouTeamMemberTable/>
+
+      <FlowBuilderTable />
     </DashboardContent>
   );
 }

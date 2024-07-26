@@ -6,10 +6,10 @@ import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';
 
 import PageHeader from 'src/components/page-header/page_header';
-import Agentlist from 'src/sections/AgentQueue/agentlist';
+import Agentlist from 'src/sections/agent-queue/agentlist';
 
 import { useState } from 'react';
-import { KanbanView } from 'src/sections/AgentQueue/view';
+import { KanbanView } from 'src/sections/agent-queue/view';
 
 
 
