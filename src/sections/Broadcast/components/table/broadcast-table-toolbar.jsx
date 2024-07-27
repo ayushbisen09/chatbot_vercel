@@ -18,10 +18,13 @@ import { useTheme } from '@emotion/react';
 
 import IconButton from '@mui/material/IconButton';
 import { useBoolean } from 'src/hooks/use-boolean';
+import { DatePicker } from '@mui/x-date-pickers';
+import dayjs from 'dayjs';
 
 // ----------------------------------------------------------------------
 
 export function OrderTableToolbar({ filters, onResetPage, dateError }) {
+  const [value, setValue] = useState(dayjs(new Date()));
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -83,19 +86,33 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
         direction={{ xs: 'column', md: 'row' }}
         sx={{ p: 2.5, pr: { xs: 2.5, md: 1 } }}
       >
-        <Stack
-          direction="row"
-          alignItems="center"
-          spacing={2}
-          flexGrow={1}
-          sx={{  width: 1 }}
-        >
+        <Stack direction="row" alignItems="center" spacing={2} flexGrow={1} sx={{ width: 1 }}>
+          <DatePicker
+            sx={{ maxWidth: { md: 200 } }}
+            views={['day', 'month', 'year']}
+            label="Start date"
+            value={value}
+            onChange={(newValue) => {
+              setValue(newValue);
+            }}
+            slotProps={{ textField: { fullWidth: true } }}
+          />
+          <DatePicker
+            sx={{ maxWidth: { md: 200 } }}
+            views={['day', 'month', 'year']}
+            label="End date"
+            value={value}
+            onChange={(newValue) => {
+              setValue(newValue);
+            }}
+            slotProps={{ textField: { fullWidth: true } }}
+          />
           <TextField
-          sx={{mr:'5px'}}
+            sx={{ mr: '5px' }}
             fullWidth
             value={filters.state.name}
             onChange={handleFilterName}
-            placeholder="Search contacts by Mobile number or Name2eiurfewiufdhwqjhdwqok..."
+            placeholder="Search broadcast name or template name"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -105,7 +122,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
             }}
           />
           <Button
-           sx={{ml:'5px'}}
+            sx={{ ml: '5px' }}
             size="large"
             variant=""
             startIcon={<Iconify icon="mdi:filter" />}
@@ -113,7 +130,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
           >
             Filters
           </Button>
-          <IconButton  color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
+          <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
             <Iconify icon="eva:more-vertical-fill" />
           </IconButton>
         </Stack>
