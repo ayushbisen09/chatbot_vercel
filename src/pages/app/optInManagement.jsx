@@ -14,11 +14,34 @@ import Chip from '@mui/material/Chip';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 
+import { ConfigurationDrawer1, ConfigurationDrawer2 } from 'src/sections/OptInManagement/hook/drawer';
+
 // ----------------------------------------------------------------------
 
 const metadata = { title: `Page four | Dashboard - ${CONFIG.site.name}` };
 
 export default function Page() {
+
+  const [openDrawer1, setOpenDrawer1] = useState(false);
+  const [openDrawer2, setOpenDrawer2] = useState(false);
+  
+  const handleOpenDrawer1 = () => {
+    setOpenDrawer1(true);
+  };
+  
+  const handleCloseDrawer1 = () => {
+    setOpenDrawer1(false);
+  };
+  
+  const handleOpenDrawer2 = () => {
+    setOpenDrawer2(true);
+  };
+  
+  const handleCloseDrawer2 = () => {
+    setOpenDrawer2(false);
+  };
+
+
   const [tags, setTags] = useState(['Purchase', 'Pabbly Connect', 'Pabbly Subscription Billing']);
   const [tagInput, setTagInput] = useState('');
 
@@ -57,7 +80,7 @@ export default function Page() {
       <Box sx={{ mt: 4 }}>
         <Card>
           <CardHeader
-            title="Opt-Out Settings"
+            title=" Opt-Out Settings"
             sx={{ mb: 3 }}
           />
           <Divider />
@@ -190,9 +213,10 @@ export default function Page() {
                 </Typography>
               </Box>
             </Card>
-            <Button sx={{ mt: 3 }} variant="contained" color="inherit">
+            <Button sx={{ mt: 3 }} variant="contained" color="inherit" onClick={handleOpenDrawer1}>
               Configure
             </Button>
+            <ConfigurationDrawer1 open={openDrawer1} onClose={handleCloseDrawer1} />
           </Box>
         </Card>
       </Box>
@@ -332,9 +356,10 @@ export default function Page() {
                 </Typography>
               </Box>
             </Card>
-            <Button sx={{ mt: 3 }} variant="contained" color="inherit">
+            <Button sx={{ mt: 3 }} variant="contained" color="inherit" onClick={handleOpenDrawer2}>
               Configure
             </Button>
+            <ConfigurationDrawer2 open={openDrawer2} onClose={handleCloseDrawer2} />
           </Box>
         </Card>
       </Box>

@@ -1,14 +1,14 @@
-import { useTheme } from "@emotion/react";
-import { Box } from "@mui/material";
-import StatsCards from "src/components/stats-card/stats-card";
-import TemplatesTable from "./components/table/table";
+import { useTheme } from '@emotion/react';
+import { Box } from '@mui/material';
+import StatsCards from 'src/components/stats-card/stats-card';
+import TemplatesTable from './components/table/table';
 
-export default function YourTemplate(color,main){
+export default function YourTemplate(color, main) {
   const theme = useTheme();
 
-    return(
-        <>
-        <Box
+  return (
+    <>
+      <Box
         sx={{
           mt: '24px',
           gap: 3,
@@ -31,7 +31,7 @@ export default function YourTemplate(color,main){
           cardstats="22"
           icon_name="Pending.svg"
           icon_color="#FFA92E"
-          bg_gradient='#FFA92E'
+          bg_gradient="#FFA92E"
         />
 
         {/* Messaage Quota Used */}
@@ -50,7 +50,7 @@ export default function YourTemplate(color,main){
           bg_gradient="#F86672"
         />
       </Box>
-       <TemplatesTable/>
-        </>
-    )
+      <TemplatesTable />
+    </>
+  );
 }
