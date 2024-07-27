@@ -65,7 +65,7 @@ export default function TemplateList({ onItemSelect }) {
     display: 'flex',
     alignItems: 'center',
   }));
-  const [selectedIndex, setSelectedIndex] = useState(1);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleListItemClick = useCallback(
     (event, index) => {
@@ -82,14 +82,12 @@ export default function TemplateList({ onItemSelect }) {
         width: {
           xs: '100%',
           sm: '100%',
-          md: '303px',
+          md: '253px',
         },
       }}
     >
-      
-     
       <List sx={{ width: '100%' }}>
-        {/* Pabbly Connect List */}
+        {/* Ecomm */}
         <CustomListItemButton
           sx={{
             borderRadius: '6px',
@@ -99,7 +97,7 @@ export default function TemplateList({ onItemSelect }) {
           onClick={(event) => handleListItemClick(event, 0)}
         >
           <ListItemIcon>
-            <Iconify icon="solar:file-text-bold" width={24} height={24} />
+            <Iconify icon="fluent:cart-24-filled" width={24} height={24} />
           </ListItemIcon>
           <ListItemText
             primary={
@@ -119,7 +117,7 @@ export default function TemplateList({ onItemSelect }) {
                     textOverflow: 'ellipsis',
                   }}
                 >
-                  Pabbly Connect List
+                  Ecommerce
                 </span>
                 <span
                   style={{
@@ -134,7 +132,7 @@ export default function TemplateList({ onItemSelect }) {
           />
         </CustomListItemButton>
 
-        {/* Pabbly Subscription Billing List */}
+        {/* food */}
         <CustomListItemButton
           sx={{
             borderRadius: '6px',
@@ -144,7 +142,7 @@ export default function TemplateList({ onItemSelect }) {
           onClick={(event) => handleListItemClick(event, 1)}
         >
           <ListItemIcon>
-            <Iconify icon="solar:file-text-bold" width={24} height={24} />
+            <Iconify icon="fluent:food-16-filled" width={20} height={20} />
           </ListItemIcon>
           <ListItemText
             primary={
@@ -164,7 +162,7 @@ export default function TemplateList({ onItemSelect }) {
                     textOverflow: 'ellipsis',
                   }}
                 >
-                  Pabbly Subscription Billing List
+                  Food
                 </span>
                 <span
                   style={{
@@ -179,7 +177,7 @@ export default function TemplateList({ onItemSelect }) {
           />
         </CustomListItemButton>
 
-        {/* Pabbly Form Builder List */}
+        {/* festival */}
         <CustomListItemButton
           sx={{
             borderRadius: '6px',
@@ -189,7 +187,7 @@ export default function TemplateList({ onItemSelect }) {
           onClick={(event) => handleListItemClick(event, 2)}
         >
           <ListItemIcon>
-            <Iconify icon="solar:file-text-bold" width={24} height={24} />
+            <Iconify icon="icon-park-solid:fireworks" width={24} height={24} />
           </ListItemIcon>
           <ListItemText
             primary={
@@ -209,7 +207,7 @@ export default function TemplateList({ onItemSelect }) {
                     textOverflow: 'ellipsis',
                   }}
                 >
-                  Pabbly Form Builder List
+                  Festival
                 </span>
                 <span
                   style={{
@@ -223,6 +221,232 @@ export default function TemplateList({ onItemSelect }) {
             }
           />
         </CustomListItemButton>
+
+        {/* Healtcare */}
+        <CustomListItemButton
+          sx={{
+            borderRadius: '6px',
+            width: '100%',
+          }}
+          selected={selectedIndex === 3}
+          onClick={(event) => handleListItemClick(event, 3)}
+        >
+          <ListItemIcon>
+            <Iconify icon="fluent:briefcase-medical-24-filled" width={24} height={24} />
+          </ListItemIcon>
+          <ListItemText
+            primary={
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  width: '100%',
+                  overflow: 'hidden',
+                }}
+              >
+                <span
+                  style={{
+                    flexGrow: 1,
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
+                  Healtcare
+                </span>
+                <span
+                  style={{
+                    marginLeft: '8px',
+                    flexShrink: 0,
+                  }}
+                >
+                  (54)
+                </span>
+              </div>
+            }
+          />
+        </CustomListItemButton>
+
+        {/* Special Occasions */}
+        <CustomListItemButton
+          sx={{
+            borderRadius: '6px',
+            width: '100%',
+          }}
+          selected={selectedIndex === 4}
+          onClick={(event) => handleListItemClick(event, 4)}
+        >
+          <ListItemIcon>
+            <Iconify icon="ooui:special-pages-rtl" width={20} height={20} />
+          </ListItemIcon>
+          <ListItemText
+            primary={
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  width: '100%',
+                  overflow: 'hidden',
+                }}
+              >
+                <span
+                  style={{
+                    flexGrow: 1,
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
+                  Special Occasions
+                </span>
+                <span
+                  style={{
+                    marginLeft: '8px',
+                    flexShrink: 0,
+                  }}
+                >
+                  (54)
+                </span>
+              </div>
+            }
+          />
+        </CustomListItemButton>
+
+        {/* Travel */}
+        <CustomListItemButton
+          sx={{
+            borderRadius: '6px',
+            width: '100%',
+          }}
+          selected={selectedIndex === 5}
+          onClick={(event) => handleListItemClick(event, 5)}
+        >
+          <ListItemIcon>
+            <Iconify icon="material-symbols-light:travel" width={24} height={24} />
+          </ListItemIcon>
+          <ListItemText
+            primary={
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  width: '100%',
+                  overflow: 'hidden',
+                }}
+              >
+                <span
+                  style={{
+                    flexGrow: 1,
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
+                  Travel
+                </span>
+                <span
+                  style={{
+                    marginLeft: '8px',
+                    flexShrink: 0,
+                  }}
+                >
+                  (54)
+                </span>
+              </div>
+            }
+          />
+        </CustomListItemButton>
+
+           {/* Services */}
+           <CustomListItemButton
+          sx={{
+            borderRadius: '6px',
+            width: '100%',
+          }}
+          selected={selectedIndex === 6}
+          onClick={(event) => handleListItemClick(event, 6)}
+        >
+          <ListItemIcon>
+            <Iconify icon="eos-icons:service" width={24} height={24} />
+          </ListItemIcon>
+          <ListItemText
+            primary={
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  width: '100%',
+                  overflow: 'hidden',
+                }}
+              >
+                <span
+                  style={{
+                    flexGrow: 1,
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
+                  Services
+                </span>
+                <span
+                  style={{
+                    marginLeft: '8px',
+                    flexShrink: 0,
+                  }}
+                >
+                  (54)
+                </span>
+              </div>
+            }
+          />
+        </CustomListItemButton>
+
+        {/* Education */}
+        <CustomListItemButton
+          sx={{
+            borderRadius: '6px',
+            width: '100%',
+          }}
+          selected={selectedIndex === 7}
+          onClick={(event) => handleListItemClick(event, 7)}
+        >
+          <ListItemIcon>
+            <Iconify icon="zondicons:education" width={20} height={20} />
+          </ListItemIcon>
+          <ListItemText
+            primary={
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  width: '100%',
+                  overflow: 'hidden',
+                }}
+              >
+                <span
+                  style={{
+                    flexGrow: 1,
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
+                  Education
+                </span>
+                <span
+                  style={{
+                    marginLeft: '8px',
+                    flexShrink: 0,
+                  }}
+                >
+                  (54)
+                </span>
+              </div>
+            }
+          />
+        </CustomListItemButton>
+
       </List>
     </Box>
   );
