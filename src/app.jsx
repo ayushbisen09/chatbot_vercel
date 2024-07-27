@@ -44,5 +44,3 @@ export default function App() {
     </I18nProvider>
   );
 }
-
-// THIS IS FOR TESTING TOKEN

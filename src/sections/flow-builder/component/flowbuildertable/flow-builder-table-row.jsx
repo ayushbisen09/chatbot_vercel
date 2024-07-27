@@ -11,10 +11,7 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
 
-
 import { useBoolean } from 'src/hooks/use-boolean';
-
-
 
 import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
@@ -23,25 +20,42 @@ import { usePopover, CustomPopover } from 'src/components/custom-popover';
 import { Checkbox, Divider, Typography } from '@mui/material';
 // import { ConfirmDialog } from '../custom-dialog';
 const flowNames = [
-  "send_offer_message_on_whatsapp",
-  "process_customer_inquiry",
-  "schedule_appointment",
-  "handle_product_return",
-  "send_order_confirmation",
+  'send_offer_message_on_whatsapp',
+  'process_customer_inquiry',
+  'schedule_appointment',
+  'handle_product_return',
+  'send_order_confirmation',
   // Add more flow names as needed
 ];
 
 const secondaryNames = [
-  "Adam Zampa",
-  "Virat Kohli",
-  "Steve Smith",
-  "Joe Root",
-  "Kane Williamson",
+  'Rohit Sharma',
+  'Virat Kohli',
+  'Jasprit Bumrah',
+  'Joe Root',
+  'Kane Williamson',
   // Add more secondary names as needed
 ];
 
+export function FlowBuilderTableRow({ row, selected, onSelectRow, flowIndex }) {
+  const getRandomDate = () => {
+    const start = new Date(2024, 0, 1); // Start date (Jan 1, 2023)
+    const end = new Date(); // Current date
+    const randomTimestamp = start.getTime() + Math.random() * (end.getTime() - start.getTime());
+    return new Date(randomTimestamp);
+  };
+  const formatDate = (date) => {
+    const optionsDate = { month: 'short', day: 'numeric', year: 'numeric' };
+    const optionsTime = { hour: '2-digit', minute: '2-digit', second: '2-digit',hour12: false };
+    return {
+      date: new Intl.DateTimeFormat('en-US', optionsDate).format(date),
+      time: new Intl.DateTimeFormat('en-US', optionsTime).format(date),
+    };
+  };
 
-export function FlowBuilderTableRow({ row, selected, onSelectRow,flowIndex  }) {
+  const randomDate = getRandomDate();
+  const formattedDate = formatDate(randomDate);
+
   const confirm = useBoolean();
 
   const popover = usePopover();
@@ -66,7 +80,7 @@ export function FlowBuilderTableRow({ row, selected, onSelectRow,flowIndex  }) {
           >
             <Box component="span">{flowNames[flowIndex % flowNames.length]}</Box>
             <Box component="span" sx={{ color: 'text.disabled' }}>
-            {secondaryNames[flowIndex % secondaryNames.length]}
+              {secondaryNames[flowIndex % secondaryNames.length]}
             </Box>
           </Stack>
         </Stack>
@@ -80,9 +94,9 @@ export function FlowBuilderTableRow({ row, selected, onSelectRow,flowIndex  }) {
               alignItems: 'flex-start',
             }}
           >
-            <Box component="span">Jan 19, 2024</Box>
+            <Box component="span">{formattedDate.date}</Box>
             <Box component="span" sx={{ color: 'text.disabled' }}>
-              08:23:31
+              {formattedDate.time}
             </Box>
           </Stack>
         </Stack>
@@ -121,16 +135,13 @@ export function FlowBuilderTableRow({ row, selected, onSelectRow,flowIndex  }) {
       >
         <MenuList>
           <MenuItem sx={{ color: '' }}>
-            <Iconify icon="solar:bill-list-bold" />
-            Manage Tags
+            <Iconify icon="solar:copy-bold" />
+            Clone Flow
           </MenuItem>
-          <MenuItem sx={{ color: '' }}>
-            <Iconify icon="solar:user-block-bold" />
-            Block & Opt
-          </MenuItem>
+          
           <MenuItem sx={{ color: '' }}>
             <Iconify icon="solar:pen-bold" />
-            Edit Contact
+            Edit Flow
           </MenuItem>
 
           <Divider style={{ borderStyle: 'dashed' }} />
@@ -142,7 +153,7 @@ export function FlowBuilderTableRow({ row, selected, onSelectRow,flowIndex  }) {
             sx={{ color: 'error.main' }}
           >
             <Iconify icon="solar:trash-bin-trash-bold" />
-            Delete
+            Delete Flow
           </MenuItem>
         </MenuList>
       </CustomPopover>

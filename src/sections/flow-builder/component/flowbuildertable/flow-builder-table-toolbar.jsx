@@ -20,23 +20,7 @@ import IconButton from '@mui/material/IconButton';
 import { useBoolean } from 'src/hooks/use-boolean';
 
 // ----------------------------------------------------------------------
-const flowNames = [
-  "send_offer_message_on_whatsapp",
-  "process_customer_inquiry",
-  "schedule_appointment",
-  "handle_product_return",
-  "send_order_confirmation",
-  // Add more flow names as needed
-];
 
-const secondaryNames = [
-  "Adam Zampa",
-  "Virat Kohli",
-  "Steve Smith",
-  "Joe Root",
-  "Kane Williamson",
-  // Add more secondary names as needed
-];
 
 export function FlowBuilderTableToolbar({ filters, onResetPage, dateError }) {
   const theme = useTheme();
@@ -191,7 +175,7 @@ export function FlowBuilderTableToolbar({ filters, onResetPage, dateError }) {
               variant="outlined"
               select
               fullWidth
-              label="Whatsapp number Status"
+              label="Flow Status"
             >
               {flowbuilder_status.map((flowbuilder_statuss) => (
                 <MenuItem key={flowbuilder_statuss} value={flowbuilder_statuss}>

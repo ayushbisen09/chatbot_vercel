@@ -34,7 +34,7 @@ export default function BigCard(sx, ...other) {
   const navigate = useNavigate();
 
   const handleAddContact = () => {
-    navigate('/dashboard/contact/addcontact');
+    navigate('/app/contact/addcontact');
   };
   return (
     <Box

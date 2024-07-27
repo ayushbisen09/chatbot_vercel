@@ -71,7 +71,8 @@ export function ChatView() {
       <Layout
         sx={{
           mt: "40px",
-          minHeight: 0,
+          minHeight: 680
+          ,
           flex: '1 1 0',
           borderRadius: 2,
           position: 'relative',

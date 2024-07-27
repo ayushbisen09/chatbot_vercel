@@ -28,10 +28,13 @@ import { useTheme } from '@emotion/react';
 
 const OPTIONS = ['Option 1', 'Option 2', 'Option 3'];
 
+
 const WhatsAppWidgetPage = () => {
   const [copied, setCopied] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(1);
   const [isOpenList, setOpenList] = useState(null);
+  const [copiedQuicksell, setCopiedQuicksell] = useState(false);
+const [copiedSupport, setCopiedSupport] = useState(false);
 
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
@@ -48,12 +51,17 @@ const WhatsAppWidgetPage = () => {
   // const showToast = () => {
   //   toast.success('Your API Token Copied Successfully!');
   // };
-  const handleCopy = () => {
+  const handleCopyQuicksell = () => {
     navigator.clipboard.writeText(codeSnippet);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-    // showToast('API Token copied to clipboard');
+    setCopiedQuicksell(true);
+    setTimeout(() => setCopiedQuicksell(false), 2000);
   };
+  const handleCopySupport = () => {
+    navigator.clipboard.writeText(codeSnippet);
+    setCopiedSupport(true);
+    setTimeout(() => setCopiedSupport(false), 2000);
+  };
+  
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -147,7 +155,7 @@ const WhatsAppWidgetPage = () => {
               value={codeSnippet}
               InputProps={{
                 endAdornment: (
-                  <Tooltip title={copied ? 'Copied!' : 'Copy to clipboard'} arrow placement="top">
+                  <Tooltip title={copiedQuicksell  ? 'Copied!' : 'Copy to clipboard'} arrow placement="top">
                     <Box
                       component="span"
                       sx={{
@@ -159,14 +167,14 @@ const WhatsAppWidgetPage = () => {
                         right: 24, // Adjust this value to position the icon left of the scrollbar
                         zIndex: 1,
                       }}
-                      onClick={handleCopy}
+                      onClick={handleCopyQuicksell}
                     >
                       <Iconify
-                        icon={copied ? 'mdi:check' : 'solar:copy-bold'}
+                        icon={copiedQuicksell ? 'mdi:check' : 'solar:copy-bold'}
                         sx={{
                           width: 20,
                           height: 20,
-                          color: copied ? 'success.main' : '#637381',
+                          color: copiedQuicksell ? 'success.main' : '#637381',
                         }}
                       />
                     </Box>
@@ -246,7 +254,7 @@ const WhatsAppWidgetPage = () => {
               value={codeSnippet}
               InputProps={{
                 endAdornment: (
-                  <Tooltip title={copied ? 'Copied!' : 'Copy to clipboard'} arrow placement="top">
+                  <Tooltip title={copiedSupport  ? 'Copied!' : 'Copy to clipboard'} arrow placement="top">
                     <Box
                       component="span"
                       sx={{
@@ -258,14 +266,14 @@ const WhatsAppWidgetPage = () => {
                         right: 24, // Adjust this value to position the icon left of the scrollbar
                         zIndex: 1,
                       }}
-                      onClick={handleCopy}
+                      onClick={handleCopySupport}
                     >
                       <Iconify
-                        icon={copied ? 'mdi:check' : 'solar:copy-bold'}
+                        icon={copiedSupport  ? 'mdi:check' : 'solar:copy-bold'}
                         sx={{
                           width: 20,
                           height: 20,
-                          color: copied ? 'success.main' : '#637381',
+                          color: copiedSupport  ? 'success.main' : '#637381',
                         }}
                       />
                     </Box>

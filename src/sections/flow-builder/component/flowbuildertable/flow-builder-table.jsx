@@ -51,23 +51,7 @@ const TABLE_HEAD = [
 ];
 
 
-const flowNames = [
-  "send_offer_message_on_whatsapp",
-  "process_customer_inquiry",
-  "schedule_appointment",
-  "handle_product_return",
-  "send_order_confirmation",
-  // Add more flow names as needed
-];
 
-const secondaryNames = [
-  "Adam Zampa",
-  "Virat Kohli",
-  "Steve Smith",
-  "Joe Root",
-  "Kane Williamson",
-  // Add more secondary names as needed
-];
 
 export default function FlowBuilderTable({ sx, icon, title, total, color = 'warning', ...other }) {
   const theme = useTheme();

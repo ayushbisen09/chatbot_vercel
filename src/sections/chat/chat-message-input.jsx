@@ -91,7 +91,6 @@ export function ChatMessageInput({
               const res = await createConversation(conversationData);
 
               router.push(`${paths.dashboard.inbox}?id=${res.conversation.id}`);
-              
 
               onAddRecipients([]);
             }
@@ -122,14 +121,11 @@ export function ChatMessageInput({
         }
         endAdornment={
           <Stack direction="row" sx={{ flexShrink: 0 }}>
-            <IconButton onClick={handleAttach}>
-              <Iconify icon="solar:gallery-add-bold" />
+            <IconButton onClick={handleSendMessage}>
+              <Iconify icon="majesticons:send" />
             </IconButton>
             <IconButton onClick={handleAttach}>
               <Iconify icon="eva:attach-2-fill" />
-            </IconButton>
-            <IconButton>
-              <Iconify icon="solar:microphone-bold" />
             </IconButton>
           </Stack>
         }
