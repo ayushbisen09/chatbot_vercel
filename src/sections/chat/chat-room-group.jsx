@@ -11,8 +11,6 @@ import { useBoolean } from 'src/hooks/use-boolean';
 import { CollapseButton } from './styles';
 import { ChatRoomParticipantDialog } from './chat-room-participant-dialog';
 
-// ----------------------------------------------------------------------
-
 export function ChatRoomGroup({ participants }) {
   const collapse = useBoolean(true);
 
