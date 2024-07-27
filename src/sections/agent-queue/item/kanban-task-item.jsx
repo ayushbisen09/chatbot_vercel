@@ -21,11 +21,11 @@ export function KanbanTaskItem({ task, disabled, columnId, sx }) {
   const mountedWhileDragging = isDragging && !mounted;
 
   return (
-    <>
+    
       <ItemBase
         ref={disabled ? undefined : setNodeRef}
         task={task}
-        // onClick={openDetails.onTrue}
+        onClick={openDetails.onTrue}
         stateProps={{
           transform,
           listeners,
@@ -38,7 +38,7 @@ export function KanbanTaskItem({ task, disabled, columnId, sx }) {
       />
 
       
-    </>
+    
   );
 }
 

@@ -1,26 +1,110 @@
-import { Helmet } from 'react-helmet-async';
-
-import { Typography } from '@mui/material';
-
+import { useTheme } from '@emotion/react';
+import { Box, Button, useMediaQuery } from '@mui/material';
 import { CONFIG } from 'src/config-global';
+import { DashboardContent } from 'src/layouts/dashboard';
+import { Iconify } from 'src/components/iconify';
+import PageHeader from 'src/components/page-header/page_header';
+import StatsCards from 'src/components/stats-card/stats-card';
+import BroadcastTable from 'src/sections/Broadcast/components/table/table';
+import { useNavigate } from 'react-router';
 
-// import { BlankView } from 'src/sections/blank/view';
-
-// ----------------------------------------------------------------------
-
-const metadata = { title: `Page six | Dashboard - ${CONFIG.site.name}` };
+const metadata = { title: `Page three | Dashboard - ${CONFIG.site.name}` };
 
 export default function Page() {
-  return (
-    <>
-      <Helmet>
-        <title> {metadata.title}</title>
-      </Helmet>
+  const currentData = {
+    totalContacts: 54,
+    optedInContacts: 40,
+    optedOutContacts: 14,
+  };
 
-      {/* <BlankView title="Page six" /> */}
-      <Typography>
-        Broadcast
-      </Typography>
-    </>
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const navigate = useNavigate();
+
+  const handleAddContact = () => {
+    navigate('/dashboard/contact/addcontact');
+  };
+
+  return (
+    <DashboardContent maxWidth="xl">
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: isMobile ? 'column' : 'row',
+          alignItems: isMobile ? 'flex-start' : 'center',
+          justifyContent: 'space-between',
+          mb: 0,
+        }}
+      >
+        <PageHeader
+          title="Broadcast"
+          Subheading="Launch a campaign now to initiate new conversations with users on WhatsApp."
+          link_added="#"
+        />
+
+        <Button
+          onClick={handleAddContact}
+          sx={{ mt: isMobile ? 2 : 0 }}
+          startIcon={
+            <Iconify icon="heroicons:plus-circle-16-solid" style={{ width: 18, height: 18 }} />
+          }
+          size="large"
+          variant="contained"
+          color="primary"
+        >
+          Add Broadcast
+        </Button>
+      </Box>
+      <Box
+        sx={{
+          mt: '40px',
+          width: '100%',
+        }}
+      >
+        <Box
+          sx={{
+            mt: '24px',
+            gap: 3,
+            display: 'grid',
+            gridTemplateColumns: { xs: 'repeat(1, 1fr)', md: 'repeat(4, 1fr)' },
+          }}
+        >
+          {/* WhatsApp Number Added */}
+
+          <StatsCards
+            cardtitle="Total Broadcast"
+            cardstats="18"
+            icon_name="TotalCampaign.png"
+            icon_color="#28A645"
+            bg_gradient="#22C55E"
+          />
+          {/* WhatsApp Message Quota (Outgoing) */}
+          <StatsCards
+            cardtitle="Live Broadcast "
+            cardstats="22"
+            icon_name="LiveCampaign.png"
+            icon_color="#FFA92E"
+            bg_gradient="#FFA92E"
+          />
+
+          {/* Messaage Quota Used */}
+          <StatsCards
+            cardtitle="Sent Broadcast"
+            cardstats="23"
+            icon_name="SentCampaign.png"
+            icon_color="#05A6C6"
+            bg_gradient="#05A6C6"
+          />
+          <StatsCards
+            cardtitle="Scheduled  Broadcast"
+            cardstats="11"
+            icon_name="ScheduledBroadcast.png"
+            icon_color="#F86672"
+            bg_gradient="#F86672"
+          />
+        </Box>
+        <BroadcastTable />
+      </Box>
+    </DashboardContent>
   );
 }
