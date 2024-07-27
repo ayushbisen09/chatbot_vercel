@@ -1,38 +1,39 @@
+import { useState } from 'react';
 import Switch from '@mui/material/Switch';
 import dayjs from 'dayjs';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { Box, Card, Divider, CardHeader, FormHelperText, Avatar, Button } from '@mui/material';
-
+import { Box, Card, Divider, CardHeader, Avatar, Button } from '@mui/material';
 import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';
-
 import PageHeader from 'src/components/page-header/page_header';
-import Autocomplete from '@mui/material/Autocomplete';
 import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-import { useState } from 'react';
-import Chip from '@mui/material/Chip';
-import TextField from '@mui/material/TextField';
-import InputAdornment from '@mui/material/InputAdornment';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import ChatBox from 'src/components/chatbox/chatbox';
-import Images from '../../assets/images/chatImage/imagechat.png';
-
-// ----------------------------------------------------------------------
+import { ConfigurationDrawer1, ConfigurationDrawer2 } from 'src/sections/inboxsettings/hook/drawer';
 
 const metadata = { title: `Page four | Dashboard - ${CONFIG.site.name}` };
 
 export default function Page() {
-  const [value, setValue] = useState(dayjs(new Date()));
-  const [tags, setTags] = useState(['Purchase', 'Pabbly Connect', 'Pabbly Subscription Billing']);
-  const [tagInput, setTagInput] = useState('');
 
-  const handleAddTag = () => {
-    if (tagInput.trim() !== '') {
-      setTags([...tags, tagInput.trim()]);
-      setTagInput('');
-    }
+  const [openDrawer1, setOpenDrawer1] = useState(false);
+  const [openDrawer2, setOpenDrawer2] = useState(false);
+  
+  const handleOpenDrawer1 = () => {
+    setOpenDrawer1(true);
   };
+  
+  const handleCloseDrawer1 = () => {
+    setOpenDrawer1(false);
+  };
+  
+  const handleOpenDrawer2 = () => {
+    setOpenDrawer2(true);
+  };
+  
+  const handleCloseDrawer2 = () => {
+    setOpenDrawer2(false);
+  };
+
+
 
   const [timeValues, setTimeValues] = useState({
     Mon: { start: dayjs(), end: dayjs() },
@@ -155,29 +156,10 @@ export default function Page() {
                 </Typography>
               </Box>
             </Card>
-            {/* <ChatBox
-              showImage
-              showLinks
-              showCall
-              coverSrc={Images}
-              text={
-                <>
-                  {`Hi {{1}}! 🎧🛒`}
-                  <br />
-                  Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌
-                  <br />
-                  {`Order Details:
-Product: {{2}}
-Quantity: {{3}}
-Order ID: {{4}}
-Delivery Address: {{5}}
-Estimated Delivery Date: {{6}}`}
-                </>
-              }
-            /> */}
-            <Button sx={{ mt: 3 }} variant="contained" color="inherit">
+            <Button sx={{ mt: 3 }} variant="contained" color="inherit" onClick={handleOpenDrawer1}>
               Configure
             </Button>
+            <ConfigurationDrawer1 open={openDrawer1} onClose={handleCloseDrawer1} />
           </Box>
           <Divider sx={{ mx: 3, borderStyle: 'dashed' }} />
           <CardHeader
@@ -249,9 +231,10 @@ Estimated Delivery Date: {{6}}`}
                 </Typography>
               </Box>
             </Card>
-            <Button sx={{ mt: 3 }} variant="contained" color="inherit">
+            <Button sx={{ mt: 3 }} variant="contained" color="inherit" onClick={handleOpenDrawer2}>
               Configure
             </Button>
+            <ConfigurationDrawer2 open={openDrawer2} onClose={handleCloseDrawer2} />
           </Box>
         </Card>
       </Box>

@@ -18,8 +18,7 @@ import { fIsAfter, fIsBetween } from 'src/utils/format-time';
 import { CONFIG } from 'src/config-global';
 import { varAlpha } from 'src/theme/styles';
 // import { _orders, ORDER_STATUS_OPTIONS } from 'src/_mock';
-import { _contacts } from 'src/_mock';
-import { CONTACT_STATUS_OPTIONS } from 'src/_mock/_contact';
+
 
 import { Label } from 'src/components/label';
 import { toast } from 'src/components/snackbar';
@@ -37,25 +36,26 @@ import {
   TablePaginationCustom,
 } from 'src/components/table';
 
-import { OrderTableRow } from './contact-table-row';
-import { OrderTableToolbar } from './contact-table-toolbar';
-import { OrderTableFiltersResult } from './contact-table-filters-result';
+import { _broadcast, BROADCAST_STATUS_OPTIONS } from 'src/_mock/_broadcast';
+import { OrderTableRow } from './broadcast-table-row';
+import { OrderTableToolbar } from './broadcast-table-toolbar';
+import { OrderTableFiltersResult } from './broadcast-table-filters-result';
 
 // ----------------------------------------------------------------------
 
 const metadata = { title: `Page one | Dashboard - ${CONFIG.site.name}` };
-const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...CONTACT_STATUS_OPTIONS];
+const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ... BROADCAST_STATUS_OPTIONS];
 
 const TABLE_HEAD = [
-  { id: 'orderNumber', label: 'Status/Created at', width: 353 },
-  { id: 'name', label: 'Mobile Number/Name', width: 298 },
-  { id: 'createdAt', label: 'State/Incoming status', width: 262 },
-  { id: 'status', label: '24 Hours Status/Last active', width: 515 },
+  { id: 'orderNumber', label: 'Broadcast Name', width: 353 },
+  { id: 'name', label: 'Template Used', width: 298 },
+  { id: 'createdAt', label: 'Date', width: 262 },
+  { id: 'status', label: 'Status', width: 515 },
 
   { id: '', width: 88 },
 ];
 
-export default function ContactsTable({ sx, icon, title, total, color = 'warning', ...other }) {
+export default function BroadcastTable({ sx, icon, title, total, color = 'warning', ...other }) {
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -65,7 +65,7 @@ export default function ContactsTable({ sx, icon, title, total, color = 'warning
 
   const confirm = useBoolean();
 
-  const [tableData, setTableData] = useState(_contacts);
+  const [tableData, setTableData] = useState(_broadcast);
 
   const filters = useSetState({
     name: '',
@@ -165,12 +165,13 @@ export default function ContactsTable({ sx, icon, title, total, color = 'warning
                     'soft'
                   }
                   color={
-                    (tab.value === 'opted-in' && 'success') ||
-                    (tab.value === 'opted-out' && 'error') ||
+                    (tab.value === 'live' && 'success') ||
+                    (tab.value === 'sent' && 'warning') ||
+                    (tab.value === 'scheduled' && 'info') ||
                     'default'
                   }
                 >
-                  {['opted-in', 'opted-out'].includes(tab.value)
+                  {['live', 'sent','scheduled'].includes(tab.value)
                     ? tableData.filter((user) => user.status === tab.value).length
                     : tableData.length}
                 </Label>
