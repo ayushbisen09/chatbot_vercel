@@ -87,7 +87,7 @@ export default function AddSingleContact() {
 
   const handleCancel = () => {
     // Replace '/your-page' with the path you want to navigate to
-    navigate('/dashboard/contact');
+    navigate('/app/contact');
   };
 
 
@@ -97,7 +97,7 @@ export default function AddSingleContact() {
 
   const addContact=()=>{
     showToast();
-    navigate('/dashboard/contact');
+    navigate('/app/contact');
   };
 
   return (

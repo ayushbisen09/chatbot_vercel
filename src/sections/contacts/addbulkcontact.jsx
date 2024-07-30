@@ -90,7 +90,7 @@ export default function AddBulkContact() {
 
   const handleCancel = () => {
     // Replace '/your-page' with the path you want to navigate to
-    navigate('/dashboard/contact');
+    navigate('/app/contact');
   };
 
   const showToast = () => {
@@ -103,7 +103,7 @@ export default function AddBulkContact() {
 
   const addContact = () => {
     showToast();
-    navigate('/dashboard/contact');
+    navigate('/app/contact');
   };
   const [isFileUploaded, setIsFileUploaded] = useState(false);
 
