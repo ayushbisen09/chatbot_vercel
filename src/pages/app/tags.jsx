@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { DataGrid } from '@mui/x-data-grid';
-import { Box, Link, Button, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
@@ -11,7 +11,8 @@ import { useTable } from 'src/components/table';
 import { Iconify } from 'src/components/iconify';
 
 import { OrderListView } from 'src/sections/tag copy';
-import { WebhookDialog } from 'src/sections/tag copy/hook/popup';
+
+import { TagDialog } from 'src/sections/tag copy/hook/popup';
 import PageHeader from 'src/components/page-header/page_header';
 
 const columns = [
@@ -67,7 +68,7 @@ function DataGridBasic({ data }) {
   );
 }
 
-const WhatsAppWidgetPage = () => {
+const TagsPage = () => {
   const [copied, setCopied] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(1);
   const [isOpenList, setOpenList] = useState(null);
@@ -158,8 +159,7 @@ const WhatsAppWidgetPage = () => {
           variant="contained"
           onClick={dialog.onTrue}
           sx={{
-            marginTop: 5,
-            backgroundColor: '#078dee',
+             backgroundColor: '#078dee',
             '&:hover': {
               backgroundColor: '#0351ab',
             },
@@ -172,7 +172,7 @@ const WhatsAppWidgetPage = () => {
         >
           Add Tag
         </Button>
-        <WebhookDialog open={dialog.value} onClose={dialog.onFalse} />
+        <TagDialog open={dialog.value} onClose={dialog.onFalse} />
       </Box>
       <Box sx={{ mt: 4 }} />
 
@@ -181,4 +181,4 @@ const WhatsAppWidgetPage = () => {
   );
 };
 
-export default WhatsAppWidgetPage;
+export default TagsPage;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { DataGrid } from '@mui/x-data-grid';
-import { Box, Link, Button, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
@@ -10,7 +10,7 @@ import { DashboardContent } from 'src/layouts/dashboard';
 import { useTable } from 'src/components/table';
 import { Iconify } from 'src/components/iconify';
 
-import { WebhookDialog } from 'src/sections/quickreplies/hook/popup';
+import { QuickRepliesDialog } from 'src/sections/quickreplies/hook/popup';
 import { QuickReplyListView } from 'src/sections/quickreplies/component/quickreply-list-view';
 import PageHeader from 'src/components/page-header/page_header';
 
@@ -63,7 +63,7 @@ function DataGridBasic({ data }) {
   );
 }
 
-const WhatsAppWidgetPage = () => {
+const QuickRepliesPage = () => {
   const [copied, setCopied] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(1);
   const [isOpenList, setOpenList] = useState(null);
@@ -147,28 +147,11 @@ const WhatsAppWidgetPage = () => {
 
   return (
     <DashboardContent maxWidth="xl" backgroundColor="">
-     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems:"center"}}>
      <PageHeader title="Quick Replies" Subheading="You can save quick replies templates and use them in Inbox."/>
-      
-        {/* <Box>
-          <Typography sx={{ mb: 1 }} variant="h4">
-            Quick Replies
-          </Typography>
-          <Typography sx={{ color: 'text.secondary' }}>
-            You can save quick replies templates and use them in Inbox.{' '}
-            <Link
-              href="https://your-link-here.com"
-              target="_blank"
-              rel="noopener"
-              underline="always"
-            >
-              Learn More
-            </Link>
-          </Typography>
-        </Box> */}
-        <Button
+      <Button
           sx={{
-            marginTop: 5,
+            // marginTop: 5,
             backgroundColor: '#078dee',
             '&:hover': {
               backgroundColor: '#0351ab',
@@ -183,7 +166,7 @@ const WhatsAppWidgetPage = () => {
         >
           Add Quick Replies
         </Button>
-        <WebhookDialog open={dialog.value} onClose={dialog.onFalse} />
+        <QuickRepliesDialog open={dialog.value} onClose={dialog.onFalse} />
       </Box>
       <Box sx={{ mt: 4 }} />
 
@@ -192,4 +175,4 @@ const WhatsAppWidgetPage = () => {
   );
 };
 
-export default WhatsAppWidgetPage;
+export default QuickRepliesPage ;
