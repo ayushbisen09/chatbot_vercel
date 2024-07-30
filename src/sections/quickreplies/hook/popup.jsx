@@ -15,7 +15,7 @@ import { useBoolean } from 'src/hooks/use-boolean';
 import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
-export function WebhookDialog({ title, content, action, open, onClose, ...other }) {
+export function QuickRepliesDialog({ title, content, action, open, onClose, ...other }) {
   const theme = useTheme();
   const isWeb = useMediaQuery(theme.breakpoints.up('sm'));
   const dialog = useBoolean();
