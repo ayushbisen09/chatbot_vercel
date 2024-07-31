@@ -75,8 +75,19 @@ export const navData = [
           { title: 'Add Template', path: paths.dashboard.template.addtemplate },
         ],
       },
-      { title: 'Broadcast', path: paths.dashboard.broadcast, icon: ICONS.broadcast },
-      { title: 'Flows', path: paths.dashboard.flows, icon: ICONS.flows },
+      {
+        title: 'Broadcast',
+        path: paths.dashboard.broadcast.root,
+        icon: ICONS.broadcast,
+        children: [
+          { title: 'Broadcast List', path: paths.dashboard.broadcast.root },
+          { title: 'Add Broadcast', path: paths.dashboard.broadcast.addbroadcast },
+        ],
+      },
+      { title: 'Flows', path: paths.dashboard.flows.root, icon: ICONS.flows,children:[
+        {title:'Flow List',path: paths.dashboard.flows.root},
+        {title:'Create Flow',path: paths.dashboard.flows.createflow},
+      ] },
     ],
   },
   /**

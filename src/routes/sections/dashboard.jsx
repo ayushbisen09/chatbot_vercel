@@ -18,7 +18,9 @@ const AgentQueue = lazy(() => import('src/pages/app/agent_queue'));
 const Templates = lazy(() => import('src/pages/app/templates'));
 const AddTemplate = lazy(() => import('../../sections/templates/addtemplate'));
 const Broadcast = lazy(() => import('src/pages/app/broadcast'));
+const AddBroadcast= lazy(() => import('../../sections/Broadcast/add-broadcast'));
 const Flows = lazy(() => import('src/pages/app/flows'));
+const CreateFlow = lazy(() => import('../../sections/flow-builder/create-flow'));
 const OptInManagement = lazy(() => import('src/pages/app/optInManagement'));
 const InboxSettings = lazy(() => import('src/pages/app/inboxsetting'));
 const Userattributes = lazy(() => import('src/pages/app/userattributes'));
@@ -57,7 +59,9 @@ export const dashboardRoutes = [
       { path: 'template/addtemplate', element: <AddTemplate /> },
 
       { path: 'broadcast', element: <Broadcast /> },
+      { path: 'broadcast/addbroadcast', element: <AddBroadcast /> },
       { path: 'flows', element: <Flows /> },
+      { path: 'flows/createflow', element: <CreateFlow /> },
 
       {
         path: 'group',

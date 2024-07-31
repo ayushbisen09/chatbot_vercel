@@ -16,10 +16,17 @@ import ChatAssignmentTable from 'src/sections/chat-assignment-rules/component/ch
 
 import BigCard from 'src/sections/dashbaord/components/bigcard/bigcard';
 import FlowBuilderTable from 'src/sections/flow-builder/component/flowbuildertable/flow-builder-table';
+import { useNavigate } from 'react-router';
 
 // ----------------------------------------------------------------------
 
 export default function Page({ sx, icon, title, total, color = 'warning', ...other }) {
+  const navigate = useNavigate();
+
+  const navigateTo = () => {
+    // Replace '/your-page' with the path you want to navigate to
+    navigate('/app/flows/createflow');
+  };
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -42,7 +49,7 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
           link_added="#"
         />
         <Button
-          onClick={dialog.onTrue}
+          onClick={navigateTo}
           sx={{ mt: isMobile ? 2 : 0 }}
           startIcon={
             <Iconify icon="heroicons:plus-circle-16-solid" style={{ width: 18, height: 18 }} />
@@ -51,7 +58,7 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
           variant="contained"
           color="primary"
         >
-          Add Flow
+          Create Flow
         </Button>
 
         {/* <WhatsAppDialog open={dialog.value} onClose={dialog.onFalse} /> */}
