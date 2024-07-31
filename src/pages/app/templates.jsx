@@ -11,6 +11,7 @@ import { useTabs } from 'src/hooks/use-tabs';
 import YourTemplate from 'src/sections/templates/yourtemplates';
 import ExploreTemplate from 'src/sections/templates/exploretemplates';
 import { Fragment } from 'react';
+import { useNavigate } from 'react-router';
 
 // import { BlankView } from 'src/sections/blank/view';
 
@@ -26,6 +27,13 @@ export default function Page() {
     { value: 'one', icon: <Iconify icon="fluent:book-template-20-filled" width={24} />, label: 'Your Templates',form: <YourTemplate /> },
     { value: 'two', icon: <Iconify icon="fluent:calendar-template-20-filled" width={24} />, label: 'Explore Templates', form:<ExploreTemplate/> },
   ];
+  const navigate = useNavigate();
+
+  const navigateTo = () => {
+    // Replace '/your-page' with the path you want to navigate to
+    navigate('/app/template/addtemplate');
+  };
+
   return (
     <DashboardContent maxWidth='xl'>
       <Box
@@ -44,7 +52,7 @@ export default function Page() {
         />
 
         <Button
-          
+          onClick={navigateTo}
           sx={{ mt: isMobile ? 2 : 0 }}
           startIcon={
             <Iconify icon="heroicons:plus-circle-16-solid" style={{ width: 18, height: 18 }} />

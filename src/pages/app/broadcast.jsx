@@ -21,8 +21,9 @@ export default function Page() {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
 
-  const handleAddContact = () => {
-    navigate('/dashboard/contact/addcontact');
+  const navigateTo = () => {
+    // Replace '/your-page' with the path you want to navigate to
+    navigate('/app/broadcast/addbroadcast');
   };
 
   return (
@@ -43,7 +44,7 @@ export default function Page() {
         />
 
         <Button
-          onClick={handleAddContact}
+          onClick={navigateTo}
           sx={{ mt: isMobile ? 2 : 0 }}
           startIcon={
             <Iconify icon="heroicons:plus-circle-16-solid" style={{ width: 18, height: 18 }} />

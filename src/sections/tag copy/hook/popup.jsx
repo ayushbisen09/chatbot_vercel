@@ -24,7 +24,7 @@ import {
 
 import { Iconify } from 'src/components/iconify';
 
-export function WebhookDialog({ open, onClose }) {
+export function TagDialog({ open, onClose }) {
   const [tags, setTags] = useState(['Purchase', 'Pabbly Connect', 'Pabbly Subscription Billing']);
   const [tagInput, setTagInput] = useState('');
 

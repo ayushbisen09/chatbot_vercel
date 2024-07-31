@@ -53,8 +53,14 @@ export const paths = {
       root:`${ROOTS.DASHBOARD}/template`,
       addtemplate:`${ROOTS.DASHBOARD}/template/addtemplate`
     },
-    broadcast: `${ROOTS.DASHBOARD}/broadcast`,
-    flows: `${ROOTS.DASHBOARD}/flows`,
+    broadcast: {
+      root:`${ROOTS.DASHBOARD}/broadcast`,
+      addbroadcast:`${ROOTS.DASHBOARD}/broadcast/addbroadcast`
+    },
+    flows: {
+      root:`${ROOTS.DASHBOARD}/flows`,
+      createflow:`${ROOTS.DASHBOARD}/flows/createflow`,
+    },
 
     group: {
       root: `${ROOTS.DASHBOARD}/group`,
