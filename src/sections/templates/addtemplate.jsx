@@ -756,7 +756,7 @@ export default function AddTemplate() {
                   ))}
                 </RadioGroup>
 
-                {actionType === 'none' && <Box mt={2}>No Action</Box>}
+                {/* {actionType === 'none' && <Box mt={2}>No Action</Box>} */}
                 {actionType === 'call_to_actions' && (
                   <Box>
                     <Box mt={3}>
