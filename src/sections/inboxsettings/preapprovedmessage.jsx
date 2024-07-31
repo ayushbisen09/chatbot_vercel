@@ -254,61 +254,6 @@ export default function RegularMessage() {
           width={isMobile ? '100%' : '40%'}
           sx={{ pl: isMobile ? 0 : '12px', mt: isMobile ? '24px' : 0 }}
         >
-          {/* <Card
-            sx={{
-              border: '1px solid #919EAB33',
-              width: '100%',
-              maxWidth: '500px',
-            }}
-          >
-            <CardHeader
-              sx={{ mb: 2 }}
-              avatar={<Avatar aria-label="profile picture">MC</Avatar>}
-              title={
-                <Typography variant="h7" sx={{ fontSize: 14, fontWeight: '700' }}>
-                  Mireya Conner
-                </Typography>
-              }
-              subheader={
-                <Typography variant="subtitle2" sx={{ fontSize: 12, fontWeight: '400' }}>
-                  Online
-                </Typography>
-              }
-            />
-            <Divider />
-            <Typography
-              variant="caption"
-              sx={{
-                pr: 2,
-                pt: 3,
-                display: 'flex',
-                color: '#919EAB',
-                justifyContent: 'end',
-              }}
-            >
-              4:02 PM
-            </Typography>
-            <Box
-              sx={{
-                p: 2,
-                backgroundColor: '#CCF4FE',
-                borderRadius: '8px',
-                m: 2,
-              }}
-            >
-              <Typography
-                variant="body2"
-                color="text.primary"
-                sx={{ fontSize: 14, fontWeight: '500' }}
-              >
-                Hey,
-                <br />
-                {
-                  ' Thank you for opting-out. In future if you ever want to connect again just send "Hello". '
-                }
-              </Typography>
-            </Box>
-          </Card> */}
           <ChatBox
             text={
               <>
