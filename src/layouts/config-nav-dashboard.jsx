@@ -18,32 +18,7 @@ const ICONS = {
   flows: icon('ic-flows'),
   settings: icon('ic-settings'),
 
-  job: icon('ic-job'),
-  // blog: icon('ic-blog'),
-  // chat: icon('ic-chat'),
-  // mail: icon('ic-mail'),
-  // user: icon('ic-user'),
-  // file: icon('ic-file'),
-  // lock: icon('ic-lock'),
-  // tour: icon('ic-tour'),
-  // order: icon('ic-order'),
-  // label: icon('ic-label'),
-  // blank: icon('ic-blank'),
-  // kanban: icon('ic-kanban'),
-  // folder: icon('ic-folder'),
-  // course: icon('ic-course'),
-  // banking: icon('ic-banking'),
-  // booking: icon('ic-booking'),
-  // invoice: icon('ic-invoice'),
-  // product: icon('ic-product'),
-  // calendar: icon('ic-calendar'),
-  // disabled: icon('ic-disabled'),
-  // external: icon('ic-external'),
-  // menuItem: icon('ic-menu-item'),
-  // ecommerce: icon('ic-ecommerce'),
-  // analytics: icon('ic-analytics'),
 
-  // parameter: icon('ic-parameter'),
 };
 
 // ----------------------------------------------------------------------
@@ -114,7 +89,7 @@ export const navData = [
           { title: 'Team Members', path: paths.dashboard.group.teammembers },
           { title: 'Chat Assignment Rules', path: paths.dashboard.group.chatassignmentrules },
           { title: 'Configure SLAs', path: paths.dashboard.group.configureslas },
-          { title: 'WhatsApp Widget', path: paths.dashboard.group.whatsAppwidget },
+          // { title: 'WhatsApp Widget', path: paths.dashboard.group.whatsAppwidget },
           { title: 'API & Webhooks', path: paths.dashboard.group.apiwebhooks },
           { title: 'Activity Log', path: paths.dashboard.group.activitylogs },
           {

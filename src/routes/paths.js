@@ -70,7 +70,7 @@ export const paths = {
       teammembers: `${ROOTS.DASHBOARD}/group/teammembers`,
       chatassignmentrules: `${ROOTS.DASHBOARD}/group/chatassignmentrules`,
       configureslas: `${ROOTS.DASHBOARD}/group/configureslas`,
-      whatsAppwidget: `${ROOTS.DASHBOARD}/group/whatsAppwidget`,
+      // whatsAppwidget: `${ROOTS.DASHBOARD}/group/whatsAppwidget`,
       apiwebhooks: `${ROOTS.DASHBOARD}/group/apiwebhooks`,
       activitylogs: `${ROOTS.DASHBOARD}/group/activitylogs`,
       notificationpreferences: `${ROOTS.DASHBOARD}/group/notificationpreferences`,
