@@ -99,7 +99,7 @@ export default function AddSingleContact() {
 
   const addContact = () => {
     showToast();
-    navigate('/dashboard/contact');
+    navigate('/app/contact');
   };
 
   return (

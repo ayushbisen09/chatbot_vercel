@@ -1,5 +1,4 @@
-import React from 'react';
-import { toast } from 'sonner';
+import React, { useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 
 import TextField from '@mui/material/TextField';
@@ -7,9 +6,11 @@ import {
   Box,
   Card,
   Stack,
+  Alert,
   Button,
   Divider,
   useTheme,
+  Snackbar,
   CardHeader,
   Typography,
   useMediaQuery,
@@ -24,6 +25,7 @@ export default function Page() {
   const theme = useTheme();
   const isTabletOrMobile = useMediaQuery(theme.breakpoints.down('md'));
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   const methods = useForm({
     defaultValues: {
@@ -50,12 +52,16 @@ export default function Page() {
       remove(index);
     }
   };
-  const showToast = () => {
-    toast.success('Attributes Saved Successfully!');
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbarOpen(false);
   };
+
   const saveAttributes = () => {
-    // Show a toast or some feedback that the text was copied
-    showToast();
+    // Show Snackbar
+    setSnackbarOpen(true);
   };
 
   return (
@@ -141,6 +147,29 @@ export default function Page() {
           </Box>
         </Card>
       </Box>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000} // Adjust duration as needed
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        sx={{
+          boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+        }}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity="success"
+          sx={{
+            width: '100%',
+            fontSize: '14px',
+            fontWeight: 'bold',
+            backgroundColor: theme.palette.background.paper,
+            color: theme.palette.text.primary,
+          }}
+        >
+          Attributes Saved Successfully!
+        </Alert>
+      </Snackbar>
     </DashboardContent>
   );
 }

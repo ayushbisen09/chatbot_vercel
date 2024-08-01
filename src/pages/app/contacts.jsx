@@ -54,7 +54,7 @@ export default function Page() {
   const navigate = useNavigate();
 
   const handleAddContact = () => {
-    navigate('/dashboard/contact/addcontact');
+    navigate('/app/contact/addcontact');
   };
   return (
     <DashboardContent maxWidth="xl">

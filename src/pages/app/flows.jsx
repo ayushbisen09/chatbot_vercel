@@ -1,5 +1,7 @@
 import 'react-modal-video/css/modal-video.min.css';
 
+import { useNavigate } from 'react-router';
+
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import { Button, useMediaQuery } from '@mui/material';
@@ -22,6 +24,13 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const dialog = useBoolean();
+
+  const navigate = useNavigate();
+
+  const handleAddFlow = () => {
+    navigate('/app/flows/createflow');
+  };
+
   return (
     <DashboardContent maxWidth="xl">
       <Box
@@ -39,7 +48,7 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
           link_added="#"
         />
         <Button
-          onClick={dialog.onTrue}
+          onClick={handleAddFlow}
           sx={{ mt: isMobile ? 2 : 0 }}
           startIcon={
             <Iconify icon="heroicons:plus-circle-16-solid" style={{ width: 18, height: 18 }} />

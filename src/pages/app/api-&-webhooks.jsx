@@ -1,7 +1,18 @@
-import { toast } from 'sonner';
+import React, { useState } from 'react';
+import { useTheme } from '@emotion/react';
 
 import TextField from '@mui/material/TextField';
-import { Box, Card, Button, Divider, Tooltip, CardHeader } from '@mui/material';
+import {
+  Box,
+  Card,
+  Alert,
+  Button,
+  Divider,
+  Tooltip,
+  Snackbar,
+  CardHeader,
+  useMediaQuery,
+} from '@mui/material';
 
 import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';
@@ -16,20 +27,33 @@ import BigCard from 'src/sections/api-&-webhook/components/bigcard/big-card';
 const metadata = { title: `Page two | Dashboard - ${CONFIG.site.name}` };
 
 export default function Page() {
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const theme = useTheme();
+  const isWeb = useMediaQuery(theme.breakpoints.up('sm'));
+
   const copyToClipboard = () => {
     navigator.clipboard
       .writeText('●●●●●●●●●●●●●●●●●●')
       .then(() => {
-        // Show a toast or some feedback that the text was copied
-        showToast('API Token copied to clipboard');
+        // Show a Snackbar or some feedback that the text was copied
+        showSnackbar('API Token copied to clipboard');
       })
       .catch((err) => {
         console.error('Failed to copy text: ', err);
       });
   };
 
-  const showToast = () => {
-    toast.success('Your API Token Copied Successfully!');
+  const showSnackbar = (message) => {
+    setSnackbarMessage(message);
+    setSnackbarOpen(true);
+  };
+
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbarOpen(false);
   };
 
   return (
@@ -93,6 +117,29 @@ export default function Page() {
           <BigCard />
         </Box>
       </DashboardContent>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={1000} // Adjust duration as needed
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        sx={{
+          boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+        }}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity="success"
+          sx={{
+            width: '100%',
+            fontSize: '14px',
+            fontWeight: 'bold',
+            backgroundColor: theme.palette.background.paper,
+            color: theme.palette.text.primary,
+          }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </>
   );
 }

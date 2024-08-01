@@ -1,17 +1,21 @@
+import { useTheme } from '@emotion/react';
 import React, { useRef, useState, useEffect } from 'react';
 
 import {
   Box,
   Card,
+  Alert,
   Select,
   Button,
   Divider,
   MenuItem,
+  Snackbar,
   TextField,
   CardHeader,
   Typography,
   InputLabel,
   FormControl,
+  useMediaQuery,
   InputAdornment,
   FormHelperText,
 } from '@mui/material';
@@ -21,14 +25,33 @@ import { DashboardContent } from 'src/layouts/dashboard';
 
 import { Iconify } from 'src/components/iconify';
 import PageHeader from 'src/components/page-header/page-header'; // Changed 'timezone' to 'timezone'
-import { toast } from 'sonner';
 
 // ----------------------------------------------------------------------
 
 export default function Page() {
+  const theme = useTheme();
   const [timeZone, setTimeZone] = useState('(GMT-05:00) Eastern Time (US & Canada)');
   const [searchTerm, setSearchTerm] = useState('');
   const searchInputRef = useRef(null);
+  const isWeb = useMediaQuery(theme.breakpoints.up('sm'));
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const handleSave = () => {
+    // Implement your logic to add WhatsApp number here
+    // For example, you might want to validate the inputs first
+
+    // Show the snackbar
+    setSnackbarOpen(true);
+
+    // Close the dialog after a short delay
+    setTimeout(() => {}, 500);
+  };
+
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbarOpen(false);
+  };
 
   const handleTimeZoneChange = (event) => {
     setTimeZone(event.target.value);
@@ -49,13 +72,6 @@ export default function Page() {
       searchInputRef.current.focus();
     }
   }, []);
-  const handleSave = () => {
-    showToast();
-  };
-
-  const showToast = () => {
-    toast.success('Time Zone Updated Successfully!');
-  };
 
   return (
     <DashboardContent maxWidth="xl">
@@ -141,6 +157,29 @@ export default function Page() {
           </Box>
         </Card>
       </Box>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={1000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        sx={{
+          boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+        }}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity="success"
+          sx={{
+            width: '100%',
+            fontSize: '14px',
+            fontWeight: 'bold',
+            backgroundColor: theme.palette.background.paper,
+            color: theme.palette.text.primary,
+          }}
+        >
+          Time Zone Updated Successfully!
+        </Alert>
+      </Snackbar>
     </DashboardContent>
   );
 }

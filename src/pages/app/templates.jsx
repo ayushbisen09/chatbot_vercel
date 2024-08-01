@@ -42,7 +42,7 @@ export default function Page() {
 
   const navigate = useNavigate();
   const handleAddTemplate = () => {
-    navigate('/dashboard/template/addtemplate');
+    navigate('/app/template/addtemplate');
   };
   return (
     <DashboardContent maxWidth="xl">
