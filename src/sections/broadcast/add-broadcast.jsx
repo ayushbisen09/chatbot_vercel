@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+
 import { useState } from 'react';
 import { useTheme } from '@emotion/react';
 import { FormProvider } from 'react-hook-form';
@@ -85,7 +85,6 @@ export default function AddBroadcast() {
   // Phone NUmber Field Function
 
   //   Time Picker Function
-  const [valuenew, setValue] = useState(dayjs(new Date()));
 
   return (
     <DashboardContent maxWidth="xl">
@@ -341,21 +340,15 @@ export default function AddBroadcast() {
                 />
               </RadioGroup>
               {scheduleType === 'yes_schedule' && (
-                <form>
-                  {/* <DateTimePicker
-                    sx={{ mt: '24px' }}
-                    label="Sechdule by Date and TIme"
-                    value={valuenew}
-                    onChange={setValue}
-                    slotProps={{
-                      textField: {
-                        fullWidth: true,
-                        helperText:
-                          'Select date and time for the scheduling the broadcast. The time will be based on your account time zone which is Asia/Kolkata.',
-                      },
-                    }}
-                  /> */}
-                </form>
+                <Form>
+                  <TextField
+                  sx={{mt:'24px'}}
+                    label="Start date"
+                    type="datetime-local"
+                    fullWidth
+                    InputLabelProps={{ shrink: true }}
+                  />
+                </Form>
               )}
 
               {/* {scheduleType === 'no_schedule' && <form>No, Send Instantly</form>} */}

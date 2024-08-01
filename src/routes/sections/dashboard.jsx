@@ -30,7 +30,7 @@ const Quickreplies = lazy(() => import('src/pages/app/quick-replies'));
 const Teammembers = lazy(() => import('src/pages/app/team-members'));
 const Chatassignmentrules = lazy(() => import('src/pages/app/chat-assignment-rules'));
 const ConfigureSLAs = lazy(() => import('src/pages/app/configure-slas'));
-const WhatsAppwidgets = lazy(() => import('src/pages/app/whatsapp-widget'));
+// const WhatsAppwidgets = lazy(() => import('src/pages/app/whatsapp-widget'));
 const APIWebhooks = lazy(() => import('src/pages/app/api-&-webhooks'));
 const ActivityLogs = lazy(() => import('src/pages/app/activity-logs'));
 const Notificationpreferences = lazy(() => import('src/pages/app/notification-preferences'));
@@ -77,13 +77,13 @@ export const dashboardRoutes = [
           { path: 'teammembers', element: <Teammembers /> },
           { path: 'chatassignmentrules', element: <Chatassignmentrules /> },
           { path: 'configureslas', element: <ConfigureSLAs /> },
-          { path: 'whatsAppwidget', element: <WhatsAppwidgets /> },
+          // { path: 'whatsAppwidget', element: <WhatsAppwidgets /> },
           { path: 'apiwebhooks', element: <APIWebhooks /> },
           { path: 'activitylogs', element: <ActivityLogs /> },
           { path: 'notificationpreferences', element: <Notificationpreferences /> },
           { path: 'timezone', element: <TimeZone /> },
 
-          // { path: 'six', element: <PageSix /> },
+
         ],
       },
     ],
