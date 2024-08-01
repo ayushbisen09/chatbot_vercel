@@ -115,6 +115,7 @@ const StyledNavItem = styled(ButtonBase, {
       borderRadius: 'var(--nav-item-radius)',
       color: '#ffffff',
       '&:hover': {
+        color: '#078DEE',
         backgroundColor: 'var(--nav-item-hover-bg)',
       },
     },
@@ -183,7 +184,7 @@ const StyledNavItem = styled(ButtonBase, {
         },
       }),
       ...(open && {
-        color: 'var(--nav-item-root-open-color)',
+        color: '#078DEE',
         backgroundColor: 'var(--nav-item-root-open-bg)',
       }),
     }),
