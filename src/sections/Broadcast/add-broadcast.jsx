@@ -1,36 +1,37 @@
 import dayjs from 'dayjs';
+import { useState } from 'react';
 import { useTheme } from '@emotion/react';
+import { FormProvider } from 'react-hook-form';
+import ReactCountryFlag from 'react-country-flag';
+
+// import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import {
   Box,
-  Button,
   Card,
-  CardHeader,
-  Divider,
-  FormControlLabel,
-  InputAdornment,
-  MenuItem,
   Radio,
-  RadioGroup,
+  Button,
   Select,
-  TextField,
+  Divider,
   Tooltip,
+  MenuItem,
+  TextField,
+  CardHeader,
+  RadioGroup,
   Typography,
   useMediaQuery,
+  InputAdornment,
+  FormControlLabel,
 } from '@mui/material';
-import ReactCountryFlag from 'react-country-flag';
-import { countries } from 'src/assets/data';
 
-import { FormProvider } from 'react-hook-form';
-import { Form } from 'src/components/hook-form';
-import { Iconify } from 'src/components/iconify';
-import PageHeader from 'src/components/page-header/page_header';
+import { countries } from 'src/assets/data';
 import { DashboardContent } from 'src/layouts/dashboard';
 
-import { useState } from 'react';
-import { DatePicker } from '@mui/x-date-pickers';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import PreApprovedMessage from './preapprovedmessage';
-import RegularMessage from './regularmessage';
+import { Form } from 'src/components/hook-form';
+import { Iconify } from 'src/components/iconify';
+import PageHeader from 'src/components/page-header/page-header';
+
+import RegularMessage from './regular-message';
+import PreApprovedMessage from './pre-approved-message';
 
 export default function AddBroadcast() {
   const theme = useTheme();
@@ -341,21 +342,36 @@ export default function AddBroadcast() {
               </RadioGroup>
               {scheduleType === 'yes_schedule' && (
                 <form>
-                  <DateTimePicker
-                  sx={{mt:'24px'}}
+                  {/* <DateTimePicker
+                    sx={{ mt: '24px' }}
                     label="Sechdule by Date and TIme"
                     value={valuenew}
                     onChange={setValue}
-                    slotProps={{ textField: { fullWidth: true ,helperText:'Select date and time for the scheduling the broadcast. The time will be based on your account time zone which is Asia/Kolkata.'} }}
-                  />
+                    slotProps={{
+                      textField: {
+                        fullWidth: true,
+                        helperText:
+                          'Select date and time for the scheduling the broadcast. The time will be based on your account time zone which is Asia/Kolkata.',
+                      },
+                    }}
+                  /> */}
                 </form>
               )}
 
               {/* {scheduleType === 'no_schedule' && <form>No, Send Instantly</form>} */}
             </Box>
 
-            <Box sx={{display:'flex',gap:2, width: '100%', padding: '0px 24px 24px 24px', mr: 0, ml: 0 }}>
-              <Button  variant="contained" size="large" color="inherit">
+            <Box
+              sx={{
+                display: 'flex',
+                gap: 2,
+                width: '100%',
+                padding: '0px 24px 24px 24px',
+                mr: 0,
+                ml: 0,
+              }}
+            >
+              <Button variant="contained" size="large" color="inherit">
                 Add Broadcast
               </Button>
               <Button variant="outlined" size="large" color="inherit">

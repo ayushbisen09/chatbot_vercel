@@ -1,12 +1,16 @@
 import { useTheme } from '@emotion/react';
+import { useNavigate } from 'react-router';
+
 import { Box, Button, useMediaQuery } from '@mui/material';
+
 import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';
+
 import { Iconify } from 'src/components/iconify';
-import PageHeader from 'src/components/page-header/page_header';
 import StatsCards from 'src/components/stats-card/stats-card';
-import BroadcastTable from 'src/sections/Broadcast/components/table/table';
-import { useNavigate } from 'react-router';
+import PageHeader from 'src/components/page-header/page-header';
+
+import BroadcastTable from 'src/sections/broadcast/components/table/table';
 
 const metadata = { title: `Page three | Dashboard - ${CONFIG.site.name}` };
 
@@ -21,9 +25,8 @@ export default function Page() {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
 
-  const navigateTo = () => {
-    // Replace '/your-page' with the path you want to navigate to
-    navigate('/app/broadcast/addbroadcast');
+  const handleAddContact = () => {
+    navigate('/dashboard/contact/addcontact');
   };
 
   return (
@@ -44,7 +47,7 @@ export default function Page() {
         />
 
         <Button
-          onClick={navigateTo}
+          onClick={handleAddContact}
           sx={{ mt: isMobile ? 2 : 0 }}
           startIcon={
             <Iconify icon="heroicons:plus-circle-16-solid" style={{ width: 18, height: 18 }} />

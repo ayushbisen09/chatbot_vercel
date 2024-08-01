@@ -5,10 +5,11 @@ import Drawer, { drawerClasses } from '@mui/material/Drawer';
 
 import { usePathname } from 'src/routes/hooks';
 
-import { CONFIG } from 'src/config-global';
-
+import { Logo } from 'src/components/logo';
 import { Scrollbar } from 'src/components/scrollbar';
 import { NavSectionVertical } from 'src/components/nav-section';
+
+import { NavUpgrade } from '../components/nav-upgrade';
 
 // ----------------------------------------------------------------------
 
@@ -36,21 +37,14 @@ export function NavMobile({ data, open, onClose, slots, sx, ...other }) {
       }}
     >
       {slots?.topArea ?? (
-        <Box
-          alt="logo"
-          component="img"
-          src={`${CONFIG.site.basePath}/assets/icons/navbar/Chatflow_whitelogo.svg`}
-          width={150}
-          sx={{
-            padding: '15px',
-            display: { xs: 'block', sm: 'none' }, // Hide on extra-small screens (mobile)
-          }}
-        />
+        <Box sx={{ pl: 3.5, pt: 2.5, pb: 1 }}>
+          <Logo />
+        </Box>
       )}
 
       <Scrollbar fillContent>
         <NavSectionVertical data={data} sx={{ px: 2, flex: '1 1 auto' }} {...other} />
-        {/* <NavUpgrade /> */}
+        <NavUpgrade />
       </Scrollbar>
 
       {slots?.bottomArea}

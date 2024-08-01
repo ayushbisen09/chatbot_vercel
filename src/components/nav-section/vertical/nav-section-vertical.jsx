@@ -69,7 +69,6 @@ function Group({ items, render, subheader, slotProps, enabledRootRedirect }) {
   );
 
   return (
-    // Larger nav
     <NavLi>
       {subheader ? (
         <>

@@ -13,27 +13,28 @@ import { AuthGuard } from 'src/auth/guard';
 const IndexPage = lazy(() => import('src/pages/app/dashboard'));
 const Inbox = lazy(() => import('src/pages/app/inbox'));
 const Contact = lazy(() => import('src/pages/app/contacts'));
-const Addcontact = lazy(() => import('../../sections/contacts/addcontact'));
-const AgentQueue = lazy(() => import('src/pages/app/agent_queue'));
+const Addcontact = lazy(() => import('../../sections/contacts/add-contact'));
+
+const AgentQueue = lazy(() => import('src/pages/app/agent-queue'));
 const Templates = lazy(() => import('src/pages/app/templates'));
-const AddTemplate = lazy(() => import('../../sections/templates/addtemplate'));
+const AddTemplate = lazy(() => import('../../sections/templates/add-template'));
 const Broadcast = lazy(() => import('src/pages/app/broadcast'));
-const AddBroadcast= lazy(() => import('../../sections/Broadcast/add-broadcast'));
+const AddBroadcast = lazy(() => import('../../sections/broadcast/add-broadcast'));
 const Flows = lazy(() => import('src/pages/app/flows'));
 const CreateFlow = lazy(() => import('../../sections/flow-builder/create-flow'));
-const OptInManagement = lazy(() => import('src/pages/app/optInManagement'));
-const InboxSettings = lazy(() => import('src/pages/app/inboxsetting'));
-const Userattributes = lazy(() => import('src/pages/app/userattributes'));
+const OptInManagement = lazy(() => import('src/pages/app/optin-management'));
+const InboxSettings = lazy(() => import('src/pages/app/inbox-setting'));
+const Userattributes = lazy(() => import('src/pages/app/user-attributes'));
 const Tags = lazy(() => import('src/pages/app/tags'));
-const Quickreplies = lazy(() => import('src/pages/app/quickreplies'));
-const Teammembers = lazy(() => import('src/pages/app/teammembers'));
-const Chatassignmentrules = lazy(() => import('src/pages/app/chatassignmentrules'));
-const ConfigureSLAs = lazy(() => import('src/pages/app/configureslas'));
-const WhatsAppwidgets = lazy(() => import('src/pages/app/whatsAppwidget'));
-const APIWebhooks = lazy(() => import('src/pages/app/api&webhooks'));
-const ActivityLogs = lazy(() => import('src/pages/app/activitylogs'));
-const Notificationpreferences = lazy(() => import('src/pages/app/notificationpreferences'));
-const TimeZone = lazy(() => import('src/pages/app/timezone'));
+const Quickreplies = lazy(() => import('src/pages/app/quick-replies'));
+const Teammembers = lazy(() => import('src/pages/app/team-members'));
+const Chatassignmentrules = lazy(() => import('src/pages/app/chat-assignment-rules'));
+const ConfigureSLAs = lazy(() => import('src/pages/app/configure-slas'));
+const WhatsAppwidgets = lazy(() => import('src/pages/app/whatsapp-widget'));
+const APIWebhooks = lazy(() => import('src/pages/app/api-&-webhooks'));
+const ActivityLogs = lazy(() => import('src/pages/app/activity-logs'));
+const Notificationpreferences = lazy(() => import('src/pages/app/notification-preferences'));
+const TimeZone = lazy(() => import('src/pages/app/time-zone'));
 
 // ----------------------------------------------------------------------
 
@@ -57,12 +58,14 @@ export const dashboardRoutes = [
       { path: 'agentQueue', element: <AgentQueue /> },
       { path: 'template', element: <Templates /> },
       { path: 'template/addtemplate', element: <AddTemplate /> },
-
       { path: 'broadcast', element: <Broadcast /> },
       { path: 'broadcast/addbroadcast', element: <AddBroadcast /> },
       { path: 'flows', element: <Flows /> },
       { path: 'flows/createflow', element: <CreateFlow /> },
-
+      { path: 'contact', element: <Contact /> },
+      { path: 'contact', element: <Contact /> },
+      { path: 'contact', element: <Contact /> },
+      { path: 'contact', element: <Contact /> },
       {
         path: 'group',
         children: [

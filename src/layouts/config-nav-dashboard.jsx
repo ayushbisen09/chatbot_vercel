@@ -17,6 +17,7 @@ const ICONS = {
   broadcast: icon('ic-broadcast'),
   flows: icon('ic-flows'),
   settings: icon('ic-settings'),
+
   job: icon('ic-job'),
   // blog: icon('ic-blog'),
   // chat: icon('ic-chat'),
@@ -41,7 +42,7 @@ const ICONS = {
   // menuItem: icon('ic-menu-item'),
   // ecommerce: icon('ic-ecommerce'),
   // analytics: icon('ic-analytics'),
-  // dashboard: icon('ic-dashboard'),
+
   // parameter: icon('ic-parameter'),
 };
 
@@ -84,17 +85,21 @@ export const navData = [
           { title: 'Add Broadcast', path: paths.dashboard.broadcast.addbroadcast },
         ],
       },
-      { title: 'Flows', path: paths.dashboard.flows.root, icon: ICONS.flows,children:[
-        {title:'Flow List',path: paths.dashboard.flows.root},
-        {title:'Create Flow',path: paths.dashboard.flows.createflow},
-      ] },
+      {
+        title: 'Flows',
+        path: paths.dashboard.flows.root,
+        icon: ICONS.flows,
+        children: [
+          { title: 'Flow List', path: paths.dashboard.flows.root },
+          { title: 'Create Flow', path: paths.dashboard.flows.createflow },
+        ],
+      },
     ],
   },
   /**
-   * Management
+   * Settings
    */
   {
-    // subheader: 'Management',
     items: [
       {
         title: 'Settings',

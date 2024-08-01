@@ -1,21 +1,21 @@
+import { useState } from 'react';
 import { useTheme } from '@emotion/react';
+import { useNavigate } from 'react-router';
 
-import { Box, Button, Table, useMediaQuery } from '@mui/material';
+import { Box, Button, useMediaQuery } from '@mui/material';
 
 import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';
 
 import { Iconify } from 'src/components/iconify';
-import PageHeader from 'src/components/page-header/page_header';
-import ContactList from 'src/sections/contacts/contactlist';
 import StatsCards from 'src/components/stats-card/stats-card';
+import PageHeader from 'src/components/page-header/page-header';
+
+import ContactList from 'src/sections/contacts/contact-list';
+import BigCard from 'src/sections/contacts/components/big-card/big-card';
 import ContactsTable from 'src/sections/contacts/components/table/table';
-import { useState } from 'react';
-import BigCard from 'src/sections/contacts/components/bigcard/bigcard';
-import { useNavigate } from 'react-router';
 
-
-
+// import { BlankView } from 'src/sections/blank/view';
 
 // ----------------------------------------------------------------------
 
@@ -54,7 +54,7 @@ export default function Page() {
   const navigate = useNavigate();
 
   const handleAddContact = () => {
-    navigate('/app/contact/addcontact');
+    navigate('/dashboard/contact/addcontact');
   };
   return (
     <DashboardContent maxWidth="xl">
@@ -85,7 +85,6 @@ export default function Page() {
         >
           Add Contact
         </Button>
-        
       </Box>
       <Box
         sx={{

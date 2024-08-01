@@ -91,5 +91,3 @@ export const _chatassignmentrules = [...Array(20)].map((_, index) => {
 // import { _mock } from './_mock';
 
 // ----------------------------------------------------------------------
-
-

@@ -115,7 +115,6 @@ const StyledNavItem = styled(ButtonBase, {
       borderRadius: 'var(--nav-item-radius)',
       color: '#ffffff',
       '&:hover': {
-        color:'#078DEE',
         backgroundColor: 'var(--nav-item-hover-bg)',
       },
     },
@@ -174,8 +173,8 @@ const StyledNavItem = styled(ButtonBase, {
       [`& .${navSectionClasses.item.info}`]: { ...baseStyles.info },
       // State
       ...(active && {
-        color: 'var(--nav-item-root-active-color)',
-        backgroundColor: 'var(--nav-item-root-active-bg)',
+        color: '#078DEE',
+        backgroundColor: 'rgba(7, 141, 238, 0.08)',
         '&:hover': {
           backgroundColor: 'var(--nav-item-root-active-hover-bg)',
         },
@@ -184,7 +183,7 @@ const StyledNavItem = styled(ButtonBase, {
         },
       }),
       ...(open && {
-        color: '#078DEE',
+        color: 'var(--nav-item-root-open-color)',
         backgroundColor: 'var(--nav-item-root-open-bg)',
       }),
     }),
@@ -217,11 +216,11 @@ const StyledNavItem = styled(ButtonBase, {
       [`& .${navSectionClasses.item.info}`]: { ...baseStyles.info },
       // State
       ...(active && {
-        color: 'var(--nav-item-root-active-color)',
+        color: 'var(--nav-item-sub-active-color)',
         backgroundColor: 'var(--nav-item-sub-active-bg)',
       }),
       ...(open && {
-        color: '#ffffff',
+        color: 'var(--nav-item-sub-open-color)',
         backgroundColor: 'var(--nav-item-sub-open-bg)',
       }),
     }),

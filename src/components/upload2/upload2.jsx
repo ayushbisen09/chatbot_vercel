@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Button, Box, Typography, InputLabel } from '@mui/material';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { varAlpha } from 'src/theme/styles';
 import { useDropzone } from 'react-dropzone';
+
+import { Box, Button, Typography, InputLabel } from '@mui/material';
+
+// import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { varAlpha } from 'src/theme/styles';
 
 const FileUpload = ({ placeholder, error, disabled, sx, onFileUpload, ...other }) => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -58,7 +60,7 @@ const FileUpload = ({ placeholder, error, disabled, sx, onFileUpload, ...other }
           style={{ display: 'none' }}
           id="contained-button-file"
         />
-        <Button size="large" variant="" component="span" startIcon={<CloudUploadIcon />}>
+        <Button size="large" variant="" component="span">
           {placeholder || 'Upload CSV File'}
         </Button>
       </InputLabel>

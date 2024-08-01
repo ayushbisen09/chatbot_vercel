@@ -1,23 +1,22 @@
-import { useCallback, useState } from 'react';
+import { useTheme } from '@emotion/react';
+import { useState, useCallback } from 'react';
+
+import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import MenuList from '@mui/material/MenuList';
-import MenuItem from '@mui/material/MenuItem';
-import TextField from '@mui/material/TextField';
-import InputAdornment from '@mui/material/InputAdornment';
 import Button from '@mui/material/Button';
 import Popover from '@mui/material/Popover';
-import Select from '@mui/material/Select';
+import MenuList from '@mui/material/MenuList';
+import MenuItem from '@mui/material/MenuItem';
+import { useMediaQuery } from '@mui/material';
+import TextField from '@mui/material/TextField';
+import IconButton from '@mui/material/IconButton';
 import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Box from '@mui/material/Box';
+import InputAdornment from '@mui/material/InputAdornment';
+
+import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Iconify } from 'src/components/iconify';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
-import { useMediaQuery } from '@mui/material';
-import { useTheme } from '@emotion/react';
-
-import IconButton from '@mui/material/IconButton';
-import { useBoolean } from 'src/hooks/use-boolean';
 
 // ----------------------------------------------------------------------
 
@@ -33,8 +32,8 @@ export function ChatAssignmentTableToolbar({ filters, onResetPage, dateError }) 
   const [operator, setOperator] = useState('contains');
   const [filterValue, setFilterValue] = useState('');
 
-  const chatassignmentrule_status = ['Online', 'Offline','Both']; // Add your actual column names here
-  const columns = ['Online', 'Offline' ,'Both']; // Add your actual column names here
+  const chatassignmentrule_status = ['Online', 'Offline', 'Both']; // Add your actual column names here
+  const columns = ['Online', 'Offline', 'Both']; // Add your actual column names here
 
   const handleFilterName = useCallback(
     (event) => {
@@ -83,15 +82,9 @@ export function ChatAssignmentTableToolbar({ filters, onResetPage, dateError }) 
         direction={{ xs: 'column', md: 'row' }}
         sx={{ p: 2.5, pr: { xs: 2.5, md: 1 } }}
       >
-        <Stack
-          direction="row"
-          alignItems="center"
-          spacing={2}
-          flexGrow={1}
-          sx={{  width: 1 }}
-        >
+        <Stack direction="row" alignItems="center" spacing={2} flexGrow={1} sx={{ width: 1 }}>
           <TextField
-          sx={{mr:'5px'}}
+            sx={{ mr: '5px' }}
             fullWidth
             value={filters.state.name}
             onChange={handleFilterName}
@@ -105,7 +98,7 @@ export function ChatAssignmentTableToolbar({ filters, onResetPage, dateError }) 
             }}
           />
           <Button
-           sx={{ml:'5px'}}
+            sx={{ ml: '5px' }}
             size="large"
             variant=""
             startIcon={<Iconify icon="mdi:filter" />}
@@ -113,7 +106,7 @@ export function ChatAssignmentTableToolbar({ filters, onResetPage, dateError }) 
           >
             Filters
           </Button>
-          <IconButton  color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
+          <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
             <Iconify icon="eva:more-vertical-fill" />
           </IconButton>
         </Stack>

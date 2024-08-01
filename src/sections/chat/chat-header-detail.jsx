@@ -8,7 +8,6 @@ import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import ListItemText from '@mui/material/ListItemText';
-import AvatarGroup, { avatarGroupClasses } from '@mui/material/AvatarGroup';
 
 import { useResponsive } from 'src/hooks/use-responsive';
 
@@ -40,8 +39,6 @@ export function ChatHeaderDetail({ collapseNav, participants, loading }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lgUp]);
-
-  
 
   const renderSingle = (
     <Stack direction="row" alignItems="center" spacing={2}>

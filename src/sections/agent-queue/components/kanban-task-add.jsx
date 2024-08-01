@@ -1,8 +1,5 @@
 import Paper from '@mui/material/Paper';
-
 import ClickAwayListener from '@mui/material/ClickAwayListener';
-
-import { _mock } from 'src/_mock';
 
 // ----------------------------------------------------------------------
 

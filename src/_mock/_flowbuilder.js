@@ -6,7 +6,6 @@ export const FLOWBUILDER_STATUS_OPTIONS = [
   // { value: 'pending', label: 'Active' },
   { value: 'active', label: 'Active' },
   { value: 'inactive', label: 'Inactive' },
-  
 ];
 
 const ITEMS = [...Array(3)].map((_, index) => ({
@@ -24,7 +23,7 @@ export const _flowbuilder = [...Array(20)].map((_, index) => {
     status = 'active';
   } else {
     status = 'inactive';
-  } 
+  }
 
   const shipping = 10;
 
@@ -89,5 +88,3 @@ export const _flowbuilder = [...Array(20)].map((_, index) => {
 // import { _mock } from './_mock';
 
 // ----------------------------------------------------------------------
-
-

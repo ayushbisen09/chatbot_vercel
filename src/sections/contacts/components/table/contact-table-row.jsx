@@ -11,16 +11,14 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
 import ListItemText from '@mui/material/ListItemText';
+import { Divider, Checkbox, Typography } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
-import { fDate, fTime } from 'src/utils/format-time';
-
 import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
-
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
-import { Checkbox, Divider, Typography } from '@mui/material';
+
 import { ConfirmDialog } from '../custom-dialog';
 
 export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteRow }) {
@@ -279,8 +277,8 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             <Iconify icon="solar:pen-bold" />
             Edit Contact
           </MenuItem>
-          
-          <Divider style={{borderStyle:'dashed'}}/>
+
+          <Divider style={{ borderStyle: 'dashed' }} />
           <MenuItem
             onClick={() => {
               confirm.onTrue();

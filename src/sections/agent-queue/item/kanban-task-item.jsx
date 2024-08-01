@@ -1,11 +1,10 @@
 // import { useSortable } from '@dnd-kit/sortable';
+import { useState, useEffect } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
-import { useState, useEffect, useCallback } from 'react';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import ItemBase from './item-base';
-
 
 // ----------------------------------------------------------------------
 
@@ -21,24 +20,20 @@ export function KanbanTaskItem({ task, disabled, columnId, sx }) {
   const mountedWhileDragging = isDragging && !mounted;
 
   return (
-    
-      <ItemBase
-        ref={disabled ? undefined : setNodeRef}
-        task={task}
-        onClick={openDetails.onTrue}
-        stateProps={{
-          transform,
-          listeners,
-          transition,
-          sorting: isSorting,
-          dragging: isDragging,
-          fadeIn: mountedWhileDragging,
-        }}
-        // sx={{ ...(openDetails.value && { [`& .${imageClasses.root}`]: { opacity: 0.8 } }), ...sx }}
-      />
-
-      
-    
+    <ItemBase
+      ref={disabled ? undefined : setNodeRef}
+      task={task}
+      onClick={openDetails.onTrue}
+      stateProps={{
+        transform,
+        listeners,
+        transition,
+        sorting: isSorting,
+        dragging: isDragging,
+        fadeIn: mountedWhileDragging,
+      }}
+      // sx={{ ...(openDetails.value && { [`& .${imageClasses.root}`]: { opacity: 0.8 } }), ...sx }}
+    />
   );
 }
 

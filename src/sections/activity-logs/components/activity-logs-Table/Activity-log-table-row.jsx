@@ -1,15 +1,9 @@
 import React, { useState } from 'react';
 
 import Box from '@mui/material/Box';
-
 import Stack from '@mui/material/Stack';
-
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
-
-import ListItemText from '@mui/material/ListItemText';
-
-import { fDate, fTime } from 'src/utils/format-time';
 
 import { Label } from 'src/components/label';
 
@@ -101,7 +95,6 @@ export function ActivitylogTableRow({ row, selected, onViewRow, onSelectRow, onD
               }}
             >
               6671324303c8782026584551846
-             
             </Box>
           </Stack>
         </Stack>

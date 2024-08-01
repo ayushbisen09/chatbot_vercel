@@ -1,16 +1,16 @@
-import { memo, useEffect, forwardRef, useState } from 'react';
+import { memo, useState, useEffect, forwardRef } from 'react';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 import ListItem from '@mui/material/ListItem';
-import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import { Select, MenuItem, FormControl } from '@mui/material';
 
 import { varAlpha, stylesMode } from 'src/theme/styles';
 
 import { Iconify } from 'src/components/iconify';
-import { FormControl, Select, MenuItem } from '@mui/material';
 
 import { kanbanClasses } from '../classes';
 

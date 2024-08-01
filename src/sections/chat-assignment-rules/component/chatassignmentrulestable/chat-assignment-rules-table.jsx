@@ -17,11 +17,14 @@ import { fIsAfter, fIsBetween } from 'src/utils/format-time';
 
 import { CONFIG } from 'src/config-global';
 import { varAlpha } from 'src/theme/styles';
+import {
+  _chatassignmentrules,
+  CHATASSIGNMENTRULE_STATUS_OPTIONS,
+} from 'src/_mock/_chatassignmentrules';
 
 import { Label } from 'src/components/label';
 import { toast } from 'src/components/snackbar';
 import { Iconify } from 'src/components/iconify';
-import { Scrollbar } from 'src/components/scrollbar';
 import {
   useTable,
   emptyRows,
@@ -33,13 +36,9 @@ import {
   TableSelectedAction,
   TablePaginationCustom,
 } from 'src/components/table';
-import {
-  CHATASSIGNMENTRULE_STATUS_OPTIONS,
-  _chatassignmentrules,
-} from 'src/_mock/_chatassignmentrules';
 
-import { ChatAssignmentTableToolbar } from './chat-assignment-rules-table-toolbar';
 import { ChatAssignmentTableRow } from './chat-assignment-rules-table-row';
+import { ChatAssignmentTableToolbar } from './chat-assignment-rules-table-toolbar';
 import { ChatAssignmentTableFiltersResult } from './chat-assignment-rules-table-filtter';
 
 // import { OrderTableRow } from './contact-table-row';
@@ -59,12 +58,12 @@ const TABLE_HEAD = [
   { id: '', width: 88 },
 ];
 const ruleNames = [
-  "Chat Assignment Rule",
-  "Assignment Name Rule",
-  "General Shift Rule",
-  "Priority Assignment Rule",
-  "Custom Rule 1",
-  "Custom Rule 2",
+  'Chat Assignment Rule',
+  'Assignment Name Rule',
+  'General Shift Rule',
+  'Priority Assignment Rule',
+  'Custom Rule 1',
+  'Custom Rule 2',
   // Add more rule names as needed
 ];
 

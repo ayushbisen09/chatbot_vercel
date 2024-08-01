@@ -9,10 +9,7 @@ import { DashboardContent } from 'src/layouts/dashboard';
 export function BlankView({ title = 'Blank' }) {
   return (
     <DashboardContent maxWidth="xl">
-      <Typography variant="h4" sx={{ mb: 1 }}>
-        Hi, Frankie 👋
-      </Typography>
-      <Typography sx={{ color: 'text.secondary' }}>{`Let's learn something new today!`}</Typography>
+      <Typography variant="h4"> {title} </Typography>
 
       <Box
         sx={{

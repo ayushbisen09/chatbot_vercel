@@ -1,11 +1,11 @@
 import Stack from '@mui/material/Stack';
 import LinearProgress from '@mui/material/LinearProgress';
-import { Typography, Box, Divider, IconButton } from '@mui/material';
-
-import { Scrollbar } from 'src/components/scrollbar';
-import { Lightbox, useLightBox } from 'src/components/lightbox';
+import { Box, Divider, Typography, IconButton } from '@mui/material';
 
 import { Iconify } from 'src/components/iconify';
+import { Scrollbar } from 'src/components/scrollbar';
+import { Lightbox, useLightBox } from 'src/components/light-box';
+
 import { ChatMessageItem } from './chat-message-item';
 import { useMessagesScroll } from './hooks/use-messages-scroll';
 
@@ -109,7 +109,6 @@ const CustomMessage = ({ text1, text2, text3, src }) => (
           display: 'flex',
           justifyContent: 'center', // Center horizontally
           alignItems: 'center', // Center vertically
-         
         }}
       >
         <IconButton
@@ -130,7 +129,7 @@ const CustomMessage = ({ text1, text2, text3, src }) => (
           Coupan Code
         </Typography>
       </Box>
-      <Divider sx={{  mb: 1,mt:1 }} />
+      <Divider sx={{ mb: 1, mt: 1 }} />
       <Box
         sx={{
           display: 'flex',
@@ -210,13 +209,13 @@ export function ChatMessageList({ messages = [], participants, loading }) {
           src="/assets/images/chatImage/imagechat.png" // Replace with your custom avatar image path
         />
       </Scrollbar>
-{/* 
+
       <Lightbox
         slides={slides}
         open={lightbox.open}
         close={lightbox.onClose}
         index={lightbox.selected}
-      /> */}
+      />
     </>
   );
 }

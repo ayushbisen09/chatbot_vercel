@@ -206,12 +206,12 @@ function useNavColorVars(theme, settings) {
       case 'integrate':
         return {
           layout: {
-            '--layout-nav-bg': '#141A21',
+            '--layout-nav-bg': palette.background.default,
             '--layout-nav-horizontal-bg': varAlpha(palette.background.defaultChannel, 0.8),
             '--layout-nav-border-color': varAlpha(palette.grey['500Channel'], 0.12),
-            '--layout-nav-text-primary-color': '#ffffff',
-            '--layout-nav-text-secondary-color': '#ffffff',
-            '--layout-nav-text-disabled-color': '#ffffff',
+            '--layout-nav-text-primary-color': palette.text.primary,
+            '--layout-nav-text-secondary-color': palette.text.secondary,
+            '--layout-nav-text-disabled-color': palette.text.disabled,
             [stylesMode.dark]: {
               '--layout-nav-border-color': varAlpha(palette.grey['500Channel'], 0.08),
               '--layout-nav-horizontal-bg': varAlpha(palette.background.defaultChannel, 0.96),
@@ -222,12 +222,12 @@ function useNavColorVars(theme, settings) {
       case 'apparent':
         return {
           layout: {
-            '--layout-nav-bg': '#141A21',
+            '--layout-nav-bg': palette.grey[900],
             '--layout-nav-horizontal-bg': varAlpha(palette.grey['900Channel'], 0.96),
             '--layout-nav-border-color': 'transparent',
-            '--layout-nav-text-primary-color': '#ffffff',
-            '--layout-nav-text-secondary-color': '#ffffff',
-            '--layout-nav-text-disabled-color': '#ffffff',
+            '--layout-nav-text-primary-color': palette.common.white,
+            '--layout-nav-text-secondary-color': palette.grey[500],
+            '--layout-nav-text-disabled-color': palette.grey[600],
             [stylesMode.dark]: {
               '--layout-nav-bg': palette.grey[800],
               '--layout-nav-horizontal-bg': varAlpha(palette.grey['800Channel'], 0.8),
@@ -256,13 +256,14 @@ function useNavColorVars(theme, settings) {
         throw new Error(`Invalid color: ${settings.navColor}`);
     }
   }, [
+    palette.background.default,
     palette.background.defaultChannel,
     palette.common.white,
     palette.grey,
     palette.primary.light,
-    // palette.text.disabled,
-    // palette.text.primary,
-    // palette.text.secondary,
+    palette.text.disabled,
+    palette.text.primary,
+    palette.text.secondary,
     settings.navColor,
     settings.navLayout,
   ]);

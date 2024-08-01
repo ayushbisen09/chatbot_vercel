@@ -1,20 +1,18 @@
-import { useCallback, useState } from 'react';
+import { useTheme } from '@emotion/react';
+import { useState, useCallback } from 'react';
+
+import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import MenuList from '@mui/material/MenuList';
-import MenuItem from '@mui/material/MenuItem';
-import TextField from '@mui/material/TextField';
-import InputAdornment from '@mui/material/InputAdornment';
 import Button from '@mui/material/Button';
 import Popover from '@mui/material/Popover';
-import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import { useMediaQuery } from '@mui/material';
+import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Box from '@mui/material/Box';
+import InputAdornment from '@mui/material/InputAdornment';
 
 import { Iconify } from 'src/components/iconify';
-import { usePopover, CustomPopover } from 'src/components/custom-popover';
-import { useMediaQuery } from '@mui/material';
-import { useTheme } from '@emotion/react';
+import { usePopover } from 'src/components/custom-popover';
 
 // ----------------------------------------------------------------------
 
@@ -30,7 +28,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
   const [filterValue, setFilterValue] = useState('');
 
   const whatsapp_status = ['Active', 'Inactive']; // Add your actual column names here
-  const columns= ['Active', 'Inactive']; // Add your actual column names here
+  const columns = ['Active', 'Inactive']; // Add your actual column names here
 
   const handleFilterName = useCallback(
     (event) => {
@@ -140,7 +138,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
             gap: 2,
           }}
         >
-          <FormControl fullWidth sx={{ mb:{ xs:2,sm:2,md:0} }}>
+          <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
             {/* <InputLabel>Whatsapp number Status</InputLabel> */}
             <TextField
               id="select-currency-label-x"
@@ -157,7 +155,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
             </TextField>
           </FormControl>
 
-          <FormControl fullWidth sx={{ mb:{ xs:2,sm:2,md:0} }}>
+          <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
             <TextField
               id="select-currency-label-x"
               variant="outlined"
@@ -172,7 +170,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
               ))}
             </TextField>
           </FormControl>
-          <FormControl fullWidth sx={{ mb:{ xs:2,sm:2,md:0} }}>
+          <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
             <TextField
               id="select-currency-label-x"
               variant="outlined"
@@ -187,8 +185,6 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
               ))}
             </TextField>
           </FormControl>
-
-          
         </Box>
       </Popover>
     </>

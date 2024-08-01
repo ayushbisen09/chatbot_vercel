@@ -1,34 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Box from '@mui/material/Box';
-
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import MenuList from '@mui/material/MenuList';
-
 import MenuItem from '@mui/material/MenuItem';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
-
+import { Divider, Checkbox } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
-
-
 import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
-
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
-import { Checkbox, Divider, Typography } from '@mui/material';
+
 import { ConfirmDialog } from '../custom-dialog';
 
 export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteRow }) {
   const confirm = useBoolean();
 
   const popover = usePopover();
-
-
 
   const renderPrimary = (
     <TableRow hover selected={selected}>
@@ -114,13 +107,10 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
           <Label color="success" variant="soft">
             Good
           </Label>
-          
         </Stack>
       </TableCell>
 
       <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
-        
-
         <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
           <Iconify icon="eva:more-vertical-fill" />
         </IconButton>
@@ -128,13 +118,9 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
     </TableRow>
   );
 
-  
-
   return (
     <>
       {renderPrimary}
-
-      
 
       <CustomPopover
         open={popover.open}
@@ -147,7 +133,6 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             <Iconify icon="solar:copy-bold" />
             Duplicate Template
           </MenuItem>
-          
 
           <Divider style={{ borderStyle: 'dashed' }} />
           <MenuItem

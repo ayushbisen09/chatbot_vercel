@@ -50,18 +50,17 @@ export const paths = {
     },
     agentQueue: `${ROOTS.DASHBOARD}/agentQueue`,
     template: {
-      root:`${ROOTS.DASHBOARD}/template`,
-      addtemplate:`${ROOTS.DASHBOARD}/template/addtemplate`
+      root: `${ROOTS.DASHBOARD}/template`,
+      addtemplate: `${ROOTS.DASHBOARD}/template/addtemplate`,
     },
     broadcast: {
-      root:`${ROOTS.DASHBOARD}/broadcast`,
-      addbroadcast:`${ROOTS.DASHBOARD}/broadcast/addbroadcast`
+      root: `${ROOTS.DASHBOARD}/broadcast`,
+      addbroadcast: `${ROOTS.DASHBOARD}/broadcast/addbroadcast`,
     },
     flows: {
-      root:`${ROOTS.DASHBOARD}/flows`,
-      createflow:`${ROOTS.DASHBOARD}/flows/createflow`,
+      root: `${ROOTS.DASHBOARD}/flows`,
+      createflow: `${ROOTS.DASHBOARD}/flows/createflow`,
     },
-
     group: {
       root: `${ROOTS.DASHBOARD}/group`,
       inboxsettings: `${ROOTS.DASHBOARD}/group/inboxsetting`,

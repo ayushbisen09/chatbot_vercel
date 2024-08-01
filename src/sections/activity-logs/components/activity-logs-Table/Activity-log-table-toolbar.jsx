@@ -1,31 +1,25 @@
-import { useCallback, useState } from 'react';
+import { useTheme } from '@emotion/react';
+import { useState, useCallback } from 'react';
+
+import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import MenuList from '@mui/material/MenuList';
-import MenuItem from '@mui/material/MenuItem';
-import TextField from '@mui/material/TextField';
-import InputAdornment from '@mui/material/InputAdornment';
 import Button from '@mui/material/Button';
 import Popover from '@mui/material/Popover';
-import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import { useMediaQuery } from '@mui/material';
+import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Box from '@mui/material/Box';
+import InputAdornment from '@mui/material/InputAdornment';
+
+import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Iconify } from 'src/components/iconify';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
-import { useMediaQuery } from '@mui/material';
-import { useTheme } from '@emotion/react';
-
-import IconButton from '@mui/material/IconButton';
-import { useBoolean } from 'src/hooks/use-boolean';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { formHelperTextClasses } from '@mui/material/FormHelperText';
 
 // ----------------------------------------------------------------------
 
 export function ActivityLogTableToolbar({ filters, onResetPage, dateError }) {
   const theme = useTheme();
-
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const confirm = useBoolean();
 
@@ -47,17 +41,17 @@ export function ActivityLogTableToolbar({ filters, onResetPage, dateError }) {
   );
 
   const handleFilterStartDate = useCallback(
-    (newValue) => {
+    (event) => {
       onResetPage();
-      filters.setState({ startDate: newValue });
+      filters.setState({ startDate: event.target.value });
     },
     [filters, onResetPage]
   );
 
   const handleFilterEndDate = useCallback(
-    (newValue) => {
+    (event) => {
       onResetPage();
-      filters.setState({ endDate: newValue });
+      filters.setState({ endDate: event.target.value });
     },
     [filters, onResetPage]
   );
@@ -85,31 +79,25 @@ export function ActivityLogTableToolbar({ filters, onResetPage, dateError }) {
         direction={{ xs: 'column', md: 'row' }}
         sx={{ p: 2.5, pr: { xs: 2.5, md: 1 } }}
       >
-        <DatePicker
+        <TextField
           label="Start date"
+          type="date"
           value={filters.state.startDate}
           onChange={handleFilterStartDate}
-          slotProps={{ textField: { fullWidth: true } }}
+          fullWidth
+          InputLabelProps={{ shrink: true }} // Ensure the label stays visible
           sx={{ maxWidth: { md: 200 } }}
         />
-        <DatePicker
+        <TextField
           label="End date"
+          type="date"
           value={filters.state.endDate}
           onChange={handleFilterEndDate}
-          slotProps={{
-            textField: {
-              fullWidth: true,
-              error: dateError,
-              helperText: dateError ? 'End date must be later than start date' : null,
-            },
-          }}
-          sx={{
-            maxWidth: { md: 200 },
-            [`& .${formHelperTextClasses.root}`]: {
-              position: { md: 'absolute' },
-              bottom: { md: -40 },
-            },
-          }}
+          fullWidth
+          error={dateError}
+          helperText={dateError ? 'End date must be later than start date' : null}
+          InputLabelProps={{ shrink: true }}
+          sx={{ maxWidth: { md: 200 } }}
         />
         <Stack direction="row" alignItems="center" flexGrow={1} sx={{ width: 1 }}>
           <TextField
@@ -173,7 +161,6 @@ export function ActivityLogTableToolbar({ filters, onResetPage, dateError }) {
           }}
         >
           <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
-            {/* <InputLabel>Whatsapp number Status</InputLabel> */}
             <TextField
               id="select-currency-label-x"
               variant="outlined"
@@ -181,9 +168,9 @@ export function ActivityLogTableToolbar({ filters, onResetPage, dateError }) {
               fullWidth
               label="Activity Log Status"
             >
-              {activitylog_status.map((activitylog_statuss) => (
-                <MenuItem key={activitylog_statuss} value={activitylog_statuss}>
-                  {activitylog_statuss}
+              {activitylog_status.map((status) => (
+                <MenuItem key={status} value={status}>
+                  {status}
                 </MenuItem>
               ))}
             </TextField>

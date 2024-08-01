@@ -19,6 +19,7 @@ import { CONFIG } from 'src/config-global';
 import { varAlpha } from 'src/theme/styles';
 // import { _orders, ORDER_STATUS_OPTIONS } from 'src/_mock';
 
+import { _broadcast, BROADCAST_STATUS_OPTIONS } from 'src/_mock/_broadcast';
 
 import { Label } from 'src/components/label';
 import { toast } from 'src/components/snackbar';
@@ -36,7 +37,6 @@ import {
   TablePaginationCustom,
 } from 'src/components/table';
 
-import { _broadcast, BROADCAST_STATUS_OPTIONS } from 'src/_mock/_broadcast';
 import { OrderTableRow } from './broadcast-table-row';
 import { OrderTableToolbar } from './broadcast-table-toolbar';
 import { OrderTableFiltersResult } from './broadcast-table-filters-result';
@@ -44,7 +44,7 @@ import { OrderTableFiltersResult } from './broadcast-table-filters-result';
 // ----------------------------------------------------------------------
 
 const metadata = { title: `Page one | Dashboard - ${CONFIG.site.name}` };
-const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ... BROADCAST_STATUS_OPTIONS];
+const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...BROADCAST_STATUS_OPTIONS];
 
 const TABLE_HEAD = [
   { id: 'orderNumber', label: 'Broadcast Name', width: 353 },
@@ -171,7 +171,7 @@ export default function BroadcastTable({ sx, icon, title, total, color = 'warnin
                     'default'
                   }
                 >
-                  {['live', 'sent','scheduled'].includes(tab.value)
+                  {['live', 'sent', 'scheduled'].includes(tab.value)
                     ? tableData.filter((user) => user.status === tab.value).length
                     : tableData.length}
                 </Label>

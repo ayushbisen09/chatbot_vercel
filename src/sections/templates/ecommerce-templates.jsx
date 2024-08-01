@@ -1,21 +1,23 @@
 import {
   Box,
   Button,
-  Divider,
-  InputAdornment,
   MenuItem,
   MenuList,
-  Pagination,
-  paginationClasses,
   TextField,
+  Pagination,
   Typography,
+  InputAdornment,
+  paginationClasses,
 } from '@mui/material';
-import PageHeader from 'src/components/page-header/page_header';
-import { Iconify } from 'src/components/iconify';
+
 import { useBoolean } from 'src/hooks/use-boolean';
-import { CustomPopover, usePopover } from 'src/components/custom-popover';
-import ChatBox from 'src/components/chatbox/chatbox';
+
+import { Iconify } from 'src/components/iconify';
+import ChatBox from 'src/components/chat-box/chat-box';
+import { usePopover, CustomPopover } from 'src/components/custom-popover';
+
 import Image1 from '../../assets/images/chatImage/imagechat.png';
+
 // import Image2 from '../../assets/images/chatImage/Video.png';
 
 export default function EcommTemplatesRender() {
@@ -74,7 +76,7 @@ export default function EcommTemplatesRender() {
         </CustomPopover>
       </Box>
       <Box
-      sx={{mt:'24px'}}
+        sx={{ mt: '24px' }}
         gap={3}
         display="grid"
         gridTemplateColumns={{ xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' }}

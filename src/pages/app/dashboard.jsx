@@ -1,4 +1,4 @@
-import 'react-modal-video/css/modal-video.min.css';
+// import 'react-modal-video/css/modal-video.min.css';
 
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
@@ -11,9 +11,9 @@ import { DashboardContent } from 'src/layouts/dashboard';
 
 import { Iconify } from 'src/components/iconify';
 import StatsCards from 'src/components/stats-card/stats-card';
-import PageHeader from 'src/components/page-header/page_header';
+import PageHeader from 'src/components/page-header/page-header';
 
-import BigCard from 'src/sections/dashbaord/components/bigcard/bigcard';
+import BigCard from 'src/sections/dashbaord/components/big-card/big-card';
 import DashboardTable from 'src/sections/dashbaord/components/table/table';
 import { WhatsAppDialog } from 'src/sections/dashbaord/hooks/add-whatsApp-number';
 
@@ -23,8 +23,6 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-
-  
 
   const dialog = useBoolean();
   return (
@@ -112,4 +110,3 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
     </DashboardContent>
   );
 }
-

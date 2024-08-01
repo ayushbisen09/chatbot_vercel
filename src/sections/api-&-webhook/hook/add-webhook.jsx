@@ -7,7 +7,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import { Divider, Tooltip,TextField,useMediaQuery,InputAdornment   } from '@mui/material';
+import { Divider, Tooltip, TextField, useMediaQuery, InputAdornment } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
@@ -93,7 +93,7 @@ export function WebhookDialog({ title, content, action, open, onClose, ...other 
           label="Webhook URL"
           helperText={
             <span>
-              Ensure that the webhook URL is correct. {' '}
+              Ensure that the webhook URL is correct.{' '}
               <Link href="#" style={{ color: '#078DEE' }} underline="always">
                 Learn more
               </Link>

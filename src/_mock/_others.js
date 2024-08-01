@@ -53,9 +53,7 @@ export const _templates = [...Array(20)].map((_, index) => {
   const status = statuses[index % 5];
 
   return {
-  
     status,
-    
   };
 });
 

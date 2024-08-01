@@ -1,12 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 
-import Typography from '@mui/material/Typography';
-
-import { paths } from 'src/routes/paths';
 import { useRouter, useSearchParams } from 'src/routes/hooks';
 
 import { CONFIG } from 'src/config-global';
-import { DashboardContent } from 'src/layouts/dashboard';
 import { useGetContacts, useGetConversation, useGetConversations } from 'src/actions/chat';
 
 import { EmptyContent } from 'src/components/empty-content';
@@ -21,7 +17,6 @@ import { ChatMessageInput } from '../chat-message-input';
 import { ChatHeaderDetail } from '../chat-header-detail';
 import { ChatHeaderCompose } from '../chat-header-compose';
 import { useCollapseNav } from '../hooks/use-collapse-nav';
-
 
 // ----------------------------------------------------------------------
 
@@ -64,74 +59,68 @@ export function ChatView() {
   }, []);
 
   return (
-    <
-    >
-     
-
-      <Layout
-        sx={{
-          mt: "40px",
-          minHeight: 680
-          ,
-          flex: '1 1 0',
-          borderRadius: 2,
-          position: 'relative',
-          bgcolor: 'background.paper',
-          boxShadow: (theme) => theme.customShadows.card,
-        }}
-        slots={{
-          header: selectedConversationId ? (
-            <ChatHeaderDetail
-              collapseNav={roomNav}
-              participants={participants}
-              loading={conversationLoading}
-            />
-          ) : (
-            <ChatHeaderCompose contacts={contacts} onAddRecipients={handleAddRecipients} />
-          ),
-          nav: (
-            <ChatNav
-              contacts={contacts}
-              conversations={conversations}
-              loading={conversationsLoading}
-              selectedConversationId={selectedConversationId}
-              collapseNav={conversationsNav}
-            />
-          ),
-          main: (
-            <>
-              {selectedConversationId ? (
-                <ChatMessageList
-                  messages={conversation?.messages ?? []}
-                  participants={participants}
-                  loading={conversationLoading}
-                />
-              ) : (
-                <EmptyContent
-                  imgUrl={`${CONFIG.site.basePath}/assets/icons/empty/ic-chat-active.svg`}
-                  title="Good morning!"
-                  description="Write something awesome..."
-                />
-              )}
-
-              <ChatMessageInput
-                recipients={recipients}
-                onAddRecipients={handleAddRecipients}
-                selectedConversationId={selectedConversationId}
-                disabled={!recipients.length && !selectedConversationId}
+    <Layout
+      sx={{
+        mt: '40px',
+        minHeight: 680,
+        flex: '1 1 0',
+        borderRadius: 2,
+        position: 'relative',
+        bgcolor: 'background.paper',
+        boxShadow: (theme) => theme.customShadows.card,
+      }}
+      slots={{
+        header: selectedConversationId ? (
+          <ChatHeaderDetail
+            collapseNav={roomNav}
+            participants={participants}
+            loading={conversationLoading}
+          />
+        ) : (
+          <ChatHeaderCompose contacts={contacts} onAddRecipients={handleAddRecipients} />
+        ),
+        nav: (
+          <ChatNav
+            contacts={contacts}
+            conversations={conversations}
+            loading={conversationsLoading}
+            selectedConversationId={selectedConversationId}
+            collapseNav={conversationsNav}
+          />
+        ),
+        main: (
+          <>
+            {selectedConversationId ? (
+              <ChatMessageList
+                messages={conversation?.messages ?? []}
+                participants={participants}
+                loading={conversationLoading}
               />
-            </>
-          ),
-          details: selectedConversationId && (
-            <ChatRoom
-              collapseNav={roomNav}
-              participants={participants}
-              loading={conversationLoading}
-              messages={conversation?.messages ?? []}
+            ) : (
+              <EmptyContent
+                imgUrl={`${CONFIG.site.basePath}/assets/icons/empty/ic-chat-active.svg`}
+                title="Good morning!"
+                description="Write something awesome..."
+              />
+            )}
+
+            <ChatMessageInput
+              recipients={recipients}
+              onAddRecipients={handleAddRecipients}
+              selectedConversationId={selectedConversationId}
+              disabled={!recipients.length && !selectedConversationId}
             />
-          ),
-        }}
-      />
-    </>
+          </>
+        ),
+        details: selectedConversationId && (
+          <ChatRoom
+            collapseNav={roomNav}
+            participants={participants}
+            loading={conversationLoading}
+            messages={conversation?.messages ?? []}
+          />
+        ),
+      }}
+    />
   );
 }

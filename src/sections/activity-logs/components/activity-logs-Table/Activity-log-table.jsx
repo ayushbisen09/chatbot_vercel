@@ -17,7 +17,7 @@ import { fIsAfter, fIsBetween } from 'src/utils/format-time';
 
 import { CONFIG } from 'src/config-global';
 import { varAlpha } from 'src/theme/styles';
-
+import { _activitylog, ACTIVITYLOG_STATUS_OPTIONS } from 'src/_mock/_activitylog';
 
 import { Label } from 'src/components/label';
 import { toast } from 'src/components/snackbar';
@@ -35,12 +35,9 @@ import {
   TablePaginationCustom,
 } from 'src/components/table';
 
-
-import { ACTIVITYLOG_STATUS_OPTIONS,_activitylog } from 'src/_mock/_activitylog';
-import { ActivitylogTableRow } from 'src/sections/activity-logs/components/activity-logs-Table/Activity-log-table-row';
-import { ActivityLogTableToolbar } from 'src/sections/activity-logs/components/activity-logs-Table/Activity-log-table-toolbar';
-import { ActivityLogTableFilter } from 'src/sections/activity-logs/components/activity-logs-Table/Activity-log-table-filter';
-
+import { ActivitylogTableRow } from 'src/sections/activity-logs/components/activity-logs-Table/activity-log-table-row';
+import { ActivityLogTableFilter } from 'src/sections/activity-logs/components/activity-logs-Table/activity-log-table-filter';
+import { ActivityLogTableToolbar } from 'src/sections/activity-logs/components/activity-logs-Table/activity-log-table-toolbar';
 
 // ----------------------------------------------------------------------
 
@@ -52,8 +49,7 @@ const TABLE_HEAD = [
   { id: 'name', label: 'Actor ', width: 700 },
   { id: 'createdAt', label: 'Event Source', width: 700 },
   { id: 'status', label: 'Action', width: 700 },
-  { id: 'totalAmount', label: 'Event Data', width: 700,  },
-  
+  { id: 'totalAmount', label: 'Event Data', width: 700 },
 ];
 
 export default function ActivityLogTable({ sx, icon, title, total, color = 'warning', ...other }) {

@@ -2,7 +2,6 @@ import 'react-modal-video/css/modal-video.min.css';
 
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
-import Grid from '@mui/material/Unstable_Grid2';
 import { Button, useMediaQuery } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
@@ -11,22 +10,13 @@ import { DashboardContent } from 'src/layouts/dashboard';
 
 import { Iconify } from 'src/components/iconify';
 import StatsCards from 'src/components/stats-card/stats-card';
-import PageHeader from 'src/components/page-header/page_header';
-import ChatAssignmentTable from 'src/sections/chat-assignment-rules/component/chatassignmentrulestable/chat-assignment-rules-table';
+import PageHeader from 'src/components/page-header/page-header';
 
-import BigCard from 'src/sections/dashbaord/components/bigcard/bigcard';
 import FlowBuilderTable from 'src/sections/flow-builder/component/flowbuildertable/flow-builder-table';
-import { useNavigate } from 'react-router';
 
 // ----------------------------------------------------------------------
 
 export default function Page({ sx, icon, title, total, color = 'warning', ...other }) {
-  const navigate = useNavigate();
-
-  const navigateTo = () => {
-    // Replace '/your-page' with the path you want to navigate to
-    navigate('/app/flows/createflow');
-  };
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -49,7 +39,7 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
           link_added="#"
         />
         <Button
-          onClick={navigateTo}
+          onClick={dialog.onTrue}
           sx={{ mt: isMobile ? 2 : 0 }}
           startIcon={
             <Iconify icon="heroicons:plus-circle-16-solid" style={{ width: 18, height: 18 }} />
@@ -58,7 +48,7 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
           variant="contained"
           color="primary"
         >
-          Create Flow
+          Add Flow
         </Button>
 
         {/* <WhatsAppDialog open={dialog.value} onClose={dialog.onFalse} /> */}

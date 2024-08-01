@@ -4,7 +4,7 @@ import { useSortable, defaultAnimateLayoutChanges } from '@dnd-kit/sortable';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
-import { createTask, clearColumn, deleteColumn, updateColumn } from 'src/actions/kanban';
+import { createTask, updateColumn } from 'src/actions/kanban';
 
 import { toast } from 'src/components/snackbar';
 

@@ -1,23 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Box from '@mui/material/Box';
-
 import Stack from '@mui/material/Stack';
-
 import MenuList from '@mui/material/MenuList';
-
 import MenuItem from '@mui/material/MenuItem';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
+import { Divider, Checkbox } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
-
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
-import { Checkbox, Divider, Typography } from '@mui/material';
 // import { ConfirmDialog } from '../custom-dialog';
 const flowNames = [
   'send_offer_message_on_whatsapp',
@@ -46,7 +42,7 @@ export function FlowBuilderTableRow({ row, selected, onSelectRow, flowIndex }) {
   };
   const formatDate = (date) => {
     const optionsDate = { month: 'short', day: 'numeric', year: 'numeric' };
-    const optionsTime = { hour: '2-digit', minute: '2-digit', second: '2-digit',hour12: false };
+    const optionsTime = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
     return {
       date: new Intl.DateTimeFormat('en-US', optionsDate).format(date),
       time: new Intl.DateTimeFormat('en-US', optionsTime).format(date),
@@ -138,7 +134,7 @@ export function FlowBuilderTableRow({ row, selected, onSelectRow, flowIndex }) {
             <Iconify icon="solar:copy-bold" />
             Clone Flow
           </MenuItem>
-          
+
           <MenuItem sx={{ color: '' }}>
             <Iconify icon="solar:pen-bold" />
             Edit Flow

@@ -12,7 +12,6 @@ export const SvgColor = forwardRef(({ src, className, sx, ...other }, ref) => (
     component="span"
     className={svgColorClasses.root.concat(className ? ` ${className}` : '')}
     sx={{
-      // color: '#ffffff',
       width: 24,
       height: 24,
       flexShrink: 0,

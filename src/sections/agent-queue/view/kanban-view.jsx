@@ -11,9 +11,9 @@ import {
   useSensors,
   MouseSensor,
   TouchSensor,
-  KeyboardSensor,
   closestCenter,
   pointerWithin,
+  KeyboardSensor,
   rectIntersection,
   getFirstCollision,
   MeasuringStrategy,
@@ -55,7 +55,7 @@ const cssVars = {
 export function KanbanView() {
   const { board, boardLoading, boardEmpty } = useGetBoard();
 
-  const [columnFixed ] = useState(true);
+  const [columnFixed] = useState(true);
   const recentlyMovedToNewContainer = useRef(false);
 
   const lastOverId = useRef(null);
@@ -91,9 +91,7 @@ export function KanbanView() {
       const pointerIntersections = pointerWithin(args);
 
       const intersections =
-        pointerIntersections.length > 0
-          ? pointerIntersections
-          : rectIntersection(args);
+        pointerIntersections.length > 0 ? pointerIntersections : rectIntersection(args);
 
       let overId = getFirstCollision(intersections, 'id');
 
@@ -280,13 +278,13 @@ export function KanbanView() {
             }}
           >
             <SortableContext
-              items={[...filteredColumns.map(column => column.id), PLACEHOLDER_ID]}
+              items={[...filteredColumns.map((column) => column.id), PLACEHOLDER_ID]}
               strategy={horizontalListSortingStrategy}
             >
               {filteredColumns.map((column) => (
                 <KanbanColumn key={column.id} column={column} tasks={board.tasks[column.id]}>
                   <SortableContext
-                    items={board.tasks[column.id].map(task => task.id)} // Ensure unique IDs are used
+                    items={board.tasks[column.id].map((task) => task.id)} // Ensure unique IDs are used
                     strategy={verticalListSortingStrategy}
                   >
                     {board.tasks[column.id].map((task) => (

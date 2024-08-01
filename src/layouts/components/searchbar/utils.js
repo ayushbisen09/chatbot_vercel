@@ -10,8 +10,8 @@ export function getAllItems({ data }) {
 
     return {
       group: group && group.length > 1 ? group[0] : option.subheader,
-      title: 'WhatsApp Number: +91 9425124879',
-      path: 'WhatsApp Business Account ID: 11735944545573',
+      title: option.title,
+      path: option.path,
     };
   });
 

@@ -1,17 +1,19 @@
-import { Helmet } from 'react-helmet-async';
+import { Fragment } from 'react';
+import { useTheme } from '@emotion/react';
+import { useNavigate } from 'react-router';
 
-import { Box, Button, Tab, Tabs, Typography, useMediaQuery } from '@mui/material';
+import { Box, Tab, Tabs, Button, useMediaQuery } from '@mui/material';
+
+import { useTabs } from 'src/hooks/use-tabs';
 
 import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';
-import PageHeader from 'src/components/page-header/page_header';
+
 import { Iconify } from 'src/components/iconify';
-import { useTheme } from '@emotion/react';
-import { useTabs } from 'src/hooks/use-tabs';
-import YourTemplate from 'src/sections/templates/yourtemplates';
-import ExploreTemplate from 'src/sections/templates/exploretemplates';
-import { Fragment } from 'react';
-import { useNavigate } from 'react-router';
+import PageHeader from 'src/components/page-header/page-header';
+
+import YourTemplate from 'src/sections/templates/your-templates';
+import ExploreTemplate from 'src/sections/templates/explore-templates';
 
 // import { BlankView } from 'src/sections/blank/view';
 
@@ -24,18 +26,26 @@ export default function Page() {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const basicTabs = useTabs('one');
   const TABS = [
-    { value: 'one', icon: <Iconify icon="fluent:book-template-20-filled" width={24} />, label: 'Your Templates',form: <YourTemplate /> },
-    { value: 'two', icon: <Iconify icon="fluent:calendar-template-20-filled" width={24} />, label: 'Explore Templates', form:<ExploreTemplate/> },
+    {
+      value: 'one',
+      icon: <Iconify icon="fluent:book-template-20-filled" width={24} />,
+      label: 'Your Templates',
+      form: <YourTemplate />,
+    },
+    {
+      value: 'two',
+      icon: <Iconify icon="fluent:calendar-template-20-filled" width={24} />,
+      label: 'Explore Templates',
+      form: <ExploreTemplate />,
+    },
   ];
+
   const navigate = useNavigate();
-
-  const navigateTo = () => {
-    // Replace '/your-page' with the path you want to navigate to
-    navigate('/app/template/addtemplate');
+  const handleAddTemplate = () => {
+    navigate('/dashboard/template/addtemplate');
   };
-
   return (
-    <DashboardContent maxWidth='xl'>
+    <DashboardContent maxWidth="xl">
       <Box
         sx={{
           display: 'flex',
@@ -52,7 +62,7 @@ export default function Page() {
         />
 
         <Button
-          onClick={navigateTo}
+          onClick={handleAddTemplate}
           sx={{ mt: isMobile ? 2 : 0 }}
           startIcon={
             <Iconify icon="heroicons:plus-circle-16-solid" style={{ width: 18, height: 18 }} />
@@ -64,7 +74,7 @@ export default function Page() {
           Add New Template
         </Button>
       </Box>
-      <Tabs value={basicTabs.value} onChange={basicTabs.onChange} sx={{mt:'40px'}}>
+      <Tabs value={basicTabs.value} onChange={basicTabs.onChange} sx={{ mt: '40px' }}>
         {TABS.slice(0, 3).map((tab) => (
           <Tab
             key={tab.value}
@@ -75,10 +85,10 @@ export default function Page() {
           />
         ))}
       </Tabs>
-      
-        {TABS.slice(0, 3).map((tab) =>
-          tab.value === basicTabs.value ? <Fragment key={tab.value}>{tab.form}</Fragment> : null
-        )}
+
+      {TABS.slice(0, 3).map((tab) =>
+        tab.value === basicTabs.value ? <Fragment key={tab.value}>{tab.form}</Fragment> : null
+      )}
     </DashboardContent>
   );
 }

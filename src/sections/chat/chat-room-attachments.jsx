@@ -1,5 +1,4 @@
 import Stack from '@mui/material/Stack';
-import Collapse from '@mui/material/Collapse';
 import ListItemText from '@mui/material/ListItemText';
 
 import { useBoolean } from 'src/hooks/use-boolean';
@@ -7,8 +6,6 @@ import { useBoolean } from 'src/hooks/use-boolean';
 import { fDateTime } from 'src/utils/format-time';
 
 import { FileThumbnail } from 'src/components/file-thumbnail';
-
-import { CollapseButton } from './styles';
 
 // ----------------------------------------------------------------------
 

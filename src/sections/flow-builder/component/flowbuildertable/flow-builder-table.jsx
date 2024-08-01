@@ -15,13 +15,12 @@ import { useSetState } from 'src/hooks/use-set-state';
 
 import { fIsAfter, fIsBetween } from 'src/utils/format-time';
 
-import { CONFIG } from 'src/config-global';
 import { varAlpha } from 'src/theme/styles';
+import { _flowbuilder, FLOWBUILDER_STATUS_OPTIONS } from 'src/_mock/_flowbuilder';
 
 import { Label } from 'src/components/label';
 import { toast } from 'src/components/snackbar';
 import { Iconify } from 'src/components/iconify';
-import { Scrollbar } from 'src/components/scrollbar';
 import {
   useTable,
   emptyRows,
@@ -34,11 +33,9 @@ import {
   TablePaginationCustom,
 } from 'src/components/table';
 
-import { FLOWBUILDER_STATUS_OPTIONS, _flowbuilder } from 'src/_mock/_flowbuilder';
-
-import { FlowBuilderTableFiltersResult } from './flow-builder-table-filter';
 import { FlowBuilderTableRow } from './flow-builder-table-row';
 import { FlowBuilderTableToolbar } from './flow-builder-table-toolbar';
+import { FlowBuilderTableFiltersResult } from './flow-builder-table-filter';
 
 const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...FLOWBUILDER_STATUS_OPTIONS];
 
@@ -49,9 +46,6 @@ const TABLE_HEAD = [
 
   { id: '', width: 88 },
 ];
-
-
-
 
 export default function FlowBuilderTable({ sx, icon, title, total, color = 'warning', ...other }) {
   const theme = useTheme();

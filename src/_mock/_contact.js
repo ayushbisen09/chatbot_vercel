@@ -19,10 +19,9 @@ const ITEMS = [...Array(3)].map((_, index) => ({
 }));
 
 export const _contacts = [...Array(20)].map((_, index) => {
-  
-  const status = index % 2 ===0 ? 'opted-in' : 'opted-out';
-  // console.log(`Index: ${index}, Status: ${status}`); 
-  
+  const status = index % 2 === 0 ? 'opted-in' : 'opted-out';
+  // console.log(`Index: ${index}, Status: ${status}`);
+
   const shipping = 10;
 
   const discount = 10;

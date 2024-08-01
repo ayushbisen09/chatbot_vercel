@@ -79,8 +79,6 @@ const ColumnBase = forwardRef(({ slots, stateProps, sx, ...other }, ref) => {
         >
           {slots.main}
         </Box>
-        
-        
       )}
     </StyledRoot>
   );

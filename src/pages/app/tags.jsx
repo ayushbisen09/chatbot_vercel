@@ -9,11 +9,10 @@ import { DashboardContent } from 'src/layouts/dashboard';
 
 import { useTable } from 'src/components/table';
 import { Iconify } from 'src/components/iconify';
+import PageHeader from 'src/components/page-header/page-header';
 
-import { OrderListView } from 'src/sections/tag copy';
-
-import { TagDialog } from 'src/sections/tag copy/hook/popup';
-import PageHeader from 'src/components/page-header/page_header';
+import { TagDialog } from 'src/sections/tag/hook/tag-dialog';
+import { Tagtable } from 'src/sections/tag/component/tag-table/tag-table';
 
 const columns = [
   {
@@ -152,14 +151,18 @@ const TagsPage = () => {
 
   return (
     <DashboardContent maxWidth="xl" backgroundColor="">
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-      <PageHeader title="Tags" Subheading="The first message tag signifies the interest of the user towards a particular product or
-            service." showButton= 'True'/>
-             <Button
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <PageHeader
+          title="Tags"
+          Subheading="The first message tag signifies the interest of the user towards a particular product or
+            service."
+          showButton="True"
+        />
+        <Button
           variant="contained"
           onClick={dialog.onTrue}
           sx={{
-             backgroundColor: '#078dee',
+            backgroundColor: '#078dee',
             '&:hover': {
               backgroundColor: '#0351ab',
             },
@@ -176,7 +179,7 @@ const TagsPage = () => {
       </Box>
       <Box sx={{ mt: 4 }} />
 
-      <OrderListView />
+      <Tagtable />
     </DashboardContent>
   );
 };

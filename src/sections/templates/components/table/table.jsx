@@ -15,10 +15,10 @@ import { useSetState } from 'src/hooks/use-set-state';
 
 import { fIsAfter, fIsBetween } from 'src/utils/format-time';
 
-import { CONFIG } from 'src/config-global';
-import { varAlpha } from 'src/theme/styles';
 // import { _orders, ORDER_STATUS_OPTIONS } from 'src/_mock';
 import { _templates } from 'src/_mock';
+import { CONFIG } from 'src/config-global';
+import { varAlpha } from 'src/theme/styles';
 import { TEMPLATES_STATUS_OPTIONS } from 'src/_mock/_templates';
 
 import { Label } from 'src/components/label';
@@ -47,11 +47,11 @@ const metadata = { title: `Page one | Dashboard - ${CONFIG.site.name}` };
 const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...TEMPLATES_STATUS_OPTIONS];
 
 const TABLE_HEAD = [
-  { id: 'orderNumber', label: 'Status/Date', width: 700},
-  { id: 'name', label: 'Name/Type', width: 700},
+  { id: 'orderNumber', label: 'Status/Date', width: 700 },
+  { id: 'name', label: 'Name/Type', width: 700 },
   { id: 'createdAt', label: 'Category', width: 562 },
   { id: 'status', label: 'Health', width: 515 },
- 
+
   { id: '', width: 88 },
 ];
 
@@ -173,7 +173,7 @@ export default function TemplatesTable({ sx, icon, title, total, color = 'warnin
                     'default'
                   }
                 >
-                  {['approved', 'pending','draft','rejected','deleted'].includes(tab.value)
+                  {['approved', 'pending', 'draft', 'rejected', 'deleted'].includes(tab.value)
                     ? tableData.filter((user) => user.status === tab.value).length
                     : tableData.length}
                 </Label>
@@ -217,7 +217,7 @@ export default function TemplatesTable({ sx, icon, title, total, color = 'warnin
             }
           />
 
-          <Scrollbar sx={{ minHeight: 300,   }}>
+          <Scrollbar sx={{ minHeight: 300 }}>
             <Table size={table.dense ? 'small' : 'medium'}>
               <TableHeadCustom
                 order={table.order}

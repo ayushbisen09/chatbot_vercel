@@ -17,6 +17,3 @@ export const whatsappnumbers = [
   { label: '+1122334455', value: '+1122334455' },
   { label: '+1122334455', value: '+1122334455' },
 ];
-
-  
-

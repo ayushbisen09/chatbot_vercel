@@ -1,18 +1,18 @@
+import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
-
 import Select from '@mui/material/Select';
-import { CONFIG } from 'src/config-global';
-
 import Collapse from '@mui/material/Collapse';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import InputLabel from '@mui/material/InputLabel';
-import Chip from '@mui/material/Chip'; // Added import for Chip
-import FormControl from '@mui/material/FormControl';
+
+import { CONFIG } from 'src/config-global'; // Added import for Chip
 import TextField from '@mui/material/TextField';
+import FormControl from '@mui/material/FormControl';
 import InputAdornment from '@mui/material/InputAdornment'; // Added import for InputAdornment
 import { useState } from 'react';
+
 import Autocomplete from '@mui/material/Autocomplete';
 
 import { useBoolean } from 'src/hooks/use-boolean';
