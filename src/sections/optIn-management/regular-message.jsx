@@ -5,11 +5,13 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import {
   Box,
   Card,
+  Alert,
   Avatar,
   Button,
   Divider,
   Tooltip,
   MenuItem,
+  Snackbar,
   TextField,
   CardHeader,
   Typography,
@@ -22,6 +24,23 @@ import FileUpload from 'src/components/upload2/upload2';
 export default function RegularMessage() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const handleAdd = () => {
+    // Implement your logic to add WhatsApp number here
+    // For example, you might want to validate the inputs first
+
+    // Show the snackbar
+    setSnackbarOpen(true);
+
+    // Close the dialog after a short delay
+    setTimeout(() => {}, 500);
+  };
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbarOpen(false);
+  };
 
   const CURRENCIES = [
     { value: 'USD', label: '$' },
@@ -45,136 +64,161 @@ export default function RegularMessage() {
   };
 
   return (
-    <Box sx={{ mt: '24px' }}>
-      <Box display="flex" flexDirection={isMobile ? 'column' : 'row'} width="100%">
-        <Box width={isMobile ? '100%' : '60%'} pr={isMobile ? 0 : '12px'}>
-          <TextField
-            sx={{ mb: '24px' }}
-            id="select-currency-label-x"
-            select
-            fullWidth
-            label="Select Regular Message Type"
-            onChange={handleChangeCurrency}
-            helperText="Select one from your WhatsApp approved template messages"
-          >
-            {CURRENCIES.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField rows={4} fullWidth multiline label="Enter message here." />
-          <Divider sx={{ mt: '24px', borderStyle: 'dashed' }} />
-          <TextField
-            sx={{ mt: '24px' }}
-            fullWidth
-            type="text"
-            margin="dense"
-            variant="outlined"
-            label="Header File URL"
-            helperText="Size < 5MB, Accepted formats : .png or .jpeg"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <Tooltip
-                    title="Enter header url"
-                    arrow
-                    placement="top"
-                    sx={{
-                      fontSize: '16px',
-                    }}
-                  >
-                    <Iconify
-                      icon="material-symbols:info-outline"
-                      style={{ width: 20, height: 20 }}
-                    />
-                  </Tooltip>
-                </InputAdornment>
-              ),
-            }}
-          />
-          <Typography
-            sx={{
-              fontSize: '14px',
-              fontWeight: '600',
-              width: '100%',
-              padding: '24px 0px 24px 0px',
-              mr: 0,
-              ml: 0,
-            }}
-          >
-            OR
-          </Typography>
-
-          <FileUpload onFileUpload={handleFileUpload} />
-          {/* <Button sx={{ mt: '24px' }} variant='contained'> Save </Button> */}
-        </Box>
-
-        <Box
-          width={isMobile ? '100%' : '40%'}
-          sx={{ pl: isMobile ? 0 : '12px', mt: isMobile ? '24px' : 0 }}
-        >
-          <Card
-            sx={{
-              border: '1px solid #919EAB33',
-              width: '100%',
-              maxWidth: '500px',
-            }}
-          >
-            <CardHeader
-              sx={{ mb: 2 }}
-              avatar={<Avatar aria-label="profile picture">MC</Avatar>}
-              title={
-                <Typography variant="h7" sx={{ fontSize: 14, fontWeight: '700' }}>
-                  Mireya Conner
-                </Typography>
-              }
-              subheader={
-                <Typography variant="subtitle2" sx={{ fontSize: 12, fontWeight: '400' }}>
-                  Online
-                </Typography>
-              }
+    <>
+      <Box sx={{ mt: '24px' }}>
+        <Box display="flex" flexDirection={isMobile ? 'column' : 'row'} width="100%">
+          <Box width={isMobile ? '100%' : '60%'} pr={isMobile ? 0 : '12px'}>
+            <TextField
+              sx={{ mb: '24px' }}
+              id="select-currency-label-x"
+              select
+              fullWidth
+              label="Select Regular Message Type"
+              onChange={handleChangeCurrency}
+              helperText="Select one from your WhatsApp approved template messages"
+            >
+              {CURRENCIES.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+            <TextField rows={4} fullWidth multiline label="Enter message here." />
+            <Divider sx={{ mt: '24px', borderStyle: 'dashed' }} />
+            <TextField
+              sx={{ mt: '24px' }}
+              fullWidth
+              type="text"
+              margin="dense"
+              variant="outlined"
+              label="Header File URL"
+              helperText="Size < 5MB, Accepted formats : .png or .jpeg"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <Tooltip
+                      title="Enter header url"
+                      arrow
+                      placement="top"
+                      sx={{
+                        fontSize: '16px',
+                      }}
+                    >
+                      <Iconify
+                        icon="material-symbols:info-outline"
+                        style={{ width: 20, height: 20 }}
+                      />
+                    </Tooltip>
+                  </InputAdornment>
+                ),
+              }}
             />
-            <Divider />
             <Typography
-              variant="caption"
               sx={{
-                pr: 2,
-                pt: 3,
-                display: 'flex',
-                color: '#919EAB',
-                justifyContent: 'end',
+                fontSize: '14px',
+                fontWeight: '600',
+                width: '100%',
+                padding: '24px 0px 24px 0px',
+                mr: 0,
+                ml: 0,
               }}
             >
-              4:02 PM
+              OR
             </Typography>
-            <Box
+
+            <FileUpload onFileUpload={handleFileUpload} />
+            {/* <Button sx={{ mt: '24px' }} variant='contained'> Save </Button> */}
+          </Box>
+
+          <Box
+            width={isMobile ? '100%' : '40%'}
+            sx={{ pl: isMobile ? 0 : '12px', mt: isMobile ? '24px' : 0 }}
+          >
+            <Card
               sx={{
-                p: 2,
-                backgroundColor: '#CCF4FE',
-                borderRadius: '8px',
-                m: 2,
+                border: '1px solid #919EAB33',
+                width: '100%',
+                maxWidth: '500px',
               }}
             >
-              <Typography
-                variant="body2"
-                color="text.primary"
-                sx={{ fontSize: 14, fontWeight: '500' }}
-              >
-                Hey,
-                <br />
-                {
-                  ' Thank you for opting-out. In future if you ever want to connect again just send "Hello". '
+              <CardHeader
+                sx={{ mb: 2 }}
+                avatar={<Avatar aria-label="profile picture">MC</Avatar>}
+                title={
+                  <Typography variant="h7" sx={{ fontSize: 14, fontWeight: '700' }}>
+                    Mireya Conner
+                  </Typography>
                 }
+                subheader={
+                  <Typography variant="subtitle2" sx={{ fontSize: 12, fontWeight: '400' }}>
+                    Online
+                  </Typography>
+                }
+              />
+              <Divider />
+              <Typography
+                variant="caption"
+                sx={{
+                  pr: 2,
+                  pt: 3,
+                  display: 'flex',
+                  color: '#919EAB',
+                  justifyContent: 'end',
+                }}
+              >
+                4:02 PM
               </Typography>
-            </Box>
-          </Card>
+              <Box
+                sx={{
+                  p: 2,
+                  backgroundColor: '#CCF4FE',
+                  borderRadius: '8px',
+                  m: 2,
+                }}
+              >
+                <Typography
+                  variant="body2"
+                  color="text.primary"
+                  sx={{ fontSize: 14, fontWeight: '500' }}
+                >
+                  Hey,
+                  <br />
+                  {
+                    ' Thank you for opting-out. In future if you ever want to connect again just send "Hello". '
+                  }
+                </Typography>
+              </Box>
+            </Card>
+          </Box>
         </Box>
+        <Button sx={{ mt: '24px' }} variant="contained" onClick={handleAdd}>
+          {' '}
+          Save{' '}
+        </Button>
       </Box>
-      <Button sx={{ mt: '24px' }} variant="contained">
-        {' '}
-        Save{' '}
-      </Button>
-    </Box>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={30000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        sx={{
+          boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+        }}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity="success"
+          sx={{
+            width: '100%',
+            fontSize: '14px',
+            fontWeight: 'bold',
+            backgroundColor: theme.palette.background.paper,
+            color: theme.palette.text.primary,
+          }}
+        >
+          Opt-Out Configure Message Saved Successfully!
+        </Alert>
+      </Snackbar>
+    </>
   );
 }

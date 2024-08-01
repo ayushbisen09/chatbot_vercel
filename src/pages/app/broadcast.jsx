@@ -26,7 +26,7 @@ export default function Page() {
   const navigate = useNavigate();
 
   const handleAddContact = () => {
-    navigate('/dashboard/contact/addcontact');
+    navigate('/app/broadcast/addbroadcast');
   };
 
   return (

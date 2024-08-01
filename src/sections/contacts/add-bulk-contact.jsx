@@ -100,7 +100,7 @@ export default function AddBulkContact() {
 
   const addContact = () => {
     showToast();
-    navigate('/dashboard/contact');
+    navigate('/app/contact');
   };
   const [isFileUploaded, setIsFileUploaded] = useState(false);
 

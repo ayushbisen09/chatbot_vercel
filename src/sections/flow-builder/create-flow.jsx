@@ -1,5 +1,3 @@
-export default function AddBroadcast(){
-    return(
-        <div>Create Flow</div>
-    )
+export default function CreateFlow() {
+  return <div>Create Flow</div>;
 }

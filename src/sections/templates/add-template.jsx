@@ -197,7 +197,7 @@ export default function AddTemplate() {
 
   const handleCancel = () => {
     // Replace '/your-page' with the path you want to navigate to
-    navigate('/dashboard/template');
+    navigate('/app/template');
   };
 
   const showToast = () => {
@@ -206,7 +206,7 @@ export default function AddTemplate() {
 
   const addTemplate = () => {
     showToast();
-    navigate('/dashboard/template');
+    navigate('/app/template');
   };
 
   return (
