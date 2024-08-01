@@ -1,17 +1,14 @@
-import dayjs from 'dayjs';
 import { useState } from 'react';
 
 import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import InputAdornment from '@mui/material/InputAdornment';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Box, Card, Avatar, Button, Divider, CardHeader } from '@mui/material';
 
 import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';
 
-import { Iconify } from 'src/components/iconify';
 import PageHeader from 'src/components/page-header/page-header';
 
 import {
@@ -42,13 +39,13 @@ export default function Page() {
   };
 
   const [timeValues, setTimeValues] = useState({
-    Mon: { start: dayjs().format('HH:mm'), end: dayjs().format('HH:mm') },
-    Tue: { start: dayjs().format('HH:mm'), end: dayjs().format('HH:mm') },
-    Wed: { start: dayjs().format('HH:mm'), end: dayjs().format('HH:mm') },
-    Thu: { start: dayjs().format('HH:mm'), end: dayjs().format('HH:mm') },
-    Fri: { start: dayjs().format('HH:mm'), end: dayjs().format('HH:mm') },
-    Sat: { start: dayjs().format('HH:mm'), end: dayjs().format('HH:mm') },
-    Sun: { start: dayjs().format('HH:mm'), end: dayjs().format('HH:mm') },
+    Mon: { start: '09:00', end: '17:00' },
+    Tue: { start: '09:00', end: '17:00' },
+    Wed: { start: '09:00', end: '17:00' },
+    Thu: { start: '09:00', end: '17:00' },
+    Fri: { start: '09:00', end: '17:00' },
+    Sat: { start: '09:00', end: '17:00' },
+    Sun: { start: '09:00', end: '17:00' },
   });
   const [daysClosed, setDaysClosed] = useState({
     Mon: false,
@@ -64,10 +61,11 @@ export default function Page() {
     setDaysClosed((prev) => ({ ...prev, [day]: !prev[day] }));
   };
 
-  const handleTimeChange = (day, type, newValue) => {
+  const handleTimeChange = (day, type, event) => {
+    const newValue = event.target.value;
     setTimeValues((prev) => ({
       ...prev,
-      [day]: { ...prev[day], [type]: newValue.target.value },
+      [day]: { ...prev[day], [type]: newValue },
     }));
   };
 
@@ -280,39 +278,31 @@ export default function Page() {
               ) : (
                 <>
                   <TextField
-                    sx={{ width: '25%' }}
+                    type="time"
                     value={timeValues[day].start}
-                    onChange={(newValue) => handleTimeChange(day, 'start', newValue)}
+                    onChange={(event) => handleTimeChange(day, 'start', event)}
                     InputLabelProps={{
                       shrink: true,
                     }}
-                    size="large"
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <Iconify icon="tabler:clock" style={{ width: 24, height: 24 }} />
-                        </InputAdornment>
-                      ),
+                    inputProps={{
+                      step: 300, // 5 min
                     }}
+                    sx={{ width: '25%' }}
                   />
                   <Typography variant="h7" sx={{ fontSize: '14px', fontWeight: '600' }}>
                     To
                   </Typography>
                   <TextField
-                    sx={{ width: '25%' }}
-                    value={timeValues[day].start}
-                    onChange={(newValue) => handleTimeChange(day, 'start', newValue)}
+                    type="time"
+                    value={timeValues[day].end}
+                    onChange={(event) => handleTimeChange(day, 'end', event)}
                     InputLabelProps={{
                       shrink: true,
                     }}
-                    size="large"
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <Iconify icon="tabler:clock" style={{ width: 24, height: 24 }} />
-                        </InputAdornment>
-                      ),
+                    inputProps={{
+                      step: 300, // 5 min
                     }}
+                    sx={{ width: '25%' }}
                   />
                 </>
               )}
