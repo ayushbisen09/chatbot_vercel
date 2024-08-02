@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useTheme } from '@emotion/react';
 import { FormProvider } from 'react-hook-form';
@@ -31,11 +30,21 @@ import { Iconify } from 'src/components/iconify';
 import PageHeader from 'src/components/page-header/page-header';
 
 import RegularMessage from './regular-message';
+import { SelectContactDrawer } from './hook/drawer';
 import PreApprovedMessage from './pre-approved-message';
 
 export default function AddBroadcast() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [openDrawer1, setOpenDrawer1] = useState(false);
+
+  const handleOpenDrawer1 = () => {
+    setOpenDrawer1(true);
+  };
+
+  const handleCloseDrawer1 = () => {
+    setOpenDrawer1(false);
+  };
 
   //   Included Excluded Arrays
 
@@ -150,9 +159,11 @@ export default function AddBroadcast() {
               color="primary"
               startIcon={<Iconify icon="mingcute:add-line" />}
               sx={{ m: '0px 24px 24px 24px', alignSelf: 'flex-start' }}
+              onClick={handleOpenDrawer1}
             >
               Select Contacts
             </Button>
+            <SelectContactDrawer open={openDrawer1} onClose={handleCloseDrawer1} />
 
             {/* Included List */}
             <Box
@@ -342,7 +353,7 @@ export default function AddBroadcast() {
               {scheduleType === 'yes_schedule' && (
                 <Form>
                   <TextField
-                  sx={{mt:'24px'}}
+                    sx={{ mt: '24px' }}
                     label="Start date"
                     type="datetime-local"
                     fullWidth
