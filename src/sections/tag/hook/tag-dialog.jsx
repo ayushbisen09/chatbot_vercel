@@ -114,38 +114,49 @@ export function TagDialog({ open, onClose }) {
               ),
             }}
           />
-          <Box sx={{ mb: 2 }}>
-            <Typography variant="h6" gutterBottom>
+          <Box sx={{ mt: 2, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <Typography variant="h7" sx={{ fontSize: '14px', fontWeight: '600' }}>
               Customer Journey
             </Typography>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={customerJourney}
-                  onChange={(e) => setCustomerJourney(e.target.checked)}
-                  color="primary"
-                />
+            <Box sx={{ mt: 'auto' }}>
+              <FormControlLabel
+                sx={{ mb: 2, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}
+                control={
+                  <Switch
+                    checked={customerJourney}
+                    onChange={(e) => setCustomerJourney(e.target.checked)}
+                    color="primary"
+                  />
+                }
+                label={<Box component="span" sx={{ fontSize: '12px', color: '#637381', ml: 3 }}>
+                Enable to track this tag in your customers&apos; journey
+              </Box>
               }
-              label="Enable to track this tag in your customers' journey"
-            />
+              />
+            </Box>
           </Box>
-
-          <Box sx={{ mb: 2 }}>
-            <Typography variant="h6" gutterBottom>
+          <Box sx={{ mb: 2, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <Typography variant="h7" sx={{ fontSize: '14px', fontWeight: '600' }}>
               First Message
             </Typography>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={firstMessage}
-                  onChange={(e) => setFirstMessage(e.target.checked)}
-                  color="primary"
-                />
+            <Box sx={{ mt: 'auto' }}>
+              <FormControlLabel
+                sx={{ mb: 2, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}
+                control={
+                  <Switch
+                    checked={customerJourney}
+                    onChange={(e) => setCustomerJourney(e.target.checked)}
+                    color="primary"
+                  />
+                }
+                label={<Box component="span" sx={{ fontSize: '12px', color: '#637381', ml: 3 }}>
+                Allows auto tagging if users&apos; first message matches
+              </Box>
               }
-              label="Allows auto tagging if users' first message matches"
-            />
+              />
+            </Box>
           </Box>
-          <Autocomplete
+         <Autocomplete
             multiple
             freeSolo
             options={[]}
