@@ -14,10 +14,10 @@ import { Logo } from 'src/components/logo';
 import { HeaderSection } from './header-section';
 import { Searchbar } from '../components/searchbar';
 import { MenuButton } from '../components/menu-button';
-import { SignInButton } from '../components/sign-in-button';
+// import { SignInButton } from '../components/sign-in-button';
 import { AccountDrawer } from '../components/account-drawer';
 import { LanguagePopover } from '../components/language-popover';
-import { NotificationsDrawer } from '../components/notifications-drawer';
+// import { NotificationsDrawer } from '../components/notifications-drawer';
 
 // ----------------------------------------------------------------------
 
@@ -162,9 +162,9 @@ export function HeaderBase({
               {localization && <LanguagePopover data-slot="localization" data={data?.langs} />}
 
               {/* -- Notifications popover -- */}
-              {notifications && (
+              {/* {notifications && (
                 <NotificationsDrawer data-slot="notifications" data={data?.notifications} />
-              )}
+              )} */}
 
               {/* -- Contacts popover -- */}
               {/* {contacts && <ContactsPopover data-slot="contacts" data={data?.contacts} />} */}
@@ -176,7 +176,7 @@ export function HeaderBase({
               {account && <AccountDrawer data-slot="account" data={data?.account} />}
 
               {/* -- Sign in button -- */}
-              {signIn && <SignInButton />}
+              {/* {signIn && <SignInButton />} */}
 
               {/* -- Purchase button -- */}
               {purchase && (
