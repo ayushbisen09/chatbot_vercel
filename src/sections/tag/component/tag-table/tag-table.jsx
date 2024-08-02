@@ -8,6 +8,8 @@ import {
   Divider,
   TableRow,
   Checkbox,
+  MenuItem,
+  MenuList,
   TableBody,
   TableCell,
   TextField,
@@ -19,6 +21,7 @@ import {
 
 import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
+import { usePopover, CustomPopover } from 'src/components/custom-popover';
 import {
   useTable,
   emptyRows,
@@ -77,6 +80,10 @@ export function Tagtable() {
   });
 
   const table = useTable();
+  
+  const popover = usePopover();
+  
+  const [selectedRow, setSelectedRow] = useState(null);  // Added this state to manage selected row
 
   const handleFilterName = useCallback(
     (event) => {
@@ -170,7 +177,12 @@ export function Tagtable() {
                       </Box>
                     </TableCell>
                     <TableCell>
-                      <IconButton>
+                      <IconButton
+                        onClick={(event) => {
+                          setSelectedRow(row);
+                          popover.onOpen(event);
+                        }}
+                      >
                         <Iconify icon="eva:more-vertical-fill" />
                       </IconButton>
                     </TableCell>
@@ -196,6 +208,25 @@ export function Tagtable() {
         dense={table.dense}
         onChangeDense={table.onChangeDense}
       />
+      <CustomPopover
+        open={popover.open}
+        anchorEl={popover.anchorEl}
+        onClose={popover.onClose}
+        slotProps={{ arrow: { placement: 'right-top' } }}
+      >
+ <MenuList>
+          <MenuItem
+            onClick={() => {
+              // Add your confirm logic here
+              popover.onClose();
+            }}
+            sx={{ color: 'error.main' }}
+          >
+            <Iconify icon="solar:trash-bin-trash-bold" />
+            Remove
+          </MenuItem>
+        </MenuList>
+      </CustomPopover>
     </Card>
   );
 }
