@@ -21,7 +21,7 @@ import { CONFIG } from 'src/config-global';
 
 import { WhatsAppDialog } from 'src/sections/dashbaord/hooks/add-whatsApp-number';
 
-export default function BigCard(sx, ...other) {
+export default function BigCard({sx, ...other}) {
   const videoId = 'CoIfgN0tfhE'; // Repalace with your YouTube video ID
   const coverSrc = `${CONFIG.site.basePath}/assets/background/Pabbly Broadcast Card.png`;
   const [isOpen, setOpen] = useState(false);
@@ -68,16 +68,7 @@ export default function BigCard(sx, ...other) {
         <Typography variant="h6" sx={{ color: 'grey.800', mb: 1 }}>
           Points To Remember
         </Typography>
-        <Typography
-          variant="body2"
-          sx={{
-            fontSize: '14px',
-            fontWeight: '500',
-            color: 'grey.600',
-
-            ...(true && { mb: 3 }), // Example conditional margin bottom
-          }}
-        >
+        
           <List sx={{ color: 'grey.600' }}>
             <ListItem disablePadding>
               <ListItemText
@@ -186,10 +177,10 @@ export default function BigCard(sx, ...other) {
             </ListItem>
             {/* Add more list items as needed */}
           </List>
-        </Typography>
+      
         <Button
           onClick={dialog.onTrue}
-          sx={{ mt: isMobile ? 2 : 0 }}
+          sx={{ mt: isMobile ? 2 : 2 }}
           size="large"
           variant="outlined"
           color="primary"
