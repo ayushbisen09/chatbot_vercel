@@ -5,6 +5,7 @@ import { useTheme } from '@emotion/react';
 import {
   Box,
   Card,
+  Grid,
   Alert,
   Button,
   Divider,
@@ -48,6 +49,7 @@ export default function Page() {
     }
     setSnackbarOpen(false);
   };
+
   return (
     <DashboardContent maxWidth="xl">
       <PageHeader
@@ -60,37 +62,41 @@ export default function Page() {
           <CardHeader title="Configure SLAs" sx={{ px: 0, pt: 0, pb: 3 }} />
           <Divider sx={{ mx: -3 }} />
           <Box sx={{ mt: 3 }}>
-            <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2, width: '60%' }}>
-              <TextField
-                label="Response Time"
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-                fullWidth
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <Iconify icon="tabler:clock" style={{ width: 24, height: 24 }} />
-                    </InputAdornment>
-                  ),
-                }}
-                helperText="You can set SLA setting to fix the response time."
-                InputLabelProps={{ shrink: true }} // Ensure the label stays visible
-              />
-              <TextField
-                label="Response Time"
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-                fullWidth
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <Iconify icon="tabler:clock" style={{ width: 24, height: 24 }} />
-                    </InputAdornment>
-                  ),
-                }}
-                InputLabelProps={{ shrink: true }}
-              />
-            </Box>
+            <Grid container spacing={2} sx={{ width: '100%', maxWidth: 'md' }}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="Response Time"
+                  value={value}
+                  onChange={(e) => setValue(e.target.value)}
+                  fullWidth
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <Iconify icon="tabler:clock" style={{ width: 24, height: 24 }} />
+                      </InputAdornment>
+                    ),
+                  }}
+                  helperText="You can set SLA setting to fix the response time."
+                  InputLabelProps={{ shrink: true }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="Response Time"
+                  value={value}
+                  onChange={(e) => setValue(e.target.value)}
+                  fullWidth
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <Iconify icon="tabler:clock" style={{ width: 24, height: 24 }} />
+                      </InputAdornment>
+                    ),
+                  }}
+                  InputLabelProps={{ shrink: true }}
+                />
+              </Grid>
+            </Grid>
             <Box sx={{ mt: 2 }}>
               <Button variant="contained" color="inherit" onClick={handleAdd}>
                 Save

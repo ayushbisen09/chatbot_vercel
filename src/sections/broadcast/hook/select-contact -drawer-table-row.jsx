@@ -56,16 +56,6 @@ export function SelectContactDrawerTableRow({ row, selected }) {
         >
           <Iconify icon="icon-park-solid:close-one" />
         </IconButton>
-        {/* <Label
-          sx={{
-            color: 'success.main',
-            marginRight: '8px',
-          }}
-          variant="soft"
-        >
-          AZD
-        </Label>
-        <Label variant="soft">AZD</Label> */}
       </TableCell>
     </TableRow>
   );
