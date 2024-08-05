@@ -1,34 +1,45 @@
-import React, { useState } from 'react';
-import { useDropzone } from 'react-dropzone';
+import React, { useRef, useState } from 'react';
 
-import { Box, Button, Typography, InputLabel } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 
-// import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { varAlpha } from 'src/theme/styles';
 
 const FileUpload = ({ placeholder, error, disabled, sx, onFileUpload, ...other }) => {
   const [selectedFile, setSelectedFile] = useState(null);
+  const fileInputRef = useRef(null);
 
-  const onDrop = (acceptedFiles) => {
-    if (acceptedFiles.length > 0) {
-      const file = acceptedFiles[0];
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+      onFileUpload(file);
+    }
+    // Reset the file input value to allow selecting the same file again
+    event.target.value = '';
+  };
+
+  const handleButtonClick = (event) => {
+    event.preventDefault();
+    fileInputRef.current.click();
+  };
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+  };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    const file = event.dataTransfer.files[0];
+    if (file && file.type === 'text/csv') {
       setSelectedFile(file);
       onFileUpload(file);
     }
   };
 
-  const { getRootProps, getInputProps, isDragActive, isDragReject } = useDropzone({
-    onDrop,
-    disabled,
-    accept: 'text/csv',
-    ...other,
-  });
-
-  const hasError = isDragReject || error;
-
   return (
     <Box
-      {...getRootProps()}
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
       sx={{
         padding: '20px 0px 20px 0px',
         width: '100%',
@@ -36,15 +47,13 @@ const FileUpload = ({ placeholder, error, disabled, sx, onFileUpload, ...other }
         display: 'flex',
         flexDirection: 'column',
         borderRadius: 1,
-        cursor: 'pointer',
         alignItems: 'center',
         color: 'text.disabled',
         justifyContent: 'center',
         bgcolor: (theme) => varAlpha(theme.vars.palette.grey['500Channel'], 0.08),
         border: (theme) => `dashed 1px ${varAlpha(theme.vars.palette.grey['500Channel'], 0.16)}`,
-        ...(isDragActive && { opacity: 0.72 }),
         ...(disabled && { opacity: 0.48, pointerEvents: 'none' }),
-        ...(hasError && {
+        ...(error && {
           color: 'error.main',
           borderColor: 'grey',
           bgcolor: (theme) => varAlpha(theme.vars.palette.grey['500Channel'], 0.08),
@@ -53,17 +62,17 @@ const FileUpload = ({ placeholder, error, disabled, sx, onFileUpload, ...other }
         ...sx,
       }}
     >
-      <InputLabel htmlFor="contained-button-file">
-        <input
-          {...getInputProps()}
-          accept="text/csv"
-          style={{ display: 'none' }}
-          id="contained-button-file"
-        />
-        <Button size="large" variant="" component="span">
-          {placeholder || 'Upload CSV File'}
-        </Button>
-      </InputLabel>
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleFileChange}
+        accept=".csv"
+        style={{ display: 'none' }}
+        {...other}
+      />
+      <Button size="large" component="span" onClick={handleButtonClick} disabled={disabled}>
+        {placeholder || 'Upload CSV File'}
+      </Button>
       {selectedFile && (
         <Typography variant="body1" sx={{ mt: 2 }}>
           Selected file: {selectedFile.name}
