@@ -1,3 +1,6 @@
+import React from 'react';
+import { useLocation } from 'react-router-dom';
+
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
@@ -14,12 +17,8 @@ import { Logo } from 'src/components/logo';
 import { HeaderSection } from './header-section';
 import { Searchbar } from '../components/searchbar';
 import { MenuButton } from '../components/menu-button';
-// import { SignInButton } from '../components/sign-in-button';
 import { AccountDrawer } from '../components/account-drawer';
 import { LanguagePopover } from '../components/language-popover';
-// import { NotificationsDrawer } from '../components/notifications-drawer';
-
-// ----------------------------------------------------------------------
 
 const StyledDivider = styled('span')(({ theme }) => ({
   width: 1,
@@ -46,8 +45,6 @@ const StyledDivider = styled('span')(({ theme }) => ({
   '&::after': { bottom: -5, top: 'auto' },
 }));
 
-// ----------------------------------------------------------------------
-
 export function HeaderBase({
   sx,
   data,
@@ -73,6 +70,9 @@ export function HeaderBase({
   ...other
 }) {
   const theme = useTheme();
+  const location = useLocation();
+
+  const isLoginPage = location.pathname === '/login'; // Adjust this path if your login route is different
 
   return (
     <HeaderSection
@@ -80,7 +80,7 @@ export function HeaderBase({
         backgroundColor: 'common.white',
         borderBottom: '1px dashed',
         borderColor: varAlpha(theme.vars.palette.grey['500Channel'], 0.3),
-        sx,
+        ...sx,
       }}
       layoutQuery={layoutQuery}
       slots={{
@@ -90,8 +90,7 @@ export function HeaderBase({
           <>
             {slots?.leftAreaStart}
 
-            {/* -- Menu button -- */}
-            {menuButton && (
+            {menuButton && !isLoginPage && (
               <MenuButton
                 data-slot="menu-button"
                 onClick={onOpenNav}
@@ -103,29 +102,29 @@ export function HeaderBase({
               />
             )}
 
-            {/* -- Logo -- */}
-            <Logo data-slot="logo" />
+            {isLoginPage ? (
+              <Logo data-slot="logo" />
+            ) : (
+              <>
+                <Box
+                  alt="logo"
+                  component="img"
+                  src={`${CONFIG.site.basePath}/assets/icons/navbar/Chatflow.svg`}
+                  width={120}
+                  sx={{
+                    display: { xs: 'none', sm: 'block' },
+                  }}
+                />
+                <Logo
+                  width={30}
+                  sx={{
+                    display: { xs: 'block', sm: 'none' },
+                  }}
+                />
+              </>
+            )}
 
-            {/* -- Divider -- */}
-            <StyledDivider data-slot="divider" />
-
-            {/* -- Workspace popover -- */}
-            {/* {workspaces && <WorkspacesPopover data-slot="workspaces" data={data?.workspaces} />} */}
-            <Box
-              alt="logo"
-              component="img"
-              src={`${CONFIG.site.basePath}/assets/icons/navbar/Chatflow.svg`}
-              width={120}
-              sx={{
-                display: { xs: 'none', sm: 'block' }, // Hide on extra-small screens (mobile)
-              }}
-            />
-            <Logo
-              width={30}
-              sx={{
-                display: { xs: 'block', sm: 'none' }, // Hide on extra-small screens (mobile)
-              }}
-            />
+            {!isLoginPage && <StyledDivider data-slot="divider" />}
 
             {slots?.leftAreaEnd}
           </>
@@ -142,7 +141,6 @@ export function HeaderBase({
                 gap: { xs: 1, sm: 1.5 },
               }}
             >
-              {/* -- Help link -- */}
               {helpLink && (
                 <Link
                   data-slot="help-link"
@@ -155,30 +153,12 @@ export function HeaderBase({
                 </Link>
               )}
 
-              {/* -- Searchbar -- */}
               {searchbar && <Searchbar data-slot="searchbar" data={data?.nav} />}
 
-              {/* -- Language popover -- */}
               {localization && <LanguagePopover data-slot="localization" data={data?.langs} />}
 
-              {/* -- Notifications popover -- */}
-              {/* {notifications && (
-                <NotificationsDrawer data-slot="notifications" data={data?.notifications} />
-              )} */}
-
-              {/* -- Contacts popover -- */}
-              {/* {contacts && <ContactsPopover data-slot="contacts" data={data?.contacts} />} */}
-
-              {/* -- Settings button -- */}
-              {/* {settings && <SettingsButton data-slot="settings" />} */}
-
-              {/* -- Account drawer -- */}
               {account && <AccountDrawer data-slot="account" data={data?.account} />}
 
-              {/* -- Sign in button -- */}
-              {/* {signIn && <SignInButton />} */}
-
-              {/* -- Purchase button -- */}
               {purchase && (
                 <Button
                   data-slot="purchase"
