@@ -4,12 +4,10 @@ import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {
   Box,
-  Alert,
-  Button,
   Divider,
   Tooltip,
   MenuItem,
-  Snackbar,
+  MenuList,
   TextField,
   Typography,
   InputAdornment,
@@ -17,6 +15,7 @@ import {
 
 import { Iconify } from 'src/components/iconify';
 import FileUpload from 'src/components/upload2/upload2';
+import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
 import ChatBox from './components/chat-box/chat-box';
 import Image from '../../assets/images/chatImage/imagechat.png';
@@ -24,367 +23,243 @@ import Image from '../../assets/images/chatImage/imagechat.png';
 export default function PreApprovedMessage() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const handleAdd = () => {
-    // Implement your logic to add WhatsApp number here
-    // For example, you might want to validate the inputs first
 
-    // Show the snackbar
-    setSnackbarOpen(true);
-
-    // Close the dialog after a short delay
-    setTimeout(() => {}, 500);
-  };
-  const handleSnackbarClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setSnackbarOpen(false);
-  };
-
-  const CURRENCIES = [
-    { value: 'USD', label: '$' },
-    { value: 'EUR', label: '€' },
-    { value: 'BTC', label: '฿' },
-    { value: 'JPY', label: '¥' },
+  const TEMPLATES = [
+    { value: 'template1', label: 'Template 1' },
+    { value: 'template2', label: 'Template 2' },
+    { value: 'template3', label: 'Template 3' },
+    { value: 'template4', label: 'Template 4' },
   ];
 
-  const [currency, setCurrency] = useState('EUR');
-
-  const handleChangeCurrency = useCallback((event) => {
-    setCurrency(event.target.value);
+  const [template, setTemplate] = useState('template1');
+  const handleChangeTemplate = useCallback((event) => {
+    setTemplate(event.target.value);
   }, []);
 
   const [isFileUploaded, setIsFileUploaded] = useState(false);
-
   const handleFileUpload = (file) => {
     if (file) {
       setIsFileUploaded(true);
     }
   };
 
-  return (
-    <>
-      <Box sx={{ mt: '24px' }}>
-        <Box display="flex" flexDirection={isMobile ? 'column' : 'row'} width="100%">
-          <Box width={isMobile ? '100%' : '60%'} pr={isMobile ? 0 : '12px'}>
-            <TextField
-              sx={{ mb: '24px' }}
-              id="select-currency-label-x"
-              select
-              fullWidth
-              label="Select WhatsApp Template"
-              // value={currency}
-              onChange={handleChangeCurrency}
-              helperText="Select one from your WhatsApp approved template messages"
-            >
-              {CURRENCIES.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-            <Divider sx={{ borderStyle: 'dashed' }} />
-            <TextField
-              sx={{ mt: '24px' }}
-              fullWidth
-              type="text"
-              margin="dense"
-              variant="outlined"
-              label="Header File URL"
-              helperText="Size < 5MB, Accepted formats : .png or .jpeg"
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <Tooltip
-                      title="Enter header URL"
-                      arrow
-                      placement="top"
-                      sx={{
-                        fontSize: '16px',
-                      }}
-                    >
-                      <Iconify
-                        icon="material-symbols:info-outline"
-                        style={{ width: 20, height: 20 }}
-                      />
-                    </Tooltip>
-                  </InputAdornment>
-                ),
-              }}
-            />
-            <Typography
-              sx={{
-                fontSize: '14px',
-                fontWeight: '600',
-                width: '100%',
-                padding: '24px 0px 24px 0px',
-                mr: 0,
-                ml: 0,
-              }}
-            >
-              OR
-            </Typography>
-            <FileUpload onFileUpload={handleFileUpload} />
-            <TextField
-              sx={{ mt: '24px' }}
-              fullWidth
-              type="text"
-              margin="dense"
-              variant="outlined"
-              label="Enter or select an user custom field."
-              helperText="This template field is required. If you leave template field as empty, your message may not be delivered."
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <Tooltip
-                      title="Body Field 1 (Eg: Ankit)"
-                      arrow
-                      placement="top"
-                      sx={{
-                        fontSize: '16px',
-                      }}
-                    >
-                      <Iconify
-                        icon="fluent:calendar-agenda-24-regular"
-                        style={{ width: 20, height: 20 }}
-                      />
-                    </Tooltip>
-                  </InputAdornment>
-                ),
-              }}
-            />
-            <TextField
-              sx={{ mt: '24px' }}
-              fullWidth
-              type="text"
-              margin="dense"
-              variant="outlined"
-              label="Enter or select an user custom field."
-              helperText="This template field is required. If you leave template field as empty, your message may not be delivered."
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <Tooltip
-                      title="Body Field 2 (Eg: c2343)"
-                      arrow
-                      placement="top"
-                      sx={{
-                        fontSize: '16px',
-                      }}
-                    >
-                      <Iconify
-                        icon="fluent:calendar-agenda-24-regular"
-                        style={{ width: 20, height: 20 }}
-                      />
-                    </Tooltip>
-                  </InputAdornment>
-                ),
-              }}
-            />
-            <TextField
-              sx={{ mt: '24px' }}
-              fullWidth
-              type="text"
-              margin="dense"
-              variant="outlined"
-              label="Enter or select an user custom field."
-              helperText="This template field is required. If you leave template field as empty, your message may not be delivered."
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <Tooltip
-                      title="Body Field 3 (Eg: 20%)"
-                      arrow
-                      placement="top"
-                      sx={{
-                        fontSize: '16px',
-                      }}
-                    >
-                      <Iconify
-                        icon="fluent:calendar-agenda-24-regular"
-                        style={{ width: 20, height: 20 }}
-                      />
-                    </Tooltip>
-                  </InputAdornment>
-                ),
-              }}
-            />
-            <TextField
-              sx={{ mt: '24px' }}
-              fullWidth
-              type="text"
-              margin="dense"
-              variant="outlined"
-              label="Enter or select an user custom field."
-              helperText="This template field is required. If you leave template field as empty, your message may not be delivered."
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <Tooltip
-                      title="Body Field 4 (Eg: Shoes)"
-                      arrow
-                      placement="top"
-                      sx={{
-                        fontSize: '16px',
-                      }}
-                    >
-                      <Iconify
-                        icon="fluent:calendar-agenda-24-regular"
-                        style={{ width: 20, height: 20 }}
-                      />
-                    </Tooltip>
-                  </InputAdornment>
-                ),
-              }}
-            />
-            <TextField
-              sx={{ mt: '24px' }}
-              fullWidth
-              type="text"
-              margin="dense"
-              variant="outlined"
-              label="Enter or select an user custom field."
-              helperText="This template field is required. If you leave template field as empty, your message may not be delivered."
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <Tooltip
-                      title="Body Field 5 (Eg: $234)"
-                      arrow
-                      placement="top"
-                      sx={{
-                        fontSize: '16px',
-                      }}
-                    >
-                      <Iconify
-                        icon="fluent:calendar-agenda-24-regular"
-                        style={{ width: 20, height: 20 }}
-                      />
-                    </Tooltip>
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </Box>
+  const popover1 = usePopover();
+  const popover2 = usePopover();
+  const popover3 = usePopover();
+  const popover4 = usePopover();
 
-          <Box
-            width={isMobile ? '100%' : '40%'}
-            sx={{ pl: isMobile ? 0 : '12px', mt: isMobile ? '24px' : 0 }}
+  const [textFieldValue1, setTextFieldValue1] = useState('');
+  const [textFieldValue2, setTextFieldValue2] = useState('');
+  const [textFieldValue3, setTextFieldValue3] = useState('');
+  const [textFieldValue4, setTextFieldValue4] = useState('');
+
+  const handlePopoverClose = (popover) => popover.onClose();
+  const handlePopoverOpen = (popover) => popover.onOpen();
+
+  const renderPopover = (popover, setTextFieldValue) => (
+    <CustomPopover
+      open={popover.open}
+      anchorEl={popover.anchorEl}
+      onClose={() => handlePopoverClose(popover)}
+      slotProps={{ arrow: { placement: 'top' } }}
+    >
+      <MenuList>
+        {['Email', 'City', 'Order ID'].map((item) => (
+          <MenuItem
+            key={item}
+            onClick={() => {
+              setTextFieldValue(`$${item}`);
+              handlePopoverClose(popover);
+            }}
+            sx={{ color: 'primary' }}
           >
-            {/* <Card
+            $ {item}
+          </MenuItem>
+        ))}
+      </MenuList>
+    </CustomPopover>
+  );
+
+  return (
+    <Box sx={{ mt: '24px' }}>
+      <Box display="flex" flexDirection={isMobile ? 'column' : 'row'} width="100%">
+        <Box width={isMobile ? '100%' : '60%'} pr={isMobile ? 0 : '12px'}>
+          <TextField
+            sx={{ mb: '24px' }}
+            id="select-currency-label-x"
+            select
+            fullWidth
+            label="Select WhatsApp Template"
+            value={template}
+            onChange={handleChangeTemplate}
+            helperText="Select one from your WhatsApp approved template messages"
+          >
+            {TEMPLATES.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+          <Divider sx={{ borderStyle: 'dashed' }} />
+          <TextField
+            sx={{ mt: '24px' }}
+            fullWidth
+            type="text"
+            margin="dense"
+            variant="outlined"
+            label="Header File URL"
+            helperText="Size < 5MB, Accepted formats : .png or .jpeg"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <Tooltip
+                    title="Enter header URL"
+                    arrow
+                    placement="top"
+                    sx={{
+                      fontSize: '16px',
+                    }}
+                  >
+                    <Iconify
+                      icon="material-symbols:info-outline"
+                      style={{ width: 20, height: 20 }}
+                    />
+                  </Tooltip>
+                </InputAdornment>
+              ),
+            }}
+          />
+          <Typography
             sx={{
-              border: '1px solid #919EAB33',
+              fontSize: '14px',
+              fontWeight: '600',
               width: '100%',
-              maxWidth: '500px',
+              padding: '24px 0px 24px 0px',
+              mr: 0,
+              ml: 0,
             }}
           >
-            <CardHeader
-              sx={{ mb: 2 }}
-              avatar={<Avatar aria-label="profile picture">MC</Avatar>}
-              title={
-                <Typography variant="h7" sx={{ fontSize: 14, fontWeight: '700' }}>
-                  Mireya Conner
-                </Typography>
-              }
-              subheader={
-                <Typography variant="subtitle2" sx={{ fontSize: 12, fontWeight: '400' }}>
-                  Online
-                </Typography>
-              }
-            />
-            <Divider />
-            <Typography
-              variant="caption"
+            OR
+          </Typography>
+          <FileUpload onFileUpload={handleFileUpload} />
+          {[1, 2, 3, 4].map((index) => (
+            <TextField
+              key={index}
               sx={{
-                pr: 2,
-                pt: 3,
-                display: 'flex',
-                color: '#919EAB',
-                justifyContent: 'end',
+                mt: '24px',
+                '& .MuiOutlinedInput-root': {
+                  '&.Mui-focused fieldset': {
+                    borderColor: 'grey.500',
+                  },
+                },
+                '& .MuiInputLabel-root': {
+                  '&.Mui-focused': {
+                    color: 'grey.500',
+                  },
+                },
               }}
-            >
-              4:02 PM
-            </Typography>
-            <Box
-              sx={{
-                p: 2,
-                backgroundColor: '#CCF4FE',
-                borderRadius: '8px',
-                m: 2,
-              }}
-            >
-              <Typography
-                variant="body2"
-                color="text.primary"
-                sx={{ fontSize: 14, fontWeight: '500' }}
-              >
-                Hey,
-                <br />
-                {
-                  ' Thank you for opting-out. In future if you ever want to connect again just send "Hello". '
-                }
-              </Typography>
-            </Box>
-          </Card> */}
-            <ChatBox
-              text={
-                <>
-                  {`Hi {{1}}! 🎧🛒`}
-                  <br />
-                  <br /> {/* Extra blank line */}
-                  Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌
-                  <br />
-                  <br /> {/* Extra blank line */}
-                  Order Details:
-                  <br />
-                  {`Product: {{2}}`}
-                  <br />
-                  {`Quantity: {{3}}`}
-                  <br />
-                  {`Order ID: {{4}}`}
-                  <br />
-                  {`Delivery Address: {{5}}`}
-                  <br />
-                  {`Estimated Delivery Date: {{6}}`}
-                </>
+              placeholder={`Enter or Select a custom field for Body Field ${index}`}
+              fullWidth
+              type="text"
+              margin="dense"
+              variant="outlined"
+              label={`Body Field ${index} (Eg: Ankit)`}
+              helperText="This template field is required. If you leave template field as empty, your message may not be delivered."
+              value={
+                index === 1 ? textFieldValue1 :
+                index === 2 ? textFieldValue2 :
+                index === 3 ? textFieldValue3 :
+                index === 4 ? textFieldValue4 :
+                ''
               }
-              showImage
-              coverSrc={Image}
-              showLinks
-              showCoupon
-              showCall
-              showVisit
+              onChange={(e) => {
+                if (index === 1) setTextFieldValue1(e.target.value);
+                if (index === 2) setTextFieldValue2(e.target.value);
+                if (index === 3) setTextFieldValue3(e.target.value);
+                if (index === 4) setTextFieldValue4(e.target.value);
+              }}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <Tooltip
+                      title="Enter or Select a custom field."
+                      arrow
+                      placement="top"
+                      sx={{
+                        fontSize: '16px',
+                      }}
+                    >
+                      <Iconify
+                        color={
+                          (index === 1 && popover1.open) ||
+                          (index === 2 && popover2.open) ||
+                          (index === 3 && popover3.open) ||
+                          (index === 4 && popover4.open)
+                            ? 'inherit'
+                            : 'grey'
+                        }
+                        onClick={
+                          index === 1 ? popover1.onOpen :
+                          index === 2 ? popover2.onOpen :
+                          index === 3 ? popover3.onOpen :
+                          index === 4 ? popover4.onOpen :
+                          undefined
+                        }
+                        icon="fluent:calendar-agenda-24-regular"
+                        style={{ width: 20, height: 20, cursor: 'pointer' }}
+                      />
+                    </Tooltip>
+                  </InputAdornment>
+                ),
+              }}
             />
-          </Box>
+          ))}
+
         </Box>
-        <Button sx={{ mt: '24px' }} variant="contained" onClick={handleAdd}>
-          Save
-        </Button>
-      </Box>
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={3000}
-        onClose={handleSnackbarClose}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        sx={{
-          boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
-        }}
-      >
-        <Alert
-          onClose={handleSnackbarClose}
-          severity="success"
-          sx={{
-            width: '100%',
-            fontSize: '14px',
-            fontWeight: 'bold',
-            backgroundColor: theme.palette.background.paper,
-            color: theme.palette.text.primary,
-          }}
+
+        {renderPopover(popover1, setTextFieldValue1)}
+        {renderPopover(popover2, setTextFieldValue2)}
+        {renderPopover(popover3, setTextFieldValue3)}
+        {renderPopover(popover4, setTextFieldValue4)}
+
+        <Box
+          width={isMobile ? '100%' : '40%'}
+          sx={{ pl: isMobile ? 0 : '12px', mt: isMobile ? '24px' : 0 }}
         >
-          Opt-Out Configure Message Saved Successfully!
-        </Alert>
-      </Snackbar>
-    </>
+          <ChatBox
+            text={
+              <>
+                {`Hi {{1}}! 🎧🛒`}
+                <br />
+                <br />
+                Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌
+                <br />
+                <br />
+                Order Details:
+                <br />
+                {`Product: {{2}}`}
+                <br />
+                {`Quantity: {{3}}`}
+                <br />
+                {`Order ID: {{4}}`}
+                <br />
+                {`Delivery Address: {{5}}`}
+                <br />
+                {`Estimated Delivery Date: {{6}}`}
+              </>
+            }
+            showImage
+            coverSrc={Image}
+            showLinks
+            showCoupon
+            showCall
+            showVisit
+          />
+        </Box>
+      </Box>
+    </Box>
   );
 }
