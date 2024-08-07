@@ -76,5 +76,6 @@ export const paths = {
       notificationpreferences: `${ROOTS.DASHBOARD}/group/notificationpreferences`,
       timezone: `${ROOTS.DASHBOARD}/group/timezone`,
     },
+    gethelp: `${ROOTS.DASHBOARD}/gethelp`,
   },
 };

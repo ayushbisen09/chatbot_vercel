@@ -35,6 +35,7 @@ const APIWebhooks = lazy(() => import('src/pages/app/api-&-webhooks'));
 const ActivityLogs = lazy(() => import('src/pages/app/activity-logs'));
 const Notificationpreferences = lazy(() => import('src/pages/app/notification-preferences'));
 const TimeZone = lazy(() => import('src/pages/app/time-zone'));
+const GetHelp = lazy(() => import('src/pages/app/get-help'));
 
 // ----------------------------------------------------------------------
 
@@ -82,10 +83,9 @@ export const dashboardRoutes = [
           { path: 'activitylogs', element: <ActivityLogs /> },
           { path: 'notificationpreferences', element: <Notificationpreferences /> },
           { path: 'timezone', element: <TimeZone /> },
-
-
         ],
       },
+      { path: 'gethelp', element: <GetHelp /> },
     ],
   },
 ];

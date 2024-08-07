@@ -17,8 +17,7 @@ const ICONS = {
   broadcast: icon('ic-broadcast'),
   flows: icon('ic-flows'),
   settings: icon('ic-settings'),
-
-
+  gethelp: icon('ic-gethelp'),
 };
 
 // ----------------------------------------------------------------------
@@ -98,6 +97,15 @@ export const navData = [
           },
           { title: 'Time Zone', path: paths.dashboard.group.timezone },
         ],
+      },
+    ],
+  },
+  {
+    items: [
+      {
+        title: 'Get Help',
+        path: paths.dashboard.gethelp,
+        icon: ICONS.gethelp,
       },
     ],
   },
