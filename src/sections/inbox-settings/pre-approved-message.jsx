@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 
 import { Iconify } from 'src/components/iconify';
-import FileUpload from 'src/components/upload2/upload2';
+import FileUpload from 'src/components/upload/upload';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
 import ChatBox from './components/chat-box/chat-box';

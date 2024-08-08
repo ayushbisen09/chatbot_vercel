@@ -1,120 +1,85 @@
-// import { useDropzone } from 'react-dropzone';
-import { useDropzone } from 'react-dropzone';
+import React, { useRef, useState } from 'react';
 
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import FormHelperText from '@mui/material/FormHelperText';
+import { Box, Button, Typography } from '@mui/material';
 
 import { varAlpha } from 'src/theme/styles';
 
-import { Iconify } from '../iconify';
-import { UploadPlaceholder } from './components/placeholder';
-import { RejectionFiles } from './components/rejection-files';
-import { MultiFilePreview } from './components/preview-multi-file';
-import { DeleteButton, SingleFilePreview } from './components/preview-single-file';
+const FileUpload = ({ placeholder, error, disabled, sx, onFileUpload, ...other }) => {
+  const [selectedFile, setSelectedFile] = useState(null);
+  const fileInputRef = useRef(null);
 
-// ----------------------------------------------------------------------
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+      onFileUpload(file);
+    }
+    // Reset the file input value to allow selecting the same file again
+    event.target.value = '';
+  };
 
-export function Upload({
-  sx,
-  value,
-  error,
-  disabled,
-  onDelete,
-  onUpload,
-  onRemove,
-  thumbnail,
-  helperText,
-  onRemoveAll,
-  multiple = false,
-  ...other
-}) {
-  const { getRootProps, getInputProps, isDragActive, isDragReject, fileRejections } = useDropzone({
-    multiple,
-    disabled,
-    ...other,
-  });
+  const handleButtonClick = (event) => {
+    event.preventDefault();
+    fileInputRef.current.click();
+  };
 
-  const isArray = Array.isArray(value) && multiple;
+  const handleDragOver = (event) => {
+    event.preventDefault();
+  };
 
-  const hasFile = !isArray && !!value;
-
-  const hasFiles = isArray && !!value.length;
-
-  const hasError = isDragReject || !!error;
-
-  const renderMultiPreview = hasFiles && (
-    <>
-      <MultiFilePreview files={value} thumbnail={thumbnail} onRemove={onRemove} sx={{ my: 3 }} />
-
-      {(onRemoveAll || onUpload) && (
-        <Stack direction="row" justifyContent="flex-end" spacing={1.5}>
-          {onRemoveAll && (
-            <Button color="inherit" variant="outlined" size="small" onClick={onRemoveAll}>
-              Remove all
-            </Button>
-          )}
-
-          {onUpload && (
-            <Button
-              size="small"
-              variant="contained"
-              onClick={onUpload}
-              startIcon={<Iconify icon="eva:cloud-upload-fill" />}
-            >
-              Upload
-            </Button>
-          )}
-        </Stack>
-      )}
-    </>
-  );
+  const handleDrop = (event) => {
+    event.preventDefault();
+    const file = event.dataTransfer.files[0];
+    if (file && file.type === 'any') {
+      setSelectedFile(file);
+      onFileUpload(file);
+    }
+  };
 
   return (
-    <Box sx={{ width: 1, position: 'relative', ...sx }}>
-      <Box
-        {...getRootProps()}
-        sx={{
-          p: 5,
-          outline: 'none',
-          borderRadius: 1,
-          cursor: 'pointer',
-          overflow: 'hidden',
-          position: 'relative',
+    <Box
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
+      sx={{
+        padding: '20px 0px 20px 0px',
+        width: '100%',
+        flexShrink: 0,
+        display: 'flex',
+        flexDirection: 'column',
+        borderRadius: 1,
+        alignItems: 'center',
+        color: 'text.disabled',
+        justifyContent: 'center',
+        bgcolor: (theme) => varAlpha(theme.vars.palette.grey['500Channel'], 0.08),
+        border: (theme) => `dashed 1px ${varAlpha(theme.vars.palette.grey['500Channel'], 0.16)}`,
+        ...(disabled && { opacity: 0.48, pointerEvents: 'none' }),
+        ...(error && {
+          color: 'error.main',
+          borderColor: 'grey',
           bgcolor: (theme) => varAlpha(theme.vars.palette.grey['500Channel'], 0.08),
-          border: (theme) => `1px dashed ${varAlpha(theme.vars.palette.grey['500Channel'], 0.2)}`,
-          transition: (theme) => theme.transitions.create(['opacity', 'padding']),
-          '&:hover': { opacity: 0.72 },
-          ...(isDragActive && { opacity: 0.72 }),
-          ...(disabled && { opacity: 0.48, pointerEvents: 'none' }),
-          ...(hasError && {
-            color: 'error.main',
-            borderColor: 'error.main',
-            bgcolor: (theme) => varAlpha(theme.vars.palette.error.mainChannel, 0.08),
-          }),
-          ...(hasFile && { padding: '28% 0' }),
-        }}
-      >
-        <input {...getInputProps()} />
-
-        {/* Single file */}
-        {hasFile ? <SingleFilePreview file={value} /> : <UploadPlaceholder />}
-      </Box>
-
-      {/* Single file */}
-      {hasFile && <DeleteButton onClick={onDelete} />}
-
-      {helperText && (
-        <FormHelperText error={!!error} sx={{ px: 2 }}>
-          {helperText}
-        </FormHelperText>
+        }),
+        '&:hover': { opacity: 0.72 },
+        ...sx,
+      }}
+    >
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleFileChange}
+        accept=".csv"
+        style={{ display: 'none' }}
+        {...other}
+      />
+      <Button size="large" component="span" onClick={handleButtonClick} disabled={disabled}>
+        {placeholder || 'Upload File'}
+      </Button>
+      {selectedFile && (
+        <Typography variant="body1" sx={{ mt: 2 }}>
+          Selected file: {selectedFile.name}
+        </Typography>
       )}
-
-      <RejectionFiles files={fileRejections} />
-
-      {/* Multi files */}
-      {renderMultiPreview}
     </Box>
   );
-}
+};
+
+export default FileUpload;

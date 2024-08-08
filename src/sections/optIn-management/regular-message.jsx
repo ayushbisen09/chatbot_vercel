@@ -19,7 +19,7 @@ import {
 } from '@mui/material';
 
 import { Iconify } from 'src/components/iconify';
-import FileUpload from 'src/components/upload2/upload2';
+import FileUpload from 'src/components/upload/upload';
 
 export default function RegularMessage() {
   const theme = useTheme();

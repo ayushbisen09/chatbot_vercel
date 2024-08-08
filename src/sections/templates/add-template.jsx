@@ -26,8 +26,8 @@ import { DashboardContent } from 'src/layouts/dashboard';
 
 import { Form } from 'src/components/hook-form';
 import { Iconify } from 'src/components/iconify';
+import FileUpload from 'src/components/upload/upload';
 import ChatBox from 'src/components/chat-box/chat-box';
-import FileUpload from 'src/components/upload2/upload2';
 import PageHeader from 'src/components/page-header/page-header';
 
 import Image1 from '../../assets/images/chatImage/imagechat.png';

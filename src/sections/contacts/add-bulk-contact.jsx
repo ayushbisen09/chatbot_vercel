@@ -21,7 +21,7 @@ import { countries } from 'src/assets/data';
 
 import { Form } from 'src/components/hook-form';
 import { Iconify } from 'src/components/iconify';
-import FileUpload from 'src/components/upload2/upload2';
+import FileUpload from 'src/components/upload/upload';
 
 export default function AddBulkContact() {
   const methods = useForm();
