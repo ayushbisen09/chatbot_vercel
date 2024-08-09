@@ -99,9 +99,8 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
           variant="outlined"
           color="primary"
           sx={{
-            lineHeight: {lg:'14px',md:'14px',xs:'14px'},
-            height: {lg:'40px',md:'40px',xs:'40px'}, // Default height
-            
+            lineHeight: { lg: '14px', md: '14px', xs: '14px' },
+            height: { lg: '40px', md: '40px', xs: '40px' }, // Default height
           }}
         >
           Access Inbox

@@ -54,17 +54,12 @@ export function HeaderBase({
   layoutQuery,
 
   slotsDisplay: {
-    signIn = true,
     account = true,
     helpLink = true,
-    settings = true,
     purchase = true,
-    contacts = true,
     searchbar = true,
-    workspaces = true,
     menuButton = true,
     localization = true,
-    notifications = true,
   } = {},
 
   ...other
