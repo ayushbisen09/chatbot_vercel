@@ -11,10 +11,10 @@ import { useBoolean } from 'src/hooks/use-boolean';
 import { DashboardContent } from 'src/layouts/dashboard';
 
 import PageHeader from 'src/components/page-header/page-header';
+import ListNode from 'src/components/flow-nodes/message-type-nodes/list-node';
 import ConditionNode from 'src/components/flow-nodes/action-nodes/condition-node';
 import FlowStartNode from 'src/components/flow-nodes/message-type-nodes/flow-start-node';
 import TextButtonNode from 'src/components/flow-nodes/message-type-nodes/text-button-node';
-
 // ----------------------------------------------------------------------
 
 export default function Page({ sx, icon, title, total, color = 'warning', ...other }) {
@@ -59,6 +59,7 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
         <FlowStartNode />
         <ConditionNode />
         <TextButtonNode />
+        <ListNode />
       </Box>
     </DashboardContent>
   );
