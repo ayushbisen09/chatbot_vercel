@@ -126,7 +126,7 @@ export default function FlowStartNode({
                 size="large"
                 label="Enter Keywords"
                 helperText="Type, press enter to add keyword"
-                placeholder="+ Add a tag"
+                placeholder="+ Enter Keywords"
                 InputProps={{
                   ...params.InputProps,
                   endAdornment: <InputAdornment position="start" />,

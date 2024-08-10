@@ -47,7 +47,7 @@ export default function ConditionNode({
         backgroundColor: '#F4F6F8',
         border: '1px solid transparent',
         '&:hover': {
-          border: '1px solid #078DEE', // Change this to your desired border color
+          border: '1px solid #078DEE',
           borderRadius: '16px',
         },
         ...sx,
@@ -59,13 +59,13 @@ export default function ConditionNode({
         action={
           <Box sx={{ display: 'flex' }}>
             <IconButton>
-              <Iconify width={24} icon="solar:copy-bold" sx={{ color: 'text.secondry' }} />
+              <Iconify width={24} icon="solar:copy-bold" sx={{ color: 'text.secondary' }} />
             </IconButton>
             <IconButton>
               <Iconify
                 width={24}
                 icon="solar:trash-bin-trash-bold"
-                sx={{ color: 'text.secondry' }}
+                sx={{ color: 'text.secondary' }}
               />
             </IconButton>
           </Box>
@@ -81,7 +81,7 @@ export default function ConditionNode({
           borderRadius: '12px',
           border: '1px solid transparent',
           '&:hover': {
-            border: '1px solid #919EAb', // Change this to your desired border color
+            border: '1px solid #919EAb',
             borderRadius: '16px',
           },
         }}
@@ -103,26 +103,31 @@ export default function ConditionNode({
           </Select>
         </FormControl>
 
-        {/* Conditionally render the Select Attribute field based on selected condition */}
-        {selectedCondition !== 'Time In' && selectedCondition !== 'Date In' && (
-          <FormControl fullWidth size="large" sx={{ mb: 3 }}>
-            <InputLabel id="attribute-select-label">Select Attribute</InputLabel>
-            <Select
-              labelId="attribute-select-label"
-              id="attribute-select"
-              value={selectedAttribute}
-              label="Select Attribute"
-              onChange={handleAttributeChange}
-            >
-              <MenuItem value="Latitude">Latitude</MenuItem>
-              <MenuItem value="Longitude">Longitude</MenuItem>
-              <MenuItem value="City">City</MenuItem>
-              <MenuItem value="Now">Now</MenuItem>
-              <MenuItem value="Product">Product</MenuItem>
-              <MenuItem value="Current Times">Current Times</MenuItem>
-            </Select>
-          </FormControl>
-        )}
+        <FormControl fullWidth size="large" sx={{ mb: 3 }}>
+          <InputLabel id="attribute-select-label">
+            {selectedCondition === 'Time In' || selectedCondition === 'Date In'
+              ? 'Compare with'
+              : 'Select Attribute'}
+          </InputLabel>
+          <Select
+            labelId="attribute-select-label"
+            id="attribute-select"
+            value={selectedAttribute}
+            label={
+              selectedCondition === 'Time In' || selectedCondition === 'Date In'
+                ? 'Compare with'
+                : 'Select Attribute'
+            }
+            onChange={handleAttributeChange}
+          >
+            <MenuItem value="Now">Now</MenuItem>
+            <MenuItem value="Current Times">Current Times</MenuItem>
+            <MenuItem value="Latitude">Latitude</MenuItem>
+            <MenuItem value="Longitude">Longitude</MenuItem>
+            <MenuItem value="City">City</MenuItem>
+            <MenuItem value="Product">Product</MenuItem>
+          </Select>
+        </FormControl>
 
         {/* Conditionally render fields based on selected condition */}
         {selectedCondition === 'Time In' && (
@@ -131,15 +136,9 @@ export default function ConditionNode({
               label="Start Time"
               type="time"
               fullWidth
-              InputLabelProps={{ shrink: true }} // Ensure the label stays visible
+              InputLabelProps={{ shrink: true }}
             />
-            <TextField
-              label="End Time"
-              type="time"
-              fullWidth
-              InputLabelProps={{ shrink: true }} // Ensure the label stays visible
-            />
-            <TextField label="Attribute Value" variant="outlined" fullWidth />
+            <TextField label="End Time" type="time" fullWidth InputLabelProps={{ shrink: true }} />
           </Stack>
         )}
 
@@ -149,19 +148,15 @@ export default function ConditionNode({
               label="Start Date"
               type="date"
               fullWidth
-              InputLabelProps={{ shrink: true }} // Ensure the label stays visible
+              InputLabelProps={{ shrink: true }}
             />
-            <TextField
-              label="End Date"
-              type="date"
-              fullWidth
-              InputLabelProps={{ shrink: true }} // Ensure the label stays visible
-            />
-            <TextField label="Attribute Value" variant="outlined" fullWidth />
+            <TextField label="End Date" type="date" fullWidth InputLabelProps={{ shrink: true }} />
           </Stack>
         )}
 
-        {selectedCondition !== 'Exists' &&
+        {/* Conditionally render the Attribute Value field */}
+        {selectedCondition &&
+          selectedCondition !== 'Exists' &&
           selectedCondition !== 'Time In' &&
           selectedCondition !== 'Date In' && (
             <TextField label="Attribute Value" variant="outlined" fullWidth sx={{ mb: 3 }} />
