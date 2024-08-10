@@ -74,7 +74,7 @@ export default function FlowStartNode({
         borderColor: 'rgba(7, 141, 238)',
         ...sx,
       }}
-      {...other}
+      {...other} // Ensure other props do not include key
     >
       <CardHeader
         title={<Typography variant="h6">Flow Start</Typography>}
@@ -95,7 +95,6 @@ export default function FlowStartNode({
           border: '1px solid',
           borderColor: 'rgba(145, 158, 171)',
         }}
-        {...other}
       >
         <Stack spacing={2}>
           <Autocomplete
