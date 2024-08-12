@@ -1,22 +1,13 @@
 import React from 'react';
 
-import {
-  Box,
-  Card,
-  Stack,
-  Button,
-  Tooltip,
-  TextField,
-  IconButton,
-  Typography,
-} from '@mui/material';
+import { Box, Card, Stack, Tooltip, TextField, IconButton } from '@mui/material';
 
 import { Iconify } from 'src/components/iconify';
 
-const renderTextButtonNode = (
+const renderListNode = (
   card,
   index,
-  addTextField,
+
   deleteTextField,
   deleteCard,
   handleHoverCardClick
@@ -24,71 +15,51 @@ const renderTextButtonNode = (
   <Card
     key={card.id}
     sx={{
-      position: 'relative',
-      boxShadow: '0px 2px 1px 0px rgba(145, 158, 171, 0.16)',
+      // position: 'relative',
+      // boxShadow: '0px 2px 1px 0px rgba(145, 158, 171, 0.16)',
       px: 1.5,
       pt: 3.5,
       pb: 2.5,
       mb: 3,
-      borderRadius: '8px',
-      border: '1px solid transparent',
-      overflow: 'visible',
-      '&:hover': {
-        border: '1px solid #919EAb',
-        borderRadius: '8px',
-      },
-      '&:hover .hoverCard': {
-        opacity: 1,
-      },
+
+      // border: '1px solid transparent',
+      // overflow: 'visible',
+      // '&:hover': {
+      //   border: '1px solid #919EAb',
+      //   borderRadius: '16px',
+      // },
+      // '&:hover .hoverCard': {
+      //   opacity: 1,
+      // },
     }}
   >
     <Stack spacing={2}>
       <TextField
-        label="Enter message"
-        helperText="Add message 1024 letters allowed."
+        label="Enter header"
+        helperText="Enter header here only  20 letter allowed."
+        variant="outlined"
+        fullWidth
+        multiline
+        rows={2}
+      />
+      <TextField
+        label="Enter body"
+        helperText="Enter body here only  1024 letter allowed."
         variant="outlined"
         fullWidth
         multiline
         rows={4}
       />
-      {card.textFields.map((field) => (
-        <Stack key={field.id} spacing={3}>
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            <TextField label="Enter Text" variant="outlined" fullWidth />
-            <IconButton onClick={() => deleteTextField(card.id, field.id)}>
-              <Iconify width={20} icon="solar:trash-bin-trash-bold" />
-            </IconButton>
-            <IconButton onClick={() => addTextField(card.id)}>
-              <Iconify width={20} icon="solar:add-circle-bold" />
-            </IconButton>
-          </Box>
-          <Typography
-            variant="body2"
-            color="textSecondary"
-            sx={{ mt: -2, px: 1.4, fontSize: '12px' }}
-          >
-            Enter button text. 20 letters allowed
-          </Typography>
-        </Stack>
-      ))}
-      <Button
+      <TextField
+        label="Enter Footer"
+        helperText="Enter footer here only  60 letter allowed."
         variant="outlined"
-        color="primary"
-        size="large"
-        onClick={() => addTextField(card.id)}
         fullWidth
-        startIcon={
-          <Iconify icon="heroicons:plus-circle-16-solid" style={{ width: 18, height: 18 }} />
-        }
-      >
-        Add Button
-      </Button>
+        multiline
+        rows={3}
+      />
     </Stack>
+
     {/* Hover Card */}
     <Box
       className="hoverCard"
@@ -139,4 +110,4 @@ const renderTextButtonNode = (
   </Card>
 );
 
-export default renderTextButtonNode;
+export default renderListNode;

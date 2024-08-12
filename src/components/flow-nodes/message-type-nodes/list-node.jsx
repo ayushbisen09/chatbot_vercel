@@ -6,6 +6,7 @@ import {
   Menu,
   Button,
   MenuItem,
+  TextField,
   CardHeader,
   IconButton,
   Typography,
@@ -14,7 +15,34 @@ import {
 
 import { Iconify } from 'src/components/iconify';
 
-import renderCard from './node-cards/text-button-card';
+import renderListNode from './node-cards/list-card';
+import renderAddItemCard from './node-cards/add-item-card';
+import renderTextButtonNode from './node-cards/text-button-card';
+import renderListNodeAddSectionCard from './node-cards/list-node-add-section-card';
+
+const commonCardStyles = {
+  boxShadow: '0px 2px 1px 0px rgba(145, 158, 171, 0.16)',
+  px: 1.5,
+  pt: 3.5,
+  pb: 2.5,
+  mb: 3,
+  borderRadius: '16px',
+  border: '1px solid transparent',
+  overflow: 'visible',
+  '&:hover': {
+    border: '1px solid #919EAb',
+    borderRadius: '16px',
+  },
+};
+const commonCardStylesforsection = {
+  px: 1.5,
+  pt: 3.5,
+  pb: 2.5,
+  mb: 3,
+  borderRadius: '16px',
+
+  // overflow: 'visible',
+};
 
 export default function ListNode({
   sx,
@@ -25,13 +53,7 @@ export default function ListNode({
   videoId,
   ...other
 }) {
-  const [cards, setCards] = useState([
-    {
-      id: 1,
-      type: 'text-button',
-      textFields: [{ id: 1 }], // Initialize with one text field for the first card
-    },
-  ]); // Initialize with one card
+  const [cards, setCards] = useState([{ id: 1, type: 'list-node', textFields: [] }]);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -40,12 +62,10 @@ export default function ListNode({
     setCards(
       cards.map((card) => {
         if (card.id === cardId) {
-          if (card.textFields.length < 3) {
-            return {
-              ...card,
-              textFields: [...card.textFields, { id: card.textFields.length + 1 }],
-            };
-          }
+          return {
+            ...card,
+            textFields: [...card.textFields, { id: card.textFields.length + 1 }],
+          };
         }
         return card;
       })
@@ -79,10 +99,21 @@ export default function ListNode({
   };
 
   const addCard = (type) => {
-    if (type === 'text-button') {
-      setCards([...cards, { id: cards.length + 1, type, textFields: [{ id: 1 }] }]);
-    }
+    const newCard = { id: cards.length + 1, type, textFields: [] };
+    setCards([...cards, newCard]);
     handleClose();
+    if (type === 'add-section') {
+      setCards((prevCards) =>
+        prevCards.map((card) =>
+          card.id === newCard.id ? { ...card, textFields: [{ id: 1 }] } : card
+        )
+      );
+    }
+  };
+
+  const addItemCard = (cardId) => {
+    const newCard = { id: cards.length + 1, type: 'add-item', textFields: [] };
+    setCards([...cards, newCard]);
   };
 
   const handleHoverCardClick = (cardId) => {
@@ -90,7 +121,7 @@ export default function ListNode({
     if (cardIndex !== -1) {
       const newCard = {
         ...cards[cardIndex],
-        id: cards.length + 1, // Assign a new ID to the cloned card
+        id: cards.length + 1,
       };
       setCards([...cards, newCard]);
     }
@@ -123,21 +154,86 @@ export default function ListNode({
                 sx={{ color: 'text.secondary' }}
               />
             </IconButton>
-            <IconButton>
+            <IconButton onClick={() => handleHoverCardClick(cards[0].id)}>
               <Iconify width={24} icon="solar:copy-bold" sx={{ color: 'text.secondary' }} />
             </IconButton>
           </Box>
         }
         sx={{ p: 0, mb: 2 }}
       />
-      {cards.map((card, index) =>
-        renderCard(card, index, addTextField, deleteTextField, deleteCard, handleHoverCardClick)
-      )}
+      <Card sx={commonCardStyles}>
+        {/* Render cards using the appropriate render function */}
+        {cards.map((card, index) => {
+          if (card.type === 'text-button') {
+            return renderTextButtonNode(
+              card,
+              index,
+              addTextField,
+              deleteTextField,
+              deleteCard,
+              handleHoverCardClick
+            );
+          }
+          if (card.type === 'list-node') {
+            return renderListNode(card, index, deleteTextField, deleteCard, handleHoverCardClick);
+          }
+          if (card.type === 'add-section') {
+            return renderListNodeAddSectionCard(
+              card,
+              index,
+              addTextField,
+              deleteTextField,
+              deleteCard,
+              handleHoverCardClick,
+              addItemCard
+            );
+          }
+          if (card.type === 'add-item') {
+            return renderAddItemCard(
+              card,
+              index,
+              addTextField,
+              deleteTextField,
+              deleteCard,
+              handleHoverCardClick
+            );
+          }
+          return null;
+        })}
+
+        {/* Common Card for adding sections */}
+        <Card sx={commonCardStylesforsection}>
+          <Button
+            variant="outlined"
+            color="primary"
+            size="large"
+            onClick={() => addCard('add-section')} // Trigger adding the 'add-section' card
+            fullWidth
+            startIcon={
+              <Iconify icon="heroicons:plus-circle-16-solid" style={{ width: 18, height: 18 }} />
+            }
+          >
+            Add Section
+          </Button>
+        </Card>
+
+        <TextField
+          sx={{ p: 0, mb: 2.5 }}
+          label="Item Title"
+          variant="outlined"
+          fullWidth
+          placeholder="Enter item title"
+          InputProps={{
+            style: { textAlign: 'center' },
+          }}
+        />
+      </Card>
+
       <Button
         variant="outlined"
         color="primary"
         size="large"
-        onClick={handleClick} // Open the menu
+        onClick={handleClick}
         fullWidth
         startIcon={
           <Iconify icon="heroicons:plus-circle-16-solid" style={{ width: 18, height: 18 }} />
@@ -163,7 +259,7 @@ export default function ListNode({
             Media
           </ListItemIcon>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={() => addCard('text')}>
           <ListItemIcon>
             <Iconify width={20} sx={{ mr: 1 }} icon="typcn:th-list-outline" />
             List

@@ -19,11 +19,9 @@ import TextButtonNode from 'src/components/flow-nodes/message-type-nodes/text-bu
 
 export default function Page({ sx, icon, title, total, color = 'warning', ...other }) {
   const theme = useTheme();
-
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const dialog = useBoolean();
-
   const navigate = useNavigate();
 
   const handleAddFlow = () => {
@@ -43,7 +41,7 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
       >
         <PageHeader
           title="Flow Builder"
-          Subheading="You can connect with facebook to fetch catalogue and manage it from our platform."
+          Subheading="You can connect with Facebook to fetch catalog and manage it from our platform."
           link_added="#"
         />
       </Box>
@@ -51,15 +49,23 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
       <Box
         sx={{
           mt: '40px',
-          gap: 3,
           display: 'grid',
-          gridTemplateColumns: { xs: 'repeat(1, 1fr)', md: 'repeat(4, 1fr)' },
+          gridTemplateColumns: { xs: 'repeat(1, 1fr)', md: 'repeat(4, 1fr)' }, // 3 columns on medium screens
+          gap: 3, // Adjust gap as needed
         }}
       >
-        <FlowStartNode />
-        <ConditionNode />
-        <TextButtonNode />
-        <ListNode />
+        <Box sx={{ mb: 3 }}>
+          <FlowStartNode />
+        </Box>
+        <Box sx={{ mb: 3 }}>
+          <ConditionNode />
+        </Box>
+        <Box sx={{ mb: 3 }}>
+          <TextButtonNode />
+        </Box>
+        <Box sx={{ mb: 3 }}>
+          <ListNode />
+        </Box>
       </Box>
     </DashboardContent>
   );

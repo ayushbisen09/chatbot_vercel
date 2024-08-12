@@ -14,7 +14,7 @@ import {
 
 import { Iconify } from 'src/components/iconify';
 
-import renderCard from './node-cards/text-button-card';
+import renderTextButtonNode from './node-cards/text-button-card';
 
 export default function TextButtonNode({ sx, ...other }) {
   const [cards, setCards] = useState([
@@ -123,7 +123,14 @@ export default function TextButtonNode({ sx, ...other }) {
         sx={{ p: 0, mb: 2 }}
       />
       {cards.map((card, index) =>
-        renderCard(card, index, addTextField, deleteTextField, deleteCard, handleHoverCardClick)
+        renderTextButtonNode(
+          card,
+          index,
+          addTextField,
+          deleteTextField,
+          deleteCard,
+          handleHoverCardClick
+        )
       )}
       <Button
         variant="outlined"
