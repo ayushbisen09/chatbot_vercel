@@ -144,8 +144,8 @@ export function TagDialog({ open, onClose }) {
                 sx={{ mb: 2, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}
                 control={
                   <Switch
-                    checked={customerJourney}
-                    onChange={(e) => setCustomerJourney(e.target.checked)}
+                    checked={firstMessage}
+                    onChange={(e) => setFirstMessage(e.target.checked)}
                     color="primary"
                   />
                 }
@@ -191,7 +191,7 @@ export function TagDialog({ open, onClose }) {
                 variant="outlined"
                 size="large"
                 helperText="Enter opt-out keywords"
-                placeholder="+ Add a tag"
+                placeholder="+ Enter Keywords"
                 InputProps={{
                   ...params.InputProps,
                   endAdornment: <InputAdornment position="Start" />,

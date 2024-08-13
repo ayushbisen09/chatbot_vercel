@@ -35,7 +35,7 @@ export default function ConnectFlowNode({
       sx={{
         boxShadow: '0px 12px 24px -4px rgba(145, 158, 171, 0.2)',
         p: 2,
-        width: '350px',
+        // width: '350px',
         backgroundColor: '#F4F6F8',
         border: '1px solid transparent',
         '&:hover': {
