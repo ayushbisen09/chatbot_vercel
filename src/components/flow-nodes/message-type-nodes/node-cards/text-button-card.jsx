@@ -21,6 +21,7 @@ const renderTextButtonNode = (
   deleteCard,
   handleHoverCardClick
 ) => (
+  
   <Card
     key={card.id}
     sx={{
@@ -44,7 +45,7 @@ const renderTextButtonNode = (
   >
     <Stack spacing={2}>
       <TextField
-        label="Enter message"
+        label="Enter Message"
         helperText="Add message 1024 letters allowed."
         variant="outlined"
         fullWidth
@@ -59,12 +60,12 @@ const renderTextButtonNode = (
               alignItems: 'center',
             }}
           >
-            <TextField label="Enter Text" variant="outlined" fullWidth />
+            <TextField label="Enter Button Text" variant="outlined" fullWidth />
             <IconButton onClick={() => deleteTextField(card.id, field.id)}>
               <Iconify width={20} icon="solar:trash-bin-trash-bold" />
             </IconButton>
-            <IconButton onClick={() => addTextField(card.id)}>
-              <Iconify width={20} icon="solar:add-circle-bold" />
+            <IconButton >
+              <Iconify width={16} icon="ph:circle-bold" />
             </IconButton>
           </Box>
           <Typography
@@ -79,7 +80,7 @@ const renderTextButtonNode = (
       <Button
         variant="outlined"
         color="primary"
-        size="large"
+        size="medium"
         onClick={() => addTextField(card.id)}
         fullWidth
         startIcon={
@@ -108,27 +109,28 @@ const renderTextButtonNode = (
         justifyContent: 'center',
         flexDirection: 'column',
         zIndex: 10,
+        p:1
       }}
     >
       <Tooltip title="Add">
         <IconButton onClick={() => handleHoverCardClick(card.id)}>
           <Iconify
-            width={24}
-            icon="heroicons:plus-circle-16-solid"
+            width={20}
+            icon="eva:plus-fill"
             sx={{ color: 'text.secondary' }}
           />
         </IconButton>
       </Tooltip>
       <Tooltip title="Edit">
         <IconButton>
-          <Iconify width={24} icon="heroicons:eye-16-solid" sx={{ color: 'text.secondary' }} />
+          <Iconify width={20} icon="eva:eye-fill" sx={{ color: 'text.secondary' }} />
         </IconButton>
       </Tooltip>
       {index > 0 && (
         <Tooltip title="Delete Content">
           <IconButton onClick={() => deleteCard(card.id)}>
             <Iconify
-              width={24}
+              width={20}
               icon="solar:trash-bin-trash-bold"
               sx={{ color: 'text.secondary' }}
             />

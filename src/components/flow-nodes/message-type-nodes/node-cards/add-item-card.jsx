@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Card, Stack, Tooltip, TextField, IconButton } from '@mui/material';
+import { Box, Card, Stack, TextField, IconButton } from '@mui/material';
 
 import { Iconify } from 'src/components/iconify';
 
@@ -16,7 +16,6 @@ const renderAddItemCard = (
     key={card.id}
     sx={{
       position: 'relative',
-      boxShadow: '0px 2px 1px 0px rgba(145, 158, 171, 0.16)',
       px: 1.5,
       pt: 3.5,
       pb: 2.5,
@@ -34,85 +33,45 @@ const renderAddItemCard = (
     }}
   >
     <Stack spacing={3} sx={{ mb: 2 }}>
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-        }}
-      >
-        <TextField
-          label="Enter Title"
-          helperText="Enter title here only  24 letter allowed."
-          variant="outlined"
-          fullWidth
-          multiline
-          rows={2}
-        />
-      </Box>
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-        }}
-      >
-        <TextField
-          label="Enter Description"
-          helperText="Enter description here only  72 letter allowed."
-          variant="outlined"
-          fullWidth
-          multiline
-          rows={3}
-        />
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        {/* Box for both TextFields */}
+        <Box sx={{ flex: 1, mr: 2 }}>
+          <TextField
+            label="Enter Title"
+            helperText="Enter title here only 24 letters allowed."
+            variant="outlined"
+            fullWidth
+            multiline
+            rows={1}
+            sx={{ mb: 2 }}
+          />
+          <TextField
+            label="Enter Description"
+            helperText="Enter description here only 72 letters allowed."
+            variant="outlined"
+            fullWidth
+            multiline
+            rows={2}
+          />
+        </Box>
+        {/* Box for Icons */}
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          
+
+          <IconButton onClick={() => deleteTextField(card.id)}>
+            <Iconify width={20} icon="solar:trash-bin-trash-bold" />
+          </IconButton>
+          <IconButton onClick={() => deleteTextField(card.id)}>
+            <Iconify width={16} icon="ph:circle-bold" />
+          </IconButton>
+
+
+         
+          
+          {/* Additional icons can be added here */}
+        </Box>
       </Box>
     </Stack>
-
-    {/* Hover Card */}
-    <Box
-      className="hoverCard"
-      sx={{
-        position: 'absolute',
-        top: 30,
-        right: -37,
-        width: '50px',
-        height: 30 + (index === 0 ? 3 : 4) * 30,
-        backgroundColor: 'background.paper',
-        border: '1px solid #ddd',
-        borderRadius: '12px',
-        opacity: 0,
-        transition: 'opacity 0.1s',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column',
-        zIndex: 10,
-      }}
-    >
-      <Tooltip title="Add">
-        <IconButton onClick={() => handleHoverCardClick(card.id)}>
-          <Iconify
-            width={24}
-            icon="heroicons:plus-circle-16-solid"
-            sx={{ color: 'text.secondary' }}
-          />
-        </IconButton>
-      </Tooltip>
-      <Tooltip title="Edit">
-        <IconButton>
-          <Iconify width={24} icon="heroicons:eye-16-solid" sx={{ color: 'text.secondary' }} />
-        </IconButton>
-      </Tooltip>
-      {index > 0 && (
-        <Tooltip title="Delete Content">
-          <IconButton onClick={() => deleteCard(card.id)}>
-            <Iconify
-              width={24}
-              icon="solar:trash-bin-trash-bold"
-              sx={{ color: 'text.secondary' }}
-            />
-          </IconButton>
-        </Tooltip>
-      )}
-    </Box>
   </Card>
 );
 

@@ -174,7 +174,7 @@ export default function ConditionNode({
               True
             </Button>
 
-            <Iconify width={24} icon="solar:add-circle-bold" />
+            <Iconify width={16} icon="ph:circle-bold" />
           </Box>
         </Stack>
 
@@ -190,7 +190,7 @@ export default function ConditionNode({
               False
             </Button>
 
-            <Iconify width={24} icon="solar:add-circle-bold" />
+            <Iconify width={16} icon="ph:circle-bold" />
           </Box>
         </Stack>
       </Card>

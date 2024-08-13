@@ -23,6 +23,7 @@ export default function TextButtonNode({ sx, ...other }) {
       type: 'text-button',
       textFields: [{ id: 1 }], // Initialize with one text field for the first card
     },
+    
   ]);
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -76,7 +77,12 @@ export default function TextButtonNode({ sx, ...other }) {
     }
     handleClose();
   };
-
+  const addListCard = (type) => {
+    if (type === 'list') {
+      setCards([...cards, { id: cards.length + 1, type, textFields: [{ id: 1 }] }]);
+    }
+    handleClose();
+  };
   const handleHoverCardClick = (cardId) => {
     const cardIndex = cards.findIndex((card) => card.id === cardId);
     if (cardIndex !== -1) {
@@ -135,7 +141,7 @@ export default function TextButtonNode({ sx, ...other }) {
       <Button
         variant="outlined"
         color="primary"
-        size="large"
+        size="medium"
         onClick={handleClick}
         fullWidth
         startIcon={
@@ -162,7 +168,7 @@ export default function TextButtonNode({ sx, ...other }) {
             Media
           </ListItemIcon>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={()=> addListCard('list')}>
           <ListItemIcon>
             <Iconify width={20} sx={{ mr: 1 }} icon="typcn:th-list-outline" />
             List
