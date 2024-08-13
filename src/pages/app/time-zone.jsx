@@ -26,6 +26,7 @@ import { DashboardContent } from 'src/layouts/dashboard';
 import { Iconify } from 'src/components/iconify';
 import PageHeader from 'src/components/page-header/page-header'; // Changed 'timezone' to 'timezone'
 
+
 // ----------------------------------------------------------------------
 
 export default function Page() {
@@ -180,6 +181,7 @@ export default function Page() {
           Time Zone Updated Successfully!
         </Alert>
       </Snackbar>
+      
     </DashboardContent>
   );
 }
