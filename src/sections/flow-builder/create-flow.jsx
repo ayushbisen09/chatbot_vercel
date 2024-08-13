@@ -13,6 +13,10 @@ import { DashboardContent } from 'src/layouts/dashboard';
 import PageHeader from 'src/components/page-header/page-header';
 import ListNode from 'src/components/flow-nodes/message-type-nodes/list-node';
 import ConditionNode from 'src/components/flow-nodes/action-nodes/condition-node';
+import AskAddressNode from 'src/components/flow-nodes/action-nodes/ask-address-node';
+import AskLocationNode from 'src/components/flow-nodes/action-nodes/ask-location-node';
+import ConnectFlowNode from 'src/components/flow-nodes/action-nodes/connect-flow-node';
+import AskQuestionNode from 'src/components/flow-nodes/action-nodes/ask-question-node';
 import FlowStartNode from 'src/components/flow-nodes/message-type-nodes/flow-start-node';
 import TextButtonNode from 'src/components/flow-nodes/message-type-nodes/text-button-node';
 // ----------------------------------------------------------------------
@@ -54,18 +58,25 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
           gap: 3, // Adjust gap as needed
         }}
       >
-        <Box sx={{ mb: 3 }}>
+        
           <FlowStartNode />
-        </Box>
-        <Box sx={{ mb: 3 }}>
+        
+        
           <ConditionNode />
-        </Box>
-        <Box sx={{ mb: 3 }}>
+     
+        
           <TextButtonNode />
-        </Box>
-        <Box sx={{ mb: 3 }}>
+      
+       
           <ListNode />
-        </Box>
+          <AskLocationNode />
+          <ConnectFlowNode />
+          <AskAddressNode/>
+          <AskQuestionNode/>
+     
+        
+         
+        
       </Box>
     </DashboardContent>
   );
