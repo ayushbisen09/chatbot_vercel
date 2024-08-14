@@ -22,6 +22,7 @@ import FlowStartNode from 'src/components/flow-nodes/message-type-nodes/flow-sta
 import TextButtonNode from 'src/components/flow-nodes/message-type-nodes/text-button-node';
 import MultiProductNode from 'src/components/flow-nodes/message-type-nodes/multi-product-node';
 import CatalougeMessageNode from 'src/components/flow-nodes/message-type-nodes/catalogue-message-node';
+import AskAttributeNode from 'src/components/flow-nodes/action-nodes/set-attribute-node';
 
 // ----------------------------------------------------------------------
 
@@ -76,6 +77,7 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
           <SingleProduct/>
           <AskLocationNode />
           <ConnectFlowNode />
+          <AskAttributeNode/>
           <AskAddressNode/>
           <AskQuestionNode/>
           <CatalougeMessageNode/>

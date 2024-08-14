@@ -28,6 +28,7 @@ const renderCatalougeMessageNodeCard = (
       px: 1.5,
       pt: 3.5,
       pb: 2.5,
+      mb: 3,
      
       borderRadius: '12px',
       border: '1px solid transparent',
