@@ -2,13 +2,12 @@ import { useTheme } from '@emotion/react';
 
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Box, Divider, Typography, useMediaQuery } from '@mui/material';
+import { Divider, Typography, useMediaQuery } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Iconify } from 'src/components/iconify';
 
-import ChooseTemplateDailogTable from '../template-dailog-table/template-dailog-table';
 
 // ----------------------------------------------------------------------
 

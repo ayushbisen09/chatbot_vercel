@@ -17,6 +17,7 @@ import AskAddressNode from 'src/components/flow-nodes/action-nodes/ask-address-n
 import AskLocationNode from 'src/components/flow-nodes/action-nodes/ask-location-node';
 import ConnectFlowNode from 'src/components/flow-nodes/action-nodes/connect-flow-node';
 import AskQuestionNode from 'src/components/flow-nodes/action-nodes/ask-question-node';
+import SingleProduct from 'src/components/flow-nodes/message-type-nodes/single-product';
 import FlowStartNode from 'src/components/flow-nodes/message-type-nodes/flow-start-node';
 import TextButtonNode from 'src/components/flow-nodes/message-type-nodes/text-button-node';
 import MultiProductNode from 'src/components/flow-nodes/message-type-nodes/multi-product-node';
@@ -72,6 +73,7 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
       
        
           <ListNode />
+          <SingleProduct/>
           <AskLocationNode />
           <ConnectFlowNode />
           <AskAddressNode/>

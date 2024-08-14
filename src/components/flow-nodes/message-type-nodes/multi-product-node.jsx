@@ -17,7 +17,6 @@ import {
 import { Iconify } from 'src/components/iconify';
 
 import renderTextButtonNode from './text-button-node-card/text-button-card';
-
 import renderMultiproductNode from './multi-product-node-card/multi-product-card';
 import renderMultiproductNodeAddSectionCard from './multi-product-node-card/multi-product-node-add-section-card';
 
