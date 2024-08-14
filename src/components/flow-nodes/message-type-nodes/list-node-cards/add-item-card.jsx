@@ -9,7 +9,7 @@ const renderAddItemCard = (
   index,
   addTextField,
   deleteTextField,
-  deleteCard,
+  deleteCard, // Ensure this is passed as a prop
   handleHoverCardClick
 ) => (
   <Card
@@ -56,18 +56,13 @@ const renderAddItemCard = (
         </Box>
         {/* Box for Icons */}
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          
-
-          <IconButton onClick={() => deleteTextField(card.id)}>
+          {/* Delete card icon */}
+          <IconButton onClick={() => deleteCard(card.id)}>
             <Iconify width={20} icon="solar:trash-bin-trash-bold" />
           </IconButton>
-          <IconButton onClick={() => deleteTextField(card.id)}>
-            <Iconify width={16} icon="ph:circle-bold" />
+          <IconButton>
+            <Iconify width={24} icon="octicon:dot-16" sx={{ color: '#078DEE' }} />
           </IconButton>
-
-
-         
-          
           {/* Additional icons can be added here */}
         </Box>
       </Box>

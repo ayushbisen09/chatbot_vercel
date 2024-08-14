@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Card, Stack, Button, TextField, Typography,IconButton } from '@mui/material';
+import { Box, Card, Stack, Button, TextField, Typography, IconButton } from '@mui/material';
 
 import { Iconify } from 'src/components/iconify';
 
@@ -9,9 +9,9 @@ const renderListNodeAddSectionCard = (
   index,
   addTextField,
   deleteTextField,
-  deleteCard,
+  deleteCard, // This will be used to delete the card
   handleHoverCardClick,
-  addItemCard // Add this parameter here
+  addItemCard
 ) => (
   <Card
     sx={{
@@ -26,30 +26,29 @@ const renderListNodeAddSectionCard = (
     {/* Check if card.textFields has data */}
     {card.textFields.length > 0 ? (
       <>
+        {/* Render the text fields or other content if needed */}
       </>
-      
     ) : (
-      <Stack  spacing={3} sx={{mb:3}}>
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            <TextField label="Section Title" variant="outlined" fullWidth />
-            <IconButton onClick={() => deleteTextField(card.id)}>
-              <Iconify width={20} icon="solar:trash-bin-trash-bold" />
-            </IconButton>
-            
-          </Box>
-          <Typography
-            variant="body2"
-            color="textSecondary"
-            sx={{ mt: -2, px: 1.4, fontSize: '12px' }}
-          >
-            Enter section title 20 letters allowed
-          </Typography>
-        </Stack>
+      <Stack spacing={3} sx={{ mb: 3 }}>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <TextField label="Section Title" variant="outlined" fullWidth />
+          <IconButton onClick={() => deleteCard(card.id)}> {/* Call deleteCard here */}
+            <Iconify width={20} icon="solar:trash-bin-trash-bold" />
+          </IconButton>
+        </Box>
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          sx={{ mt: -2, px: 1.4, fontSize: '12px' }}
+        >
+          Enter section title 20 letters allowed
+        </Typography>
+      </Stack>
     )}
 
     {/* Button to Add New Section */}

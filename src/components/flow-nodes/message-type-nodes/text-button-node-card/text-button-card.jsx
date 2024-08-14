@@ -31,12 +31,12 @@ const renderTextButtonNode = (
       pt: 3.5,
       pb: 2.5,
       mb: 3,
-      borderRadius: '8px',
+      borderRadius: '12px',
       border: '1px solid transparent',
       overflow: 'visible',
       '&:hover': {
         border: '1px solid #919EAb',
-        borderRadius: '8px',
+        borderRadius: '12px',
       },
       '&:hover .hoverCard': {
         opacity: 1,
@@ -65,7 +65,7 @@ const renderTextButtonNode = (
               <Iconify width={20} icon="solar:trash-bin-trash-bold" />
             </IconButton>
             <IconButton >
-              <Iconify width={16} icon="ph:circle-bold" />
+            <Iconify width={24} icon="octicon:dot-16" sx={{ color: '#078DEE' }} />
             </IconButton>
           </Box>
           <Typography

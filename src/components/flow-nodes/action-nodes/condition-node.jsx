@@ -45,9 +45,9 @@ export default function ConditionNode({
         boxShadow: '0px 12px 24px -4px rgba(145, 158, 171, 0.2)',
         p: 2,
         backgroundColor: '#F4F6F8',
-        border: '1px solid transparent',
+        border: '2px solid transparent',
         '&:hover': {
-          border: '1px solid #078DEE',
+          border: '2px solid #078DEE',
           borderRadius: '16px',
         },
         ...sx,
@@ -82,7 +82,7 @@ export default function ConditionNode({
           border: '1px solid transparent',
           '&:hover': {
             border: '1px solid #919EAb',
-            borderRadius: '16px',
+            borderRadius: '12px',
           },
         }}
         {...other}
@@ -174,7 +174,7 @@ export default function ConditionNode({
               True
             </Button>
 
-            <Iconify width={16} icon="ph:circle-bold" />
+            <Iconify width={24} icon="octicon:dot-16" sx={{ color: '#078DEE' }} />
           </Box>
         </Stack>
 
@@ -190,7 +190,7 @@ export default function ConditionNode({
               False
             </Button>
 
-            <Iconify width={16} icon="ph:circle-bold" />
+            <Iconify width={24} icon="octicon:dot-16" sx={{ color: '#078DEE' }} />
           </Box>
         </Stack>
       </Card>

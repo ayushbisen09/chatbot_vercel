@@ -14,7 +14,7 @@ import {
 
 import { Iconify } from 'src/components/iconify';
 
-import renderTextButtonNode from './node-cards/text-button-card';
+import renderTextButtonNode from './text-button-node-card/text-button-card';
 
 export default function TextButtonNode({ sx, ...other }) {
   const [cards, setCards] = useState([
@@ -100,10 +100,10 @@ export default function TextButtonNode({ sx, ...other }) {
         boxShadow: '0px 12px 24px -4px rgba(145, 158, 171, 0.2)',
         p: 2,
         backgroundColor: '#F4F6F8',
-        border: '1px solid transparent',
+        border: '2px solid transparent',
         overflow: 'visible',
         '&:hover': {
-          border: '1px solid #078DEE',
+          border: '2px solid #078DEE',
           borderRadius: '16px',
         },
         ...sx,
