@@ -11,14 +11,22 @@ import { useBoolean } from 'src/hooks/use-boolean';
 import { DashboardContent } from 'src/layouts/dashboard';
 
 import PageHeader from 'src/components/page-header/page-header';
+import AddTagNode from 'src/components/flow-nodes/action-nodes/add-tag-node';
 import ListNode from 'src/components/flow-nodes/message-type-nodes/list-node';
 import ConditionNode from 'src/components/flow-nodes/action-nodes/condition-node';
 import AskAddressNode from 'src/components/flow-nodes/action-nodes/ask-address-node';
+import TemplateNode from 'src/components/flow-nodes/message-type-nodes/template-node';
+
 import AskLocationNode from 'src/components/flow-nodes/action-nodes/ask-location-node';
 import ConnectFlowNode from 'src/components/flow-nodes/action-nodes/connect-flow-node';
 import AskQuestionNode from 'src/components/flow-nodes/action-nodes/ask-question-node';
+import SingleProduct from 'src/components/flow-nodes/message-type-nodes/single-product';
 import FlowStartNode from 'src/components/flow-nodes/message-type-nodes/flow-start-node';
+import AskAttributeNode from 'src/components/flow-nodes/action-nodes/set-attribute-node';
 import TextButtonNode from 'src/components/flow-nodes/message-type-nodes/text-button-node';
+import MultiProductNode from 'src/components/flow-nodes/message-type-nodes/multi-product-node';
+import CatalougeMessageNode from 'src/components/flow-nodes/message-type-nodes/catalogue-message-node';
+
 // ----------------------------------------------------------------------
 
 export default function Page({ sx, icon, title, total, color = 'warning', ...other }) {
@@ -69,10 +77,17 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
       
        
           <ListNode />
+          <SingleProduct/>
           <AskLocationNode />
           <ConnectFlowNode />
+          <AskAttributeNode/>
+          <TemplateNode/>
+   
           <AskAddressNode/>
           <AskQuestionNode/>
+          <AddTagNode/>
+          <CatalougeMessageNode/>
+          <MultiProductNode/>
      
         
          

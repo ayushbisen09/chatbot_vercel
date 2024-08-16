@@ -14,9 +14,9 @@ import {
 
 import { Iconify } from 'src/components/iconify';
 
-import renderTextButtonNode from './text-button-node-card/text-button-card';
+import renderTemplateNodeCard from './template-node-card/template-node-card';
 
-export default function TextButtonNode({ sx, ...other }) {
+export default function TemplateNode({ sx, ...other }) {
   const [cards, setCards] = useState([
     {
       id: 1,
@@ -111,7 +111,7 @@ export default function TextButtonNode({ sx, ...other }) {
       {...other}
     >
       <CardHeader
-        title={<Typography variant="h6">Text Buttons</Typography>}
+        title={<Typography variant="h6">Template</Typography>}
         action={
           <Box sx={{ display: 'flex' }}>
             <IconButton>
@@ -129,7 +129,7 @@ export default function TextButtonNode({ sx, ...other }) {
         sx={{ p: 0, mb: 2 }}
       />
       {cards.map((card, index) =>
-        renderTextButtonNode(
+        renderTemplateNodeCard(
           card,
           index,
           addTextField,

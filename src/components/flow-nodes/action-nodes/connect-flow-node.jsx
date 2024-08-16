@@ -37,9 +37,9 @@ export default function ConnectFlowNode({
         p: 2,
         // width: '350px',
         backgroundColor: '#F4F6F8',
-        border: '1px solid transparent',
+        border: '2px solid transparent',
         '&:hover': {
-          outline: '2px solid #078DEE',
+          border: '2px solid #078DEE',
           borderRadius: '16px',
         },
         ...sx,

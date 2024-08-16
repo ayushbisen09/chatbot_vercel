@@ -16,10 +16,10 @@ import {
 
 import { Iconify } from 'src/components/iconify';
 
-import renderListNode from './node-cards/list-card';
-import renderAddItemCard from './node-cards/add-item-card';
-import renderTextButtonNode from './node-cards/text-button-card';
-import renderListNodeAddSectionCard from './node-cards/list-node-add-section-card';
+import renderListNode from './list-node-cards/list-card';
+import renderAddItemCard from './list-node-cards/add-item-card';
+import renderTextButtonNode from './text-button-node-card/text-button-card';
+import renderListNodeAddSectionCard from './list-node-cards/list-node-add-section-card';
 
 const commonCardStyles = {
   px: 1.5,
@@ -134,8 +134,13 @@ export default function ListNode({
         boxShadow: '0px 12px 24px -4px rgba(145, 158, 171, 0.2)',
         p: 2,
         backgroundColor: '#F4F6F8',
-        border: '1px solid transparent',
+        border: '2px solid transparent',
+        '&:hover': {
+          border: '2px solid #078DEE',
+          borderRadius: '16px',
+        },
         overflow: 'visible',
+        
         ...sx,
       }}
       {...other}

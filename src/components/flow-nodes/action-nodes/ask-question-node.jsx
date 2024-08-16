@@ -45,9 +45,9 @@ export default function AskQuestionNode({
         p: 2,
         // width: '350px',
         backgroundColor: '#F4F6F8',
-        border: '1px solid transparent',
+        border: '2px solid transparent',
         '&:hover': {
-          border: '1px solid #078DEE',
+          border: '2px solid #078DEE',
           borderRadius: '16px',
         },
         ...sx,
@@ -92,7 +92,7 @@ export default function AskQuestionNode({
       >
         <FormControl fullWidth sx={{ mb: 3 }}>
           <TextField
-            label="Enter message"
+            label="Enter Message"
             helperText="Add message 1024 letters allowed."
             variant="outlined"
             fullWidth
@@ -142,7 +142,7 @@ export default function AskQuestionNode({
             <FormControl fullWidth sx={{ mb: 0 }}>
               <TextField
                 sx={{ mb: 3 }}
-                label="Enter number"
+                label="Enter Number"
                 helperText="Number of Attempt"
                 variant="outlined"
                 fullWidth
@@ -153,7 +153,7 @@ export default function AskQuestionNode({
                 placeholder="Enter Number of Attempt"
               />
               <TextField
-                label="Enter message"
+                label="Enter Message"
                 helperText="Enter validation error message. Only 1024 characters allowed."
                 variant="outlined"
                 fullWidth
@@ -176,7 +176,7 @@ export default function AskQuestionNode({
               </Box>
               <TextField
                 sx={{ mb: 3 }}
-                label="Enter number"
+                label="Enter Number"
                 helperText="Number of Attempt"
                 variant="outlined"
                 fullWidth
@@ -187,7 +187,7 @@ export default function AskQuestionNode({
                 placeholder="Enter Number of Attempt"
               />
               <TextField
-                label="Enter message"
+                label="Enter Message"
                 helperText="Enter validation error message. Only 1024 characters allowed."
                 variant="outlined"
                 fullWidth
@@ -204,7 +204,7 @@ export default function AskQuestionNode({
             <FormControl fullWidth sx={{ mb: 0 }}>
               <TextField
                 sx={{ mb: 3 }}
-                label="Enter number"
+                label="Enter Number"
                 helperText="Number of Attempt"
                 variant="outlined"
                 fullWidth
@@ -215,7 +215,7 @@ export default function AskQuestionNode({
                 placeholder="Enter Number of Attempt"
               />
               <TextField
-                label="Enter message"
+                label="Enter Message"
                 helperText="Enter validation error message. Only 1024 characters allowed."
                 variant="outlined"
                 fullWidth
@@ -231,7 +231,7 @@ export default function AskQuestionNode({
             <FormControl fullWidth sx={{ mb: 0 }}>
               <TextField
                 sx={{ mb: 3 }}
-                label="Enter number"
+                label="Enter Number"
                 helperText="Number of Attempt"
                 variant="outlined"
                 fullWidth
@@ -242,7 +242,7 @@ export default function AskQuestionNode({
                 placeholder="Enter Number of Attempt"
               />
               <TextField
-                label="Enter message"
+                label="Enter Message"
                 helperText="Enter validation error message. Only 1024 characters allowed."
                 variant="outlined"
                 fullWidth
@@ -258,7 +258,7 @@ export default function AskQuestionNode({
             <FormControl fullWidth sx={{ mb: 0 }}>
               <TextField
                 sx={{ mb: 3 }}
-                label="Enter number"
+                label="Enter Number"
                 helperText="Number of Attempt"
                 variant="outlined"
                 fullWidth
@@ -269,7 +269,7 @@ export default function AskQuestionNode({
                 placeholder="Enter Number of Attempt"
               />
               <TextField
-                label="Enter message"
+                label="Enter Message"
                 helperText="Enter validation error message. Only 1024 characters allowed."
                 variant="outlined"
                 fullWidth
@@ -294,7 +294,7 @@ export default function AskQuestionNode({
               />
               <TextField
                 sx={{ mb: 3 }}
-                label="Enter number"
+                label="Enter Number"
                 helperText="Number of Attempt"
                 variant="outlined"
                 fullWidth
@@ -305,7 +305,7 @@ export default function AskQuestionNode({
                 placeholder="Enter Number of Attempt"
               />
               <TextField
-                label="Enter message"
+                label="Enter Message"
                 helperText="Enter validation error message. Only 1024 characters allowed."
                 variant="outlined"
                 fullWidth

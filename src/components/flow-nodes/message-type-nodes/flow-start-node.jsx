@@ -80,7 +80,7 @@ export default function FlowStartNode({
         title={<Typography variant="h6">Flow Start</Typography>}
         action={
           <IconButton>
-            <Iconify width={24} icon="solar:add-circle-bold" sx={{ color: 'text.primary' }} />
+            <Iconify width={24} icon="octicon:dot-16" sx={{ color: '#078DEE' }} />
           </IconButton>
         }
         sx={{ p: 0, mb: 2 }}
@@ -144,7 +144,7 @@ export default function FlowStartNode({
 
           <Stack direction="row" alignItems="center">
             <Typography variant="body2" sx={{ mr: 1 }}>
-              Enter regex to match substring trigger. Enable toggle for each sensitive regex
+             Enable toggle for each sensitive Regex.
             </Typography>
             <Switch
               checked={switchChecked}

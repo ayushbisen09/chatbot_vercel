@@ -1,19 +1,15 @@
 import React from 'react';
-
 import {
   Box,
   Card,
   Stack,
   Button,
   Tooltip,
-  TextField,
   IconButton,
-  Typography,
 } from '@mui/material';
-
 import { Iconify } from 'src/components/iconify';
 
-const renderTextButtonNode = (
+const renderTemplateNode = (
   card,
   index,
   addTextField,
@@ -21,7 +17,6 @@ const renderTextButtonNode = (
   deleteCard,
   handleHoverCardClick
 ) => (
-  
   <Card
     key={card.id}
     sx={{
@@ -31,12 +26,12 @@ const renderTextButtonNode = (
       pt: 3.5,
       pb: 2.5,
       mb: 3,
-      borderRadius: '8px',
+      borderRadius: '12px',
       border: '1px solid transparent',
       overflow: 'visible',
       '&:hover': {
         border: '1px solid #919EAb',
-        borderRadius: '8px',
+        borderRadius: '12px',
       },
       '&:hover .hoverCard': {
         opacity: 1,
@@ -44,39 +39,6 @@ const renderTextButtonNode = (
     }}
   >
     <Stack spacing={2}>
-      <TextField
-        label="Enter Message"
-        helperText="Add message 1024 letters allowed."
-        variant="outlined"
-        fullWidth
-        multiline
-        rows={4}
-      />
-      {card.textFields.map((field) => (
-        <Stack key={field.id} spacing={3}>
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            <TextField label="Enter Button Text" variant="outlined" fullWidth />
-            <IconButton onClick={() => deleteTextField(card.id, field.id)}>
-              <Iconify width={20} icon="solar:trash-bin-trash-bold" />
-            </IconButton>
-            <IconButton >
-              <Iconify width={16} icon="ph:circle-bold" />
-            </IconButton>
-          </Box>
-          <Typography
-            variant="body2"
-            color="textSecondary"
-            sx={{ mt: -2, px: 1.4, fontSize: '12px' }}
-          >
-            Enter button text. 20 letters allowed
-          </Typography>
-        </Stack>
-      ))}
       <Button
         variant="outlined"
         color="primary"
@@ -87,7 +49,7 @@ const renderTextButtonNode = (
           <Iconify icon="heroicons:plus-circle-16-solid" style={{ width: 18, height: 18 }} />
         }
       >
-        Add Button
+        Add Template
       </Button>
     </Stack>
     {/* Hover Card */}
@@ -95,10 +57,10 @@ const renderTextButtonNode = (
       className="hoverCard"
       sx={{
         position: 'absolute',
-        top: 30,
+        top: 17,
         right: -37,
-        width: '50px',
-        height: 30 + (index === 0 ? 3 : 4) * 30,
+        width: '48px',
+      
         backgroundColor: 'background.paper',
         border: '1px solid #ddd',
         borderRadius: '12px',
@@ -109,7 +71,7 @@ const renderTextButtonNode = (
         justifyContent: 'center',
         flexDirection: 'column',
         zIndex: 10,
-        p:1
+        p: 1,
       }}
     >
       <Tooltip title="Add">
@@ -121,13 +83,10 @@ const renderTextButtonNode = (
           />
         </IconButton>
       </Tooltip>
-      <Tooltip title="Edit">
-        <IconButton>
-          <Iconify width={20} icon="eva:eye-fill" sx={{ color: 'text.secondary' }} />
-        </IconButton>
-      </Tooltip>
+
+      {/* Render delete icon only if there is more than one card */}
       {index > 0 && (
-        <Tooltip title="Delete Content">
+        <Tooltip title="Delete">
           <IconButton onClick={() => deleteCard(card.id)}>
             <Iconify
               width={20}
@@ -141,4 +100,4 @@ const renderTextButtonNode = (
   </Card>
 );
 
-export default renderTextButtonNode;
+export default renderTemplateNode;
