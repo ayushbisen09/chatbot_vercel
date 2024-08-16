@@ -61,8 +61,9 @@ export function KanbanColumn({ children, column, tasks, disabled, sx }) {
 
   return (
     <ColumnBase
+    
       ref={disabled ? undefined : setNodeRef}
-      sx={{ transition, transform: CSS.Translate.toString(transform), ...sx }}
+      sx={{ boxShadow: '0px 12px 24px -4px rgba(145, 158, 171, 0.2)',transition, transform: CSS.Translate.toString(transform), ...sx }}
       stateProps={{
         dragging: isDragging,
         hover: isOverContainer,

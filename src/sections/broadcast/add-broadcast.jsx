@@ -1,8 +1,12 @@
+import dayjs from 'dayjs';
 import { useState } from 'react';
 import { useTheme } from '@emotion/react';
 import { FormProvider } from 'react-hook-form';
 import ReactCountryFlag from 'react-country-flag';
 
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 // import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import {
   Box,
@@ -90,6 +94,8 @@ export default function AddBroadcast() {
     ...country,
     phone: `+${country.phone}`,
   }));
+
+  const [startDate, setStartDate] = useState(dayjs(new Date()));
 
   // Phone NUmber Field Function
 
@@ -352,13 +358,18 @@ export default function AddBroadcast() {
               </RadioGroup>
               {scheduleType === 'yes_schedule' && (
                 <Form>
-                  <TextField
-                    sx={{ mt: '24px' }}
-                    label="Start date"
-                    type="datetime-local"
-                    fullWidth
-                    InputLabelProps={{ shrink: true }}
-                  />
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DateTimePicker
+                    sx={{mt:'24px'}}
+                      label="For desktop"
+                      value={startDate}
+                      minDate={dayjs('2017-01-01')}
+                      onChange={(newValue) => {
+                        setStartDate(newValue);
+                      }}
+                      slotProps={{ textField: { fullWidth: true } }}
+                    />
+                  </LocalizationProvider>
                 </Form>
               )}
 

@@ -11,6 +11,7 @@ import {
   ListItem,
   CardMedia,
   Typography,
+  IconButton,
   ListItemText,
   useMediaQuery,
 } from '@mui/material';
@@ -19,9 +20,11 @@ import { useBoolean } from 'src/hooks/use-boolean';
 
 import { CONFIG } from 'src/config-global';
 
+import { Iconify } from 'src/components/iconify';
+
 import { WhatsAppDialog } from 'src/sections/dashbaord/hooks/add-whatsApp-number';
 
-export default function BigCard({sx, ...other}) {
+export default function BigCard({ sx, ...other }) {
   const videoId = 'CoIfgN0tfhE'; // Repalace with your YouTube video ID
   const coverSrc = `${CONFIG.site.basePath}/assets/background/Pabbly Broadcast Card.png`;
   const [isOpen, setOpen] = useState(false);
@@ -68,116 +71,116 @@ export default function BigCard({sx, ...other}) {
         <Typography variant="h6" sx={{ color: 'grey.800', mb: 1 }}>
           Points To Remember
         </Typography>
-        
-          <List sx={{ color: 'grey.600' }}>
-            <ListItem disablePadding>
-              <ListItemText
-                primaryTypographyProps={{
-                  sx: {
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    '&::before': { content: '"•"', paddingRight: '0.5rem' },
-                  },
-                }}
-                primary="Choose a WhatsApp Business API provider that suits your needs and requirements."
-              />
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemText
-                primaryTypographyProps={{
-                  sx: {
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    '&::before': { content: '"•"', paddingRight: '0.5rem' },
-                  },
-                }}
-                primary="Familiarize yourself with the requirements for using the WhatsApp Business API."
-              />
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemText
-                primaryTypographyProps={{
-                  sx: {
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    '&::before': { content: '"•"', paddingRight: '0.5rem' },
-                  },
-                }}
-                primary="Apply for access to the WhatsApp Business API through your chosen provider."
-              />
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemText
-                primaryTypographyProps={{
-                  sx: {
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    '&::before': { content: '"•"', paddingRight: '0.5rem' },
-                  },
-                }}
-                primary="Review and agree to the terms and conditions set by WhatsApp and your chosen provider."
-              />
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemText
-                primaryTypographyProps={{
-                  sx: {
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    '&::before': { content: '"•"', paddingRight: '0.5rem' },
-                  },
-                }}
-                primary="Verify your business and phone number with WhatsApp."
-              />
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemText
-                primaryTypographyProps={{
-                  sx: {
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    '&::before': { content: '"•"', paddingRight: '0.5rem' },
-                  },
-                }}
-                primary="Work with your chosen provider to complete the setup process. "
-              />
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemText
-                primaryTypographyProps={{
-                  sx: {
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    '&::before': { content: '"•"', paddingRight: '0.5rem' },
-                  },
-                }}
-                primary="Iterate on your messaging strategies to improve engagement and achieve your business goals."
-              />
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemText
-                primaryTypographyProps={{
-                  component: 'div',
-                  sx: {
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    '&::before': { content: '"•"', paddingRight: '0.5rem' },
-                  },
-                }}
-                primary={
-                  <>
-                    Stay informed about updates and changes to policies that may affect your use of
-                    the API.{' '}
-                    <Link href="#" underline="always">
-                      Learn more
-                    </Link>
-                  </>
-                }
-              />
-            </ListItem>
-            {/* Add more list items as needed */}
-          </List>
-      
+
+        <List sx={{ color: 'grey.600' }}>
+          <ListItem disablePadding>
+            <ListItemText
+              primaryTypographyProps={{
+                sx: {
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  '&::before': { content: '"•"', paddingRight: '0.5rem' },
+                },
+              }}
+              primary="Choose a WhatsApp Business API provider that suits your needs and requirements."
+            />
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemText
+              primaryTypographyProps={{
+                sx: {
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  '&::before': { content: '"•"', paddingRight: '0.5rem' },
+                },
+              }}
+              primary="Familiarize yourself with the requirements for using the WhatsApp Business API."
+            />
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemText
+              primaryTypographyProps={{
+                sx: {
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  '&::before': { content: '"•"', paddingRight: '0.5rem' },
+                },
+              }}
+              primary="Apply for access to the WhatsApp Business API through your chosen provider."
+            />
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemText
+              primaryTypographyProps={{
+                sx: {
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  '&::before': { content: '"•"', paddingRight: '0.5rem' },
+                },
+              }}
+              primary="Review and agree to the terms and conditions set by WhatsApp and your chosen provider."
+            />
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemText
+              primaryTypographyProps={{
+                sx: {
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  '&::before': { content: '"•"', paddingRight: '0.5rem' },
+                },
+              }}
+              primary="Verify your business and phone number with WhatsApp."
+            />
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemText
+              primaryTypographyProps={{
+                sx: {
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  '&::before': { content: '"•"', paddingRight: '0.5rem' },
+                },
+              }}
+              primary="Work with your chosen provider to complete the setup process. "
+            />
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemText
+              primaryTypographyProps={{
+                sx: {
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  '&::before': { content: '"•"', paddingRight: '0.5rem' },
+                },
+              }}
+              primary="Iterate on your messaging strategies to improve engagement and achieve your business goals."
+            />
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemText
+              primaryTypographyProps={{
+                component: 'div',
+                sx: {
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  '&::before': { content: '"•"', paddingRight: '0.5rem' },
+                },
+              }}
+              primary={
+                <>
+                  Stay informed about updates and changes to policies that may affect your use of
+                  the API.{' '}
+                  <Link href="#" underline="always">
+                    Learn more
+                  </Link>
+                </>
+              }
+            />
+          </ListItem>
+          {/* Add more list items as needed */}
+        </List>
+
         <Button
           onClick={dialog.onTrue}
           sx={{ mt: isMobile ? 2 : 2 }}
@@ -200,18 +203,42 @@ export default function BigCard({sx, ...other}) {
         }}
       >
         <Card>
-          <CardMedia
-            component="img"
-            src={coverSrc}
-            title="Cover Image"
-            style={{
-              height: '100%',
-              width: '100%',
-              cursor: 'pointer',
-              objectFit: 'contain',
-            }}
-            onClick={() => setOpen(true)}
-          />
+          <Box position="relative">
+            <CardMedia
+              component="img"
+              src={coverSrc}
+              title="Cover Image"
+              sx={{
+                height: '100%',
+                width: '100%',
+                cursor: 'pointer',
+                objectFit: 'contain',
+              }}
+              onClick={() => setOpen(true)}
+            />
+            <IconButton
+              aria-label="play"
+              onClick={() => setOpen(true)}
+              sx={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                color: 'white',
+                '&:hover': {
+                  backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                },
+              }}
+            >
+              <Iconify
+                icon="line-md:pause-to-play-filled-transition"
+                width={30}
+                height={30}
+                style={{ color: 'blue' }}
+              />
+            </IconButton>
+          </Box>
         </Card>
         <ModalVideo
           channel="youtube"

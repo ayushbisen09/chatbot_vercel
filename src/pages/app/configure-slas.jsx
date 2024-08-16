@@ -2,6 +2,9 @@ import dayjs from 'dayjs';
 import { useState } from 'react';
 import { useTheme } from '@emotion/react';
 
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { MobileTimePicker } from '@mui/x-date-pickers/MobileTimePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import {
   Box,
   Card,
@@ -10,7 +13,6 @@ import {
   Button,
   Divider,
   Snackbar,
-  TextField,
   CardHeader,
   useMediaQuery,
   InputAdornment,
@@ -50,6 +52,9 @@ export default function Page() {
     setSnackbarOpen(false);
   };
 
+  const [startDate, setStartDate] = useState(dayjs(new Date()));
+
+
   return (
     <DashboardContent maxWidth="xl">
       <PageHeader
@@ -63,38 +68,30 @@ export default function Page() {
           <Divider sx={{ mx: -3 }} />
           <Box sx={{ mt: 3 }}>
             <Grid container spacing={2} sx={{ width: '100%', maxWidth: 'md' }}>
+              
               <Grid item xs={12} sm={6}>
-                <TextField
-                  label="Response Time"
-                  value={value}
-                  onChange={(e) => setValue(e.target.value)}
-                  fullWidth
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <Iconify icon="tabler:clock" style={{ width: 24, height: 24 }} />
-                      </InputAdornment>
-                    ),
-                  }}
-                  helperText="You can set SLA setting to fix the response time."
-                  InputLabelProps={{ shrink: true }}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  label="Response Time"
-                  value={value}
-                  onChange={(e) => setValue(e.target.value)}
-                  fullWidth
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <Iconify icon="tabler:clock" style={{ width: 24, height: 24 }} />
-                      </InputAdornment>
-                    ),
-                  }}
-                  InputLabelProps={{ shrink: true }}
-                />
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <MobileTimePicker
+                      label="Start Time"
+                      value={startDate}
+                      minDate={dayjs('2017-01-01')}
+                      onChange={(newValue) => setStartDate(newValue)}
+                      
+                      ampm={false}
+                      slotProps={{
+                        textField: {
+                          fullWidth: true,
+                          InputProps: {
+                            endAdornment: (
+                              <InputAdornment position="end">
+                                <Iconify icon="carbon:time" width={24} height={24} />
+                              </InputAdornment>
+                            ),
+                          },
+                        },
+                      }}
+                    />
+                  </LocalizationProvider>
               </Grid>
             </Grid>
             <Box sx={{ mt: 2 }}>

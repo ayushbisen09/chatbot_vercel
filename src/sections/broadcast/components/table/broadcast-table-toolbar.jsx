@@ -13,6 +13,9 @@ import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import FormControl from '@mui/material/FormControl';
 import InputAdornment from '@mui/material/InputAdornment';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
@@ -22,7 +25,8 @@ import { usePopover, CustomPopover } from 'src/components/custom-popover';
 // ----------------------------------------------------------------------
 
 export function OrderTableToolbar({ filters, onResetPage, dateError }) {
-  const [value, setValue] = useState(dayjs(new Date()));
+  const [startDate, setStartDate] = useState(dayjs(new Date()));
+  const [endDate, setEndDate] = useState(dayjs(new Date()));
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -85,26 +89,28 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
         sx={{ p: 2.5, pr: { xs: 2.5, md: 1 } }}
       >
         <Stack direction="row" alignItems="center" spacing={2} flexGrow={1} sx={{ width: 1 }}>
-          <TextField
-            label="Start date"
-            type="date"
-            value={filters.state.startDate}
-            onChange={handleFilterStartDate}
-            fullWidth
-            InputLabelProps={{ shrink: true }} // Ensure the label stays visible
-            sx={{ maxWidth: { md: 200 } }}
-          />
-          <TextField
-            label="End date"
-            type="date"
-            value={filters.state.endDate}
-            onChange={handleFilterEndDate}
-            fullWidth
-            error={dateError}
-            helperText={dateError ? 'End date must be later than start date' : null}
-            InputLabelProps={{ shrink: true }}
-            sx={{ maxWidth: { md: 200 } }}
-          />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              label="Start Date"
+              value={startDate}
+              minDate={dayjs('2017-01-01')}
+              onChange={(newValue) => {
+                setStartDate(newValue);
+              }}
+              slotProps={{ textField: { fullWidth: false } }}
+            />
+          </LocalizationProvider>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              label="End Date"
+              value={endDate}
+              minDate={dayjs('2017-01-01')}
+              onChange={(newValue) => {
+                setEndDate(newValue);
+              }}
+              slotProps={{ textField: { fullWidth: false } }}
+            />
+          </LocalizationProvider>
           <TextField
             sx={{ mr: '5px' }}
             fullWidth

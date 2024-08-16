@@ -86,7 +86,7 @@ export default function Agentlist({ onItemSelect }) {
         },
       }}
     >
-      <Typography display='flex' justifyContent='center' fontSize={18} fontWeight={700}>Agents List</Typography>
+      <Typography fontSize={18} fontWeight={700}>Agents List</Typography>
       <List sx={{ width: '100%' }}>
         {/* Ayush Bisen */}
         <CustomListItemButton

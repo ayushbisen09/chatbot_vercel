@@ -1,14 +1,18 @@
+import dayjs from 'dayjs';
 import { useState } from 'react';
 
 import Switch from '@mui/material/Switch';
-import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { Box, Card, Avatar, Button, Divider, CardHeader } from '@mui/material';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { MobileTimePicker } from '@mui/x-date-pickers/MobileTimePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { Box, Card, Avatar, Button, Divider, CardHeader, InputAdornment } from '@mui/material';
 
 import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';
 
+import { Iconify } from 'src/components/iconify';
 import PageHeader from 'src/components/page-header/page-header';
 
 import {
@@ -38,15 +42,7 @@ export default function Page() {
     setOpenDrawer2(false);
   };
 
-  const [timeValues, setTimeValues] = useState({
-    Mon: { start: '09:00', end: '17:00' },
-    Tue: { start: '09:00', end: '17:00' },
-    Wed: { start: '09:00', end: '17:00' },
-    Thu: { start: '09:00', end: '17:00' },
-    Fri: { start: '09:00', end: '17:00' },
-    Sat: { start: '09:00', end: '17:00' },
-    Sun: { start: '09:00', end: '17:00' },
-  });
+ 
   const [daysClosed, setDaysClosed] = useState({
     Mon: false,
     Tue: false,
@@ -61,13 +57,8 @@ export default function Page() {
     setDaysClosed((prev) => ({ ...prev, [day]: !prev[day] }));
   };
 
-  const handleTimeChange = (day, type, event) => {
-    const newValue = event.target.value;
-    setTimeValues((prev) => ({
-      ...prev,
-      [day]: { ...prev[day], [type]: newValue },
-    }));
-  };
+ 
+  const [startDate, setStartDate] = useState(dayjs(new Date()));
 
   return (
     <DashboardContent maxWidth="xl">
@@ -277,33 +268,49 @@ export default function Page() {
                 </Typography>
               ) : (
                 <>
-                  <TextField
-                    type="time"
-                    value={timeValues[day].start}
-                    onChange={(event) => handleTimeChange(day, 'start', event)}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    inputProps={{
-                      step: 300, // 5 min
-                    }}
-                    sx={{ width: '25%' }}
-                  />
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <MobileTimePicker
+                      label="Start Time"
+                      value={startDate}
+                      minDate={dayjs('2017-01-01')}
+                      onChange={(newValue) => setStartDate(newValue)}
+                      slotProps={{
+                        textField: {
+                          fullWidth: false,
+                          InputProps: {
+                            endAdornment: (
+                              <InputAdornment position="end">
+                                <Iconify icon="carbon:time" width={24} height={24} />
+                              </InputAdornment>
+                            ),
+                          },
+                        },
+                      }}
+                    />
+                  </LocalizationProvider>
                   <Typography variant="h7" sx={{ fontSize: '14px', fontWeight: '600' }}>
                     To
                   </Typography>
-                  <TextField
-                    type="time"
-                    value={timeValues[day].end}
-                    onChange={(event) => handleTimeChange(day, 'end', event)}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    inputProps={{
-                      step: 300, // 5 min
-                    }}
-                    sx={{ width: '25%' }}
-                  />
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <MobileTimePicker
+                      label="End Time"
+                      value={startDate}
+                      minDate={dayjs('2017-01-01')}
+                      onChange={(newValue) => setStartDate(newValue)}
+                      slotProps={{
+                        textField: {
+                          fullWidth: false,
+                          InputProps: {
+                            endAdornment: (
+                              <InputAdornment position="end">
+                                <Iconify icon="carbon:time" width={24} height={24} />
+                              </InputAdornment>
+                            ),
+                          },
+                        },
+                      }}
+                    />
+                  </LocalizationProvider>
                 </>
               )}
             </Box>
