@@ -36,7 +36,7 @@ export default function AskAttributeNode({
       sx={{
         boxShadow: '0px 12px 24px -4px rgba(145, 158, 171, 0.2)',
         p: 2,
-        width: '350px',
+        // width: '350px',
         backgroundColor: '#F4F6F8',
         border: '1px solid transparent',
         '&:hover': {
@@ -48,7 +48,7 @@ export default function AskAttributeNode({
       {...other}
     >
       <CardHeader
-        title={<Typography variant="h6">Ask Address</Typography>}
+        title={<Typography variant="h6">Ask Attribute</Typography>}
         action={
           <Box sx={{ display: 'flex' }}>
             <IconButton>

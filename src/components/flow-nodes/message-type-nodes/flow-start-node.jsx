@@ -70,8 +70,8 @@ export default function FlowStartNode({
         boxShadow: '0px 12px 24px -4px rgba(145, 158, 171, 0.2)',
         p: 2,
         backgroundColor: 'rgba(7, 141, 238, 0.08)',
-        border: '1px solid',
-        borderColor: 'rgba(7, 141, 238)',
+        border: '2px solid #078DEE',
+        
         ...sx,
       }}
       {...other} // Ensure other props do not include key

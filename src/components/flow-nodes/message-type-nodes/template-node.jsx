@@ -14,7 +14,7 @@ import {
 
 import { Iconify } from 'src/components/iconify';
 
-import renderTemplateNodeCard from './template-node-card/template-node-card';
+import RenderTemplateNode from './template-node-card/template-node-card'; // Updated import
 
 export default function TemplateNode({ sx, ...other }) {
   const [cards, setCards] = useState([
@@ -23,7 +23,6 @@ export default function TemplateNode({ sx, ...other }) {
       type: 'text-button',
       textFields: [{ id: 1 }], // Initialize with one text field for the first card
     },
-    
   ]);
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -77,12 +76,14 @@ export default function TemplateNode({ sx, ...other }) {
     }
     handleClose();
   };
+
   const addListCard = (type) => {
     if (type === 'list') {
       setCards([...cards, { id: cards.length + 1, type, textFields: [{ id: 1 }] }]);
     }
     handleClose();
   };
+
   const handleHoverCardClick = (cardId) => {
     const cardIndex = cards.findIndex((card) => card.id === cardId);
     if (cardIndex !== -1) {
@@ -99,6 +100,7 @@ export default function TemplateNode({ sx, ...other }) {
       sx={{
         boxShadow: '0px 12px 24px -4px rgba(145, 158, 171, 0.2)',
         p: 2,
+        // width:'350px',
         backgroundColor: '#F4F6F8',
         border: '2px solid transparent',
         overflow: 'visible',
@@ -129,14 +131,15 @@ export default function TemplateNode({ sx, ...other }) {
         sx={{ p: 0, mb: 2 }}
       />
       {cards.map((card, index) =>
-        renderTemplateNodeCard(
-          card,
-          index,
-          addTextField,
-          deleteTextField,
-          deleteCard,
-          handleHoverCardClick
-        )
+        <RenderTemplateNode
+          key={card.id}
+          card={card}
+          index={index}
+          addTextField={addTextField}
+          deleteTextField={deleteTextField}
+          deleteCard={deleteCard}
+          handleHoverCardClick={handleHoverCardClick}
+        />
       )}
       <Button
         variant="outlined"
@@ -168,7 +171,7 @@ export default function TemplateNode({ sx, ...other }) {
             Media
           </ListItemIcon>
         </MenuItem>
-        <MenuItem onClick={()=> addListCard('list')}>
+        <MenuItem onClick={() => addListCard('list')}>
           <ListItemIcon>
             <Iconify width={20} sx={{ mr: 1 }} icon="typcn:th-list-outline" />
             List
