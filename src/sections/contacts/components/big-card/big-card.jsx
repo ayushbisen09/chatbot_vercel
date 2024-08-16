@@ -20,7 +20,7 @@ import { useBoolean } from 'src/hooks/use-boolean';
 
 import { CONFIG } from 'src/config-global';
 
-export default function BigCard(sx, ...other) {
+export default function BigCard({sx, ...other}) {
   const videoId = 'CoIfgN0tfhE'; // Repalace with your YouTube video ID
   const coverSrc = `${CONFIG.site.basePath}/assets/background/Pabbly Broadcast Card.png`;
   const [isOpen, setOpen] = useState(false);
@@ -71,16 +71,7 @@ export default function BigCard(sx, ...other) {
         <Typography variant="h6" sx={{ color: 'grey.800', mb: 1 }}>
           Points To Remember
         </Typography>
-        <Typography
-          variant="body2"
-          sx={{
-            fontSize: '14px',
-            fontWeight: '500',
-            color: 'grey.600',
-
-            ...(true && { mb: 3 }), // Example conditional margin bottom
-          }}
-        >
+        
           <List sx={{ color: 'grey.600' }}>
             <ListItem disablePadding sx={{ mb: '24px' }}>
               <ListItemText
@@ -157,7 +148,7 @@ export default function BigCard(sx, ...other) {
 
             {/* Add more list items as needed */}
           </List>
-        </Typography>
+     
         <Button
           onClick={handleAddContact}
           sx={{ mt: isMobile ? 2 : 0 }}

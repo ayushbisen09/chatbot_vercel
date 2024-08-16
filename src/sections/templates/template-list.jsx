@@ -72,6 +72,11 @@ export default function TemplateList({ onItemSelect }) {
   return (
     <Box
       sx={{
+        backgroundColor:'common.white',
+        p:'24px',
+        borderRadius:'16px',
+        boxShadow: '0px 12px 24px -4px rgba(145, 158, 171, 0.2)',
+        height:'100%',
         width: {
           xs: '100%',
           sm: '100%',

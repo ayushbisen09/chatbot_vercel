@@ -135,8 +135,6 @@ export default function APIRequestNode({
                         <Button variant="outlined" color="primary" size="medium" fullWidth>
                           Status Fallback
                         </Button>
-
-                        <Iconify width={24} icon="octicon:dot-16" sx={{ color: '#078DEE' }} />
                       </Box>
                     </Stack>
                   </FormControl>
@@ -147,6 +145,7 @@ export default function APIRequestNode({
                     sx={{ color: 'grey.600' }}
                   >
                     <Iconify width={24} icon="solar:trash-bin-trash-bold" />
+                    <Iconify width={24} icon="octicon:dot-16" sx={{ color: '#078DEE' }} />
                   </IconButton>
                 </Stack>
                 {/* <FormHelperText>Select tag.</FormHelperText> */}
@@ -164,7 +163,6 @@ export default function APIRequestNode({
           >
             Custom Status Code
           </Button>
-          
 
           <APIRequestDialog open={dialog.value} onClose={dialog.onFalse} />
         </FormControl>

@@ -84,7 +84,7 @@ export default function CatalougeMessageNode({ sx, ...other }) {
       {...other}
     >
       <CardHeader
-        title={<Typography variant="h6">Catalouge Message</Typography>}
+        title={<Typography variant="h6">Catalogue Message</Typography>}
         action={
           <Box sx={{ display: 'flex' }}>
             <IconButton>

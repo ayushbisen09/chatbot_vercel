@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useState, useCallback } from 'react';
 
-import { Box, List, Button, ListItemIcon, ListItemText, ListItemButton } from '@mui/material';
+import { Box, List, Button, ListItemText, ListItemButton } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
@@ -74,6 +74,10 @@ export default function ContactList({ onItemSelect }) {
   return (
     <Box
       sx={{
+        backgroundColor:'common.white',
+        p:'24px',
+        borderRadius:'16px',
+        boxShadow: '0px 12px 24px -4px rgba(145, 158, 171, 0.2)',
         width: {
           xs: '100%',
           sm: '100%',
@@ -82,6 +86,7 @@ export default function ContactList({ onItemSelect }) {
       }}
     >
       <Button
+      sx={{mb:'8px'}}
         onClick={dialog.onTrue}
         fullWidth
         color="inherit"
@@ -101,9 +106,9 @@ export default function ContactList({ onItemSelect }) {
           selected={selectedIndex === 0}
           onClick={(event) => handleListItemClick(event, 0)}
         >
-          <ListItemIcon>
-            <Iconify icon="solar:file-text-bold" width={24} height={24} />
-          </ListItemIcon>
+          {/* <ListItemIcon>
+            <Iconify icon="tabler:list" width={24} height={24} />
+          </ListItemIcon> */}
           <ListItemText
             primary={
               <div
@@ -146,9 +151,9 @@ export default function ContactList({ onItemSelect }) {
           selected={selectedIndex === 1}
           onClick={(event) => handleListItemClick(event, 1)}
         >
-          <ListItemIcon>
-            <Iconify icon="solar:file-text-bold" width={24} height={24} />
-          </ListItemIcon>
+          {/* <ListItemIcon>
+            <Iconify icon="tabler:list" width={24} height={24} />
+          </ListItemIcon> */}
           <ListItemText
             primary={
               <div
@@ -191,9 +196,9 @@ export default function ContactList({ onItemSelect }) {
           selected={selectedIndex === 2}
           onClick={(event) => handleListItemClick(event, 2)}
         >
-          <ListItemIcon>
-            <Iconify icon="solar:file-text-bold" width={24} height={24} />
-          </ListItemIcon>
+          {/* <ListItemIcon>
+            <Iconify icon="tabler:list" width={24} height={24} />
+          </ListItemIcon> */}
           <ListItemText
             primary={
               <div
