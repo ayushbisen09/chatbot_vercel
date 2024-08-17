@@ -3,7 +3,6 @@ import { useState, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 import Popover from '@mui/material/Popover';
 import MenuItem from '@mui/material/MenuItem';
 import { useMediaQuery } from '@mui/material';
@@ -97,14 +96,14 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
               ),
             }}
           />
-          <Button
+          {/* <Button
             size="large"
             variant=""
             startIcon={<Iconify icon="mdi:filter" />}
             onClick={handleFilterClick}
           >
             Filters
-          </Button>
+          </Button> */}
         </Stack>
       </Stack>
 

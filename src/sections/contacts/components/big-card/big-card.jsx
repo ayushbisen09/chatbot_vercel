@@ -12,6 +12,7 @@ import {
   ListItem,
   CardMedia,
   Typography,
+  IconButton,
   ListItemText,
   useMediaQuery,
 } from '@mui/material';
@@ -20,7 +21,9 @@ import { useBoolean } from 'src/hooks/use-boolean';
 
 import { CONFIG } from 'src/config-global';
 
-export default function BigCard({sx, ...other}) {
+import { Iconify } from 'src/components/iconify';
+
+export default function BigCard({ sx, ...other }) {
   const videoId = 'CoIfgN0tfhE'; // Repalace with your YouTube video ID
   const coverSrc = `${CONFIG.site.basePath}/assets/background/Pabbly Broadcast Card.png`;
   const [isOpen, setOpen] = useState(false);
@@ -71,84 +74,84 @@ export default function BigCard({sx, ...other}) {
         <Typography variant="h6" sx={{ color: 'grey.800', mb: 1 }}>
           Points To Remember
         </Typography>
-        
-          <List sx={{ color: 'grey.600' }}>
-            <ListItem disablePadding sx={{ mb: '24px' }}>
-              <ListItemText
-                primaryTypographyProps={{
-                  sx: {
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    '&::before': { paddingRight: '0.5rem' },
-                  },
-                }}
-                primary="There may be no contacts in this contact list. You can create a workflow by following the steps below-"
-              />
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemText
-                primaryTypographyProps={{
-                  sx: {
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    '&::before': { content: '"•"', paddingRight: '0.5rem' },
-                  },
-                }}
-                primary={
-                  <>
-                    <Typography fontSize={14} component="span" fontWeight="bold">
-                      Step 1:
-                    </Typography>{' '}
-                    Click on the {`"Add Contact"`} button available in the top right section.
-                  </>
-                }
-              />
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemText
-                primaryTypographyProps={{
-                  sx: {
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    '&::before': { content: '"•"', paddingRight: '0.5rem' },
-                  },
-                }}
-                primary={
-                  <>
-                    <Typography fontSize={14} component="span" fontWeight="bold">
-                      Step 2:
-                    </Typography>{' '}
-                    Add an Single Contact or Import Bulk Contacts.
-                  </>
-                }
-              />
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemText
-                primaryTypographyProps={{
-                  sx: {
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    '&::before': { content: '"•"', paddingRight: '0.5rem' },
-                  },
-                }}
-                primary={
-                  <>
-                    <Typography fontSize={14} component="span" fontWeight="bold">
-                      Step 2:
-                    </Typography>{' '}
-                    Once the contact is added or imported click on {`"Add Contact"`} Button.{' '}
-                    <Link style={{ color: '#078DEE' }} href="#" underline="always">
-                      Learn more
-                    </Link>
-                  </>
-                }
-              />
-            </ListItem>
 
-            {/* Add more list items as needed */}
-          </List>
-     
+        <List sx={{ color: 'grey.600' }}>
+          <ListItem disablePadding sx={{ mb: '24px' }}>
+            <ListItemText
+              primaryTypographyProps={{
+                sx: {
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  '&::before': { paddingRight: '0.5rem' },
+                },
+              }}
+              primary="There may be no contacts in this contact list. You can create a workflow by following the steps below-"
+            />
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemText
+              primaryTypographyProps={{
+                sx: {
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  '&::before': { content: '"•"', paddingRight: '0.5rem' },
+                },
+              }}
+              primary={
+                <>
+                  <Typography fontSize={14} component="span" fontWeight="bold">
+                    Step 1:
+                  </Typography>{' '}
+                  Click on the {`"Add Contact"`} button available in the top right section.
+                </>
+              }
+            />
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemText
+              primaryTypographyProps={{
+                sx: {
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  '&::before': { content: '"•"', paddingRight: '0.5rem' },
+                },
+              }}
+              primary={
+                <>
+                  <Typography fontSize={14} component="span" fontWeight="bold">
+                    Step 2:
+                  </Typography>{' '}
+                  Add an Single Contact or Import Bulk Contacts.
+                </>
+              }
+            />
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemText
+              primaryTypographyProps={{
+                sx: {
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  '&::before': { content: '"•"', paddingRight: '0.5rem' },
+                },
+              }}
+              primary={
+                <>
+                  <Typography fontSize={14} component="span" fontWeight="bold">
+                    Step 3:
+                  </Typography>{' '}
+                  Once the contact is added or imported click on {`"Add Contact"`} Button.{' '}
+                  <Link style={{ color: '#078DEE' }} href="#" underline="always">
+                    Learn more
+                  </Link>
+                </>
+              }
+            />
+          </ListItem>
+
+          {/* Add more list items as needed */}
+        </List>
+
         <Button
           onClick={handleAddContact}
           sx={{ mt: isMobile ? 2 : 0 }}
@@ -170,18 +173,51 @@ export default function BigCard({sx, ...other}) {
         }}
       >
         <Card>
-          <CardMedia
-            component="img"
-            src={coverSrc}
-            title="Cover Image"
-            style={{
-              height: '100%',
-              width: '100%',
-              cursor: 'pointer',
-              objectFit: 'contain',
-            }}
-            onClick={() => setOpen(true)}
-          />
+          <Box position="relative">
+            <CardMedia
+              component="img"
+              src={coverSrc}
+              title="Cover Image"
+              sx={{
+                height: '100%',
+                width: '100%',
+                cursor: 'pointer',
+                objectFit: 'contain',
+              }}
+              onClick={() => setOpen(true)}
+            />
+            <IconButton
+              aria-label="play"
+              onClick={() => setOpen(true)}
+              sx={{
+                padding: '0px',
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                // backgroundColor: '#078DEE',
+                color: '#078DEE',
+
+                animation: 'pulse 2s infinite',
+                '@keyframes pulse': {
+                  '0%': {
+                    transform: 'translate(-50%, -50%) scale(1)',
+                    boxShadow: '0 0 0 0 rgba(7, 141, 238, 0.7)',
+                  },
+                  '70%': {
+                    transform: 'translate(-50%, -50%) scale(1.1)',
+                    boxShadow: '0 0 0 10px rgba(7, 141, 238, 0)',
+                  },
+                  '100%': {
+                    transform: 'translate(-50%, -50%) scale(1)',
+                    boxShadow: '0 0 0 0 rgba(7, 141, 238, 0)',
+                  },
+                },
+              }}
+            >
+              <Iconify icon="icon-park-solid:play" width={50} height={50} />
+            </IconButton>
+          </Box>
         </Card>
         <ModalVideo
           channel="youtube"

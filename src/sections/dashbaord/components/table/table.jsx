@@ -42,16 +42,17 @@ import { OrderTableFiltersResult } from './order-table-filters-result';
 // ----------------------------------------------------------------------
 
 const metadata = { title: `Page one | Dashboard - ${CONFIG.site.name}` };
-const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...ORDER_STATUS_OPTIONS];
+const STATUS_OPTIONS = [{ value: 'all', label: 'All',tooltip: 'All added WhatsApp numbers.'  }, ...ORDER_STATUS_OPTIONS];
 
 const TABLE_HEAD = [
-  { id: 'orderNumber', label: 'Whatapp Number', width: 288 },
-  { id: 'name', label: 'Webhook URL (For Receiving Messages) ', width: 592 },
-  { id: 'createdAt', label: 'Date', width: 137 },
-  { id: 'status', label: 'Status', width: 110 },
-  { id: 'totalAmount', label: 'Action', width: 140, align: 'right' },
+  { id: 'orderNumber', label: 'WhatsApp Number', width: 288, tooltip: 'The number associated with the WhatsApp account' },
+  { id: 'name', label: 'Webhook URL (For Receiving Messages)', width: 592, tooltip: 'The URL for receiving incoming messages' },
+  { id: 'createdAt', label: 'Date', width: 137, tooltip: 'The date when the entry was created' },
+  { id: 'status', label: 'Status', width: 110, tooltip: 'The current status of the entry' },
+  { id: 'totalAmount', label: 'Action', width: 140, align: 'right', tooltip: 'Actions you can perform on this entry' },
   { id: '', width: 88 },
 ];
+
 
 export default function DashboardTable({ sx, icon, title, total, color = 'warning', ...other }) {
   const theme = useTheme();
@@ -151,30 +152,31 @@ export default function DashboardTable({ sx, icon, title, total, color = 'warnin
           }}
         >
           {STATUS_OPTIONS.map((tab) => (
-            <Tab
-              key={tab.value}
-              iconPosition="end"
-              value={tab.value}
-              label={tab.label}
-              icon={
-                <Label
-                  variant={
-                    ((tab.value === 'all' || tab.value === filters.state.status) && 'filled') ||
-                    'soft'
-                  }
-                  color={
-                    (tab.value === 'active' && 'success') ||
-                    (tab.value === 'inactive' && 'error') ||
-                    'default'
-                  }
-                >
-                  {['active', 'inactive'].includes(tab.value)
-                    ? tableData.filter((user) => user.status === tab.value).length
-                    : tableData.length}
-                </Label>
-              }
-            />
-          ))}
+        <Tooltip key={tab.value} title={tab.tooltip} arrow placement="top">
+          <Tab
+            iconPosition="end"
+            value={tab.value}
+            label={tab.label}
+            icon={
+              <Label
+                variant={
+                  ((tab.value === 'all' || tab.value === filters.state.status) && 'filled') ||
+                  'soft'
+                }
+                color={
+                  (tab.value === 'active' && 'success') ||
+                  (tab.value === 'inactive' && 'error') ||
+                  'default'
+                }
+              >
+                {['active', 'inactive'].includes(tab.value)
+                  ? tableData.filter((user) => user.status === tab.value).length
+                  : tableData.length}
+              </Label>
+            }
+          />
+        </Tooltip>
+      ))}
         </Tabs>
 
         <OrderTableToolbar
@@ -214,6 +216,7 @@ export default function DashboardTable({ sx, icon, title, total, color = 'warnin
 
           <Scrollbar sx={{ minHeight: 444 }}>
             <Table size={table.dense ? 'small' : 'medium'} sx={{ minWidth: 960 }}>
+              
               <TableHeadCustom
                 showCheckbox={false}
                 order={table.order}

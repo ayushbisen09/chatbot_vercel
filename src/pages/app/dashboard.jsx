@@ -3,7 +3,7 @@
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import Grid from '@mui/material/Unstable_Grid2';
-import { Button, useMediaQuery } from '@mui/material';
+import { Button, Tooltip, useMediaQuery } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
@@ -41,6 +41,7 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
           Subheading="Connecting Brands and Customers through WhatsApp Engagement and Marketing."
           link_added="#"
         />
+        <Tooltip title="Click here to add WhatsApp Number." arrow placement="top">
         <Button
           onClick={dialog.onTrue}
           sx={{ mt: isMobile ? 2 : 0 }}
@@ -53,6 +54,7 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
         >
           Add WhatsApp Number
         </Button>
+        </Tooltip>
 
         <WhatsAppDialog open={dialog.value} onClose={dialog.onFalse} />
       </Box>
@@ -67,24 +69,32 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
         }}
       >
         {/* WhatsApp Number Added */}
-
-        <StatsCards
-          cardtitle="WhatsApp Number Added"
-          cardstats="8"
-          icon_name="whatsapp-icon.svg"
-          icon_color="#28A645"
-          bg_gradient="#22C55E"
-        />
+        <Tooltip title="Number of WhatsApp Numbers you have added." arrow placement="top">
+          <div>
+            <StatsCards
+              cardtitle="WhatsApp Number Added"
+              cardstats="8"
+              icon_name="whatsapp-icon.svg"
+              icon_color="#28A645"
+              bg_gradient="#22C55E"
+            />
+          </div>
+        </Tooltip>
         {/* WhatsApp Message Quota (Outgoing) */}
-        <StatsCards
-          cardtitle="WhatsApp Message Quota (Outgoing)"
-          cardstats="10,000"
-          icon_name="2card.png"
-          icon_color="#FFA92E"
-          bg_gradient={theme.vars.palette[color].main}
-        />
-
+        <Tooltip title="Number of WhatsApp Message Quota (Outgoing) assigned to you." arrow placement="top">
+          <div>
+            <StatsCards
+              cardtitle="WhatsApp Message Quota (Outgoing)"
+              cardstats="10,000"
+              icon_name="2card.png"
+              icon_color="#FFA92E"
+              bg_gradient={theme.vars.palette[color].main}
+            />
+          </div>
+        </Tooltip>
         {/* Messaage Quota Used */}
+        <Tooltip title="Number of WhatsApp Message Quota you have used" arrow placement="top">
+          <div>
         <StatsCards
           cardtitle="Message Quota Used"
           cardstats="2,000"
@@ -92,6 +102,9 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
           icon_color="#7D6ADB"
           bg_gradient="#8E33FF"
         />
+        </div>
+        </Tooltip>
+
       </Box>
 
       {/* Cards Section */}

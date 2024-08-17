@@ -1,8 +1,9 @@
 import 'react-modal-video/scss/modal-video.scss';
 
 import React, { useState } from 'react';
+import ModalVideo from 'react-modal-video';
 
-import { Box, Card, Button } from '@mui/material';
+import { Box, Card, Button} from '@mui/material';
 
 import { CONFIG } from 'src/config-global';
 
@@ -10,18 +11,21 @@ import { Label } from 'src/components/label';
 
 import { Iconify } from '../iconify'; // Import styles for ModalVideo
 
+
 export default function VideoPlayListCards({
   sx,
   Videotitle,
   cardstats,
   thumbnailimage,
   buttonText,
-  videoId, // Add the videoId prop to pass the video ID
+  videoId, 
+  videoTime,// Add the videoId prop to pass the video ID
   ...other
 }) {
   const [isOpen, setOpen] = useState(false); // State to handle modal open/close
 
   return (
+    <>
     <Card
       sx={{
         boxShadow: '0px 12px 24px -4px rgba(145, 158, 171, 0.2)',
@@ -31,14 +35,17 @@ export default function VideoPlayListCards({
       <Box sx={{ pt: 1, px: 1 }}>
         <Box
           component="img"
-          src={`${CONFIG.site.basePath}/assets/thumbnails-image/${thumbnailimage}`}
+          src={`${CONFIG.site.basePath}/assets/background/${thumbnailimage}`}
           sx={{
             width: '100%',
-            height: 264,
+            height: 184,
             position: 'relative',
             objectFit: 'cover',
+            border:'1px solid #919EAB34',
+            borderRadius:'8px'
           }}
         />
+        
       </Box>
       <Box sx={{ pt: 2.5, px: 2, ...sx }}>
         <Box sx={{ pb: 1.5 }}>
@@ -51,7 +58,7 @@ export default function VideoPlayListCards({
             }}
             variant="soft"
           >
-            <Iconify sx={{ mr: 1 }} icon="tabler:clock" width={24} /> 01 hr 20 mins
+            <Iconify sx={{ mr: 1 }} icon="tabler:clock" width={24} /> {videoTime}
           </Label>
         </Box>
         <Box
@@ -76,6 +83,15 @@ export default function VideoPlayListCards({
           </Button>
         </Box>
       </Box>
+      
     </Card>
+    <ModalVideo
+          channel="youtube"
+          autoplay="true"
+          isOpen={isOpen}
+          videoId={videoId}
+          onClose={() => setOpen(false)}
+        />
+    </>
   );
 }

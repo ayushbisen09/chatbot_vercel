@@ -3,10 +3,8 @@ import { _mock } from './_mock';
 // ----------------------------------------------------------------------
 
 export const ORDER_STATUS_OPTIONS = [
-  // { value: 'pending', label: 'Active' },
-  { value: 'active', label: 'Active' },
-  { value: 'inactive', label: 'Inactive' },
-  // { value: 'refunded', label: 'Refunded' },
+  { value: 'active', label: 'Active', tooltip: 'Currently active WhatsApp numbers.' },
+  { value: 'inactive', label: 'Inactive', tooltip: 'Currently unactive WhatsApp numbers.' },
 ];
 
 const ITEMS = [...Array(3)].map((_, index) => ({

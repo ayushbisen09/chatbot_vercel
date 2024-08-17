@@ -8,6 +8,7 @@ import {
   Card,
   List,
   Button,
+  Tooltip,
   ListItem,
   CardMedia,
   Typography,
@@ -171,7 +172,7 @@ export default function BigCard({ sx, ...other }) {
                 <>
                   Stay informed about updates and changes to policies that may affect your use of
                   the API.{' '}
-                  <Link href="#" underline="always">
+                  <Link style={{ color: '#078DEE' }} href="#" underline="always">
                     Learn more
                   </Link>
                 </>
@@ -202,6 +203,7 @@ export default function BigCard({ sx, ...other }) {
           }),
         }}
       >
+        <Tooltip title="Click here to see Video Tutorial." arrow placement="top">
         <Card>
           <Box position="relative">
             <CardMedia
@@ -220,26 +222,36 @@ export default function BigCard({ sx, ...other }) {
               aria-label="play"
               onClick={() => setOpen(true)}
               sx={{
+                padding: '0px',
                 position: 'absolute',
                 top: '50%',
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
-                backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                color: 'white',
-                '&:hover': {
-                  backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                // backgroundColor: '#078DEE',
+                color: '#078DEE',
+
+                animation: 'pulse 2s infinite',
+                '@keyframes pulse': {
+                  '0%': {
+                    transform: 'translate(-50%, -50%) scale(1)',
+                    boxShadow: '0 0 0 0 rgba(7, 141, 238, 0.7)',
+                  },
+                  '70%': {
+                    transform: 'translate(-50%, -50%) scale(1.1)',
+                    boxShadow: '0 0 0 10px rgba(7, 141, 238, 0)',
+                  },
+                  '100%': {
+                    transform: 'translate(-50%, -50%) scale(1)',
+                    boxShadow: '0 0 0 0 rgba(7, 141, 238, 0)',
+                  },
                 },
               }}
             >
-              <Iconify
-                icon="line-md:pause-to-play-filled-transition"
-                width={30}
-                height={30}
-                style={{ color: 'blue' }}
-              />
+              <Iconify icon="icon-park-solid:play" width={50} height={50} />
             </IconButton>
           </Box>
         </Card>
+        </Tooltip>
         <ModalVideo
           channel="youtube"
           autoplay="true"

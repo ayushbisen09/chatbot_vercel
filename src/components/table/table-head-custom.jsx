@@ -1,9 +1,9 @@
 import Box from '@mui/material/Box';
-import { Checkbox } from '@mui/material';
 import TableRow from '@mui/material/TableRow';
 import TableHead from '@mui/material/TableHead';
 import TableCell from '@mui/material/TableCell';
 import { useTheme } from '@mui/material/styles';
+import { Tooltip,Checkbox,  } from '@mui/material';
 import TableSortLabel from '@mui/material/TableSortLabel';
 
 // ----------------------------------------------------------------------
@@ -71,24 +71,28 @@ export function TableHeadCustom({
               // bgcolor: '#ffffff',
             }}
           >
-            {onSort ? (
-              <TableSortLabel
-                hideSortIcon
-                active={orderBy === headCell.id}
-                direction={orderBy === headCell.id ? order : 'asc'}
-                onClick={() => onSort(headCell.id)}
-              >
-                {headCell.label}
+           <Tooltip title={headCell.tooltip || ''} arrow placement="top">
+              <span>
+                {onSort ? (
+                  <TableSortLabel
+                    hideSortIcon
+                    active={orderBy === headCell.id}
+                    direction={orderBy === headCell.id ? order : 'asc'}
+                    onClick={() => onSort(headCell.id)}
+                  >
+                    {headCell.label}
 
-                {orderBy === headCell.id ? (
-                  <Box sx={{ ...visuallyHidden }}>
-                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                  </Box>
-                ) : null}
-              </TableSortLabel>
-            ) : (
-              headCell.label
-            )}
+                    {orderBy === headCell.id ? (
+                      <Box sx={{ ...visuallyHidden }}>
+                        {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                      </Box>
+                    ) : null}
+                  </TableSortLabel>
+                ) : (
+                  headCell.label
+                )}
+              </span>
+            </Tooltip>
           </TableCell>
         ))}
       </TableRow>
