@@ -1,7 +1,12 @@
+import dayjs from 'dayjs';
 import { useState } from 'react';
 
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { MobileTimePicker } from '@mui/x-date-pickers/MobileTimePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import {
   Box,
   Card,
@@ -13,6 +18,7 @@ import {
   CardHeader,
   Typography,
   IconButton,
+  InputAdornment,
 } from '@mui/material';
 
 import { Iconify } from 'src/components/iconify';
@@ -38,6 +44,10 @@ export default function ConditionNode({
   const handleAttributeChange = (event) => {
     setSelectedAttribute(event.target.value);
   };
+
+  const [startDate, setStartDate] = useState(dayjs(new Date()));
+  const [endDate, setEndDate] = useState(dayjs(new Date()));
+
 
   return (
     <Card
@@ -132,25 +142,73 @@ export default function ConditionNode({
         {/* Conditionally render fields based on selected condition */}
         {selectedCondition === 'Time In' && (
           <Stack spacing={2} sx={{ mb: 3 }}>
-            <TextField
-              label="Start Time"
-              type="time"
-              fullWidth
-              InputLabelProps={{ shrink: true }}
-            />
-            <TextField label="End Time" type="time" fullWidth InputLabelProps={{ shrink: true }} />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <MobileTimePicker
+                label="Start Time"
+                value={startDate}
+                minDate={dayjs('2017-01-01')}
+                onChange={(newValue) => setStartDate(newValue)}
+                slotProps={{
+                  textField: {
+                    fullWidth: false,
+                    InputProps: {
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <Iconify icon="carbon:time" width={24} height={24} />
+                        </InputAdornment>
+                      ),
+                    },
+                  },
+                }}
+              />
+            </LocalizationProvider>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <MobileTimePicker
+                label="End Time"
+                value={startDate}
+                minDate={dayjs('2017-01-01')}
+                onChange={(newValue) => setStartDate(newValue)}
+                slotProps={{
+                  textField: {
+                    fullWidth: false,
+                    InputProps: {
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <Iconify icon="carbon:time" width={24} height={24} />
+                        </InputAdornment>
+                      ),
+                    },
+                  },
+                }}
+              />
+            </LocalizationProvider>
           </Stack>
         )}
 
         {selectedCondition === 'Date In' && (
           <Stack spacing={2} sx={{ mb: 3 }}>
-            <TextField
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
               label="Start Date"
-              type="date"
-              fullWidth
-              InputLabelProps={{ shrink: true }}
+              value={startDate}
+              minDate={dayjs('2017-01-01')}
+              onChange={(newValue) => {
+                setStartDate(newValue);
+              }}
+              slotProps={{ textField: { fullWidth: false } }}
             />
-            <TextField label="End Date" type="date" fullWidth InputLabelProps={{ shrink: true }} />
+          </LocalizationProvider>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              label="End Date"
+              value={endDate}
+              minDate={dayjs('2017-01-01')}
+              onChange={(newValue) => {
+                setEndDate(newValue);
+              }}
+              slotProps={{ textField: { fullWidth: false } }}
+            />
+          </LocalizationProvider>
           </Stack>
         )}
 
