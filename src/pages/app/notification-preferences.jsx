@@ -1,6 +1,6 @@
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { Box, Card, Divider, CardHeader } from '@mui/material';
+import { Box, Card, Divider, CardHeader,Tooltip } from '@mui/material';
 
 import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';
@@ -31,6 +31,7 @@ export default function Page() {
               sx={{ mb: 3 }}
             />
             <Divider />
+            <Tooltip title="Click to disable/enable sound alerts." arrow placement="top">
             <FormControlLabel
               control={
                 <Switch
@@ -42,6 +43,7 @@ export default function Page() {
               label="Disable sound notification"
               sx={{ paddingLeft: 3, mt: 2, mb: 2 }}
             />
+            </Tooltip>
           </Card>
         </Box>
       </DashboardContent>

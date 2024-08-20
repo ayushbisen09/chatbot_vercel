@@ -1,7 +1,7 @@
 import 'react-modal-video/css/modal-video.min.css';
 
 import Box from '@mui/material/Box';
-import { useMediaQuery } from '@mui/material';
+import { useMediaQuery,Typography,Button,Tooltip } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
 import { useBoolean } from 'src/hooks/use-boolean';
@@ -40,6 +40,29 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
       </Box>
 
       <GetHelpBigCard />
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: isMobile ? 'column' : 'row',
+          alignItems: isMobile ? 'flex-start' : 'center',
+          justifyContent: 'space-between',
+          mt:3,
+        }}
+      >
+        <Typography variant="h4">Tutorials</Typography>
+        <Tooltip title="Click here to access over 6000+ detailed tutorials on our YouTube channel." arrow placement="top">
+        <Button
+          onClick={dialog.onTrue}
+          sx={{ mt: isMobile ? 2 : 0 }}
+          size="large"
+          variant="outlined"
+          color="primary"
+        >
+          Watch all tutorials
+        </Button>
+        </Tooltip>
+        
+      </Box>
       <VideoPlayList />
 
       {/* Table */}

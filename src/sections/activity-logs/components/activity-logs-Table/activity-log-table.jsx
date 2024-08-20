@@ -42,14 +42,14 @@ import { ActivityLogTableToolbar } from 'src/sections/activity-logs/components/a
 // ----------------------------------------------------------------------
 
 const metadata = { title: `Page one | Dashboard - ${CONFIG.site.name}` };
-const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...ACTIVITYLOG_STATUS_OPTIONS];
+const STATUS_OPTIONS = [{ value: 'all', label: 'All',tooltip: 'All added WhatsApp numbers.' }, ...ACTIVITYLOG_STATUS_OPTIONS];
 
 const TABLE_HEAD = [
-  { id: 'orderNumber', label: 'Date/Time ', width: 300 },
-  { id: 'name', label: 'Actor ', width: 700 },
-  { id: 'createdAt', label: 'Event Source', width: 700 },
-  { id: 'status', label: 'Action', width: 700 },
-  { id: 'totalAmount', label: 'Event Data', width: 700 },
+  { id: 'datetime', label: 'Date/Time ', width: 300 ,tooltip: 'The date and time when the entry was created'},
+  { id: 'actor', label: 'Actor ', width: 700,tooltip: 'This is the actor who will execute or be responsible for the action described' },
+  { id: 'eventsource', label: 'Event Source', width: 700 ,tooltip: 'Connection established. Waiting for events from the server'},
+  { id: 'action', label: 'Action', width: 700,tooltip: 'This shows the Status of log wheather it is created or updated' },
+  { id: 'eventdata', label: 'Event Data', width: 700,tooltip: 'Activity log Event Data shows here' },
 ];
 
 export default function ActivityLogTable({ sx, icon, title, total, color = 'warning', ...other }) {
@@ -150,6 +150,7 @@ export default function ActivityLogTable({ sx, icon, title, total, color = 'warn
           }}
         >
           {STATUS_OPTIONS.map((tab) => (
+            
             <Tab
               key={tab.value}
               iconPosition="end"

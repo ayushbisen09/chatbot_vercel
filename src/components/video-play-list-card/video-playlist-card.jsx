@@ -3,7 +3,7 @@ import 'react-modal-video/scss/modal-video.scss';
 import React, { useState } from 'react';
 import ModalVideo from 'react-modal-video';
 
-import { Box, Card, Button} from '@mui/material';
+import { Box, Card, Button,Tooltip} from '@mui/material';
 
 import { CONFIG } from 'src/config-global';
 
@@ -26,12 +26,15 @@ export default function VideoPlayListCards({
 
   return (
     <>
+    <Tooltip title="Click to Watch Tutorial" arrow placement="top">
+      
     <Card
       sx={{
         boxShadow: '0px 12px 24px -4px rgba(145, 158, 171, 0.2)',
       }}
       {...other}
     >
+      
       <Box sx={{ pt: 1, px: 1 }}>
         <Box
           component="img"
@@ -47,6 +50,7 @@ export default function VideoPlayListCards({
         />
         
       </Box>
+     
       <Box sx={{ pt: 2.5, px: 2, ...sx }}>
         <Box sx={{ pb: 1.5 }}>
           <Label
@@ -85,6 +89,7 @@ export default function VideoPlayListCards({
       </Box>
       
     </Card>
+    </Tooltip>
     <ModalVideo
           channel="youtube"
           autoplay="true"
