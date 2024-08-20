@@ -1,4 +1,5 @@
 import Box from '@mui/material/Box';
+import { Tooltip } from '@mui/material';
 import Button from '@mui/material/Button';
 
 import { Iconify } from 'src/components/iconify';
@@ -22,6 +23,7 @@ export function FiltersResult({ totalResults, onReset, sx, children }) {
 
       <Box flexGrow={1} gap={1} display="flex" flexWrap="wrap" alignItems="center">
         {children}
+        <Tooltip title="Clear the statuses." arrow placement="top">
 
         <Button
           color="error"
@@ -30,6 +32,8 @@ export function FiltersResult({ totalResults, onReset, sx, children }) {
         >
           Clear
         </Button>
+        </Tooltip>
+
       </Box>
     </Box>
   );

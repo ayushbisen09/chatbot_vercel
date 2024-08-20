@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
+import { Tooltip } from '@mui/material';
 import Button from '@mui/material/Button';
 import { styled, useTheme } from '@mui/material/styles';
 
@@ -150,9 +151,9 @@ export function HeaderBase({
 
               {searchbar && <Searchbar data-slot="searchbar" data={data?.nav} />}
 
-              {localization && <LanguagePopover data-slot="localization" data={data?.langs} />}
+              {localization && <Tooltip title='Click here to change application language.' arrow placement='bottom'> <LanguagePopover data-slot="localization" data={data?.langs} /></Tooltip>}
 
-              {account && <AccountDrawer data-slot="account" data={data?.account} />}
+              {account && <Tooltip title='Click here to see account details.' arrow placement='bottom'> <AccountDrawer data-slot="account" data={data?.account} /></Tooltip>}
 
               {purchase && (
                 <Button

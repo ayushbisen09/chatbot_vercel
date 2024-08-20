@@ -143,6 +143,7 @@ export default function DashboardTable({ sx, icon, title, total, color = 'warnin
         }}
       >
         <Tabs
+        
           value={filters.state.status}
           onChange={handleFilterStatus}
           sx={{
@@ -152,7 +153,7 @@ export default function DashboardTable({ sx, icon, title, total, color = 'warnin
           }}
         >
           {STATUS_OPTIONS.map((tab) => (
-        <Tooltip key={tab.value} title={tab.tooltip} arrow placement="top">
+        // <Tooltip key={tab.value} title={tab.tooltip} arrow placement="top">
           <Tab
             iconPosition="end"
             value={tab.value}
@@ -175,7 +176,7 @@ export default function DashboardTable({ sx, icon, title, total, color = 'warnin
               </Label>
             }
           />
-        </Tooltip>
+        // </Tooltip>
       ))}
         </Tabs>
 
@@ -255,7 +256,7 @@ export default function DashboardTable({ sx, icon, title, total, color = 'warnin
                   emptyRows={emptyRows(table.page, table.rowsPerPage, dataFiltered.length)}
                 />
 
-                <TableNoData />
+                <TableNoData notFound={!dataFiltered.length} />
               </TableBody>
             </Table>
           </Scrollbar>

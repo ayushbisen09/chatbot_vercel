@@ -5,9 +5,9 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Popover from '@mui/material/Popover';
 import MenuItem from '@mui/material/MenuItem';
-import { useMediaQuery } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
+import { Tooltip, useMediaQuery } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import { Iconify } from 'src/components/iconify';
@@ -83,6 +83,8 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
           flexGrow={1}
           sx={{ pr: '12px', width: 1 }}
         >
+        <Tooltip title="Search any contacts by WhatsApp number." arrow placement="top">
+
           <TextField
             fullWidth
             value={filters.state.name}
@@ -96,6 +98,8 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
               ),
             }}
           />
+          </Tooltip>
+
           {/* <Button
             size="large"
             variant=""

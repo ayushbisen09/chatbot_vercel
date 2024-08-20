@@ -3,6 +3,7 @@ import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
 
 import Box from '@mui/material/Box';
+import { Tooltip } from '@mui/material';
 import SvgIcon from '@mui/material/SvgIcon';
 import InputBase from '@mui/material/InputBase';
 import { useTheme } from '@mui/material/styles';
@@ -76,25 +77,33 @@ export function Searchbar({ data: navItems = [], sx, ...other }) {
 
   const renderItems = () => {
     const dataGroups = groupItems(dataFiltered);
-
+  
     return Object.keys(dataGroups)
       .sort((a, b) => -b.localeCompare(a))
       .map((group, index) => (
         <Box component="ul" key={`${group}-${index}`}>
           {dataGroups[group].map((item) => {
-            const { title, path } = item;
-
-            const partsTitle = parse(title, match(title, searchQuery));
-
-            const partsPath = parse(path, match(path, searchQuery));
-
+            const title = 'WhatsApp Number: +91 9425124879';
+            const path = 'Business Account ID: 117359445455733';
+  
+            
+            
+  
+            // Modify title and path with custom text
+            const modifiedTitle = `${title}`;
+            const modifiedPath = `${path}`;
+  
+            // Highlight parts of the modified title and path based on search query
+            const partsTitle = parse(modifiedTitle, match(modifiedTitle, searchQuery));
+            const partsPath = parse(modifiedPath, match(modifiedPath, searchQuery));
+  
             return (
-              <Box component="li" key={`${title}${path}`} sx={{ display: 'flex' }}>
+              <Box component="li" key={`${modifiedTitle}${modifiedPath}`} sx={{ display: 'flex' }}>
                 <ResultItem
                   path={partsPath}
                   title={partsTitle}
                   groupLabel={searchQuery && group}
-                  onClickItem={() => handleClick(path)}
+                  // onClickItem={() => handleClick(path)}
                 />
               </Box>
             );
@@ -104,6 +113,8 @@ export function Searchbar({ data: navItems = [], sx, ...other }) {
   };
 
   const renderButton = (
+    <Tooltip title='Search any WhatsApp number account and login.' arrow placement='bottom'>
+
     <Box
       display="flex"
       alignItems="center"
@@ -119,14 +130,14 @@ export function Searchbar({ data: navItems = [], sx, ...other }) {
         ...sx,
       }}
       {...other}
-    >
+      >
       <IconButton disableRipple>
         {/* https://icon-sets.iconify.design/eva/search-fill/ */}
         <SvgIcon sx={{ width: 20, height: 20 }}>
           <path
             fill="currentColor"
             d="m20.71 19.29l-3.4-3.39A7.92 7.92 0 0 0 19 11a8 8 0 1 0-8 8a7.92 7.92 0 0 0 4.9-1.69l3.39 3.4a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.42M5 11a6 6 0 1 1 6 6a6 6 0 0 1-6-6"
-          />
+            />
         </SvgIcon>
       </IconButton>
       Account
@@ -139,10 +150,11 @@ export function Searchbar({ data: navItems = [], sx, ...other }) {
           boxShadow: theme.customShadows.z1,
           display: { xs: 'none', md: 'inline-flex' },
         }}
-      >
+        >
         WhatsApp Number: +91 9425124879, Business Account ID: 117359445455733
       </Label>
     </Box>
+        </Tooltip>
   );
 
   return (
@@ -174,7 +186,7 @@ export function Searchbar({ data: navItems = [], sx, ...other }) {
                 <Iconify icon="eva:search-fill" width={24} sx={{ color: 'text.disabled' }} />
               </InputAdornment>
             }
-            endAdornment={<Label sx={{ letterSpacing: 1, color: 'text.secondary' }}>esc</Label>}
+            endAdornment={<Label sx={{ letterSpacing: 1, color: 'text.secondary' ,cursor:'pointer'}} onClick={handleClose}>esc</Label>}
             inputProps={{ sx: { typography: 'h6' } }}
           />
         </Box>
