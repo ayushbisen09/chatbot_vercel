@@ -6,9 +6,9 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Popover from '@mui/material/Popover';
 import MenuItem from '@mui/material/MenuItem';
-import { useMediaQuery } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
+import { Tooltip ,useMediaQuery} from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import { useBoolean } from 'src/hooks/use-boolean';
@@ -100,6 +100,7 @@ export function ActivityLogTableToolbar({ filters, onResetPage, dateError }) {
           sx={{ maxWidth: { md: 200 } }}
         />
         <Stack direction="row" alignItems="center" flexGrow={1} sx={{ width: 1 }}>
+        <Tooltip title="Search log by actor or event data" arrow placement="top">
           <TextField
             sx={{ mr: '5px' }}
             fullWidth
@@ -114,6 +115,8 @@ export function ActivityLogTableToolbar({ filters, onResetPage, dateError }) {
               ),
             }}
           />
+          </Tooltip>
+          <Tooltip title="Filter log by Status " arrow placement="top">
           <Button
             size="large"
             variant=""
@@ -122,6 +125,7 @@ export function ActivityLogTableToolbar({ filters, onResetPage, dateError }) {
           >
             Filters
           </Button>
+          </Tooltip>
         </Stack>
       </Stack>
       <CustomPopover

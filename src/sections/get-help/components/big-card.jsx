@@ -5,6 +5,7 @@ import {
   Box,
   List,
   Button,
+  Tooltip,
   ListItem,
   Typography,
   ListItemText,
@@ -124,6 +125,7 @@ export default function GetHelpBigCard({ sx, ...other }) {
             {/* Add more list items as needed */}
           </List>
         </Box>
+        <Tooltip title="Click here to get help with all your queries" arrow placement="top">
         <Button
           onClick={dialog.onTrue}
           sx={{ mt: isMobile ? 2 : 0 }}
@@ -133,6 +135,7 @@ export default function GetHelpBigCard({ sx, ...other }) {
         >
           Ask a Question
         </Button>
+        </Tooltip>
       </Box>
 
       {/* {img && <Box sx={{ maxWidth: 260 }}>{img}</Box>} */}
