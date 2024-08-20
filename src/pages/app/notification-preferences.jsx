@@ -1,6 +1,6 @@
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { Box, Card, Divider, CardHeader,Tooltip } from '@mui/material';
+import { Box, Card, Divider, Tooltip,CardHeader } from '@mui/material';
 
 import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';

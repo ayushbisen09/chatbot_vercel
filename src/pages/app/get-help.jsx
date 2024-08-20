@@ -1,8 +1,8 @@
 import 'react-modal-video/css/modal-video.min.css';
 
 import Box from '@mui/material/Box';
-import { useMediaQuery,Typography,Button,Tooltip } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import { Button,Tooltip,Typography,useMediaQuery } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
