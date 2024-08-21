@@ -47,10 +47,10 @@ const metadata = { title: `Page one | Dashboard - ${CONFIG.site.name}` };
 const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...CONTACT_STATUS_OPTIONS];
 
 const TABLE_HEAD = [
-  { id: 'orderNumber', label: 'Status/ at', width: 353 },
-  { id: 'name', label: 'Mobile Number/Name', width: 298 },
-  { id: 'createdAt', label: 'State/Incoming status', width: 262 },
-  { id: 'status', label: '24 Hours Status/Last active', width: 515 },
+  { id: 'orderNumber', label: 'Status/Created at', width: 353,tooltip: 'Contact number opted status and date of number added.' },
+  { id: 'name', label: 'WhatsApp Number/Name', width: 298,tooltip: 'WhatsApp number and Name of the contact.' },
+  { id: 'createdAt', label: 'State/Incoming status', width: 262,tooltip: 'State shows how the number is imported and incoming status.' },
+  { id: 'status', label: '24 Hours Status/Last active', width: 515,tooltip: 'Contact 24 hours status and contact last active date & time.' },
 
   { id: '', width: 88 },
 ];
@@ -253,7 +253,7 @@ export default function ContactsTable({ sx, icon, title, total, color = 'warning
                   emptyRows={emptyRows(table.page, table.rowsPerPage, dataFiltered.length)}
                 />
 
-                <TableNoData />
+                <TableNoData notFound={!dataFiltered.length}/>
               </TableBody>
             </Table>
           </Scrollbar>
@@ -288,9 +288,9 @@ function applyFilter({ inputData, comparator, filters, dateError }) {
   if (name) {
     inputData = inputData.filter(
       (order) =>
-        order.orderNumber.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
-        order.customer.name.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
-        order.customer.email.toLowerCase().indexOf(name.toLowerCase()) !== -1
+        (order.orderNumber && order.orderNumber.toLowerCase().indexOf(name.toLowerCase()) !== -1) ||
+        (order.customer?.name && order.customer.name.toLowerCase().indexOf(name.toLowerCase()) !== -1) ||
+        (order.customer?.email && order.customer.email.toLowerCase().indexOf(name.toLowerCase()) !== -1)
     );
   }
 

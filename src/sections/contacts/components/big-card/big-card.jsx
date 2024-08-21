@@ -9,6 +9,7 @@ import {
   Card,
   List,
   Button,
+  Tooltip,
   ListItem,
   CardMedia,
   Typography,
@@ -76,7 +77,7 @@ export default function BigCard({ sx, ...other }) {
         </Typography>
 
         <List sx={{ color: 'grey.600' }}>
-          <ListItem disablePadding sx={{ mb: '24px' }}>
+          <ListItem disablePadding sx={{ mb: '12px' }}>
             <ListItemText
               primaryTypographyProps={{
                 sx: {
@@ -151,16 +152,17 @@ export default function BigCard({ sx, ...other }) {
 
           {/* Add more list items as needed */}
         </List>
-
-        <Button
-          onClick={handleAddContact}
-          sx={{ mt: isMobile ? 2 : 0 }}
-          size="large"
-          variant="outlined"
-          color="primary"
-        >
-          Add Contact
-        </Button>
+        <Tooltip title="Click here to add contact." arrow placement="top">
+          <Button
+            onClick={handleAddContact}
+            sx={{ mt: isMobile ? 2 : 1 }}
+            size="large"
+            variant="outlined"
+            color="primary"
+          >
+            Add Contact
+          </Button>
+        </Tooltip>
       </Box>
 
       {/* {img && <Box sx={{ maxWidth: 260 }}>{img}</Box>} */}
@@ -172,53 +174,56 @@ export default function BigCard({ sx, ...other }) {
           }),
         }}
       >
-        <Card>
-          <Box position="relative">
-            <CardMedia
-              component="img"
-              src={coverSrc}
-              title="Cover Image"
-              sx={{
-                height: '100%',
-                width: '100%',
-                cursor: 'pointer',
-                objectFit: 'contain',
-              }}
-              onClick={() => setOpen(true)}
-            />
-            <IconButton
-              aria-label="play"
-              onClick={() => setOpen(true)}
-              sx={{
-                padding: '0px',
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                // backgroundColor: '#078DEE',
-                color: '#078DEE',
+        <Tooltip title="Click here to see Video Tutorial." arrow placement="top">
+          <Card>
+            <Box position="relative">
+              <CardMedia
+                component="img"
+                src={coverSrc}
+                title="Cover Image"
+                sx={{
+                  height: '100%',
+                  width: '100%',
+                  cursor: 'pointer',
+                  objectFit: 'contain',
+                }}
+                onClick={() => setOpen(true)}
+              />
+              <IconButton
+                aria-label="play"
+                onClick={() => setOpen(true)}
+                sx={{
+                  padding: '0px',
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  // backgroundColor: '#078DEE',
+                  color: '#078DEE',
 
-                animation: 'pulse 2s infinite',
-                '@keyframes pulse': {
-                  '0%': {
-                    transform: 'translate(-50%, -50%) scale(1)',
-                    boxShadow: '0 0 0 0 rgba(7, 141, 238, 0.7)',
+                  animation: 'pulse 2s infinite',
+                  '@keyframes pulse': {
+                    '0%': {
+                      transform: 'translate(-50%, -50%) scale(1)',
+                      boxShadow: '0 0 0 0 rgba(7, 141, 238, 0.7)',
+                    },
+                    '70%': {
+                      transform: 'translate(-50%, -50%) scale(1.1)',
+                      boxShadow: '0 0 0 10px rgba(7, 141, 238, 0)',
+                    },
+                    '100%': {
+                      transform: 'translate(-50%, -50%) scale(1)',
+                      boxShadow: '0 0 0 0 rgba(7, 141, 238, 0)',
+                    },
                   },
-                  '70%': {
-                    transform: 'translate(-50%, -50%) scale(1.1)',
-                    boxShadow: '0 0 0 10px rgba(7, 141, 238, 0)',
-                  },
-                  '100%': {
-                    transform: 'translate(-50%, -50%) scale(1)',
-                    boxShadow: '0 0 0 0 rgba(7, 141, 238, 0)',
-                  },
-                },
-              }}
-            >
-              <Iconify icon="icon-park-solid:play" width={50} height={50} />
-            </IconButton>
-          </Box>
-        </Card>
+                }}
+              >
+                <Iconify icon="icon-park-solid:play" width={50} height={50} />
+              </IconButton>
+            </Box>
+          </Card>
+        </Tooltip>
+
         <ModalVideo
           channel="youtube"
           autoplay="true"

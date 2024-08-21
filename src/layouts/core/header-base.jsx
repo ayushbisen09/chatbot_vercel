@@ -151,9 +151,25 @@ export function HeaderBase({
 
               {searchbar && <Searchbar data-slot="searchbar" data={data?.nav} />}
 
-              {localization && <Tooltip title='Click here to change application language.' arrow placement='bottom'> <LanguagePopover data-slot="localization" data={data?.langs} /></Tooltip>}
+              {localization && (
+                <Tooltip
+                  title="Click here to change application language."
+                  arrow
+                  placement="bottom"
+                >
+                  <span>
+                    <LanguagePopover data-slot="localization" data={data?.langs} />
+                  </span>
+                </Tooltip>
+              )}
 
-              {account && <Tooltip title='Click here to see account details.' arrow placement='bottom'> <AccountDrawer data-slot="account" data={data?.account} /></Tooltip>}
+              {account && (
+                <Tooltip title="Click here to see account details." arrow placement="bottom">
+                  <span>
+                    <AccountDrawer data-slot="account" data={data?.account} />
+                  </span>
+                </Tooltip>
+              )}
 
               {purchase && (
                 <Button

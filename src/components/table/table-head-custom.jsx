@@ -3,7 +3,7 @@ import TableRow from '@mui/material/TableRow';
 import TableHead from '@mui/material/TableHead';
 import TableCell from '@mui/material/TableCell';
 import { useTheme } from '@mui/material/styles';
-import { Tooltip,Checkbox,  } from '@mui/material';
+import { Tooltip, Checkbox } from '@mui/material';
 import TableSortLabel from '@mui/material/TableSortLabel';
 
 // ----------------------------------------------------------------------
@@ -48,15 +48,17 @@ export function TableHeadCustom({
               // bgcolor: '#ffffff',
             }}
           >
-            <Checkbox
-              indeterminate={!!numSelected && numSelected < rowCount}
-              checked={!!rowCount && numSelected === rowCount}
-              onChange={(event) => onSelectAllRows(event.target.checked)}
-              inputProps={{
-                name: 'select-all-rows',
-                'aria-label': 'select all rows',
-              }}
-            />
+            <Tooltip title="Select All" arrow placement="top">
+              <Checkbox
+                indeterminate={!!numSelected && numSelected < rowCount}
+                checked={!!rowCount && numSelected === rowCount}
+                onChange={(event) => onSelectAllRows(event.target.checked)}
+                inputProps={{
+                  name: 'select-all-rows',
+                  'aria-label': 'select all rows',
+                }}
+              />
+            </Tooltip>
           </TableCell>
         )}
 
@@ -71,7 +73,7 @@ export function TableHeadCustom({
               // bgcolor: '#ffffff',
             }}
           >
-           <Tooltip title={headCell.tooltip || ''} arrow placement="top">
+            <Tooltip title={headCell.tooltip || ''} arrow placement="top">
               <span>
                 {onSort ? (
                   <TableSortLabel

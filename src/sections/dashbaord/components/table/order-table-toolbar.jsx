@@ -149,13 +149,8 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
               select
               fullWidth
               label="Whatsapp number Status"
-            >
-              {whatsapp_status.map((whatsapp_statuss) => (
-                <MenuItem key={whatsapp_statuss} value={whatsapp_statuss}>
-                  {whatsapp_statuss}
-                </MenuItem>
-              ))}
-            </TextField>
+            />
+             
           </FormControl>
 
           <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
