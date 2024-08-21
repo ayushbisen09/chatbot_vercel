@@ -11,7 +11,7 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
 import ListItemText from '@mui/material/ListItemText';
-import { Divider, Checkbox, Typography } from '@mui/material';
+import { Divider, Tooltip, Checkbox, Typography } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
@@ -35,11 +35,13 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
   const renderPrimary = (
     <TableRow hover selected={selected}>
       <TableCell padding="checkbox">
-        <Checkbox
-          checked={selected}
-          onClick={onSelectRow}
-          inputProps={{ id: `row-checkbox-${row.id}`, 'aria-label': `Row checkbox` }}
-        />
+        <Tooltip title="Select this contact" arrow placement="top">
+          <Checkbox
+            checked={selected}
+            onClick={onSelectRow}
+            inputProps={{ id: `row-checkbox-${row.id}`, 'aria-label': `Row checkbox` }}
+          />
+        </Tooltip>
       </TableCell>
       <TableCell width={288}>
         <Stack spacing={2} direction="row" alignItems="center">
@@ -50,53 +52,75 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               alignItems: 'flex-start',
             }}
           >
-            <Label
-              variant="soft"
-              color={
-                (row.status === 'opted-in' && 'success') ||
-                (row.status === 'opted-out' && 'error') ||
-                'success'
-              }
+            {row.status === 'opted-in' ? (
+              <Tooltip title="This Contact status is currently Opted-In." arrow placement="top">
+                <Label variant="soft" color="success">
+                  {row.status}
+                </Label>
+              </Tooltip>
+            ) : row.status === 'opted-out' ? (
+              <Tooltip title="This Contact status is currently Opted-Out." arrow placement="top">
+                <Label variant="soft" color="error">
+                  {row.status}
+                </Label>
+              </Tooltip>
+            ) : (
+              <Label variant="soft" color="success">
+                {row.status}
+              </Label>
+            )}
+            <Tooltip title="Date & Time of the contact created at." arrow placement="top">
+              <Box component="span" sx={{ color: 'text.disabled' }}>
+                Apr 08, 2024 06:46 AM
+              </Box>
+            </Tooltip>
+          </Stack>
+        </Stack>
+      </TableCell>
+
+      <TableCell width={592}>
+        <Stack spacing={2} direction="row" alignItems="center">
+          <Stack
+            sx={{
+              typography: 'body2',
+              flex: '1 1 auto',
+              alignItems: 'flex-start',
+            }}
+          >
+            <Tooltip title="WhatsApp number of the contact." arrow placement="top">
+              <Box component="span">+91 9234567890</Box>
+            </Tooltip>
+
+            <Tooltip title="Name of the contact." arrow placement="top">
+              <Box component="span" sx={{ color: 'text.disabled' }}>
+                Sophia kumar Patel
+              </Box>
+            </Tooltip>
+          </Stack>
+        </Stack>
+      </TableCell>
+      <TableCell width={592}>
+        <Stack spacing={2} direction="row" alignItems="center">
+          <Stack
+            sx={{
+              typography: 'body2',
+              flex: '1 1 auto',
+              alignItems: 'flex-start',
+            }}
+          >
+            <Tooltip title="Contact is imported or added manually." arrow placement="top">
+              <Box component="span">Imported Manually</Box>
+            </Tooltip>
+
+            <Tooltip
+              title="Currently the incoming from this contact is allowed."
+              arrow
+              placement="top"
             >
-              {row.status}
-            </Label>
-
-            <Box component="span" sx={{ color: 'text.disabled' }}>
-              Apr 08, 2024 06:46:43A
-            </Box>
-          </Stack>
-        </Stack>
-      </TableCell>
-
-      <TableCell width={592}>
-        <Stack spacing={2} direction="row" alignItems="center">
-          <Stack
-            sx={{
-              typography: 'body2',
-              flex: '1 1 auto',
-              alignItems: 'flex-start',
-            }}
-          >
-            <Box component="span">+91 9234567890</Box>
-            <Box component="span" sx={{ color: 'text.disabled' }}>
-              Sophia kumar Patel
-            </Box>
-          </Stack>
-        </Stack>
-      </TableCell>
-      <TableCell width={592}>
-        <Stack spacing={2} direction="row" alignItems="center">
-          <Stack
-            sx={{
-              typography: 'body2',
-              flex: '1 1 auto',
-              alignItems: 'flex-start',
-            }}
-          >
-            <Box component="span">Imported Manually</Box>
-            <Box component="span" sx={{ color: 'text.disabled' }}>
-              Allowed
-            </Box>
+              <Box component="span" sx={{ color: 'text.disabled' }}>
+                Allowed
+              </Box>
+            </Tooltip>
           </Stack>
         </Stack>
       </TableCell>
@@ -109,27 +133,35 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             alignItems: 'flex-start',
           }}
         >
-          <Label color="success" variant="soft">
-            Active
-          </Label>
-          <Box component="span" sx={{ color: 'text.disabled' }}>
-            Apr 08, 2024 06:46:43
-          </Box>
+          <Tooltip title="24 Hours status of this contact is Active." arrow placement="top">
+            <Label color="success" variant="soft">
+              Active
+            </Label>
+          </Tooltip>
+          <Tooltip title="Date & Time of contact last active." arrow placement="top">
+            <Box component="span" sx={{ color: 'text.disabled' }}>
+              Apr 08, 2024 06:46 AM
+            </Box>
+          </Tooltip>
         </Stack>
       </TableCell>
 
       <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
-        <IconButton
-          color={collapse.value ? 'inherit' : 'default'}
-          onClick={collapse.onToggle}
-          sx={{ ...(collapse.value && { bgcolor: 'action.hover' }) }}
-        >
-          <Iconify icon="eva:arrow-ios-downward-fill" />
-        </IconButton>
+        <Tooltip title="Click here to see more information." arrow placement="top">
+          <IconButton
+            color={collapse.value ? 'inherit' : 'default'}
+            onClick={collapse.onToggle}
+            sx={{ ...(collapse.value && { bgcolor: 'action.hover' }) }}
+          >
+            <Iconify icon="eva:arrow-ios-downward-fill" />
+          </IconButton>
+        </Tooltip>
 
-        <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
-          <Iconify icon="eva:more-vertical-fill" />
-        </IconButton>
+        <Tooltip title="Click here to see options." arrow placement="top">
+          <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
+            <Iconify icon="eva:more-vertical-fill" />
+          </IconButton>
+        </Tooltip>
       </TableCell>
     </TableRow>
   );
@@ -152,24 +184,36 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                 },
               }}
             >
-              <ListItemText
-                primary="User Attribute - Value"
-                primaryTypographyProps={{ typography: 'body2' }}
-              />
+              <Tooltip
+                title="User Attribute and its selected value for this contact."
+                arrow
+                placement="top"
+              >
+                <Box width="fit-content">
+                  <ListItemText
+                    primary="User Attribute - Value"
+                    primaryTypographyProps={{ typography: 'body2' }}
+                  />
+                </Box>
+              </Tooltip>
+
               <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-                <Typography
-                  fontSize="14px"
-                  component="span"
-                  color="text.disabled"
-                  sx={{
-                    mt: 0.5,
-                    whiteSpace: ',',
-                    mr: '5px',
-                    // Negative margin to remove any gap
-                  }}
-                >
-                  city-Bhopal
-                </Typography>
+                <Tooltip title="User Attribute - city & Value - Bhopal." arrow placement="top">
+                  <Typography
+                    fontSize="14px"
+                    component="span"
+                    color="text.disabled"
+                    sx={{
+                      mt: 0.5,
+                      whiteSpace: ',',
+                      mr: '5px',
+                      // Negative margin to remove any gap
+                    }}
+                  >
+                    city-Bhopal
+                  </Typography>
+                </Tooltip>
+
                 <Typography
                   fontSize="14px"
                   component="span"
@@ -183,17 +227,23 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                 >
                   ,
                 </Typography>
-                <Typography
-                  fontSize="14px"
-                  component="span"
-                  color="text.disabled"
-                  sx={{
-                    mt: 0.5,
-                    whiteSpace: 'nowrap',
-                  }}
+                <Tooltip
+                  title="User Attribute - email & Value - abc@gmail.com."
+                  arrow
+                  placement="top"
                 >
-                  email-abc@gmail.com
-                </Typography>
+                  <Typography
+                    fontSize="14px"
+                    component="span"
+                    color="text.disabled"
+                    sx={{
+                      mt: 0.5,
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    email-abc@gmail.com
+                  </Typography>
+                </Tooltip>
               </Box>
             </Stack>
 
@@ -205,21 +255,28 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                 },
               }}
             >
-              <ListItemText primary="Tags" primaryTypographyProps={{ typography: 'body2' }} />
+              <Tooltip title="Tags given to this contact." arrow placement="top">
+                <Box width="fit-content">
+                  <ListItemText primary="Tags" primaryTypographyProps={{ typography: 'body2' }} />
+                </Box>
+              </Tooltip>
               <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-                <Typography
-                  fontSize="14px"
-                  component="span"
-                  color="text.disabled"
-                  sx={{
-                    mt: 0.5,
-                    whiteSpace: ',',
-                    mr: '5px',
-                    // Negative margin to remove any gap
-                  }}
-                >
-                  Purchase
-                </Typography>
+                <Tooltip title="Purchase." arrow placement="top">
+                  <Typography
+                    fontSize="14px"
+                    component="span"
+                    color="text.disabled"
+                    sx={{
+                      mt: 0.5,
+                      whiteSpace: ',',
+                      mr: '5px',
+                      // Negative margin to remove any gap
+                    }}
+                  >
+                    Purchase
+                  </Typography>
+                </Tooltip>
+
                 <Typography
                   fontSize="14px"
                   component="span"
@@ -233,17 +290,19 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                 >
                   ,
                 </Typography>
-                <Typography
-                  fontSize="14px"
-                  component="span"
-                  color="text.disabled"
-                  sx={{
-                    mt: 0.5,
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  Pabbly Connect
-                </Typography>
+                <Tooltip title="Pabbly Connect." arrow placement="top">
+                  <Typography
+                    fontSize="14px"
+                    component="span"
+                    color="text.disabled"
+                    sx={{
+                      mt: 0.5,
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    Pabbly Connect
+                  </Typography>
+                </Tooltip>
               </Box>
             </Stack>
           </Paper>
@@ -265,30 +324,38 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
         slotProps={{ arrow: { placement: 'right-top' } }}
       >
         <MenuList>
-          <MenuItem sx={{ color: '' }}>
-            <Iconify icon="solar:bill-list-bold" />
-            Manage Tags
-          </MenuItem>
-          <MenuItem sx={{ color: '' }}>
-            <Iconify icon="solar:user-block-bold" />
-            Block & Opt
-          </MenuItem>
-          <MenuItem sx={{ color: '' }}>
-            <Iconify icon="solar:pen-bold" />
-            Edit Contact
-          </MenuItem>
+          <Tooltip title="Click here to manage tags for this contact." arrow placement="left">
+            <MenuItem sx={{ color: '' }}>
+              <Iconify icon="solar:bill-list-bold" />
+              Manage Tags
+            </MenuItem>
+          </Tooltip>
+          <Tooltip title="Click here to block and Opt for this contact." arrow placement="left">
+            <MenuItem sx={{ color: '' }}>
+              <Iconify icon="solar:user-block-bold" />
+              Block & Opt
+            </MenuItem>
+          </Tooltip>
+          <Tooltip title="Click here to edit this contact." arrow placement="left">
+            <MenuItem sx={{ color: '' }}>
+              <Iconify icon="solar:pen-bold" />
+              Edit Contact
+            </MenuItem>
+          </Tooltip>
 
           <Divider style={{ borderStyle: 'dashed' }} />
-          <MenuItem
-            onClick={() => {
-              confirm.onTrue();
-              popover.onClose();
-            }}
-            sx={{ color: 'error.main' }}
-          >
-            <Iconify icon="solar:trash-bin-trash-bold" />
-            Delete
-          </MenuItem>
+          <Tooltip title="Click here to delete this contact." arrow placement="left">
+            <MenuItem
+              onClick={() => {
+                confirm.onTrue();
+                popover.onClose();
+              }}
+              sx={{ color: 'error.main' }}
+            >
+              <Iconify icon="solar:trash-bin-trash-bold" />
+              Delete
+            </MenuItem>
+          </Tooltip>
         </MenuList>
       </CustomPopover>
 

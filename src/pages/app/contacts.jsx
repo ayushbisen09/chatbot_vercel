@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTheme } from '@emotion/react';
 import { useNavigate } from 'react-router';
 
-import { Box, Button, useMediaQuery } from '@mui/material';
+import { Box, Button, Tooltip, useMediaQuery } from '@mui/material';
 
 import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';
@@ -72,6 +72,7 @@ export default function Page() {
           Subheading="Import contact, create audience & launch campaign, all from one place."
           link_added="#"
         />
+        <Tooltip title="Click here to add contact." arrow placement="top">
 
         <Button
           onClick={handleAddContact}
@@ -85,6 +86,8 @@ export default function Page() {
         >
           Add Contact
         </Button>
+        </Tooltip>
+
       </Box>
       <Box
         sx={{
@@ -108,7 +111,8 @@ export default function Page() {
             }}
           >
             {/* WhatsApp Number Added */}
-
+            <Tooltip title="Total Number of Contacts you have in this list." arrow placement="top">
+            <div>
             <StatsCards
               cardtitle="Total contacts"
               cardstats={currentData.totalContacts.toString()}
@@ -116,7 +120,11 @@ export default function Page() {
               icon_color="#FFA92E"
               bg_gradient="#FFA92E"
             />
+            </div>
+            </Tooltip>
             {/* WhatsApp Message Quota (Outgoing) */}
+            <Tooltip title="Total Number of Opted-In Contacts you have in this list." arrow placement="top">
+            <div>
             <StatsCards
               cardtitle="Opted-In contacts"
               cardstats={currentData.optedInContacts.toString()}
@@ -124,8 +132,12 @@ export default function Page() {
               icon_color="#12B66A"
               bg_gradient="#12B66A"
             />
+             </div>
+             </Tooltip>
 
             {/* Messaage Quota Used */}
+            <Tooltip title="Total Number of Opted-Out Contacts you have in this list." arrow placement="top">
+            <div>
             <StatsCards
               cardtitle="Opted-Out contacts"
               cardstats={currentData.optedOutContacts.toString()}
@@ -133,6 +145,8 @@ export default function Page() {
               icon_color="#F86672"
               bg_gradient="#F86672"
             />
+            </div>
+            </Tooltip>
           </Box>
           <BigCard />
           <ContactsTable />
