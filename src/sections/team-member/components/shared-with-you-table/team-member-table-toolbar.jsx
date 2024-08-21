@@ -1,20 +1,15 @@
 import { useTheme } from '@emotion/react';
 import { useState, useCallback } from 'react';
 
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import Popover from '@mui/material/Popover';
-import MenuItem from '@mui/material/MenuItem';
 import { useMediaQuery } from '@mui/material';
 import TextField from '@mui/material/TextField';
-import FormControl from '@mui/material/FormControl';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Iconify } from 'src/components/iconify';
-import { usePopover, CustomPopover } from 'src/components/custom-popover';
+import { usePopover } from 'src/components/custom-popover';
 
 // ----------------------------------------------------------------------
 
@@ -73,8 +68,7 @@ export function SharedWithYouTeammemberTableToolbar({ filters, onResetPage, date
   };
 
   return (
-    <>
-      <Stack
+    <Stack
         spacing={2}
         alignItems={{ xs: 'flex-end', md: 'center' }}
         direction={{ xs: 'column', md: 'row' }}
@@ -86,7 +80,7 @@ export function SharedWithYouTeammemberTableToolbar({ filters, onResetPage, date
             fullWidth
             value={filters.state.name}
             onChange={handleFilterName}
-            placeholder="Search template by Name or Category..."
+            placeholder="Search whatsApp number shared with you by email..."
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -95,103 +89,8 @@ export function SharedWithYouTeammemberTableToolbar({ filters, onResetPage, date
               ),
             }}
           />
-          <Button
-            sx={{ ml: '5px' }}
-            size="large"
-            variant=""
-            startIcon={<Iconify icon="mdi:filter" />}
-            onClick={handleFilterClick}
-          >
-            Filters
-          </Button>
+         
         </Stack>
       </Stack>
-      <CustomPopover
-        open={popover.open}
-        anchorEl={popover.anchorEl}
-        onClose={popover.onClose}
-        slotProps={{ arrow: { placement: 'right-top' } }}
-      />
-
-      <Popover
-        open={Boolean(filterAnchorEl)}
-        anchorEl={filterAnchorEl}
-        onClose={handleFilterClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-      >
-        <Box
-          sx={{
-            p: 2,
-            width: {
-              xs: '300px', // 100% width on extra-small screens
-              sm: '100%', // 100% width on small screens
-              md: 800, // 800px width on medium screens and above
-            },
-            display: 'flex',
-            flexDirection: {
-              xs: 'column', // column direction on extra-small screens
-              sm: 'column', // column direction on small screens
-              md: 'row', // row direction on medium screens and above
-            },
-            gap: 2,
-          }}
-        >
-          <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
-            {/* <InputLabel>Whatsapp number Status</InputLabel> */}
-            <TextField
-              id="select-currency-label-x"
-              variant="outlined"
-              select
-              fullWidth
-              label="Whatsapp number Status"
-            >
-              {whatsapp_status.map((whatsapp_statuss) => (
-                <MenuItem key={whatsapp_statuss} value={whatsapp_statuss}>
-                  {whatsapp_statuss}
-                </MenuItem>
-              ))}
-            </TextField>
-          </FormControl>
-
-          <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
-            <TextField
-              id="select-currency-label-x"
-              variant="outlined"
-              select
-              fullWidth
-              label="Operator"
-            >
-              {columns.map((column) => (
-                <MenuItem key={column} value={column}>
-                  {column}
-                </MenuItem>
-              ))}
-            </TextField>
-          </FormControl>
-          <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
-            <TextField
-              id="select-currency-label-x"
-              variant="outlined"
-              select
-              fullWidth
-              label="Status"
-            >
-              {columns.map((column) => (
-                <MenuItem key={column} value={column}>
-                  {column}
-                </MenuItem>
-              ))}
-            </TextField>
-          </FormControl>
-        </Box>
-      </Popover>
-    </>
   );
 }

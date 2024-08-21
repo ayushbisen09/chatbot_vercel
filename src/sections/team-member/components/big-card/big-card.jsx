@@ -8,11 +8,12 @@ import {
   Card,
   List,
   Button,
+  Tooltip,
   ListItem,
   CardMedia,
   Typography,
   ListItemText,
-  useMediaQuery,
+  useMediaQuery
 } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
@@ -186,6 +187,7 @@ export default function BigCard(sx, ...other) {
             {/* Add more list items as needed */}
           </List>
         </Typography>
+        <Tooltip title="Click here to add team member." arrow placement="top">
         <Button
           onClick={dialog.onTrue}
           sx={{ mt: isMobile ? 2 : 0 }}
@@ -195,6 +197,7 @@ export default function BigCard(sx, ...other) {
         >
           Add Team Member
         </Button>
+        </Tooltip>
         <TeamMemberDialog open={dialog.value} onClose={dialog.onFalse} />
       </Box>
 
@@ -206,7 +209,7 @@ export default function BigCard(sx, ...other) {
             marginRight: '0px', // Adjusted margin-right for screens matching 'sm' breakpoint and up
           }),
         }}
-      >
+      ><Tooltip title="Click here to see Video Tutorial." arrow placement="top">
         <Card>
           <CardMedia
             component="img"
@@ -221,6 +224,7 @@ export default function BigCard(sx, ...other) {
             onClick={() => setOpen(true)}
           />
         </Card>
+        </Tooltip>
         <ModalVideo
           channel="youtube"
           autoplay="true"

@@ -12,10 +12,11 @@ import {
   Alert,
   Button,
   Divider,
+  Tooltip,
   Snackbar,
   CardHeader,
   useMediaQuery,
-  InputAdornment,
+  InputAdornment
 } from '@mui/material';
 
 import { CONFIG } from 'src/config-global';
@@ -84,7 +85,14 @@ export default function Page() {
                           InputProps: {
                             endAdornment: (
                               <InputAdornment position="end">
+                                <Tooltip
+                    title="select configure SLAs start time "
+                    arrow
+                    placement="top"
+                    
+                  >
                                 <Iconify icon="carbon:time" width={24} height={24} />
+                                </Tooltip>
                               </InputAdornment>
                             ),
                           },
@@ -95,9 +103,16 @@ export default function Page() {
               </Grid>
             </Grid>
             <Box sx={{ mt: 2 }}>
+            <Tooltip
+                    title="click here to save configure SLAs time"
+                    arrow
+                    placement="top"
+                    
+                  >
               <Button variant="contained" color="inherit" onClick={handleAdd}>
                 Save
               </Button>
+              </Tooltip>
             </Box>
           </Box>
         </Card>

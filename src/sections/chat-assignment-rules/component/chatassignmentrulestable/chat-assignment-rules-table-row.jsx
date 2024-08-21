@@ -9,21 +9,21 @@ import MenuItem from '@mui/material/MenuItem';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
-import { Divider, Checkbox } from '@mui/material';
+import { Divider, Tooltip, Checkbox } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
-// import { ConfirmDialog } from '../custom-dialog';
+
 
 export function ChatAssignmentTableRow({
   row,
   selected,
-  onViewRow,
+ 
   onSelectRow,
-  onDeleteRow,
+  
   serialNumber,
 }) {
   const confirm = useBoolean();
@@ -72,21 +72,35 @@ export function ChatAssignmentTableRow({
           </Stack>
         </Stack>
       </TableCell>
+      
       <TableCell width={592}>
-        <Label
-          variant="soft"
-          color={
-            (row.status === 'online' && 'success') ||
-            (row.status === 'offline' && 'error') ||
-            (row.status === 'both' && 'warning') ||
-            'success'
-          }
-        >
-          {row.status}
-        </Label>
-      </TableCell>
+  {row.status === 'online' ? (
+    <Tooltip title="This rule is assigned to online  user " arrow placement="top">
+      <Label variant="soft" color="success">
+        {row.status}
+      </Label>
+    </Tooltip>
+  ) : row.status === 'offline' ? (
+    <Tooltip title="This rule is assigned to offline user" arrow placement="top">
+      <Label variant="soft" color="error">
+        {row.status}
+      </Label>
+    </Tooltip>
+  ) : row.status === 'both' ? (
+    <Tooltip title="This rule is assigned to both online and offline user" arrow placement="top">
+      <Label variant="soft" color="warning">
+        {row.status}
+      </Label>
+    </Tooltip>
+  ) : (
+    <Label variant="soft" color="default">
+      {row.status}
+    </Label>
+  )}
+</TableCell>
 
       <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
+      <Tooltip title="Click here to see whatsApp number access you’ve shared" arrow placement="top">
         <IconButton
           color={collapse.value ? 'inherit' : 'default'}
           onClick={collapse.onToggle}
@@ -94,6 +108,7 @@ export function ChatAssignmentTableRow({
         >
           <Iconify icon="eva:arrow-ios-downward-fill" />
         </IconButton>
+        </Tooltip>
 
         <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
           <Iconify icon="eva:more-vertical-fill" />
@@ -196,17 +211,7 @@ export function ChatAssignmentTableRow({
         </MenuList>
       </CustomPopover>
 
-      {/* <ConfirmDialog
-        open={confirm.value}
-        onClose={confirm.onFalse}
-        title="Delete"
-        content="Are you sure want to remove this contact?"
-        action={
-          <Button variant="contained" color="error" onClick={onDeleteRow}>
-            Delete
-          </Button>
-        }
-      /> */}
+      
     </>
   );
 }

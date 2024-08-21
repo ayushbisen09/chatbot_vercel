@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
-import { Checkbox } from '@mui/material';
 import Button from '@mui/material/Button';
 import MenuList from '@mui/material/MenuList';
 import Collapse from '@mui/material/Collapse';
 import MenuItem from '@mui/material/MenuItem';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
+import { Tooltip,Checkbox } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 
 import { useBoolean } from 'src/hooks/use-boolean';
@@ -53,7 +53,9 @@ export function SharedByYouTeammemberTableRow({
               alignItems: 'flex-start',
             }}
           >
+            <Tooltip title="Team member email who's access shared by you" arrow placement="top">
             <Box component="span">ayush.bisen@pabbly.com</Box>
+            </Tooltip>
           </Stack>
         </Stack>
       </TableCell>
@@ -67,10 +69,13 @@ export function SharedByYouTeammemberTableRow({
               alignItems: 'flex-start',
             }}
           >
-            <Box component="span">Jan 19, 2024</Box>
+            <Tooltip title="Date when access shared by you" arrow placement="top">
+            <Box component="span">Jan 19, 2024</Box></Tooltip>
+            <Tooltip title="Time when access shared by you" arrow placement="top">
             <Box component="span" sx={{ color: 'text.disabled' }}>
               08:23:313
             </Box>
+            </Tooltip>
           </Stack>
         </Stack>
       </TableCell>

@@ -51,9 +51,9 @@ const metadata = { title: `Page one | Dashboard - ${CONFIG.site.name}` };
 const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...CHATASSIGNMENTRULE_STATUS_OPTIONS];
 
 const TABLE_HEAD = [
-  { id: 'orderNumber', label: 'S.No', width: 353 },
-  { id: 'name', label: 'Rule Name', width: 298 },
-  { id: 'createdAt', label: 'Assigned To', width: 262 },
+  { id: 'sno', label: 'S.No', width: 353 ,tooltip: 'Serial Number'},
+  { id: 'rulename', label: 'Rule Name', width: 298 ,tooltip: 'Chat assigment rule name'},
+  { id: 'assignedto', label: 'Assigned To', width: 262 ,tooltip: 'Chat assignment rule assign to online/offline/both '},
 
   { id: '', width: 88 },
 ];

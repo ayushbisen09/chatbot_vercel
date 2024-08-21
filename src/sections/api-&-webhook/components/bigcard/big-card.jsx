@@ -5,10 +5,11 @@ import {
   Box,
   List,
   Button,
+  Tooltip,
   ListItem,
   Typography,
   ListItemText,
-  useMediaQuery,
+  useMediaQuery
 } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
@@ -116,7 +117,7 @@ export default function BigCard({sx, ...other}) {
             </ListItem>
             {/* Add more list items as needed */}
           </List>
-       
+          <Tooltip title="Click here to add add webhook." arrow placement="top">
         <Button
           onClick={dialog.onTrue}
           sx={{ mt: isMobile ? 2 : 0 }}
@@ -126,6 +127,7 @@ export default function BigCard({sx, ...other}) {
         >
           Add Webhook
         </Button>
+        </Tooltip>
         <WebhookDialog open={dialog.value} onClose={dialog.onFalse} />
       </Box>
 
