@@ -93,10 +93,10 @@ export function AddrulesDialog({ title, content, action, open, onClose, ...other
             type="text"
             margin="dense"
             variant="outlined"
-            label="Enter Name"
+            label="Enter Rule Name"
             helperText={
               <span>
-                Enter username.{' '}
+                Enter chat assignment rule name.{' '}
                 <Link href="#" style={{ color: '#078DEE' }} underline="always">
                   Learn more
                 </Link>
@@ -106,7 +106,7 @@ export function AddrulesDialog({ title, content, action, open, onClose, ...other
               endAdornment: (
                 <InputAdornment position="end">
                   <Tooltip
-                    title="Enter username."
+                    title="Enter rule name."
                     arrow
                     placement="top"
                     sx={{

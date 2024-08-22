@@ -1,16 +1,11 @@
 import { useTheme } from '@emotion/react';
 import { useState, useCallback } from 'react';
 
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import Popover from '@mui/material/Popover';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
-import { useMediaQuery } from '@mui/material';
 import TextField from '@mui/material/TextField';
-import IconButton from '@mui/material/IconButton';
-import FormControl from '@mui/material/FormControl';
+import { Tooltip,useMediaQuery } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import { useBoolean } from 'src/hooks/use-boolean';
@@ -27,10 +22,10 @@ export function FlowBuilderTableToolbar({ filters, onResetPage, dateError }) {
   const confirm = useBoolean();
 
   const popover = usePopover();
-  const [filterAnchorEl, setFilterAnchorEl] = useState(null);
-  const [selectedColumn, setSelectedColumn] = useState('');
-  const [operator, setOperator] = useState('contains');
-  const [filterValue, setFilterValue] = useState('');
+  const [ setFilterAnchorEl] = useState(null);
+  const [selectedColumn] = useState('');
+  const [operator] = useState('contains');
+
 
   const flowbuilder_status = ['Active', 'Inactive']; // Add your actual column names here
   const columns = ['Active', 'Inactive']; // Add your actual column names here
@@ -67,12 +62,7 @@ export function FlowBuilderTableToolbar({ filters, onResetPage, dateError }) {
     setFilterAnchorEl(null);
   };
 
-  const handleApplyFilter = () => {
-    console.log('Applying filter:', { column: selectedColumn, operator, value: filterValue });
-    filters.setState({ [selectedColumn.toLowerCase()]: filterValue });
-    onResetPage();
-    handleFilterClose();
-  };
+
 
   return (
     <>
@@ -83,12 +73,13 @@ export function FlowBuilderTableToolbar({ filters, onResetPage, dateError }) {
         sx={{ p: 2.5, pr: { xs: 2.5, md: 1 } }}
       >
         <Stack direction="row" alignItems="center" spacing={2} flexGrow={1} sx={{ width: 1 }}>
+        <Tooltip title="Search flow by name here." arrow placement="left">
           <TextField
             sx={{ mr: '5px' }}
             fullWidth
             value={filters.state.name}
             onChange={handleFilterName}
-            placeholder="Search by rule Name..."
+            placeholder="Search by flow name..."
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -97,18 +88,9 @@ export function FlowBuilderTableToolbar({ filters, onResetPage, dateError }) {
               ),
             }}
           />
-          <Button
-            sx={{ ml: '5px' }}
-            size="large"
-            variant=""
-            startIcon={<Iconify icon="mdi:filter" />}
-            onClick={handleFilterClick}
-          >
-            Filters
-          </Button>
-          <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
-            <Iconify icon="eva:more-vertical-fill" />
-          </IconButton>
+          </Tooltip>
+         
+          
         </Stack>
       </Stack>
       <CustomPopover
@@ -130,85 +112,7 @@ export function FlowBuilderTableToolbar({ filters, onResetPage, dateError }) {
           </MenuItem>
         </MenuList>
       </CustomPopover>
-      <Popover
-        open={Boolean(filterAnchorEl)}
-        anchorEl={filterAnchorEl}
-        onClose={handleFilterClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-      >
-        <Box
-          sx={{
-            p: 2,
-            width: {
-              xs: '300px', // 100% width on extra-small screens
-              sm: '100%', // 100% width on small screens
-              md: 800, // 800px width on medium screens and above
-            },
-            display: 'flex',
-            flexDirection: {
-              xs: 'column', // column direction on extra-small screens
-              sm: 'column', // column direction on small screens
-              md: 'row', // row direction on medium screens and above
-            },
-            gap: 2,
-          }}
-        >
-          <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
-            {/* <InputLabel>Whatsapp number Status</InputLabel> */}
-            <TextField
-              id="select-currency-label-x"
-              variant="outlined"
-              select
-              fullWidth
-              label="Flow Status"
-            >
-              {flowbuilder_status.map((flowbuilder_statuss) => (
-                <MenuItem key={flowbuilder_statuss} value={flowbuilder_statuss}>
-                  {flowbuilder_statuss}
-                </MenuItem>
-              ))}
-            </TextField>
-          </FormControl>
-
-          <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
-            <TextField
-              id="select-currency-label-x"
-              variant="outlined"
-              select
-              fullWidth
-              label="Operator"
-            >
-              {columns.map((column) => (
-                <MenuItem key={column} value={column}>
-                  {column}
-                </MenuItem>
-              ))}
-            </TextField>
-          </FormControl>
-          <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
-            <TextField
-              id="select-currency-label-x"
-              variant="outlined"
-              select
-              fullWidth
-              label="Status"
-            >
-              {columns.map((column) => (
-                <MenuItem key={column} value={column}>
-                  {column}
-                </MenuItem>
-              ))}
-            </TextField>
-          </FormControl>
-        </Box>
-      </Popover>
+      
     </>
   );
 }

@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
-import { Checkbox } from '@mui/material';
 import Button from '@mui/material/Button';
 import MenuList from '@mui/material/MenuList';
 import Collapse from '@mui/material/Collapse';
 import MenuItem from '@mui/material/MenuItem';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
+import { Tooltip,Checkbox } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 
 import { useBoolean } from 'src/hooks/use-boolean';
@@ -53,7 +53,9 @@ export function SharedWithYouTeammemberTableRow({
               alignItems: 'flex-start',
             }}
           >
+            <Tooltip title="Team member email who's access shared with you" arrow placement="top">
             <Box component="span">ankit.mandli@pabbly.com</Box>
+            </Tooltip>
           </Stack>
         </Stack>
       </TableCell>
@@ -67,15 +69,20 @@ export function SharedWithYouTeammemberTableRow({
               alignItems: 'flex-start',
             }}
           >
+            <Tooltip title="Date when access shared with you" arrow placement="top">
             <Box component="span">ar 10, 2024</Box>
+            </Tooltip>
+            <Tooltip title="Time when access shared with you" arrow placement="top">
             <Box component="span" sx={{ color: 'text.disabled' }}>
               08:23:313
             </Box>
+            </Tooltip>
           </Stack>
         </Stack>
       </TableCell>
 
       <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
+      <Tooltip title="Click here see WhatsApp number access shared with you" arrow placement="top">
         <IconButton
           color={collapse.value ? 'inherit' : 'default'}
           onClick={collapse.onToggle}
@@ -83,10 +90,12 @@ export function SharedWithYouTeammemberTableRow({
         >
           <Iconify icon="eva:arrow-ios-downward-fill" />
         </IconButton>
-
+        </Tooltip>
+        <Tooltip title="Action" arrow placement="top">
         <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
           <Iconify icon="eva:more-vertical-fill" />
         </IconButton>
+        </Tooltip>
       </TableCell>
     </TableRow>
   );
@@ -161,6 +170,7 @@ export function SharedWithYouTeammemberTableRow({
         slotProps={{ arrow: { placement: 'right-top' } }}
       >
         <MenuList>
+        <Tooltip title="Click here to remove team member" arrow placement="left">
           <MenuItem
             onClick={() => {
               confirm.onTrue();
@@ -171,18 +181,21 @@ export function SharedWithYouTeammemberTableRow({
             <Iconify icon="solar:trash-bin-trash-bold" />
             Remove
           </MenuItem>
+          </Tooltip>
         </MenuList>
       </CustomPopover>
 
       <ConfirmDialog
         open={confirm.value}
         onClose={confirm.onFalse}
-        title="Delete"
-        content="Are you sure want to delete?"
+        title="Remove"
+        content="Are you sure want to remove?"
         action={
+          <Tooltip title="Click here to remove team member" arrow placement="bottom">
           <Button variant="contained" color="error" onClick={onDeleteRow}>
-            Delete
+            Remove
           </Button>
+          </Tooltip>
         }
       />
     </>

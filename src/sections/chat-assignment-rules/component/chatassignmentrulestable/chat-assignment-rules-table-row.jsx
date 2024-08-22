@@ -100,7 +100,7 @@ export function ChatAssignmentTableRow({
 </TableCell>
 
       <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
-      <Tooltip title="Click here to see whatsApp number access you’ve shared" arrow placement="top">
+      <Tooltip title="Click here to see agent are assigned to this chat assignment rule" arrow placement="top">
         <IconButton
           color={collapse.value ? 'inherit' : 'default'}
           onClick={collapse.onToggle}
@@ -109,10 +109,11 @@ export function ChatAssignmentTableRow({
           <Iconify icon="eva:arrow-ios-downward-fill" />
         </IconButton>
         </Tooltip>
-
+        <Tooltip title="Actions" arrow placement="top">
         <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
           <Iconify icon="eva:more-vertical-fill" />
         </IconButton>
+        </Tooltip>
       </TableCell>
     </TableRow>
   );
@@ -154,7 +155,7 @@ export function ChatAssignmentTableRow({
                     mb: 1, // spacing from bottom
                   }}
                 >
-                  WhatsApp Number access you’ve shared
+                  Agents that are assigned to this chat assignment rule
                 </Box>
                 <Box component="span">Ayush Bisen</Box>
                 <Box component="span">Ankit Mandli</Box>
@@ -184,20 +185,16 @@ export function ChatAssignmentTableRow({
         slotProps={{ arrow: { placement: 'right-top' } }}
       >
         <MenuList>
-          <MenuItem sx={{ color: '' }}>
-            <Iconify icon="solar:bill-list-bold" />
-            Manage Tags
-          </MenuItem>
-          <MenuItem sx={{ color: '' }}>
-            <Iconify icon="solar:user-block-bold" />
-            Block & Opt
-          </MenuItem>
+          
+        <Tooltip title="Click here to edit the rule" arrow placement="left">
           <MenuItem sx={{ color: '' }}>
             <Iconify icon="solar:pen-bold" />
-            Edit Contact
+            Edit Rule
           </MenuItem>
+          </Tooltip>
 
           <Divider style={{ borderStyle: 'dashed' }} />
+          <Tooltip title="Click here to delete the rule" arrow placement="left">
           <MenuItem
             onClick={() => {
               confirm.onTrue();
@@ -208,6 +205,7 @@ export function ChatAssignmentTableRow({
             <Iconify icon="solar:trash-bin-trash-bold" />
             Delete
           </MenuItem>
+          </Tooltip>
         </MenuList>
       </CustomPopover>
 

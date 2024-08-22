@@ -9,11 +9,13 @@ import {
   Alert,
   Button,
   Divider,
+  Tooltip,
   useTheme,
   Snackbar,
   CardHeader,
   Typography,
   useMediaQuery,
+  InputAdornment
 } from '@mui/material';
 
 import { DashboardContent } from 'src/layouts/dashboard';
@@ -100,9 +102,48 @@ export default function Page() {
                     sx={{ width: 1 }}
                     alignItems="center"
                   >
-                    <TextField variant="outlined" fullWidth label="Attribute name" />
-                    <TextField variant="outlined" fullWidth label="Attribute description" />
+                    <TextField variant="outlined" fullWidth label="Attribute name" 
+                     InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <Tooltip
+                            title="Enter Attribute Name."
+                            arrow
+                            placement="top"
+                            sx={{
+                              fontSize: '16px', // Adjust the font size as needed
+                            }}
+                          >
+                            <Iconify
+                              icon="material-symbols:info-outline"
+                              style={{ width: 20, height: 20 }}
+                            />
+                          </Tooltip>
+                        </InputAdornment>
+                      ),
+                    }}/>
+                    <TextField variant="outlined" fullWidth label="Attribute description"
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <Tooltip
+                            title="Enter Attribute Description."
+                            arrow
+                            placement="top"
+                            sx={{
+                              fontSize: '16px', // Adjust the font size as needed
+                            }}
+                          >
+                            <Iconify
+                              icon="material-symbols:info-outline"
+                              style={{ width: 20, height: 20 }}
+                            />
+                          </Tooltip>
+                        </InputAdornment>
+                      ),
+                    }}/>
                     {!isTabletOrMobile && (
+                      <Tooltip title="Click here to delete attribute" arrow placement="top">
                       <Button
                         size="small"
                         sx={{ color: 'grey.600', minWidth: 'auto' }}
@@ -111,6 +152,7 @@ export default function Page() {
                       >
                         <Iconify width={24} icon="solar:trash-bin-trash-bold" />
                       </Button>
+                      </Tooltip>
                     )}
                   </Stack>
                   {isTabletOrMobile && (
@@ -128,7 +170,7 @@ export default function Page() {
                 </Stack>
               ))}
             </Stack>
-
+            <Tooltip title="click here to add more attribute" arrow placement="top">
             <Button
               size="small"
               color="primary"
@@ -138,18 +180,21 @@ export default function Page() {
             >
               Add More Attribute
             </Button>
+            </Tooltip>
 
             <Box sx={{ mt: 3 }}>
+            <Tooltip title="Click here to save attribute" arrow placement="top">
               <Button onClick={saveAttributes} variant="contained" color="inherit">
                 Save
               </Button>
+              </Tooltip>
             </Box>
           </Box>
         </Card>
       </Box>
       <Snackbar
         open={snackbarOpen}
-        autoHideDuration={6000} // Adjust duration as needed
+        autoHideDuration={1000} // Adjust duration as needed
         onClose={handleSnackbarClose}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         sx={{

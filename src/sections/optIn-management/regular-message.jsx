@@ -68,6 +68,7 @@ export default function RegularMessage() {
       <Box sx={{ mt: '24px' }}>
         <Box display="flex" flexDirection={isMobile ? 'column' : 'row'} width="100%">
           <Box width={isMobile ? '100%' : '60%'} pr={isMobile ? 0 : '12px'}>
+          <Tooltip title="Click here to select regular message type" arrow placement="top">
             <TextField
               sx={{ mb: '24px' }}
               id="select-currency-label-x"
@@ -83,7 +84,10 @@ export default function RegularMessage() {
                 </MenuItem>
               ))}
             </TextField>
+            </Tooltip>
+            <Tooltip title="Enter message here" arrow placement="top">
             <TextField rows={4} fullWidth multiline label="Enter message here." />
+            </Tooltip>
             <Divider sx={{ mt: '24px', borderStyle: 'dashed' }} />
             <TextField
               sx={{ mt: '24px' }}
@@ -129,7 +133,7 @@ export default function RegularMessage() {
             <FileUpload onFileUpload={handleFileUpload} />
             {/* <Button sx={{ mt: '24px' }} variant='contained'> Save </Button> */}
           </Box>
-
+          <Tooltip title="Regular message type preview" arrow placement="top">
           <Box
             width={isMobile ? '100%' : '40%'}
             sx={{ pl: isMobile ? 0 : '12px', mt: isMobile ? '24px' : 0 }}
@@ -190,11 +194,14 @@ export default function RegularMessage() {
               </Box>
             </Card>
           </Box>
+          </Tooltip>
         </Box>
+        <Tooltip title="Click here to save regular message type" arrow placement="top">
         <Button sx={{ mt: '24px' }} variant="contained" onClick={handleAdd}>
           {' '}
           Save{' '}
         </Button>
+        </Tooltip>
       </Box>
       <Snackbar
         open={snackbarOpen}

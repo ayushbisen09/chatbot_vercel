@@ -8,6 +8,7 @@ import {
   Drawer,
   styled,
   Divider,
+  Tooltip,
   CardHeader,
   Typography,
   IconButton,
@@ -89,20 +90,26 @@ const ConfigurationDrawer1 = ({ open, onClose }) => {
 
             <Divider />
             <Box sx={{ p: 3 }}>
+            <Tooltip title="Message type" arrow placement="top">
               <Typography variant="h7" sx={{ fontSize: '14px', fontWeight: '600' }}>
                 Select Message Type
               </Typography>
+              </Tooltip>
               <RadioGroup row value={messageType} onChange={handleRadioChange}>
+              <Tooltip title="Pre-approved template message" arrow placement="left">
                 <FormControlLabel
                   value="g"
                   control={<Radio size="small" />}
                   label="Pre-approved template message"
                 />
+                </Tooltip>
+                <Tooltip title="Regular message" arrow placement="right">
                 <FormControlLabel
                   value="p"
                   control={<Radio size="small" />}
                   label="Regular Message"
                 />
+                </Tooltip>
               </RadioGroup>
               {messageType === 'g' && (
                 <form>

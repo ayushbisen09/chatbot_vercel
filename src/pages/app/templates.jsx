@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { useTheme } from '@emotion/react';
 import { useNavigate } from 'react-router';
 
-import { Box, Tab, Tabs, Button, useMediaQuery } from '@mui/material';
+import { Box, Tab, Tabs, Button, Tooltip, useMediaQuery } from '@mui/material';
 
 import { useTabs } from 'src/hooks/use-tabs';
 
@@ -60,7 +60,7 @@ export default function Page() {
           Subheading="You can Initiate a Conversation with users on WhatsApp using these template messages."
           link_added="#"
         />
-
+ <Tooltip title="Click here to add new template" arrow placement="top">
         <Button
           onClick={handleAddTemplate}
           sx={{ mt: isMobile ? 2 : 0 }}
@@ -73,6 +73,8 @@ export default function Page() {
         >
           Add New Template
         </Button>
+        </Tooltip>
+
       </Box>
       <Tabs value={basicTabs.value} onChange={basicTabs.onChange} sx={{ mt: '40px' }}>
         {TABS.slice(0, 3).map((tab) => (

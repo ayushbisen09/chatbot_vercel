@@ -7,7 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
-import { Divider, Checkbox } from '@mui/material';
+import { Divider, Tooltip,Checkbox } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
@@ -74,10 +74,15 @@ export function FlowBuilderTableRow({ row, selected, onSelectRow, flowIndex }) {
               alignItems: 'flex-start',
             }}
           >
+
+<Tooltip title="Flow name" arrow placement="top">
             <Box component="span">{flowNames[flowIndex % flowNames.length]}</Box>
+            </Tooltip>
+            <Tooltip title="Created by agent names." arrow placement="top">
             <Box component="span" sx={{ color: 'text.disabled' }}>
               {secondaryNames[flowIndex % secondaryNames.length]}
             </Box>
+            </Tooltip>
           </Stack>
         </Stack>
       </TableCell>
@@ -90,32 +95,47 @@ export function FlowBuilderTableRow({ row, selected, onSelectRow, flowIndex }) {
               alignItems: 'flex-start',
             }}
           >
+            <Tooltip title="Date when flow is created by agent" arrow placement="top">
             <Box component="span">{formattedDate.date}</Box>
+            </Tooltip>
+            <Tooltip title="Time  when flow is created by agent" arrow placement="top">
             <Box component="span" sx={{ color: 'text.disabled' }}>
               {formattedDate.time}
             </Box>
+            </Tooltip>
           </Stack>
         </Stack>
       </TableCell>
 
+     
       <TableCell width={592}>
-        <Label
-          variant="soft"
-          color={
-            (row.status === 'active' && 'success') ||
-            (row.status === 'inactive' && 'error') ||
-            'success'
-          }
-        >
-          {row.status}
-        </Label>
+        {row.status === 'active' ? (
+          <Tooltip title="This flow is currently active" arrow placement="top">
+            <Label variant="soft" color="success">
+              {row.status}
+            </Label>
+          </Tooltip>
+        ) : row.status === 'inactive' ? (
+          <Tooltip title="This flow is currently inactive." arrow placement="top">
+            <Label variant="soft" color="error">
+              {row.status}
+            </Label>
+          </Tooltip>
+        ) : (
+          <Label variant="soft" color="success">
+            {row.status}
+          </Label>
+        )}
       </TableCell>
-
+      
       <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
+      <Tooltip title="Actions" arrow placement="top">
         <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
           <Iconify icon="eva:more-vertical-fill" />
         </IconButton>
+        </Tooltip>
       </TableCell>
+      
     </TableRow>
   );
 
@@ -130,17 +150,21 @@ export function FlowBuilderTableRow({ row, selected, onSelectRow, flowIndex }) {
         slotProps={{ arrow: { placement: 'right-top' } }}
       >
         <MenuList>
+        <Tooltip title="Clear here to clone the flow" arrow placement="left">
           <MenuItem sx={{ color: '' }}>
             <Iconify icon="solar:copy-bold" />
             Clone Flow
           </MenuItem>
-
+        </Tooltip>
+        <Tooltip title="Clear here to edit the flow" arrow placement="left">
           <MenuItem sx={{ color: '' }}>
             <Iconify icon="solar:pen-bold" />
             Edit Flow
           </MenuItem>
+          </Tooltip>
 
           <Divider style={{ borderStyle: 'dashed' }} />
+          <Tooltip title="Clear here to delete the flow" arrow placement="left">
           <MenuItem
             onClick={() => {
               confirm.onTrue();
@@ -151,6 +175,7 @@ export function FlowBuilderTableRow({ row, selected, onSelectRow, flowIndex }) {
             <Iconify icon="solar:trash-bin-trash-bold" />
             Delete Flow
           </MenuItem>
+          </Tooltip>
         </MenuList>
       </CustomPopover>
 

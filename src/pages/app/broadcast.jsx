@@ -1,7 +1,7 @@
 import { useTheme } from '@emotion/react';
 import { useNavigate } from 'react-router';
 
-import { Box, Button, useMediaQuery } from '@mui/material';
+import { Box, Button, Tooltip ,useMediaQuery} from '@mui/material';
 
 import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';
@@ -45,7 +45,7 @@ export default function Page() {
           Subheading="Launch a campaign now to initiate new conversations with users on WhatsApp."
           link_added="#"
         />
-
+ <Tooltip title="Clear here to clone the flow" arrow placement="top">
         <Button
           onClick={handleAddContact}
           sx={{ mt: isMobile ? 2 : 0 }}
@@ -58,6 +58,7 @@ export default function Page() {
         >
           Add Broadcast
         </Button>
+        </Tooltip>
       </Box>
       <Box
         sx={{
@@ -73,7 +74,9 @@ export default function Page() {
             gridTemplateColumns: { xs: 'repeat(1, 1fr)', md: 'repeat(4, 1fr)' },
           }}
         >
-          {/* WhatsApp Number Added */}
+        
+          <Tooltip title="Total broadcast you have created" arrow placement="top">
+<div>
 
           <StatsCards
             cardtitle="Total Broadcast"
@@ -82,7 +85,12 @@ export default function Page() {
             icon_color="#28A645"
             bg_gradient="#22C55E"
           />
-          {/* WhatsApp Message Quota (Outgoing) */}
+</div>
+</Tooltip>
+          
+          <Tooltip title="Total live broadcast " arrow placement="top">
+            <div>
+
           <StatsCards
             cardtitle="Live Broadcast "
             cardstats="22"
@@ -90,8 +98,13 @@ export default function Page() {
             icon_color="#FFA92E"
             bg_gradient="#FFA92E"
           />
+            </div>
+            </Tooltip>
 
-          {/* Messaage Quota Used */}
+          
+          <Tooltip title="Total send broadcast" arrow placement="top">
+            <div>
+
           <StatsCards
             cardtitle="Sent Broadcast"
             cardstats="23"
@@ -99,6 +112,11 @@ export default function Page() {
             icon_color="#05A6C6"
             bg_gradient="#05A6C6"
           />
+            </div>
+            </Tooltip>
+            <Tooltip title="Total scheduled broadcast " arrow placement="top">
+              <div>
+
           <StatsCards
             cardtitle="Scheduled  Broadcast"
             cardstats="11"
@@ -106,6 +124,8 @@ export default function Page() {
             icon_color="#F86672"
             bg_gradient="#F86672"
           />
+              </div>
+              </Tooltip>
         </Box>
         <BroadcastTable />
       </Box>

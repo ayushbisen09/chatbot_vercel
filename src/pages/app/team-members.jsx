@@ -42,6 +42,7 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
           Subheading="You can add members with varying access level to manage your business."
           link_added="#"
         />
+        <Tooltip title="Click here to add team member" arrow placement="top">
         <Button
           onClick={dialog.onTrue}
           sx={{ mt: isMobile ? 2 : 0 }}
@@ -54,6 +55,7 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
         >
           Add Team Member
         </Button>
+        </Tooltip>
         <TeamMemberDialog open={dialog.value} onClose={dialog.onFalse} />
       </Box>
       {/* Cards Section */}

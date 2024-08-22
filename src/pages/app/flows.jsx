@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
-import { Button, useMediaQuery } from '@mui/material';
+import { Button, Tooltip,useMediaQuery } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
@@ -47,6 +47,7 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
           Subheading="You can connect with facebook to fetch catalogue and manage it from our platform."
           link_added="#"
         />
+         <Tooltip title="Click here to add flow" arrow placement="top">
         <Button
           onClick={handleAddFlow}
           sx={{ mt: isMobile ? 2 : 0 }}
@@ -59,6 +60,7 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
         >
           Add Flow
         </Button>
+        </Tooltip>
 
         {/* <WhatsAppDialog open={dialog.value} onClose={dialog.onFalse} /> */}
       </Box>
@@ -73,26 +75,37 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
         }}
       >
         {/* Total flows  */}
-
-        <StatsCards
+        <Tooltip title="Number of flows you have added." arrow placement="top">
+          <div>
+          <StatsCards
           cardtitle="Total flows "
           cardstats="20"
           icon_name="flows_total.png"
           icon_color="#2B78EA"
           bg_gradient="#2B78EA"
         />
+          </div>
+          </Tooltip>
+        
 
         {/* Active flows */}
-
-        <StatsCards
+        <Tooltip title="Number of active flows you have added." arrow placement="top">
+<div>
+<StatsCards
           cardtitle="Active flows"
           cardstats="10"
           icon_name="flows_active.png"
           icon_color="#009C53"
           bg_gradient="#009C53"
         />
+</div>
+</Tooltip>
+        
 
         {/* Inactive flows */}
+        <Tooltip title="Number of inactive flows you have added." arrow placement="top">
+        <div>
+
         <StatsCards
           cardtitle="Inactive flows"
           cardstats="10"
@@ -100,7 +113,12 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
           icon_color="#F86672"
           bg_gradient="#F86672"
         />
+        </div>
+        </Tooltip>
         {/* Total flows quota */}
+        <Tooltip title="Number of flows quota you have." arrow placement="top">
+        <div>
+
         <StatsCards
           cardtitle="Total flows quota"
           cardstats="2,000"
@@ -108,6 +126,8 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
           icon_color="#FFA92E"
           bg_gradient="#FFA92E"
         />
+        </div>
+        </Tooltip>
       </Box>
 
       {/* Table */}

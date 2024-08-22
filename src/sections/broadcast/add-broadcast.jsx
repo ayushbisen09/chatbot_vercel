@@ -159,6 +159,7 @@ export default function AddBroadcast() {
             />
 
             {/* Select Contacts Button */}
+            <Tooltip title="Click here to select contact list in broadcast" arrow placement="top">
             <Button
               size="medium"
               variant="outlined"
@@ -169,6 +170,7 @@ export default function AddBroadcast() {
             >
               Select Contacts
             </Button>
+            </Tooltip>
             <SelectContactDrawer open={openDrawer1} onClose={handleCloseDrawer1} />
 
             {/* Included List */}
@@ -180,12 +182,15 @@ export default function AddBroadcast() {
                 padding: '0px 24px 8px 24px',
                 mr: 0,
                 ml: 0,
+                mb: 0.5,
               }}
             >
+              <Tooltip title="Included contact list in broadcast " arrow placement="left">
               <Typography fontSize={14}>Included: </Typography>
               <Typography color="grey" fontSize={14}>
                 {includedArray.join(', ')}
               </Typography>
+              </Tooltip>
             </Box>
             {/* Excluded List */}
 
@@ -199,10 +204,12 @@ export default function AddBroadcast() {
                 ml: 0,
               }}
             >
+              <Tooltip title="Excluded contact list in broadcast " arrow placement="left">
               <Typography fontSize={14}>Excluded: </Typography>
               <Typography color="grey" fontSize={14}>
                 {excludedArray.join(', ')}
               </Typography>
+              </Tooltip>
             </Box>
 
             <Divider sx={{ borderStyle: 'dashed', margin: '0px 24px 24px 24px' }} />
@@ -220,16 +227,20 @@ export default function AddBroadcast() {
                 Select Message Type
               </Typography>
               <RadioGroup row value={messageType} onChange={handleRadioChange}>
+              <Tooltip title="Pre-approved template message" arrow placement="bottom">
                 <FormControlLabel
                   value="pre_approved_message"
                   control={<Radio size="small" />}
                   label="Pre-approved template message"
                 />
+                </Tooltip>
+                <Tooltip title="Regular message" arrow placement="right">
                 <FormControlLabel
                   value="regular_message"
                   control={<Radio size="small" />}
                   label="Regular Message"
                 />
+                </Tooltip>
               </RadioGroup>
               {messageType === 'pre_approved_message' && (
                 <form>
@@ -254,6 +265,7 @@ export default function AddBroadcast() {
                   sx={{ display: 'flex', flexWrap: { xs: 'wrap', lg: 'nowrap', md: 'nowrap' } }}
                   gap={2}
                 >
+                    <Tooltip title="Click here to add the contact number " arrow placement="top">
                   <TextField
                     fullWidth
                     helperText="Enter the contact's mobile number."
@@ -315,6 +327,8 @@ export default function AddBroadcast() {
                       ),
                     }}
                   />
+                  </Tooltip>
+                          <Tooltip title="Click here to send test message" arrow placement="top">
                   <Button
                     sx={{ height: '55px', width: { xs: '50%', md: '20%', lg: '20%' } }}
                     variant="contained"
@@ -322,6 +336,7 @@ export default function AddBroadcast() {
                   >
                     Send Test Message
                   </Button>
+                  </Tooltip>
                 </Box>
               }
               sx={{ width: '100%', padding: '0px 24px 32px 24px', mr: 0, ml: 0 }}
@@ -345,23 +360,27 @@ export default function AddBroadcast() {
                 value={scheduleType}
                 onChange={handleScheduleChange}
               >
+                  <Tooltip title="Click this button if you want to scheduled the broadcast" arrow placement="bottom">
                 <FormControlLabel
                   value="yes_schedule"
                   control={<Radio size="small" />}
                   label="Yes (Schedule for Later)"
                 />
+                </Tooltip>
+                <Tooltip title="Click this button if you want to send broadcast instantly" arrow placement="bottom">
                 <FormControlLabel
                   value="no_schedule"
                   control={<Radio size="small" />}
                   label="No (Send Instantly)"
                 />
+                </Tooltip>
               </RadioGroup>
               {scheduleType === 'yes_schedule' && (
                 <Form>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DateTimePicker
                     sx={{mt:'24px'}}
-                      label="For desktop"
+                      label="Date"
                       value={startDate}
                       minDate={dayjs('2017-01-01')}
                       onChange={(newValue) => {
@@ -386,9 +405,11 @@ export default function AddBroadcast() {
                 ml: 0,
               }}
             >
+              <Tooltip title="Click here to add broadcast" arrow placement="top">
               <Button variant="contained" size="large" color="inherit">
                 Add Broadcast
               </Button>
+              </Tooltip>
               <Button variant="outlined" size="large" color="inherit">
                 Cancel
               </Button>

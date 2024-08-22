@@ -1,6 +1,6 @@
 import { useTheme } from '@emotion/react';
 
-import { Box } from '@mui/material';
+import { Box, Tooltip } from '@mui/material';
 
 import StatsCards from 'src/components/stats-card/stats-card';
 
@@ -19,7 +19,9 @@ export default function YourTemplate(color, main) {
           gridTemplateColumns: { xs: 'repeat(1, 1fr)', md: 'repeat(4, 1fr)' },
         }}
       >
-        {/* WhatsApp Number Added */}
+       
+       <Tooltip title="Total Number of approved templates." arrow placement="top">
+        <div>
 
         <StatsCards
           cardtitle="Approved templates"
@@ -28,7 +30,11 @@ export default function YourTemplate(color, main) {
           icon_color="#28A645"
           bg_gradient="#22C55E"
         />
-        {/* WhatsApp Message Quota (Outgoing) */}
+        </div>
+        </Tooltip>
+        <Tooltip title="Total Number of pending templates." arrow placement="top">
+          <div>
+
         <StatsCards
           cardtitle="Pending templates"
           cardstats="22"
@@ -36,8 +42,12 @@ export default function YourTemplate(color, main) {
           icon_color="#FFA92E"
           bg_gradient="#FFA92E"
         />
+          </div>
+          </Tooltip>
 
-        {/* Messaage Quota Used */}
+          <Tooltip title="Total Number of draft templates." arrow placement="top">
+            <div>
+
         <StatsCards
           cardtitle="Draft templates"
           cardstats="23"
@@ -45,6 +55,11 @@ export default function YourTemplate(color, main) {
           icon_color="#05A6C6"
           bg_gradient="#05A6C6"
         />
+            </div>
+        </Tooltip>
+        <Tooltip title="Total Number of rejected templates." arrow placement="top">
+          <div>
+
         <StatsCards
           cardtitle="Rejected templates"
           cardstats="11"
@@ -52,7 +67,8 @@ export default function YourTemplate(color, main) {
           icon_color="#F86672"
           bg_gradient="#F86672"
         />
-      </Box>
+          </div>
+</Tooltip>      </Box>
       <TemplatesTable />
     </>
   );

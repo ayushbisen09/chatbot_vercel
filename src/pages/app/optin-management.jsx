@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import Autocomplete from '@mui/material/Autocomplete';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { Box, Card, Avatar, Button, Divider, CardHeader } from '@mui/material';
+import { Box, Card, Avatar, Button, Divider, Tooltip, CardHeader } from '@mui/material';
 
 import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';
@@ -65,11 +65,13 @@ export default function Page() {
         <Card>
           <CardHeader title="API Campaign Opt-out" sx={{ mb: 3 }} />
           <Divider />
+          <Tooltip title="Click here to Enable/Disable this if you don't wish to send api campaign to opted-out contacts" arrow placement="top">
           <FormControlLabel
             control={<Switch id="toggle-taxes" />}
             label="Enable this if you don't wish to send api campaign to opted-out contacts"
             sx={{ paddingLeft: 3, mt: 2, mb: 2 }}
           />
+          </Tooltip>
         </Card>
       </Box>
       <Box sx={{ mt: 4 }}>
@@ -77,10 +79,11 @@ export default function Page() {
           <CardHeader title=" Opt-Out Settings" sx={{ mb: 3 }} />
           <Divider />
           <Stack sx={{ padding: '32px 24px 32px 24px' }}>
+            
             <Typography variant="h7" sx={{ fontSize: '14px', fontWeight: '600', mb: '10px' }}>
               Opt-Out Keywords:
             </Typography>
-
+            <Tooltip title="Opt-Out keywords" arrow placement="top">
             <Autocomplete
               multiple
               freeSolo
@@ -132,6 +135,7 @@ export default function Page() {
                 />
               )}
             />
+            </Tooltip>
           </Stack>
           <Divider sx={{ mx: 3, borderStyle: 'dashed' }} />
           <CardHeader
@@ -142,12 +146,16 @@ export default function Page() {
             }
           />
           <Box sx={{ px: 3, py: 2 }}>
+          <Tooltip title="Click here to Enable/Disable Setup a response message for opt-out user keywords" arrow placement="top">
             <FormControlLabel
               control={<Switch id="toggle-taxes" />}
               label="Setup a response message for opt-out user keywords"
             />
+            </Tooltip>
           </Box>
+          
           <Box sx={{ px: 3, pb: 3 }}>
+          <Tooltip title="Opt-Out response preview" arrow placement="top">
             <Card
               sx={{
                 border: '1px solid #919EAB33',
@@ -155,6 +163,7 @@ export default function Page() {
                 maxWidth: '500px',
               }}
             >
+              
               <CardHeader
                 sx={{ mb: 2 }}
                 avatar={<Avatar aria-label="profile picture">MC</Avatar>}
@@ -203,9 +212,12 @@ export default function Page() {
                 </Typography>
               </Box>
             </Card>
+            </Tooltip>
+            <Tooltip title=" Configure Opt-Out response " arrow placement="top">
             <Button sx={{ mt: 3 }} variant="contained" color="inherit" onClick={handleOpenDrawer1}>
               Configure
             </Button>
+            </Tooltip>
             <ConfigurationDrawer1 open={openDrawer1} onClose={handleCloseDrawer1} />
           </Box>
         </Card>
@@ -216,9 +228,9 @@ export default function Page() {
           <Divider />
           <Stack sx={{ padding: '32px 24px 32px 24px' }}>
             <Typography variant="h7" sx={{ fontSize: '14px', fontWeight: '600', mb: '10px' }}>
-              Opt-Out Keywords:
+              Opt-In Keywords:
             </Typography>
-
+            <Tooltip title="Opt-In keywords" arrow placement="top">
             <Autocomplete
               multiple
               freeSolo
@@ -270,6 +282,7 @@ export default function Page() {
                 />
               )}
             />
+            </Tooltip>
           </Stack>
           <Divider sx={{ mx: 3, borderStyle: 'dashed' }} />
           <CardHeader
@@ -280,12 +293,16 @@ export default function Page() {
             }
           />
           <Box sx={{ px: 3, py: 2 }}>
+          <Tooltip title="Click here to Enable/Disable Setup a response message for Opt-In user keywords" arrow placement="top">
             <FormControlLabel
               control={<Switch id="toggle-taxes" />}
-              label="Setup a response message for opt-out user keywords"
+              label="Setup a response message for Opt-In user keywords"
             />
+            </Tooltip>
           </Box>
           <Box sx={{ px: 3, pb: 3 }}>
+          <Tooltip title="Opt-In response preview" arrow placement="top">
+
             <Card
               sx={{
                 border: '1px solid #919EAB33',
@@ -293,6 +310,7 @@ export default function Page() {
                 maxWidth: '500px',
               }}
             >
+              
               <CardHeader
                 sx={{ mb: 2 }}
                 avatar={<Avatar aria-label="profile picture">MC</Avatar>}
@@ -341,9 +359,12 @@ export default function Page() {
                 </Typography>
               </Box>
             </Card>
+            </Tooltip>
+            <Tooltip title="Configure Opt-In response " arrow placement="top">
             <Button sx={{ mt: 3 }} variant="contained" color="inherit" onClick={handleOpenDrawer2}>
               Configure
             </Button>
+</Tooltip>
             <ConfigurationDrawer2 open={openDrawer2} onClose={handleCloseDrawer2} />
           </Box>
         </Card>

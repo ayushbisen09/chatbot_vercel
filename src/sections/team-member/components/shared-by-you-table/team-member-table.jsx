@@ -40,8 +40,8 @@ import { SharedByYouTeammemberTableToolbar } from './teammember-table-toolbar';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'orderNumber', label: 'Team member email', width: 700 },
-  { id: 'name', label: 'Shared on', width: 700 },
+  { id: 'teammember', label: 'Team member email', width: 700 , tooltip: "Team member email "},
+  { id: 'sharedon', label: 'Shared on', width: 700, tooltip: "Shared date and time " },
   { id: '', label: '', width: 562 },
 ];
 

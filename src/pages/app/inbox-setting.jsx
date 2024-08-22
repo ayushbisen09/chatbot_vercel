@@ -7,7 +7,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { MobileTimePicker } from '@mui/x-date-pickers/MobileTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { Box, Card, Avatar, Button, Divider, CardHeader, InputAdornment } from '@mui/material';
+import { Box, Card, Avatar, Button, Divider, Tooltip, CardHeader,InputAdornment } from '@mui/material';
 
 import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';
@@ -71,11 +71,13 @@ export default function Page() {
         <Card>
           <CardHeader title="Auto Resolve Chats" sx={{ mb: 3 }} />
           <Divider />
+          <Tooltip title="Click here to Enable/Disabled auto resolve intervened chats" arrow placement="top">
           <FormControlLabel
             control={<Switch id="toggle-taxes" />}
             label="Disable auto resolve intervened chats."
             sx={{ paddingLeft: 3, mt: 2, mb: 2 }}
           />
+          </Tooltip>
         </Card>
       </Box>
       <Box sx={{ mt: 4 }}>
@@ -90,10 +92,12 @@ export default function Page() {
             }
           />
           <Box sx={{ px: 3, py: 2 }}>
+          <Tooltip title="Click here to Enable/Disabled configure automated reply for user's first query during working hours" arrow placement="top">
             <FormControlLabel
               control={<Switch id="toggle-taxes" />}
               label="Configure automated reply for user's first query during working hours."
             />
+            </Tooltip>
           </Box>
           <Box sx={{ px: 3, pb: 3 }}>
             <Card
@@ -103,6 +107,7 @@ export default function Page() {
                 maxWidth: '500px',
               }}
             >
+              <Tooltip title="Preview" arrow placement="top">
               <CardHeader
                 sx={{ mb: 2 }}
                 avatar={<Avatar aria-label="profile picture">MC</Avatar>}
@@ -150,10 +155,13 @@ export default function Page() {
                   }
                 </Typography>
               </Box>
+              </Tooltip>
             </Card>
+            <Tooltip title="Click here to configure automated reply for user's first query during working hours." arrow placement="top">
             <Button sx={{ mt: 3 }} variant="contained" color="inherit" onClick={handleOpenDrawer1}>
               Configure
             </Button>
+            </Tooltip>
             <ConfigurationDrawer1 open={openDrawer1} onClose={handleCloseDrawer1} />
           </Box>
           <Divider sx={{ mx: 3, borderStyle: 'dashed' }} />
@@ -165,10 +173,13 @@ export default function Page() {
             }
           />
           <Box sx={{ px: 3, py: 2 }}>
+          <Tooltip title="Click here to Configure automated reply for user's first query during off hours." arrow placement="top">
+            
             <FormControlLabel
               control={<Switch id="toggle-taxes" />}
               label="Configure automated reply for user's first query during off hours."
             />
+            </Tooltip>
           </Box>
           <Box sx={{ px: 3, pb: 3 }}>
             <Card
@@ -178,6 +189,7 @@ export default function Page() {
                 maxWidth: '500px',
               }}
             >
+              <Tooltip title="Preview" arrow placement="top">
               <CardHeader
                 sx={{ mb: 2 }}
                 avatar={<Avatar aria-label="profile picture">MC</Avatar>}
@@ -225,16 +237,21 @@ export default function Page() {
                   }
                 </Typography>
               </Box>
+              </Tooltip>
             </Card>
+            <Tooltip title="Click here to Configure automated reply for user's first query during off hours." arrow placement="top">
             <Button sx={{ mt: 3 }} variant="contained" color="inherit" onClick={handleOpenDrawer2}>
               Configure
             </Button>
+            </Tooltip>
+            
             <ConfigurationDrawer2 open={openDrawer2} onClose={handleCloseDrawer2} />
           </Box>
         </Card>
       </Box>
       <Box sx={{ mt: 4 }}>
         <Card>
+          
           <CardHeader
             subheader="Configure day-wise working hours for automated replies."
             title="Working Hours"
@@ -316,9 +333,11 @@ export default function Page() {
             </Box>
           ))}
           <Box sx={{ padding: '0px 24px 24px 24px' }}>
+          <Tooltip title="Click here to save" arrow placement="top">
             <Button variant="contained" color="inherit">
               Save
             </Button>
+            </Tooltip>
           </Box>
         </Card>
       </Box>

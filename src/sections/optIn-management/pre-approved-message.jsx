@@ -84,6 +84,7 @@ export default function PreApprovedMessage() {
     <Box sx={{ mt: '24px' }}>
       <Box display="flex" flexDirection={isMobile ? 'column' : 'row'} width="100%">
         <Box width={isMobile ? '100%' : '60%'} pr={isMobile ? 0 : '12px'}>
+        <Tooltip title="Click here to select WhatsApp template." arrow placement="top">
           <TextField
             sx={{ mb: '24px' }}
             id="select-currency-label-x"
@@ -100,6 +101,7 @@ export default function PreApprovedMessage() {
               </MenuItem>
             ))}
           </TextField>
+          </Tooltip>
           <Divider sx={{ borderStyle: 'dashed' }} />
           <TextField
             sx={{ mt: '24px' }}
@@ -224,6 +226,7 @@ export default function PreApprovedMessage() {
         {renderPopover(popover2, setTextFieldValue2)}
         {renderPopover(popover3, setTextFieldValue3)}
         {renderPopover(popover4, setTextFieldValue4)}
+        <Tooltip title="Pre-approved template message preview" arrow placement="top">
 
         <Box
           width={isMobile ? '100%' : '40%'}
@@ -259,6 +262,7 @@ export default function PreApprovedMessage() {
             showVisit
           />
         </Box>
+        </Tooltip>
       </Box>
     </Box>
   );

@@ -81,6 +81,7 @@ export function SharedByYouTeammemberTableRow({
       </TableCell>
 
       <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
+      <Tooltip title="Click here see WhatsApp number access you’ve shared" arrow placement="top">
         <IconButton
           color={collapse.value ? 'inherit' : 'default'}
           onClick={collapse.onToggle}
@@ -88,10 +89,12 @@ export function SharedByYouTeammemberTableRow({
         >
           <Iconify icon="eva:arrow-ios-downward-fill" />
         </IconButton>
-
+        </Tooltip>
+        <Tooltip title="Action" arrow placement="top">
         <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
           <Iconify icon="eva:more-vertical-fill" />
         </IconButton>
+        </Tooltip>
       </TableCell>
     </TableRow>
   );
@@ -166,6 +169,7 @@ export function SharedByYouTeammemberTableRow({
         slotProps={{ arrow: { placement: 'right-top' } }}
       >
         <MenuList>
+        <Tooltip title="Click here to remove team member" arrow placement="left">
           <MenuItem
             onClick={() => {
               confirm.onTrue();
@@ -176,18 +180,21 @@ export function SharedByYouTeammemberTableRow({
             <Iconify icon="solar:trash-bin-trash-bold" />
             Remove
           </MenuItem>
+          </Tooltip>
         </MenuList>
       </CustomPopover>
 
       <ConfirmDialog
         open={confirm.value}
         onClose={confirm.onFalse}
-        title="Delete"
-        content="Are you sure want to delete?"
+        title="Remove"
+        content="Are you sure want to remove?"
         action={
+          <Tooltip title="Click here to remove team member" arrow placement="bottom">
           <Button variant="contained" color="error" onClick={onDeleteRow}>
-            Delete
+            Remove
           </Button>
+          </Tooltip>
         }
       />
     </>

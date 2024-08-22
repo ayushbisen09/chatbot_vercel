@@ -62,7 +62,10 @@ export function SelectContactDrawerTableRow({ row, selected }) {
               alignItems: 'flex-start',
             }}
           >
+             <Tooltip title="Contact list name" arrow placement="top">
             <Box component="span">Pabbly Connect List</Box>
+            </Tooltip>
+
           </Stack>
         </Stack>
       </TableCell>
@@ -75,14 +78,16 @@ export function SelectContactDrawerTableRow({ row, selected }) {
               alignItems: 'flex-start',
             }}
           >
+             <Tooltip title="233 contact in the list" arrow placement="top">
             <Box component="span">233</Box>
+            </Tooltip>
           </Stack>
         </Stack>
       </TableCell>
       <TableCell width={110}>
         {(state === 'initial' || state === 'excludeinitials') && (
           <>
-            <Tooltip title="for including click here" arrow>
+            <Tooltip title="for including list click here" arrow placement='top'>
               <IconButton
                 sx={{ color: 'success.main', marginRight: '8px' }}
                 onClick={() => handleCheckIconClick('confirm')}
@@ -90,7 +95,7 @@ export function SelectContactDrawerTableRow({ row, selected }) {
                 <Iconify icon="icon-park-solid:check-one" />
               </IconButton>
             </Tooltip>
-            <Tooltip title="for Excluding Contacts click here" arrow>
+            <Tooltip title="for excluding Contact list click here" arrow placement='top'>
               <IconButton
                 sx={{ color: 'error.main', marginRight: '8px' }}
                 onClick={() => handlecloseIconClick('confirm')}

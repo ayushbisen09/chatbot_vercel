@@ -8,6 +8,7 @@ import {
   Drawer,
   styled,
   Divider,
+  Tooltip,
   CardHeader,
   Typography,
   IconButton,
@@ -93,16 +94,20 @@ const ConfigurationDrawer1 = ({ open, onClose }) => {
                 Select Message Type
               </Typography>
               <RadioGroup row value={messageType} onChange={handleRadioChange}>
+              <Tooltip title="Pre-approved template message" arrow placement="left">
                 <FormControlLabel
                   value="g"
                   control={<Radio size="small" />}
                   label="Pre-approved template message"
                 />
+                </Tooltip>
+                <Tooltip title="Regular message" arrow placement="right">
                 <FormControlLabel
                   value="p"
                   control={<Radio size="small" />}
                   label="Regular Message"
                 />
+                </Tooltip>
               </RadioGroup>
               {messageType === 'g' && (
                 <form>
@@ -188,16 +193,20 @@ const ConfigurationDrawer2 = ({ open, onClose }) => {
                 Select Message Type
               </Typography>
               <RadioGroup row value={messageType} onChange={handleRadioChange}>
+              <Tooltip title="Pre-approved template message" arrow placement="left">
                 <FormControlLabel
                   value="g"
                   control={<Radio size="small" />}
                   label="Pre-approved template message"
                 />
+                </Tooltip>
+                <Tooltip title="Regular message" arrow placement="right">
                 <FormControlLabel
                   value="p"
                   control={<Radio size="small" />}
                   label="Regular Message"
                 />
+                </Tooltip>
               </RadioGroup>
               {messageType === 'g' && (
                 <form>

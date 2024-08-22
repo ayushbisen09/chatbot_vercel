@@ -10,7 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
-import { Divider, Checkbox, Typography } from '@mui/material';
+import { Divider, Tooltip, Checkbox, Typography } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
@@ -49,7 +49,9 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               alignItems: 'flex-start',
             }}
           >
+            <Tooltip title="Broadcast name " arrow placement="top">
             <Box component="span">Test1232</Box>
+            </Tooltip>
           </Stack>
         </Stack>
       </TableCell>
@@ -63,10 +65,15 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               alignItems: 'flex-start',
             }}
           >
+             <Tooltip title="Template name " arrow placement="top">
             <Box component="span">send_offer_message_on_whatsapp</Box>
+            </Tooltip>
+            <Tooltip title="Template type " arrow placement="top">
+
             <Box component="span" sx={{ color: 'text.disabled' }}>
               Manual Broadcast
             </Box>
+            </Tooltip>
           </Stack>
         </Stack>
       </TableCell>
@@ -78,38 +85,47 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               flex: '1 1 auto',
               alignItems: 'flex-start',
             }}
-          >
+          ><Tooltip title="Date when broadcast is created " arrow placement="top">
             <Box component="span">Jan 19, 2024</Box>
+            </Tooltip>
+            <Tooltip title="Time when broadcast is created" arrow placement="top">
             <Box component="span" sx={{ color: 'text.disabled' }}>
               08:23:31
             </Box>
+            </Tooltip>
           </Stack>
         </Stack>
       </TableCell>
 
+   
       <TableCell width={110}>
-        <Stack
-          sx={{
-            typography: 'body2',
-            flex: '1 1 auto',
-            alignItems: 'flex-start',
-          }}
-        >
-          <Label
-            variant="soft"
-            color={
-              (row.status === 'live' && 'success') ||
-              (row.status === 'sent' && 'warning') ||
-              (row.status === 'scheduled' && 'info') ||
-              'success'
-            }
-          >
-            {row.status}
-          </Label>
-        </Stack>
-      </TableCell>
+  {row.status === 'live' ? (
+    <Tooltip title="This broadcast is live " arrow placement="top">
+      <Label variant="soft" color="success">
+        {row.status}
+      </Label>
+    </Tooltip>
+  ) : row.status === 'sent' ? (
+    <Tooltip title="This broadcast is sent" arrow placement="top">
+      <Label variant="soft" color="warning">
+        {row.status}
+      </Label>
+    </Tooltip>
+  ) : row.status === 'scheduled' ? (
+    <Tooltip title="This broadcast is scheduled" arrow placement="top">
+      <Label variant="soft" color="info">
+        {row.status}
+      </Label>
+    </Tooltip>
+  ) : (
+    <Label variant="soft" color="default">
+      {row.status}
+    </Label>
+  )}
+</TableCell>
 
       <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
+      <Tooltip title="Click here to see reciver list and stats" arrow placement="top">
         <IconButton
           color={collapse.value ? 'inherit' : 'default'}
           onClick={collapse.onToggle}
@@ -117,6 +133,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
         >
           <Iconify icon="eva:arrow-ios-downward-fill" />
         </IconButton>
+        </Tooltip>
 
         <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
           <Iconify icon="eva:more-vertical-fill" />
@@ -140,20 +157,25 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                 <Typography variant="subtitle2" fontWeight="bold" gutterBottom>
                   Receivers List
                 </Typography>
+                <Tooltip title="Included reciever list" arrow placement="left">
                 <Typography sx={{ mb: '2px' }} fontSize="14px" color="text.secondary">
                   <Box component="span" fontWeight="medium" color="text.primary">
                     Included:
                   </Box>{' '}
                   Pabbly Connect List, Pabbly Subscription Billing, Pabbly Support.
                 </Typography>
+                </Tooltip>
+                <Tooltip title="Excluded reciever list" arrow placement="left">
                 <Typography fontSize="14px" color="text.secondary">
                   <Box component="span" fontWeight="medium" color="text.primary">
                     Excluded:
                   </Box>{' '}
                   Pabbly Email Marketing, Pabbly Form Builder.
                 </Typography>
+                </Tooltip>
               </Box>
               <Divider />
+              <Tooltip title="Broadcast stats" arrow placement="left">
               <Box sx={{ p: '12px 24px 12px 24px' }}>
                 <Typography variant="subtitle2" fontWeight="bold" gutterBottom>
                   Stats
@@ -178,6 +200,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                   ))}
                 </Stack>
               </Box>
+              </Tooltip>
               <Box sx={{ p: '6px 24px 24px 24px' }}>
                 <Stack direction="row" spacing={1}>
                   <Button variant="outlined" color="primary" sx={{ textTransform: 'none' }}>
@@ -208,20 +231,16 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
         slotProps={{ arrow: { placement: 'right-top' } }}
       >
         <MenuList>
-          <MenuItem sx={{ color: '' }}>
-            <Iconify icon="solar:bill-list-bold" />
-            Manage Tags
-          </MenuItem>
-          <MenuItem sx={{ color: '' }}>
-            <Iconify icon="solar:user-block-bold" />
-            Block & Opt
-          </MenuItem>
+          
+        <Tooltip title="Click here to edit broadcast" arrow placement="left">
           <MenuItem sx={{ color: '' }}>
             <Iconify icon="solar:pen-bold" />
-            Edit Contact
+            Edit Broadcast
           </MenuItem>
+          </Tooltip>
 
           <Divider style={{ borderStyle: 'dashed' }} />
+          <Tooltip title="Click here to detele the broadcast" arrow placement="left">
           <MenuItem
             onClick={() => {
               confirm.onTrue();
@@ -232,6 +251,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             <Iconify icon="solar:trash-bin-trash-bold" />
             Delete
           </MenuItem>
+          </Tooltip>
         </MenuList>
       </CustomPopover>
 

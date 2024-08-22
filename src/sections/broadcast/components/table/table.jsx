@@ -41,16 +41,17 @@ import { OrderTableRow } from './broadcast-table-row';
 import { OrderTableToolbar } from './broadcast-table-toolbar';
 import { OrderTableFiltersResult } from './broadcast-table-filters-result';
 
+
 // ----------------------------------------------------------------------
 
 const metadata = { title: `Page one | Dashboard - ${CONFIG.site.name}` };
 const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...BROADCAST_STATUS_OPTIONS];
 
 const TABLE_HEAD = [
-  { id: 'orderNumber', label: 'Broadcast Name', width: 353 },
-  { id: 'name', label: 'Template Used', width: 298 },
-  { id: 'createdAt', label: 'Date', width: 262 },
-  { id: 'status', label: 'Status', width: 515 },
+  { id: 'broadcastname', label: 'Broadcast Name', width: 353, tooltip : "Broadcast name"},
+  { id: 'templateused', label: 'Template Used', width: 298 , tooltip : "Template used with the broadcast" },
+  { id: 'date', label: 'Date', width: 262 , tooltip : "Date and Time when broadcast is created" },
+  { id: 'status', label: 'Status', width: 515 , tooltip : "Broadcast status weather it is Live/Scheduled/Sent"},
 
   { id: '', width: 88 },
 ];

@@ -7,11 +7,11 @@ import Button from '@mui/material/Button';
 import Popover from '@mui/material/Popover';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
-import { useMediaQuery } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import FormControl from '@mui/material/FormControl';
 import InputAdornment from '@mui/material/InputAdornment';
+import { Tooltip ,Typography, useMediaQuery} from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
@@ -32,8 +32,9 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
   const [operator, setOperator] = useState('contains');
   const [filterValue, setFilterValue] = useState('');
 
-  const whatsapp_status = ['Active', 'Inactive']; // Add your actual column names here
-  const columns = ['Active', 'Inactive']; // Add your actual column names here
+  const status = ['Approved', 'Draft', 'Rejected' , 'Pending ' , 'Deleted']; // Add your actual column names here
+  const type = ['Text', 'Image' , 'Video' , ' Document' , ' Location' , ' Carousel' , ' Limited time offer']; // Add your actual column names here
+  const health = ['Good', 'Poor' , 'Low']; // Add your actual column names here
 
   const handleFilterName = useCallback(
     (event) => {
@@ -83,6 +84,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
         sx={{ p: 2.5, pr: { xs: 2.5, md: 1 } }}
       >
         <Stack direction="row" alignItems="center" spacing={2} flexGrow={1} sx={{ width: 1 }}>
+        <Tooltip title="Click here to Search template by Name or Category" arrow placement="top">
           <TextField
             sx={{ mr: '5px' }}
             fullWidth
@@ -97,6 +99,8 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
               ),
             }}
           />
+          </Tooltip>
+          <Tooltip title="Click here to apply filters" arrow placement="top">
           <Button
             sx={{ ml: '5px' }}
             size="large"
@@ -106,6 +110,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
           >
             Filters
           </Button>
+          </Tooltip>
           <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
             <Iconify icon="eva:more-vertical-fill" />
           </IconButton>
@@ -147,60 +152,139 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
           sx={{
             p: 2,
             width: {
-              xs: '300px', // 100% width on extra-small screens
-              sm: '100%', // 100% width on small screens
-              md: 800, // 800px width on medium screens and above
+              xs: '300px',
+              sm: '100%',
+              md: 800,
             },
             display: 'flex',
             flexDirection: {
-              xs: 'column', // column direction on extra-small screens
-              sm: 'column', // column direction on small screens
-              md: 'row', // row direction on medium screens and above
+              xs: 'column',
+              sm: 'column',
+              md: 'row',
             },
             gap: 2,
           }}
         >
-          <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
-            {/* <InputLabel>Whatsapp number Status</InputLabel> */}
-            <TextField
-              id="select-currency-label-x"
-              variant="outlined"
-              select
-              fullWidth
-              label="Whatsapp number Status"
-            >
-              {whatsapp_status.map((whatsapp_statuss) => (
-                <MenuItem key={whatsapp_statuss} value={whatsapp_statuss}>
-                  {whatsapp_statuss}
-                </MenuItem>
-              ))}
-            </TextField>
+          <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 }, justifyContent: 'center' }}>
+            <Typography sx={{ fontSize: '16px', fontWeight: '600' }}>Status</Typography>
           </FormControl>
 
           <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
             <TextField
               id="select-currency-label-x"
               variant="outlined"
+              fullWidth
+              label="Equals to"
+              disabled
+            />
+          </FormControl>
+          <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
+            <TextField
+              id="Status"
+              variant="outlined"
               select
               fullWidth
-              label="Operator"
+              label="Status"
+              // value={importingStatus}
+              // onChange={(e) => setImportingStatus(e.target.value)}
             >
-              {columns.map((column) => (
+              {status.map((column) => (
                 <MenuItem key={column} value={column}>
                   {column}
                 </MenuItem>
               ))}
             </TextField>
           </FormControl>
+        </Box>
+        <Box
+          sx={{
+            p: 2,
+            width: {
+              xs: '300px',
+              sm: '100%',
+              md: 800,
+            },
+            display: 'flex',
+            flexDirection: {
+              xs: 'column',
+              sm: 'column',
+              md: 'row',
+            },
+            gap: 2,
+          }}
+        >
+          <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 }, justifyContent: 'center' }}>
+            <Typography sx={{ fontSize: '16px', fontWeight: '600' }}>Type</Typography>
+          </FormControl>
+
           <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
             <TextField
               id="select-currency-label-x"
               variant="outlined"
+              fullWidth
+              label="Equals to"
+              disabled
+            />
+          </FormControl>
+          <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
+            <TextField
+              id="Type"
+              variant="outlined"
               select
               fullWidth
-              label="Status"
+              label="Type"
+              // value={incomingStatus}
+              // onChange={(e) => setIncomingStatus(e.target.value)}
             >
-              {columns.map((column) => (
+              {type.map((column) => (
+                <MenuItem key={column} value={column}>
+                  {column}
+                </MenuItem>
+              ))}
+            </TextField>
+          </FormControl>
+        </Box>
+        <Box
+          sx={{
+            p: 2,
+            width: {
+              xs: '300px',
+              sm: '100%',
+              md: 800,
+            },
+            display: 'flex',
+            flexDirection: {
+              xs: 'column',
+              sm: 'column',
+              md: 'row',
+            },
+            gap: 2,
+          }}
+        >
+          <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 }, justifyContent: 'center' }}>
+            <Typography sx={{ fontSize: '16px', fontWeight: '600' }}>Health</Typography>
+          </FormControl>
+
+          <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
+            <TextField
+              id="select-currency-label-x"
+              variant="outlined"
+              fullWidth
+              label="Equals to"
+              disabled
+            />
+          </FormControl>
+          <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
+            <TextField
+              id="health"
+              variant="outlined"
+              select
+              fullWidth
+              label="Health"
+              // value={hoursStatus}
+              // onChange={(e) => setHoursStatus(e.target.value)}
+            >
+              {health.map((column) => (
                 <MenuItem key={column} value={column}>
                   {column}
                 </MenuItem>

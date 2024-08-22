@@ -29,14 +29,15 @@ import {
 
 import { SelectContactDrawerTableRow } from './select-contact -drawer-table-row';
 
+
 // ----------------------------------------------------------------------
 
 const metadata = { title: `Page one | Dashboard - ${CONFIG.site.name}` };
 
 const TABLE_HEAD = [
-  { id: 'orderNumber', label: 'Name', width: 500 },
-  { id: 'name', label: 'Number of contacts ', width: 592 },
-  { id: 'createdAt', label: 'Include/Exclude', width: 137 },
+  { id: 'orderNumber', label: 'Name', width: 500 , tooltip: " List name"},
+  { id: 'name', label: 'Number of contacts ', width: 592 ,tooltip: " Number of contact in the list" },
+  { id: 'createdAt', label: 'Include/Exclude', width: 137,tooltip: "Contact in which want to Include or Exclude in the list of broadcast" },
 ];
 
 export default function DrawerTable({ sx, icon, title, total, color = 'warning', ...other }) {

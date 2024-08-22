@@ -2,16 +2,12 @@ import dayjs from 'dayjs';
 import { useTheme } from '@emotion/react';
 import { useState, useCallback } from 'react';
 
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import Popover from '@mui/material/Popover';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
-import { useMediaQuery } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
-import FormControl from '@mui/material/FormControl';
+import { Tooltip, useMediaQuery } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -33,13 +29,12 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
   const confirm = useBoolean();
 
   const popover = usePopover();
-  const [filterAnchorEl, setFilterAnchorEl] = useState(null);
-  const [selectedColumn, setSelectedColumn] = useState('');
-  const [operator, setOperator] = useState('contains');
-  const [filterValue, setFilterValue] = useState('');
+  const [ setFilterAnchorEl] = useState(null);
+  const [selectedColumn] = useState('');
+  const [operator] = useState('contains');
+  const [filterValue] = useState('');
 
-  const whatsapp_status = ['Active', 'Inactive']; // Add your actual column names here
-  const columns = ['Active', 'Inactive']; // Add your actual column names here
+ 
 
   const handleFilterName = useCallback(
     (event) => {
@@ -111,6 +106,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
               slotProps={{ textField: { fullWidth: false } }}
             />
           </LocalizationProvider>
+          <Tooltip title="click here to search by broadcast name or template name " arrow placement="top">
           <TextField
             sx={{ mr: '5px' }}
             fullWidth
@@ -125,15 +121,8 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
               ),
             }}
           />
-          <Button
-            sx={{ ml: '5px' }}
-            size="large"
-            variant=""
-            startIcon={<Iconify icon="mdi:filter" />}
-            onClick={handleFilterClick}
-          >
-            Filters
-          </Button>
+          </Tooltip>
+          
           <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
             <Iconify icon="eva:more-vertical-fill" />
           </IconButton>
@@ -158,85 +147,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
           </MenuItem>
         </MenuList>
       </CustomPopover>
-      <Popover
-        open={Boolean(filterAnchorEl)}
-        anchorEl={filterAnchorEl}
-        onClose={handleFilterClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-      >
-        <Box
-          sx={{
-            p: 2,
-            width: {
-              xs: '300px', // 100% width on extra-small screens
-              sm: '100%', // 100% width on small screens
-              md: 800, // 800px width on medium screens and above
-            },
-            display: 'flex',
-            flexDirection: {
-              xs: 'column', // column direction on extra-small screens
-              sm: 'column', // column direction on small screens
-              md: 'row', // row direction on medium screens and above
-            },
-            gap: 2,
-          }}
-        >
-          <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
-            {/* <InputLabel>Whatsapp number Status</InputLabel> */}
-            <TextField
-              id="select-currency-label-x"
-              variant="outlined"
-              select
-              fullWidth
-              label="Whatsapp number Status"
-            >
-              {whatsapp_status.map((whatsapp_statuss) => (
-                <MenuItem key={whatsapp_statuss} value={whatsapp_statuss}>
-                  {whatsapp_statuss}
-                </MenuItem>
-              ))}
-            </TextField>
-          </FormControl>
-
-          <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
-            <TextField
-              id="select-currency-label-x"
-              variant="outlined"
-              select
-              fullWidth
-              label="Operator"
-            >
-              {columns.map((column) => (
-                <MenuItem key={column} value={column}>
-                  {column}
-                </MenuItem>
-              ))}
-            </TextField>
-          </FormControl>
-          <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
-            <TextField
-              id="select-currency-label-x"
-              variant="outlined"
-              select
-              fullWidth
-              label="Status"
-            >
-              {columns.map((column) => (
-                <MenuItem key={column} value={column}>
-                  {column}
-                </MenuItem>
-              ))}
-            </TextField>
-          </FormControl>
-        </Box>
-      </Popover>
+     
     </>
   );
 }

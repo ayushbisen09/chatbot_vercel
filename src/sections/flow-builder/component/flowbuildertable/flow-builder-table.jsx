@@ -40,9 +40,9 @@ import { FlowBuilderTableFiltersResult } from './flow-builder-table-filter';
 const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...FLOWBUILDER_STATUS_OPTIONS];
 
 const TABLE_HEAD = [
-  { id: 'orderNumber', label: 'Flow Name', width: 353 },
-  { id: 'name', label: 'Date', width: 298 },
-  { id: 'createdAt', label: 'Status', width: 262 },
+  { id: 'orderNumber', label: 'Flow Name', width: 353, tooltip : "Flow name"},
+  { id: 'name', label: 'Date', width: 298, tooltip : "Date and Time flow is created" },
+  { id: 'createdAt', label: 'Status', width: 262 ,tooltip : "Status of flow weather it is active and inactive" },
 
   { id: '', width: 88 },
 ];
