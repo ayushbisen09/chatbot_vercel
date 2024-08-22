@@ -155,7 +155,7 @@ export function HeaderBase({
                 <Tooltip
                   title="Click here to change application language."
                   arrow
-                  placement="bottom"
+                  placement="left"
                 >
                   <span>
                     <LanguagePopover data-slot="localization" data={data?.langs} />

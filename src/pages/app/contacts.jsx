@@ -111,7 +111,7 @@ export default function Page() {
             }}
           >
             {/* WhatsApp Number Added */}
-            <Tooltip title="Total Number of Contacts you have in this list." arrow placement="top">
+            <Tooltip title="Total Number of Contacts you have in this list." arrow placement="top" disableInteractive>
             <div>
             <StatsCards
               cardtitle="Total contacts"

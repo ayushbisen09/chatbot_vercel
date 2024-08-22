@@ -83,7 +83,7 @@ export default function AddSingleContact() {
     { value: 'Pabbly_Connect', label: 'Pabbly Connect' },
     { value: 'Pabbly_Subscription_Billing', label: 'Pabbly Subscription Billing' },
   ];
-  const [tagInput, setTagInput] = useState('');
+  const [tagInput, setTagInput] = useState();
   const [tags, setTags] = useState();
 
   const navigate = useNavigate();
@@ -297,6 +297,20 @@ export default function AddSingleContact() {
                       variant="outlined"
                       size="large"
                       placeholder="+ Add a tag"
+                      InputProps={{
+                        ...params.InputProps,
+                        endAdornment: (
+                          <>
+                            {params.InputProps.endAdornment}
+                            <InputAdornment position="end">
+                              <Iconify
+                                icon="mingcute:down-line"
+                                style={{ width: 20, height: 20 }}
+                              />
+                            </InputAdornment>
+                          </>
+                        ),
+                      }}
                       sx={{
                         '& .MuiAutocomplete-inputRoot': {
                           minHeight: 'auto',
@@ -355,33 +369,12 @@ export default function AddSingleContact() {
                     />
                     <TextField
                       fullWidth
-                      placeholder="Enter value"
+                      // placeholder="Enter value"
+                      select
                       type="text"
                       margin="dense"
                       variant="outlined"
-                      label="Value"
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <Tooltip
-                              title="Enter the value for the respective user attribute."
-                              arrow
-                              placement="top"
-                              sx={{
-                                fontSize: '16px',
-                              }}
-                            >
-                              <Iconify
-                                icon="material-symbols:info-outline"
-                                style={{ width: 20, height: 20 }}
-                              />
-                            </Tooltip>
-                          </InputAdornment>
-                        ),
-                      }}
+                      label="Enter Value"
                     />
                   </Box>
                   <Box sx={{ width: '100%', display: 'flex', gap: '16px', mb: '24px' }}>
@@ -414,33 +407,12 @@ export default function AddSingleContact() {
                     />
                     <TextField
                       fullWidth
-                      placeholder="Enter value"
+                      // placeholder="Enter value"
+                      select
                       type="text"
                       margin="dense"
                       variant="outlined"
-                      label="Value"
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <Tooltip
-                              title="Enter the value for the respective user attribute."
-                              arrow
-                              placement="top"
-                              sx={{
-                                fontSize: '16px',
-                              }}
-                            >
-                              <Iconify
-                                icon="material-symbols:info-outline"
-                                style={{ width: 20, height: 20 }}
-                              />
-                            </Tooltip>
-                          </InputAdornment>
-                        ),
-                      }}
+                      label="Enter Value"
                     />
                   </Box>
                   <Box sx={{ width: '100%', display: 'flex', gap: '16px' }}>
@@ -472,35 +444,13 @@ export default function AddSingleContact() {
                       }}
                     />
                     <TextField
-                      //
                       fullWidth
-                      placeholder="Enter value"
+                      // placeholder="Enter value"
+                      select
                       type="text"
                       margin="dense"
                       variant="outlined"
-                      label="Value"
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <Tooltip
-                              title="Enter the value for the respective user attribute."
-                              arrow
-                              placement="top"
-                              sx={{
-                                fontSize: '16px',
-                              }}
-                            >
-                              <Iconify
-                                icon="material-symbols:info-outline"
-                                style={{ width: 20, height: 20 }}
-                              />
-                            </Tooltip>
-                          </InputAdornment>
-                        ),
-                      }}
+                      label="Enter Value"
                     />
                   </Box>
                 </Box>
