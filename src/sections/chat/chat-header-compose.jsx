@@ -1,103 +1,101 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
+import ReactCountryFlag from 'react-country-flag';
 
 import Box from '@mui/material/Box';
-import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
-import Avatar from '@mui/material/Avatar';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import Autocomplete from '@mui/material/Autocomplete';
+import { Select, MenuItem, InputAdornment } from '@mui/material';
 
-import { varAlpha } from 'src/theme/styles';
-
-import { Iconify } from 'src/components/iconify';
-import { SearchNotFound } from 'src/components/search-not-found';
+import { countries } from 'src/assets/data';
 
 // ----------------------------------------------------------------------
 
-export function ChatHeaderCompose({ contacts, onAddRecipients }) {
-  const [searchRecipients, setSearchRecipients] = useState('');
+export function ChatHeaderCompose({ contacts }) {
+  const [phoneNumber, setPhoneNumber] = useState('');
 
-  const handleAddRecipients = useCallback(
-    (selected) => {
-      setSearchRecipients('');
-      onAddRecipients(selected);
-    },
-    [onAddRecipients]
-  );
+  const handlePhoneNumberChange = (event) => {
+    setPhoneNumber(event.target.value);
+  };
+
+  // Set the default country to India (country code 'IN')
+  const defaultCountry = countries.find((country) => country.code === 'IN');
+  const [selectedCountry, setSelectedCountry] = useState(defaultCountry);
+
+  const handleCountryChange = (event) => {
+    setSelectedCountry(countries.find((country) => country.code === event.target.value));
+  };
+
+  const updatedCountries = countries.map((country) => ({
+    ...country,
+    phone: `+${country.phone}`,
+  }));
 
   return (
     <>
       <Typography variant="subtitle2" sx={{ color: 'text.primary', mr: 2 }}>
-        To:
+        To New Contact:
       </Typography>
 
-      <Autocomplete
-        sx={{ minWidth: { md: 320 }, flexGrow: { xs: 1, md: 'unset' } }}
-        multiple
-        limitTags={3}
-        popupIcon={null}
-        defaultValue={[]}
-        disableCloseOnSelect
-        noOptionsText={<SearchNotFound query={searchRecipients} />}
-        onChange={(event, newValue) => handleAddRecipients(newValue)}
-        onInputChange={(event, newValue) => setSearchRecipients(newValue)}
-        options={contacts}
-        getOptionLabel={(recipient) => recipient.name}
-        isOptionEqualToValue={(option, value) => option.id === value.id}
-        renderInput={(params) => <TextField {...params} placeholder="+ Recipients" />}
-        renderOption={(props, recipient, { selected }) => (
-          <li {...props} key={recipient.id}>
-            <Box
-              key={recipient.id}
-              sx={{
-                mr: 1,
-                width: 32,
-                height: 32,
-                overflow: 'hidden',
-                borderRadius: '50%',
-                position: 'relative',
-              }}
-            >
-              <Avatar alt={recipient.name} src={recipient.avatarUrl} sx={{ width: 1, height: 1 }} />
-              <Stack
-                alignItems="center"
-                justifyContent="center"
+      <TextField
+        sx={{ width: 320 }}
+        placeholder="Enter mobile number"
+        size="small"
+        value={phoneNumber}
+        onChange={handlePhoneNumberChange}
+        inputProps={{ type: 'number', pattern: '[0-9]*', maxLength: 15 }}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <Select
+                value={selectedCountry.code}
+                onChange={handleCountryChange}
+                renderValue={(value) => (
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      marginRight: 2,
+                      ml: '-14px',
+                    }}
+                  >
+                    <ReactCountryFlag
+                      countryCode={value}
+                      svg
+                      style={{ marginRight: 8, width: '24px', height: '24px' }}
+                    />
+                    {updatedCountries.find((country) => country.code === value).phone}
+                  </Box>
+                )}
                 sx={{
-                  top: 0,
-                  left: 0,
-                  width: 1,
-                  height: 1,
-                  opacity: 0,
-                  position: 'absolute',
-                  bgcolor: (theme) => varAlpha(theme.vars.palette.grey['900Channel'], 0.8),
-                  transition: (theme) =>
-                    theme.transitions.create(['opacity'], {
-                      easing: theme.transitions.easing.easeInOut,
-                      duration: theme.transitions.duration.shorter,
-                    }),
-                  ...(selected && { opacity: 1, color: 'primary.main' }),
+                  
+                  minWidth: 100,
+                  '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
+                  '& .MuiSelect-select': { paddingRight: '24px' },
+                }}
+                MenuProps={{
+                  PaperProps: {
+                    style: {
+                      maxHeight: 300,
+                    },
+                  },
                 }}
               >
-                <Iconify icon="eva:checkmark-fill" />
-              </Stack>
-            </Box>
-
-            {recipient.name}
-          </li>
-        )}
-        renderTags={(selected, getTagProps) =>
-          selected.map((recipient, index) => (
-            <Chip
-              {...getTagProps({ index })}
-              key={recipient.id}
-              label={recipient.name}
-              avatar={<Avatar alt={recipient.name} src={recipient.avatarUrl} />}
-              size="small"
-              variant="soft"
-            />
-          ))
-        }
+                {updatedCountries.map((country) => (
+                  <MenuItem key={country.code} value={country.code}>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                      <ReactCountryFlag
+                        countryCode={country.code}
+                        svg
+                        style={{ marginRight: 8, width: '24px', height: '24px' }}
+                      />
+                      {country.label} ({country.phone})
+                    </Box>
+                  </MenuItem>
+                ))}
+              </Select>
+            </InputAdornment>
+          ),
+        }}
       />
     </>
   );

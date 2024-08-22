@@ -2,7 +2,7 @@ import 'react-modal-video/css/modal-video.min.css';
 
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
-import { Button, useMediaQuery } from '@mui/material';
+import { Button, Tooltip ,useMediaQuery} from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
@@ -38,6 +38,12 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
           Subheading="Here you can set the assignment rules for the upcoming chats to the team members."
           link_added="#"
         />
+        <Tooltip
+                    title="Click here to add chat assignment rule "
+                    arrow
+                    placement="top"
+                    
+                  >
         <Button
           onClick={dialog.onTrue}
           sx={{ mt: isMobile ? 2 : 0 }}
@@ -50,6 +56,7 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
         >
           Add Rule
         </Button>
+        </Tooltip>
         <AddrulesDialog open={dialog.value} onClose={dialog.onFalse} />
       </Box>
       <ChatAssignmentTable />

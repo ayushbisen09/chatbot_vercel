@@ -1,6 +1,9 @@
 import { useRef, useMemo, useState, useCallback } from 'react';
 
+import Menu from '@mui/material/Menu';
 import Stack from '@mui/material/Stack';
+import { Tooltip } from '@mui/material';
+import MenuItem from '@mui/material/MenuItem';
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 
@@ -13,8 +16,12 @@ import { fSub, today } from 'src/utils/format-time';
 import { sendMessage, createConversation } from 'src/actions/chat';
 
 import { Iconify } from 'src/components/iconify';
+import { ChooseTemaplte } from 'src/components/flow-nodes/message-type-nodes/hooks/dailogs/flow-start-node-choose-templates-dailog';
 
 import { useMockedUser } from 'src/auth/hooks';
+
+import { AttachFileDialog } from './hooks/attach-file-dailog';
+import { QuickRepliesDialog } from './hooks/quick-replies-dailog';
 
 // ----------------------------------------------------------------------
 
@@ -31,6 +38,28 @@ export function ChatMessageInput({
   const fileRef = useRef(null);
 
   const [message, setMessage] = useState('');
+  
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openMenu = Boolean(anchorEl);
+
+  const [dialogType, setDialogType] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+
+  const handleOpenDialog = (type) => {  
+    setDialogType(type);
+    handleCloseMenu();
+  };
+
+  const handleCloseDialog = () => {
+    setDialogType(null);
+  };
 
   const myContact = useMemo(
     () => ({
@@ -74,6 +103,7 @@ export function ChatMessageInput({
     if (fileRef.current) {
       fileRef.current.click();
     }
+    handleCloseMenu();
   }, []);
 
   const handleChangeMessage = useCallback((event) => {
@@ -121,12 +151,34 @@ export function ChatMessageInput({
         }
         endAdornment={
           <Stack direction="row" sx={{ flexShrink: 0 }}>
-            <IconButton onClick={handleSendMessage}>
+            <IconButton onClick={handleSendMessage} sx={{ color: '#078DEE' }}>
               <Iconify icon="majesticons:send" />
             </IconButton>
-            <IconButton onClick={handleAttach}>
+            <IconButton onClick={handleClick}>
               <Iconify icon="eva:attach-2-fill" />
             </IconButton>
+            <Menu
+              anchorEl={anchorEl}
+              open={openMenu}
+              onClose={handleCloseMenu}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+            >
+              <Tooltip title="Click here to attach file." arrow placement="left">
+              <MenuItem onClick={() => handleOpenDialog('attach')}>Attach File</MenuItem>
+              </Tooltip>
+              <Tooltip title="Click here to send message from QuicK Replies." arrow placement="left"><MenuItem onClick={() => handleOpenDialog('quick-replies')}>Quick Replies</MenuItem></Tooltip>
+              
+              <Tooltip title="Click here to select Template." arrow placement="left"><MenuItem onClick={() => handleOpenDialog('template')}>Template</MenuItem></Tooltip>
+              
+              {/* Add more menu items if needed */}
+            </Menu>
           </Stack>
         }
         sx={{
@@ -138,6 +190,11 @@ export function ChatMessageInput({
       />
 
       <input type="file" ref={fileRef} style={{ display: 'none' }} />
+
+      {dialogType === 'attach' && <AttachFileDialog open onClose={handleCloseDialog} />}
+      {dialogType === 'quick-replies' && <QuickRepliesDialog open onClose={handleCloseDialog} />}
+      {dialogType === 'template' && <ChooseTemaplte open onClose={handleCloseDialog} />}
+      {/* Add more dialogs if needed */}
     </>
   );
 }

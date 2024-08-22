@@ -107,9 +107,11 @@ export default function Page() {
                 }}
               />
               <Box sx={{ mt: 2 }}>
+              <Tooltip title="Click here to generate API token." arrow placement="top">
                 <Button variant="contained" color="primary">
                   Generate API Token
                 </Button>
+                </Tooltip>
               </Box>
             </Box>
           </Card>

@@ -14,7 +14,7 @@ export function ActivitylogTableRow({ row, selected, onViewRow, onSelectRow, onD
   const renderPrimary = (
     <TableRow hover selected={selected}>
       <TableCell width={350}>
-      <Tooltip title="Log Created/Updated: Jan 19, 2024 08:23:31, (UTC-03:00) America/Fortaleza" arrow placement="top">
+      
         <Stack spacing={2} direction="row" alignItems="center">
           <Stack
             sx={{
@@ -23,17 +23,21 @@ export function ActivitylogTableRow({ row, selected, onViewRow, onSelectRow, onD
               alignItems: 'flex-start',
             }}
           >
+            <Tooltip title="Log Created/Updated Date: 08:23:31, (UTC-03:00) America/Fortaleza" arrow placement="top">
             <Box component="span">Jan 19, 2024</Box>
+            </Tooltip>
+            <Tooltip title="Log Created/Updated Time: 08:23:31, (UTC-03:00) America/Fortaleza" arrow placement="top">
             <Box component="span" sx={{ color: 'text.disabled' }}>
               08:23:31
             </Box>
+            </Tooltip>
           </Stack>
         </Stack>
-        </Tooltip>
+       
       </TableCell>
 
       <TableCell width={700}>
-      <Tooltip title="Created by (name) and user email" arrow placement="top">
+      
         <Stack spacing={2} direction="row" alignItems="center">
           <Stack
             sx={{
@@ -42,13 +46,18 @@ export function ActivitylogTableRow({ row, selected, onViewRow, onSelectRow, onD
               alignItems: 'flex-start',
             }}
           >
+            <Tooltip title="This is the name of actor who created / updated  the activity log" arrow placement="top">
             <Box component="span">Ayush Bisen</Box>
+            </Tooltip>
+            <Tooltip title="This is the email address of actor who created / updated  the activity log" arrow placement="top">
+            
             <Box component="span" sx={{ color: 'text.disabled' }}>
               ayush.bisen@pabbly.com
             </Box>
+            </Tooltip>
           </Stack>
         </Stack>
-        </Tooltip>
+       
       </TableCell>
       <TableCell width={700}>
       <Tooltip title="Activity log source" arrow placement="top">
