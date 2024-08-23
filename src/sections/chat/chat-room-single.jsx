@@ -1,64 +1,85 @@
+import { useState } from 'react';
+
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 import Select from '@mui/material/Select';
 import Collapse from '@mui/material/Collapse';
 import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import InputLabel from '@mui/material/InputLabel';
-
-import { CONFIG } from 'src/config-global'; // Added import for Chip
-import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
-import InputAdornment from '@mui/material/InputAdornment'; // Added import for InputAdornment
-import { useState } from 'react';
-
 import Autocomplete from '@mui/material/Autocomplete';
+import InputAdornment from '@mui/material/InputAdornment';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
-import { CollapseButton } from './styles';
+import { CONFIG } from 'src/config-global';
 
-// ----------------------------------------------------------------------
+import { CollapseButton } from './styles';
 
 export function ChatRoomSingle({ participant }) {
   const collapse = useBoolean(true);
   const collapseAdditional = useBoolean(false);
-  const collapsegeneraldetails = useBoolean(false); // New collapse state
-  const collapseUserAttribute = useBoolean(false); // New collapse state
+  const collapsegeneraldetails = useBoolean(false);
+  const collapseUserAttribute = useBoolean(false);
+  
   const [priority, setPriority] = useState('');
-  const [status, setStatus] = useState(''); // Added state for status
-  const [tags, setTags] = useState(['Purchase', 'Pabbly Connect', 'Pabbly Subscription Billing']); // Initialize with default tags
-  const [tagInput, setTagInput] = useState(''); // Added state for tag input
+  const [status, setStatus] = useState('');
+  const [tags, setTags] = useState(['Purchase', 'Pabbly Connect', 'Pabbly Subscription Billing']);
+  const [tagInput, setTagInput] = useState('');
   const [role, setRole] = useState('+91 7489077458');
   const [name, setName] = useState('Ayush Bisen');
   const [avatar, setAvatar] = useState(
     `${CONFIG.site.basePath}/assets/images/chatavatar/Ayush.png`
   );
 
+  // Separate state for each dropdown
+  const [chatOwner, setChatOwner] = useState('');
+  const [incomingStatus, setIncomingStatus] = useState('');
+  const [userStatus, setUserStatus] = useState('');
+
   const handlePriorityChange = (event) => {
     setPriority(event.target.value);
   };
+  
   const handleStatusChange = (event) => {
-    setStatus(event.target.value); // Added handler for status change
+    setStatus(event.target.value);
   };
+
   const handleTagInputChange = (event) => {
     setTagInput(event.target.value);
   };
+
   const handleTagInputKeyPress = (event) => {
     if (event.key === 'Enter' && tagInput.trim() !== '') {
       setTags([...tags, tagInput.trim()]);
       setTagInput('');
     }
   };
+
   const handleAddTag = () => {
     if (tagInput.trim() !== '') {
       setTags([...tags, tagInput.trim()]);
       setTagInput('');
     }
   };
+
   const handleDeleteTag = (tagToDelete) => {
     setTags(tags.filter((tag) => tag !== tagToDelete));
+  };
+
+  const handleChatOwnerChange = (event) => {
+    setChatOwner(event.target.value);
+  };
+
+  const handleIncomingStatusChange = (event) => {
+    setIncomingStatus(event.target.value);
+  };
+
+  const handleUserStatusChange = (event) => {
+    setUserStatus(event.target.value);
   };
 
   const renderInfo = (
@@ -88,27 +109,26 @@ export function ChatRoomSingle({ participant }) {
       </Stack>
 
       <Stack>
-        <Typography sx={{ fontSize: '14px', fontWeight: 'regular' }}>24 Hours Status </Typography>
+        <Typography sx={{ fontSize: '14px', fontWeight: 'regular' }}>24 Hours Status</Typography>
         <Typography sx={{ fontSize: '12px', fontWeight: 'regular', color: 'text.secondary' }}>
           Active{' '}
         </Typography>
       </Stack>
       <Stack>
-        <Typography sx={{ fontSize: '14px', fontWeight: 'regular' }}>Due date </Typography>
+        <Typography sx={{ fontSize: '14px', fontWeight: 'regular' }}>Due date</Typography>
         <Typography sx={{ fontSize: '12px', fontWeight: 'regular', color: 'text.secondary' }}>
           Apr 08, 2024 11:48:29{' '}
         </Typography>
       </Stack>
       <Stack>
-        <Typography sx={{ fontSize: '14px', fontWeight: 'regular' }}>SLA </Typography>
+        <Typography sx={{ fontSize: '14px', fontWeight: 'regular' }}>SLA</Typography>
         <Typography sx={{ fontSize: '12px', fontWeight: 'regular', color: 'text.secondary' }}>
           23:04 hours left{' '}
         </Typography>
       </Stack>
-
-      {/* You can add more stacks or content here if needed */}
     </Stack>
   );
+
   const renderAdditionalInfo = (
     <Stack spacing={1} sx={{ px: 2, py: 2.5 }}>
       <Stack>
@@ -131,46 +151,46 @@ export function ChatRoomSingle({ participant }) {
           #87887656
         </Typography>
       </Stack>
-      <stack>
+      <Stack>
         <Typography sx={{ fontSize: '14px', fontWeight: 'regular', mb: '10px' }}>
           Chat Owner
         </Typography>
 
         <FormControl fullWidth size="small">
-          <InputLabel id="priority-select-label">Chat Owner</InputLabel>
+          <InputLabel id="chat-owner-select-label">Chat Owner</InputLabel>
           <Select
-            labelId="priority-select-label"
-            id="priority-select"
-            value={priority}
+            labelId="chat-owner-select-label"
+            id="chat-owner-select"
+            value={chatOwner}
             label="Chat Owner"
-            onChange={handlePriorityChange}
+            onChange={handleChatOwnerChange}
           >
             <MenuItem value="Ayush Bisen">Ayush Bisen</MenuItem>
-            <MenuItem value="medium">Ankit Mandli</MenuItem>
-            <MenuItem value="high">Rajendra Jatav</MenuItem>
+            <MenuItem value="Ankit Mandli">Ankit Mandli</MenuItem>
+            <MenuItem value="Rajendra Jatav">Rajendra Jatav</MenuItem>
           </Select>
         </FormControl>
-      </stack>
-      <stack>
+      </Stack>
+      <Stack>
         <Typography sx={{ fontSize: '14px', fontWeight: 'regular', mb: '10px' }}>Status</Typography>
 
         <FormControl fullWidth size="small">
-          <InputLabel id="priority-select-label">Status</InputLabel>
+          <InputLabel id="status-select-label">Status</InputLabel>
           <Select
-            labelId="priority-select-label"
-            id="priority-select"
-            value={priority}
+            labelId="status-select-label"
+            id="status-select"
+            value={status}
             label="Status"
-            onChange={handlePriorityChange}
+            onChange={handleStatusChange}
           >
             <MenuItem value="Open">Open</MenuItem>
             <MenuItem value="On Hold">On Hold</MenuItem>
-            <MenuItem value="Replied">Replied </MenuItem>
-            <MenuItem value="Resolved">Resolved </MenuItem>
-            <MenuItem value="Closed">Closed </MenuItem>
+            <MenuItem value="Replied">Replied</MenuItem>
+            <MenuItem value="Resolved">Resolved</MenuItem>
+            <MenuItem value="Closed">Closed</MenuItem>
           </Select>
         </FormControl>
-      </stack>
+      </Stack>
       <Stack>
         <Typography sx={{ fontSize: '14px', fontWeight: 'regular', mb: '10px' }}>Tags</Typography>
 
@@ -199,13 +219,12 @@ export function ChatRoomSingle({ participant }) {
               {...params}
               variant="outlined"
               size="small"
-              // label="Tags" // Added label
               placeholder="+ Add a tag"
               InputProps={{
                 ...params.InputProps,
                 endAdornment: (
-                  <InputAdornment position="Start">
-                    {/* <IconButton  size="medium">
+                  <InputAdornment position="start">
+                    {/* <IconButton size="medium">
                       <AddIcon style={{ fontSize: 16 }} />
                     </IconButton> */}
                     {/* <Typography sx={{ fontSize: 12 }}>Add a tag</Typography> */}
@@ -215,8 +234,8 @@ export function ChatRoomSingle({ participant }) {
               sx={{
                 '& .MuiAutocomplete-inputRoot': {
                   minHeight: 'auto',
-                  display: 'flex', // Ensures input and adornment stay aligned
-                  alignItems: 'center', // Aligns items vertically in the input
+                  display: 'flex',
+                  alignItems: 'center',
                   justifyContent: 'start',
                 },
               }}
@@ -224,8 +243,6 @@ export function ChatRoomSingle({ participant }) {
           )}
         />
       </Stack>
-
-      {/* You can add more stacks or content here if needed */}
     </Stack>
   );
 
@@ -251,48 +268,44 @@ export function ChatRoomSingle({ participant }) {
           #87887656
         </Typography>
       </Stack>
-      <stack>
+      <Stack>
         <Typography sx={{ fontSize: '14px', fontWeight: 'regular', mb: '10px' }}>
           Incoming Status
         </Typography>
 
         <FormControl fullWidth size="small">
-          <InputLabel id="priority-select-label">Incoming Status</InputLabel>
+          <InputLabel id="incoming-status-select-label">Incoming Status</InputLabel>
           <Select
-            labelId="priority-select-label"
-            id="priority-select"
-            value={priority}
+            labelId="incoming-status-select-label"
+            id="incoming-status-select"
+            value={incomingStatus}
             label="Incoming Status"
-            onChange={handlePriorityChange}
+            onChange={handleIncomingStatusChange}
           >
-            <MenuItem value="Ayush Bisen">Ayush Bisen</MenuItem>
-            <MenuItem value="medium">Ankit Mandli</MenuItem>
-            <MenuItem value="high">Rajendra Jatav</MenuItem>
+            <MenuItem value="Allowed">Allowed</MenuItem>
+            <MenuItem value="Blocked">Blocked</MenuItem>
           </Select>
         </FormControl>
-      </stack>
-      <stack>
+      </Stack>
+      <Stack>
         <Typography sx={{ fontSize: '14px', fontWeight: 'regular', mb: '10px' }}>
-          {' '}
           User Status
         </Typography>
 
         <FormControl fullWidth size="small">
-          <InputLabel id="priority-select-label">User Status</InputLabel>
+          <InputLabel id="user-status-select-label">User Status</InputLabel>
           <Select
-            labelId="priority-select-label"
-            id="priority-select"
-            value={priority}
+            labelId="user-status-select-label"
+            id="user-status-select"
+            value={userStatus}
             label="User Status"
-            onChange={handlePriorityChange}
+            onChange={handleUserStatusChange}
           >
             <MenuItem value="Opt-In">Opt-In</MenuItem>
-            <MenuItem value="Opt-OUT">Opt-OUT</MenuItem>
+            <MenuItem value="Opt-Out">Opt-Out</MenuItem>
           </Select>
         </FormControl>
-      </stack>
-
-      {/* You can add more stacks or content here if needed */}
+      </Stack>
     </Stack>
   );
 
@@ -311,12 +324,14 @@ export function ChatRoomSingle({ participant }) {
       </CollapseButton>
 
       <Collapse in={collapseAdditional.value}>{renderAdditionalInfo}</Collapse>
+
       <CollapseButton
         selected={collapsegeneraldetails.value}
         onClick={collapsegeneraldetails.onToggle}
       >
         GENERAL DETAILS
       </CollapseButton>
+      
       <Collapse in={collapsegeneraldetails.value}>{rendergeneraldetails}</Collapse>
     </>
   );

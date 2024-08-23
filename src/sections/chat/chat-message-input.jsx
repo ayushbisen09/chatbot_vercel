@@ -1,3 +1,4 @@
+import EmojiPicker from 'emoji-picker-react';
 import { useRef, useMemo, useState, useCallback } from 'react';
 
 import Menu from '@mui/material/Menu';
@@ -23,8 +24,6 @@ import { useMockedUser } from 'src/auth/hooks';
 import { AttachFileDialog } from './hooks/attach-file-dailog';
 import { QuickRepliesDialog } from './hooks/quick-replies-dailog';
 
-// ----------------------------------------------------------------------
-
 export function ChatMessageInput({
   disabled,
   recipients,
@@ -32,17 +31,13 @@ export function ChatMessageInput({
   selectedConversationId,
 }) {
   const router = useRouter();
-
   const { user } = useMockedUser();
-
   const fileRef = useRef(null);
-
   const [message, setMessage] = useState('');
-  
   const [anchorEl, setAnchorEl] = useState(null);
   const openMenu = Boolean(anchorEl);
-
   const [dialogType, setDialogType] = useState(null);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false); // State for toggling the emoji picker
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -59,6 +54,14 @@ export function ChatMessageInput({
 
   const handleCloseDialog = () => {
     setDialogType(null);
+  };
+
+  const handleToggleEmojiPicker = () => {
+    setShowEmojiPicker(!showEmojiPicker);
+  };
+
+  const handleSelectEmoji = (emoji) => {
+    setMessage(prevMessage => prevMessage + emoji.emoji);
   };
 
   const myContact = useMemo(
@@ -145,9 +148,16 @@ export function ChatMessageInput({
         placeholder="Type a message"
         disabled={disabled}
         startAdornment={
-          <IconButton>
-            <Iconify icon="eva:smiling-face-fill" />
-          </IconButton>
+          <>
+            <IconButton onClick={handleToggleEmojiPicker}>
+              <Iconify icon="eva:smiling-face-fill" />
+            </IconButton>
+            {showEmojiPicker && (
+              <div style={{ position: 'absolute', bottom: '60px', left: '20px' }}>
+                <EmojiPicker onEmojiClick={handleSelectEmoji} />
+              </div>
+            )}
+          </>
         }
         endAdornment={
           <Stack direction="row" sx={{ flexShrink: 0 }}>
@@ -164,7 +174,6 @@ export function ChatMessageInput({
                 handleSendMessage();
                 handleOpenDialog('quick-replies');
               }}
-              sx={{ color: '#078DEE' }}
             >
               <Iconify icon="fa6-solid:reply" />
             </IconButton>
@@ -173,7 +182,6 @@ export function ChatMessageInput({
                 handleSendMessage();
                 handleOpenDialog('template');
               }}
-              sx={{ color: '#078DEE' }}
             >
               <Iconify icon="fluent:mail-template-24-filled" />
             </IconButton>
@@ -213,16 +221,13 @@ export function ChatMessageInput({
           borderTop: (theme) => `solid 1px ${theme.vars.palette.divider}`,
         }}
       />
-  
+
       <input type="file" ref={fileRef} style={{ display: 'none' }} />
-  
+
       {dialogType === 'attach' && <AttachFileDialog open onClose={handleCloseDialog} />}
       {dialogType === 'quick-replies' && <QuickRepliesDialog open onClose={handleCloseDialog} />}
       {dialogType === 'template' && <ChooseTemaplte open onClose={handleCloseDialog} />}
       {/* Add more dialogs if needed */}
     </>
   );
-  
-  
-
 }
