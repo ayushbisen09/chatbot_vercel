@@ -285,7 +285,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                   popover.onClose();
                 }}
               >
-                <Iconify icon="mdi:airplanemode-inactive" />
+                <Iconify icon="line-md:switch-off-filled-to-switch-filled-transition" />
                 Inactive
               </MenuItem>
             </Tooltip>
@@ -297,7 +297,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                   popover.onClose();
                 }}
               >
-                <Iconify icon="mdi:airplanemode-active" />
+                <Iconify icon="line-md:switch-filled-to-switch-off-filled-transition" />
                 Active
               </MenuItem>
             </Tooltip>

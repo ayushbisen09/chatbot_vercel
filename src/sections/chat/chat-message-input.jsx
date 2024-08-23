@@ -151,11 +151,34 @@ export function ChatMessageInput({
         }
         endAdornment={
           <Stack direction="row" sx={{ flexShrink: 0 }}>
+            <IconButton
+              onClick={() => {
+                handleSendMessage();
+                handleOpenDialog('attach');
+              }}
+            >
+              <Iconify icon="eva:attach-2-fill" />
+            </IconButton>
+            <IconButton
+              onClick={() => {
+                handleSendMessage();
+                handleOpenDialog('quick-replies');
+              }}
+              sx={{ color: '#078DEE' }}
+            >
+              <Iconify icon="fa6-solid:reply" />
+            </IconButton>
+            <IconButton
+              onClick={() => {
+                handleSendMessage();
+                handleOpenDialog('template');
+              }}
+              sx={{ color: '#078DEE' }}
+            >
+              <Iconify icon="fluent:mail-template-24-filled" />
+            </IconButton>
             <IconButton onClick={handleSendMessage} sx={{ color: '#078DEE' }}>
               <Iconify icon="majesticons:send" />
-            </IconButton>
-            <IconButton onClick={handleClick}>
-              <Iconify icon="eva:attach-2-fill" />
             </IconButton>
             <Menu
               anchorEl={anchorEl}
@@ -171,12 +194,14 @@ export function ChatMessageInput({
               }}
             >
               <Tooltip title="Click here to attach file." arrow placement="left">
-              <MenuItem onClick={() => handleOpenDialog('attach')}>Attach File</MenuItem>
+                <MenuItem onClick={() => handleOpenDialog('attach')}>Attach File</MenuItem>
               </Tooltip>
-              <Tooltip title="Click here to send message from QuicK Replies." arrow placement="left"><MenuItem onClick={() => handleOpenDialog('quick-replies')}>Quick Replies</MenuItem></Tooltip>
-              
-              <Tooltip title="Click here to select Template." arrow placement="left"><MenuItem onClick={() => handleOpenDialog('template')}>Template</MenuItem></Tooltip>
-              
+              <Tooltip title="Click here to send message from QuicK Replies." arrow placement="left">
+                <MenuItem onClick={() => handleOpenDialog('quick-replies')}>Quick Replies</MenuItem>
+              </Tooltip>
+              <Tooltip title="Click here to select Template." arrow placement="left">
+                <MenuItem onClick={() => handleOpenDialog('template')}>Template</MenuItem>
+              </Tooltip>
               {/* Add more menu items if needed */}
             </Menu>
           </Stack>
@@ -188,13 +213,16 @@ export function ChatMessageInput({
           borderTop: (theme) => `solid 1px ${theme.vars.palette.divider}`,
         }}
       />
-
+  
       <input type="file" ref={fileRef} style={{ display: 'none' }} />
-
+  
       {dialogType === 'attach' && <AttachFileDialog open onClose={handleCloseDialog} />}
       {dialogType === 'quick-replies' && <QuickRepliesDialog open onClose={handleCloseDialog} />}
       {dialogType === 'template' && <ChooseTemaplte open onClose={handleCloseDialog} />}
       {/* Add more dialogs if needed */}
     </>
   );
+  
+  
+
 }
