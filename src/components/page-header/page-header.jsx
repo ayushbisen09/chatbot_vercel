@@ -31,7 +31,7 @@ export default function PageHeader({ title, Subheading,link_added }) {
         <Typography sx={{ color: 'text.secondary' }}>
           {Subheading}{' '}
           <Link style={{ color: '#078DEE' }} underline="always" to={link_added}>
-            Learn More
+            Learn more
           </Link>
         </Typography>
       </Box>

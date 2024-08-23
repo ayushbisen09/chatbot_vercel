@@ -11,8 +11,8 @@ import MenuItem from '@mui/material/MenuItem';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
-import { Tooltip, Typography } from '@mui/material';
 import ListItemText from '@mui/material/ListItemText';
+import { Tooltip, Divider, Typography } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
@@ -24,14 +24,20 @@ import { ConfirmDialog } from 'src/components/custom-dialog';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
 export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteRow }) {
-  const confirm = useBoolean();
+  const confirmDelete = useBoolean();
+  const confirmStatus = useBoolean();
   const collapse = useBoolean();
   const popover = usePopover();
-
   const [showToken, setShowToken] = useState(false);
+  const [statusToToggle, setStatusToToggle] = useState('');
 
   const handleToggleToken = () => {
     setShowToken((prev) => !prev);
+  };
+
+  const handleStatusToggle = (newStatus) => {
+    setStatusToToggle(newStatus);
+    confirmStatus.onTrue();
   };
 
   const renderPrimary = (
@@ -45,7 +51,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               alignItems: 'flex-start',
             }}
           >
-            <Tooltip title="WhatsApp number you have added. " arrow placement="top">
+            <Tooltip title="WhatsApp number you have added." arrow placement="top">
               <Box component="span">+91 9425124879</Box>
             </Tooltip>
             <Tooltip title="Phone number ID of your WhatsApp Number." arrow placement="top">
@@ -66,18 +72,10 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               alignItems: 'flex-start',
             }}
           >
-            <Tooltip
-              title="Webhook URL for incoming messages of your WhatsApp Number."
-              arrow
-              placement="top"
-            >
+            <Tooltip title="Webhook URL for incoming messages of your WhatsApp Number." arrow placement="top">
               <Box component="span">https://chatflow.pabbly.com/65e80c31e88b/5b654444</Box>
             </Tooltip>
-            <Tooltip
-              title="WhatsApp Business Account ID of your WhatsApp Number."
-              arrow
-              placement="top"
-            >
+            <Tooltip title="WhatsApp Business Account ID of your WhatsApp Number." arrow placement="top">
               <Box component="span" sx={{ color: 'text.disabled' }}>
                 WhatsApp Business Account ID: 117359445455733
               </Box>
@@ -126,8 +124,9 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
           </Label>
         )}
       </TableCell>
+
       <TableCell width={140} align="right">
-        <Tooltip title="This WhatsApp number is currently inactive." arrow placement="top">
+        <Tooltip title="Access Inbox" arrow placement="top">
           <Button
             size="small"
             variant="outlined"
@@ -136,6 +135,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               lineHeight: { lg: '14px', md: '14px', xs: '14px' },
               height: { lg: '40px', md: '40px', xs: '40px' }, // Default height
             }}
+            disabled={row.status === 'inactive'} // Disable the button if status is 'inactive'
           >
             Access Inbox
           </Button>
@@ -185,7 +185,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               <Tooltip title="Verification token of your WhatsApp Number." arrow placement="top">
                 <span>
                   <ListItemText
-                    primary={`Verification Token: ${showToken ? '4545656565' : '●●●●●●●●●'}`}
+                    primary={`Access Token: ${showToken ? '4545656565' : '●●●●●●●●●'}`}
                     primaryTypographyProps={{ typography: 'body2' }}
                   />
                 </span>
@@ -239,7 +239,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                 },
               }}
             >
-              <Tooltip title=" Terms of service URLL of your website." arrow placement="top">
+              <Tooltip title="Terms of service URL of your website." arrow placement="top">
                 <span>
                   <ListItemText
                     primary={
@@ -269,9 +269,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
   return (
     <>
       {renderPrimary}
-
       {renderSecondary}
-
       <CustomPopover
         open={popover.open}
         anchorEl={popover.anchorEl}
@@ -279,31 +277,74 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
         slotProps={{ arrow: { placement: 'right-top' } }}
       >
         <MenuList>
-        <Tooltip title="This will remove this WhatsApp number" arrow placement="top">
-
-          <MenuItem
-            onClick={() => {
-              confirm.onTrue();
-              popover.onClose();
-            }}
-            sx={{ color: 'error.main' }}
-          >
-            <Iconify icon="solar:trash-bin-trash-bold" />
-            Remove
-          </MenuItem>
+          {row.status === 'active' ? (
+            <Tooltip title="Click to set status to Inactive" arrow placement="left">
+              <MenuItem
+                onClick={() => {
+                  handleStatusToggle('inactive');
+                  popover.onClose();
+                }}
+              >
+                <Iconify icon="mdi:airplanemode-inactive" />
+                Inactive
+              </MenuItem>
+            </Tooltip>
+          ) : (
+            <Tooltip title="Click to set status to Active" arrow placement="left">
+              <MenuItem
+                onClick={() => {
+                  handleStatusToggle('active');
+                  popover.onClose();
+                }}
+              >
+                <Iconify icon="mdi:airplanemode-active" />
+                Active
+              </MenuItem>
+            </Tooltip>
+          )}
+          <Divider style={{ borderStyle: 'dashed' }} />
+          <Tooltip title="This will remove this WhatsApp number" arrow placement="left">
+            <MenuItem
+              onClick={() => {
+                confirmDelete.onTrue();
+                popover.onClose();
+              }}
+              sx={{ color: 'error.main' }}
+            >
+              <Iconify icon="solar:trash-bin-trash-bold" />
+              Remove
+            </MenuItem>
           </Tooltip>
-
         </MenuList>
       </CustomPopover>
 
       <ConfirmDialog
-        open={confirm.value}
-        onClose={confirm.onFalse}
+        open={confirmDelete.value}
+        onClose={confirmDelete.onFalse}
         title="Delete"
-        content="Are you sure want to delete?"
+        content="Are you sure you want to delete this WhatsApp number?"
         action={
           <Button variant="contained" color="error" onClick={onDeleteRow}>
             Delete
+          </Button>
+        }
+      />
+
+      <ConfirmDialog
+        open={confirmStatus.value}
+        onClose={confirmStatus.onFalse}
+        title={statusToToggle.charAt(0).toUpperCase() + statusToToggle.slice(1)}
+        content={`Are you sure you want to set this WhatsApp number as ${statusToToggle}?`}
+        action={
+          <Button
+            variant="contained"
+            color="inherit"
+            onClick={() => {
+              handleStatusToggle(statusToToggle); // Toggle the status here
+              confirmStatus.onFalse(); // Close the dialog
+            }}
+          >
+            {statusToToggle.charAt(0).toUpperCase() + statusToToggle.slice(1)}
           </Button>
         }
       />

@@ -8,7 +8,7 @@ import { Label } from 'src/components/label';
 
 // ----------------------------------------------------------------------
 
-export function ResultItem({ title, path, groupLabel, onClickItem }) {
+export function ResultItem({ title, path, groupLabel, onClickItem, isActive }) {
   return (
     <ListItemButton
       onClick={onClickItem}
@@ -26,6 +26,8 @@ export function ResultItem({ title, path, groupLabel, onClickItem }) {
               theme.vars.palette.action.hoverOpacity
             ),
         },
+        display: 'flex',
+        alignItems: 'center',
       }}
     >
       <ListItemText
@@ -50,8 +52,13 @@ export function ResultItem({ title, path, groupLabel, onClickItem }) {
           </Box>
         ))}
       />
-
       {groupLabel && <Label color="info">{groupLabel}</Label>}
+      <Label
+        color={isActive ? 'success' : 'error'}
+        sx={{ ml: 1, alignSelf: 'center' }}
+      >
+        {isActive ? 'Active' : 'Inactive'}
+      </Label>
     </ListItemButton>
   );
 }

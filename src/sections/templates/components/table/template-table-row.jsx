@@ -8,7 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
-import { Divider, Checkbox } from '@mui/material';
+import { Divider, Tooltip,Checkbox } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
@@ -23,7 +23,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
 
   const popover = usePopover();
 
-  const renderPrimary = (
+  const renderRow = (label, color) => (
     <TableRow hover selected={selected}>
       <TableCell padding="checkbox">
         <Checkbox
@@ -41,6 +41,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               alignItems: 'flex-start',
             }}
           >
+            <Tooltip title="Status of the template" arrow placement="top">
             <Label
               variant="soft"
               color={
@@ -55,10 +56,12 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             >
               {row.status}
             </Label>
-
+            </Tooltip>
+            <Tooltip title="Date and Time when template is created " arrow placement="top">
             <Box component="span" sx={{ color: 'text.disabled' }}>
               Apr 08, 2024 06:46:43
             </Box>
+            </Tooltip>
           </Stack>
         </Stack>
       </TableCell>
@@ -72,10 +75,14 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               alignItems: 'flex-start',
             }}
           >
+            <Tooltip title="Name of the template" arrow placement="top">
             <Box component="span">send_offer_message_on_whatsapp</Box>
+            </Tooltip>
+            <Tooltip title="Type of the template " arrow placement="top">
             <Box component="span" sx={{ color: 'text.disabled' }}>
               Image
             </Box>
+            </Tooltip>
           </Stack>
         </Stack>
       </TableCell>
@@ -88,7 +95,9 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               alignItems: 'flex-start',
             }}
           >
+            <Tooltip title="This template of Marketing Category" arrow placement="top">
             <Box component="span">Marketing</Box>
+            </Tooltip>
             {/* <Box component="span" sx={{ color: 'text.disabled' }}>
               Allowed
             </Box> */}
@@ -96,18 +105,13 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
         </Stack>
       </TableCell>
 
+      {/* TableCell for the Label */}
       <TableCell width={110}>
-        <Stack
-          sx={{
-            typography: 'body2',
-            flex: '1 1 auto',
-            alignItems: 'flex-start',
-          }}
-        >
-          <Label color="success" variant="soft">
-            Good
-          </Label>
-        </Stack>
+      <Tooltip title="This is the Response on the template" arrow placement="top">
+        <Label color={color} variant="soft">
+          {label}
+        </Label>
+        </Tooltip>
       </TableCell>
 
       <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
@@ -120,7 +124,9 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
 
   return (
     <>
-      {renderPrimary}
+      {renderRow('Good', 'success')}
+      {renderRow('Bad', 'error')}
+      {renderRow('Poor', 'warning')}
 
       <CustomPopover
         open={popover.open}
@@ -129,12 +135,15 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
         slotProps={{ arrow: { placement: 'right-top' } }}
       >
         <MenuList>
+        <Tooltip title="Click here to duplicate the this template" arrow placement="left">
           <MenuItem sx={{ color: '' }}>
             <Iconify icon="solar:copy-bold" />
             Duplicate Template
           </MenuItem>
+          </Tooltip>
 
           <Divider style={{ borderStyle: 'dashed' }} />
+          <Tooltip title="Click here to remove this template" arrow placement="left">
           <MenuItem
             onClick={() => {
               confirm.onTrue();
@@ -145,6 +154,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             <Iconify icon="solar:trash-bin-trash-bold" />
             Remove
           </MenuItem>
+          </Tooltip>
         </MenuList>
       </CustomPopover>
 

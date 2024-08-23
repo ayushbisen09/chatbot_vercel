@@ -19,7 +19,6 @@ import { HeaderSection } from './header-section';
 import { Searchbar } from '../components/searchbar';
 import { MenuButton } from '../components/menu-button';
 import { AccountDrawer } from '../components/account-drawer';
-import { LanguagePopover } from '../components/language-popover';
 
 const StyledDivider = styled('span')(({ theme }) => ({
   width: 1,
@@ -151,17 +150,7 @@ export function HeaderBase({
 
               {searchbar && <Searchbar data-slot="searchbar" data={data?.nav} />}
 
-              {localization && (
-                <Tooltip
-                  title="Click here to change application language."
-                  arrow
-                  placement="left"
-                >
-                  <span>
-                    <LanguagePopover data-slot="localization" data={data?.langs} />
-                  </span>
-                </Tooltip>
-              )}
+             
 
               {account && (
                 <Tooltip title="Click here to see account details." arrow placement="bottom">

@@ -5,10 +5,8 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Popover from '@mui/material/Popover';
-import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
-import IconButton from '@mui/material/IconButton';
 import FormControl from '@mui/material/FormControl';
 import InputAdornment from '@mui/material/InputAdornment';
 import { Tooltip ,Typography, useMediaQuery} from '@mui/material';
@@ -16,7 +14,7 @@ import { Tooltip ,Typography, useMediaQuery} from '@mui/material';
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Iconify } from 'src/components/iconify';
-import { usePopover, CustomPopover } from 'src/components/custom-popover';
+import { usePopover } from 'src/components/custom-popover';
 
 // ----------------------------------------------------------------------
 
@@ -111,30 +109,12 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
             Filters
           </Button>
           </Tooltip>
-          <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
-            <Iconify icon="eva:more-vertical-fill" />
-          </IconButton>
+          
         </Stack>
       </Stack>
-      <CustomPopover
-        open={popover.open}
-        anchorEl={popover.anchorEl}
-        onClose={popover.onClose}
-        slotProps={{ arrow: { placement: 'right-top' } }}
-      >
-        <MenuList>
-          <MenuItem
-            onClick={() => {
-              confirm.onTrue();
-              popover.onClose();
-            }}
-            sx={{ color: 'primary' }}
-          >
-            <Iconify icon="line-md:uploading-loop" />
-            Export
-          </MenuItem>
-        </MenuList>
-      </CustomPopover>
+      
+       
+
       <Popover
         open={Boolean(filterAnchorEl)}
         anchorEl={filterAnchorEl}

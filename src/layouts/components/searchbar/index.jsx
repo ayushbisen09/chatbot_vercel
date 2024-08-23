@@ -85,6 +85,7 @@ export function Searchbar({ data: navItems = [], sx, ...other }) {
           {dataGroups[group].map((item) => {
             const title = 'WhatsApp Number: +91 9425124879';
             const path = 'Business Account ID: 117359445455733';
+            const isActive = Math.random() < 0.5;
   
             
             
@@ -105,6 +106,7 @@ export function Searchbar({ data: navItems = [], sx, ...other }) {
                   groupLabel={searchQuery && group}
                   // onClickItem={() => handleClick(path)}
                 />
+                
               </Box>
             );
           })}

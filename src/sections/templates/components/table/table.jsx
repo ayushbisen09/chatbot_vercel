@@ -41,16 +41,17 @@ import { OrderTableRow } from './template-table-row';
 import { OrderTableToolbar } from './template-table-toolbar';
 import { OrderTableFiltersResult } from './template-table-filters-result';
 
+
 // ----------------------------------------------------------------------
 
 const metadata = { title: `Page one | Dashboard - ${CONFIG.site.name}` };
 const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...TEMPLATES_STATUS_OPTIONS];
 
 const TABLE_HEAD = [
-  { id: 'orderNumber', label: 'Status/Date', width: 700 },
-  { id: 'name', label: 'Name/Type', width: 700 },
-  { id: 'createdAt', label: 'Category', width: 562 },
-  { id: 'status', label: 'Health', width: 515 },
+  { id: 'orderNumber', label: 'Status/Date', width: 700,tooltip: "Status and Date of the template when it is created" },
+  { id: 'name', label: 'Name/Type', width: 700, tooltip: "Name and type of template"  },
+  { id: 'createdAt', label: 'Category', width: 562, tooltip: "This is the Category of the template for which is used"  },
+  { id: 'status', label: 'Health', width: 515, tooltip: "This is the responses on the template"  },
 
   { id: '', width: 88 },
 ];
