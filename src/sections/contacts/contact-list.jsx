@@ -1,11 +1,12 @@
 import styled from '@emotion/styled';
 import { useState, useCallback } from 'react';
 
-import { Box, List, Button, Tooltip, ListItemText, ListItemButton } from '@mui/material';
+import { Box, List, Button, Tooltip, Divider, MenuList, MenuItem, IconButton, ListItemText, ListItemButton } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Iconify } from 'src/components/iconify';
+import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
 import { ContactsDialog } from './hook/add-contact-list';
 
@@ -13,35 +14,27 @@ export default function ContactList({ onItemSelect }) {
   const CustomListItemButton = styled(ListItemButton)(({ theme }) => ({
     borderRadius: '6px',
     transition: 'background-color 0.2s ease-in-out, color 0.2s ease-in-out',
-    padding: '8px 16px', // Adjust as needed
-    margin: '2px 0', // Add a small margin to prevent layout shifts
-
-    // Unselected state
+    padding: '8px 16px',
+    margin: '2px 0',
     color: '#637381',
     backgroundColor: 'transparent',
-
     '& .MuiListItemIcon-root': {
       color: '#637381',
       transition: 'color 0.2s ease-in-out',
-      minWidth: '24px', // Set a fixed minimum width for the icon
-      width: '24px', // Set a fixed width for the icon
-      height: '24px', // Set a fixed height for the icon
+      minWidth: '24px',
+      width: '24px',
+      height: '24px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      marginRight: '16px', // Add some space between icon and text
+      marginRight: '16px',
     },
-
     '& .MuiListItemText-root': {
-      margin: 0, // Remove default margins
+      margin: 0,
     },
-
-    // Hover state
     '&:hover': {
       backgroundColor: 'rgba(145, 158, 171, 0.08)',
     },
-
-    // Selected state
     '&.Mui-selected': {
       color: '#1C252E',
       backgroundColor: 'rgba(145, 158, 171, 0.16)',
@@ -52,24 +45,29 @@ export default function ContactList({ onItemSelect }) {
         color: '#1C252E',
       },
     },
-
-    // Prevent text selection on rapid clicks
     userSelect: 'none',
-
-    // Ensure consistent layout
     display: 'flex',
     alignItems: 'center',
   }));
+
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleListItemClick = useCallback(
     (event, index) => {
       setSelectedIndex(index);
-      onItemSelect(index); // Pass the selected index to the parent
+      onItemSelect(index);
     },
     [onItemSelect]
   );
+
   const dialog = useBoolean();
+  const popover = usePopover();
+
+  const contactLists = [
+    { name: 'Pabbly Connect List', count: 54 },
+    { name: 'Pabbly Subscription Billing List', count: 23 },
+    { name: 'Pabbly Form Builder List', count: 54 },
+  ];
 
   return (
     <Box
@@ -99,146 +97,80 @@ export default function ContactList({ onItemSelect }) {
       </Tooltip>
       <ContactsDialog open={dialog.value} onClose={dialog.onFalse} />
       <List sx={{ width: '100%' }}>
-        {/* Pabbly Connect List */}
-        <Tooltip title="List name: Pabbly Connect list." arrow placement="top">
-          <CustomListItemButton
-            sx={{
-              borderRadius: '6px',
-              width: '100%',
-            }}
-            selected={selectedIndex === 0}
-            onClick={(event) => handleListItemClick(event, 0)}
-          >
-            {/* <ListItemIcon>
-            <Iconify icon="tabler:list" width={24} height={24} />
-          </ListItemIcon> */}
-            <ListItemText
-              primary={
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    width: '100%',
-                    overflow: 'hidden',
-                  }}
-                >
-                  <span
-                    style={{
-                      flexGrow: 1,
-                      whiteSpace: 'nowrap',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                    }}
-                  >
-                    Pabbly Connect List
-                  </span>
-                  <span
-                    style={{
-                      marginLeft: '8px',
-                      flexShrink: 0,
-                    }}
-                  >
-                    (54)
-                  </span>
-                </div>
-              }
-            />
-          </CustomListItemButton>
-        </Tooltip>
-        {/* Pabbly Subscription Billing List */}
-        <Tooltip title="List name: Pabbly Subscription Billing list." arrow placement="top">
-          <CustomListItemButton
-            sx={{
-              borderRadius: '6px',
-              width: '100%',
-            }}
-            selected={selectedIndex === 1}
-            onClick={(event) => handleListItemClick(event, 1)}
-          >
-            {/* <ListItemIcon>
-            <Iconify icon="tabler:list" width={24} height={24} />
-          </ListItemIcon> */}
-            <ListItemText
-              primary={
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    width: '100%',
-                    overflow: 'hidden',
-                  }}
-                >
-                  <span
-                    style={{
-                      flexGrow: 1,
-                      whiteSpace: 'nowrap',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                    }}
-                  >
-                    Pabbly Subscription Billing List
-                  </span>
-                  <span
-                    style={{
-                      marginLeft: '8px',
-                      flexShrink: 0,
-                    }}
-                  >
-                    (23)
-                  </span>
-                </div>
-              }
-            />
-          </CustomListItemButton>
-        </Tooltip>
+        {contactLists.map((contact, index) => (
+          <Tooltip key={index} title={`List name: ${contact.name}`} arrow placement="top">
+            <Box
+            sx={{display:'flex'}}>
 
-        {/* Pabbly Form Builder List */}
-        <Tooltip title="List name: Pabbly Form Builder list." arrow placement="top">
-          <CustomListItemButton
-            sx={{
-              borderRadius: '6px',
-              width: '100%',
-            }}
-            selected={selectedIndex === 2}
-            onClick={(event) => handleListItemClick(event, 2)}
-          >
-            {/* <ListItemIcon>
-            <Iconify icon="tabler:list" width={24} height={24} />
-          </ListItemIcon> */}
-            <ListItemText
-              primary={
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    width: '100%',
-                    overflow: 'hidden',
-                  }}
-                >
-                  <span
-                    style={{
-                      flexGrow: 1,
-                      whiteSpace: 'nowrap',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                    }}
-                  >
-                    Pabbly Form Builder List
-                  </span>
-                  <span
-                    style={{
-                      marginLeft: '8px',
-                      flexShrink: 0,
-                    }}
-                  >
-                    (54)
-                  </span>
-                </div>
-              }
-            />
-          </CustomListItemButton>
-        </Tooltip>
+            <CustomListItemButton
+              selected={selectedIndex === index}
+              onClick={(event) => handleListItemClick(event, index)}
+            >
+              <ListItemText
+                primary={
+                  <div style={{ display: 'flex', alignItems: 'center', width: '100%', overflow: 'hidden' }}>
+                    <span style={{ flexGrow: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {contact.name}
+                    </span>
+                    <span style={{ marginLeft: '8px', flexShrink: 0 }}>
+                      ({contact.count})
+                    </span>
+                    
+                  </div>
+                }
+              />
+              
+            </CustomListItemButton>
+            <IconButton
+                      color={popover.open ? 'inherit' : 'default'}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        popover.onOpen(e);
+                      }}
+                    >
+                      <Iconify icon="eva:more-vertical-fill" />
+                    </IconButton>
+
+            </Box>
+            
+          </Tooltip>
+        ))}
       </List>
+
+      <CustomPopover
+        open={popover.open}
+        anchorEl={popover.anchorEl}
+        onClose={popover.onClose}
+        slotProps={{ arrow: { placement: 'left-top' } }}
+      >
+        <MenuList>
+          <Tooltip title="Click here to edit the list." arrow placement="right">
+            <MenuItem>
+              <Iconify icon="solar:bill-list-bold" />
+              Edit List 
+            </MenuItem>
+          </Tooltip>
+          
+         
+            
+       
+
+          <Divider style={{ borderStyle: 'dashed' }} />
+          <Tooltip title="Click here to delete this contact list ." arrow placement="right">
+            <MenuItem
+              onClick={() => {
+                // confirm.onTrue();
+                popover.onClose();
+              }}
+              sx={{ color: 'error.main' }}
+            >
+              <Iconify icon="solar:trash-bin-trash-bold" />
+              Delete List
+            </MenuItem>
+          </Tooltip>
+        </MenuList>
+      </CustomPopover>
     </Box>
+    
   );
 }

@@ -108,6 +108,7 @@ export function HeaderBase({
                   width={120}
                   sx={{
                     display: { xs: 'none', sm: 'block' },
+                    zIndex: theme.zIndex.drawer + 1 
                   }}
                 />
                 <Logo
