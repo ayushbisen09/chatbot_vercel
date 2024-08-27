@@ -10,18 +10,18 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
 import ListItemText from '@mui/material/ListItemText';
-import { Button, Divider, Tooltip, Checkbox , Typography} from '@mui/material';
+import { Divider, Tooltip, Checkbox , Typography} from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
-import { ConfirmDialog } from 'src/components/custom-dialog';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
 import { ManageTagsDialog } from '../../hook/manage-tags-dialog';
 import { BlockandOptDialog } from '../../hook/block-&-opt-dialog';
 import { EditContactDialog } from '../../hook/edit-contact-dialog';
+import { DeleteContactDialog } from '../../hook/delete-contact-dialog';
 
 export function OrderTableRow({ row, selected, onSelectRow, onDeleteRow }) {
   const confirmDelete = useBoolean();
@@ -31,6 +31,7 @@ export function OrderTableRow({ row, selected, onSelectRow, onDeleteRow }) {
   const [manageTagsDialogOpen, setManageTagsDialogOpen] = useState(false);
   const [blockAndOptDialogOpen, setBlockAndOptDialogOpen] = useState(false);
   const [editContactDialogOpen, setEditContactDialogOpen] = useState(false);
+  const [deleteContactDialogOpen, setDeleteContactDialogOpen] = useState(false);
   const confirmStatus = useBoolean();
   const [statusToToggle, setStatusToToggle] = useState('');
   
@@ -43,6 +44,12 @@ export function OrderTableRow({ row, selected, onSelectRow, onDeleteRow }) {
     setManageTagsDialogOpen(true);
     popover.onClose(); // Close the popover when dialog is opened
   };
+
+  const handleDeleteContactClick = () => {
+    setDeleteContactDialogOpen(true);
+    popover.onClose(); // Close the popover when dialog is opened
+  };
+ 
   const handleEditContactClick = () => {
     setEditContactDialogOpen(true);
     popover.onClose(); // Close the popover when dialog is opened
@@ -65,6 +72,9 @@ export function OrderTableRow({ row, selected, onSelectRow, onDeleteRow }) {
 
   const handleBlockAndOptDialogClose = () => {
     setBlockAndOptDialogOpen(false);
+  };
+  const handleDeleteContactDialogClose = () => {
+    setDeleteContactDialogOpen(false);
   };
 
   const renderPrimary = (
@@ -380,10 +390,7 @@ export function OrderTableRow({ row, selected, onSelectRow, onDeleteRow }) {
           <Divider style={{ borderStyle: 'dashed' }} />
           <Tooltip title="Click here to delete this contact." arrow placement="left">
             <MenuItem
-              onClick={() => {
-                confirmDelete.onTrue();
-                popover.onClose();
-              }}
+            onClick={handleDeleteContactClick}
               sx={{ color: 'error.main' }}
             >
               <Iconify icon="solar:trash-bin-trash-bold" />
@@ -392,40 +399,12 @@ export function OrderTableRow({ row, selected, onSelectRow, onDeleteRow }) {
           </Tooltip>
         </MenuList>
       </CustomPopover>
-      <ConfirmDialog
-        open={confirmDelete.value}
-        onClose={confirmDelete.onFalse}
-        title="Delete"
-        content="Are you sure you want to delete this WhatsApp number?"
-        action={
-          <Button variant="contained" color="error" onClick={onDeleteRow}>
-            Delete
-          </Button>
-        }
-      />
-
-      <ConfirmDialog
-        open={confirmStatus.value}
-        onClose={confirmStatus.onFalse}
-        title={statusToToggle.charAt(0).toUpperCase() + statusToToggle.slice(1)}
-        content={`Are you sure you want to delete this contact ${statusToToggle}?`}
-        action={
-          <Button
-            variant="contained"
-            color="inherit"
-            onClick={() => {
-              handleStatusToggle(statusToToggle); // Toggle the status here
-              confirmStatus.onFalse(); // Close the dialog
-            }}
-          >
-            {statusToToggle.charAt(0).toUpperCase() + statusToToggle.slice(1)}
-          </Button>
-        }
-      />
+      
 
       <ManageTagsDialog open={manageTagsDialogOpen} onClose={handleManageTagsDialogClose} />
       <BlockandOptDialog open={blockAndOptDialogOpen} onClose={handleBlockAndOptDialogClose} />
       <EditContactDialog open={editContactDialogOpen} onClose={handleEditContactDialogClose} />
+      <DeleteContactDialog open={deleteContactDialogOpen} onClose={handleDeleteContactDialogClose} />
     </>
   );
 }
