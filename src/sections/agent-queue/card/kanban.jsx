@@ -1,20 +1,22 @@
 import { useState } from 'react';
 import { useTheme } from '@emotion/react';
+
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import {
   Box,
   Card,
   Grid,
+  Alert,
   Select,
   Avatar,
   MenuItem,
+  Snackbar,
   CardHeader,
   Typography,
   IconButton,
-  Snackbar,
-  Alert,
 } from '@mui/material';
+
 import { Iconify } from 'src/components/iconify';
 
 // Function to generate a random number between min and max
@@ -129,7 +131,7 @@ export default function Kanban({
                 sx={{ p: 0, mb: 2 }}
               />
               {/* Scrollable chat container */}
-              <Box sx={{ maxHeight: 490, overflowY: 'auto', pr: 1 }}> {/* Set maxHeight and enable vertical scroll */}
+              <Box sx={{ maxHeight: 500, overflowY: 'auto', pr: 1 }}> {/* Set maxHeight and enable vertical scroll */}
                 {cardData[title]?.map((childValue, childIndex) => {
                   // Assign a random task name for demonstration
                   const taskName = taskNames[childIndex % taskNames.length];

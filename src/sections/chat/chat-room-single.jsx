@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
@@ -13,7 +14,9 @@ import Autocomplete from '@mui/material/Autocomplete';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import { useBoolean } from 'src/hooks/use-boolean';
+
 import { CONFIG } from 'src/config-global';
+
 import { CollapseButton } from './styles';
 
 export function ChatRoomSingle({ participant }) {
