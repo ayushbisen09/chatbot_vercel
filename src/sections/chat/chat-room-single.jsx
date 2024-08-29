@@ -1,5 +1,4 @@
 import { useState } from 'react';
-
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
@@ -14,9 +13,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import { useBoolean } from 'src/hooks/use-boolean';
-
 import { CONFIG } from 'src/config-global';
-
 import { CollapseButton } from './styles';
 
 export function ChatRoomSingle({ participant }) {
@@ -24,16 +21,14 @@ export function ChatRoomSingle({ participant }) {
   const collapseAdditional = useBoolean(false);
   const collapsegeneraldetails = useBoolean(false);
   const collapseUserAttribute = useBoolean(false);
-  
+
   const [priority, setPriority] = useState('');
   const [status, setStatus] = useState('');
   const [tags, setTags] = useState(['Purchase', 'Pabbly Connect', 'Pabbly Subscription Billing']);
   const [tagInput, setTagInput] = useState('');
   const [role, setRole] = useState('+91 7489077458');
   const [name, setName] = useState('Ayush Bisen');
-  const [avatar, setAvatar] = useState(
-    `${CONFIG.site.basePath}/assets/images/chatavatar/Ayush.png`
-  );
+  const [avatar, setAvatar] = useState(`${CONFIG.site.basePath}/assets/images/chatavatar/Ayush.png`);
 
   // Separate state for each dropdown
   const [chatOwner, setChatOwner] = useState('');
@@ -43,7 +38,7 @@ export function ChatRoomSingle({ participant }) {
   const handlePriorityChange = (event) => {
     setPriority(event.target.value);
   };
-  
+
   const handleStatusChange = (event) => {
     setStatus(event.target.value);
   };
@@ -205,6 +200,7 @@ export function ChatRoomSingle({ participant }) {
           renderTags={(value, getTagProps) =>
             value.map((option, index) => (
               <Chip
+                key={index} // Assign key directly here
                 variant="soft"
                 color="info"
                 size="small"
@@ -227,46 +223,13 @@ export function ChatRoomSingle({ participant }) {
                     {/* <IconButton size="medium">
                       <AddIcon style={{ fontSize: 16 }} />
                     </IconButton> */}
-                    {/* <Typography sx={{ fontSize: 12 }}>Add a tag</Typography> */}
+                    {/* <Typography sx={{ fontSize: '12px', color: 'text.secondary' }}>+ Add</Typography> */}
                   </InputAdornment>
                 ),
-              }}
-              sx={{
-                '& .MuiAutocomplete-inputRoot': {
-                  minHeight: 'auto',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'start',
-                },
               }}
             />
           )}
         />
-      </Stack>
-    </Stack>
-  );
-
-  const rendergeneraldetails = (
-    <Stack spacing={1} sx={{ px: 2, py: 2.5 }}>
-      <Stack>
-        <Typography sx={{ fontSize: '14px', fontWeight: 'regular' }}>First Message</Typography>
-        <Typography sx={{ fontSize: '12px', fontWeight: 'regular', color: 'text.secondary' }}>
-          01 Aug 2022 11:00 AM{' '}
-        </Typography>
-      </Stack>
-
-      <Stack>
-        <Typography sx={{ fontSize: '14px', fontWeight: 'regular' }}>24 Hours Status</Typography>
-        <Typography sx={{ fontSize: '12px', fontWeight: 'regular', color: 'text.secondary' }}>
-          Active
-        </Typography>
-      </Stack>
-
-      <Stack>
-        <Typography sx={{ fontSize: '14px', fontWeight: 'regular' }}>Order ID</Typography>
-        <Typography sx={{ fontSize: '12px', fontWeight: 'regular', color: 'text.secondary' }}>
-          #87887656
-        </Typography>
       </Stack>
       <Stack>
         <Typography sx={{ fontSize: '14px', fontWeight: 'regular', mb: '10px' }}>
@@ -282,57 +245,42 @@ export function ChatRoomSingle({ participant }) {
             label="Incoming Status"
             onChange={handleIncomingStatusChange}
           >
-            <MenuItem value="Allowed">Allowed</MenuItem>
-            <MenuItem value="Blocked">Blocked</MenuItem>
-          </Select>
-        </FormControl>
-      </Stack>
-      <Stack>
-        <Typography sx={{ fontSize: '14px', fontWeight: 'regular', mb: '10px' }}>
-          User Status
-        </Typography>
-
-        <FormControl fullWidth size="small">
-          <InputLabel id="user-status-select-label">User Status</InputLabel>
-          <Select
-            labelId="user-status-select-label"
-            id="user-status-select"
-            value={userStatus}
-            label="User Status"
-            onChange={handleUserStatusChange}
-          >
-            <MenuItem value="Opt-In">Opt-In</MenuItem>
-            <MenuItem value="Opt-Out">Opt-Out</MenuItem>
+            <MenuItem value="None">None</MenuItem>
+            <MenuItem value="Block">Block</MenuItem>
+            <MenuItem value="Unblock">Unblock</MenuItem>
           </Select>
         </FormControl>
       </Stack>
     </Stack>
   );
 
+  const handleCollapseClick = (handler) => {
+    handler.toggle();
+  };
+
   return (
-    <>
-      {renderInfo}
-
-      <CollapseButton selected={collapse.value} onClick={collapse.onToggle}>
-        CHAT INFORMATION
-      </CollapseButton>
-
-      <Collapse in={collapse.value}>{renderContact}</Collapse>
-
-      <CollapseButton selected={collapseAdditional.value} onClick={collapseAdditional.onToggle}>
-        USER ATTRIBUTE
-      </CollapseButton>
-
-      <Collapse in={collapseAdditional.value}>{renderAdditionalInfo}</Collapse>
-
-      <CollapseButton
-        selected={collapsegeneraldetails.value}
-        onClick={collapsegeneraldetails.onToggle}
-      >
-        GENERAL DETAILS
-      </CollapseButton>
-      
-      <Collapse in={collapsegeneraldetails.value}>{rendergeneraldetails}</Collapse>
-    </>
+    <Stack spacing={3} sx={{ width: '100%', height: '100%' }}>
+      <Collapse in={collapse.isTrue}>
+        {renderInfo}
+        <CollapseButton onClick={() => handleCollapseClick(collapseAdditional)}>
+          {collapseAdditional.isTrue ? 'Show Less' : 'Show More'}
+        </CollapseButton>
+        <Collapse in={collapseAdditional.isTrue}>
+          {renderContact}
+          <CollapseButton onClick={() => handleCollapseClick(collapsegeneraldetails)}>
+            {collapsegeneraldetails.isTrue ? 'Show Less' : 'Show More'}
+          </CollapseButton>
+          <Collapse in={collapsegeneraldetails.isTrue}>
+            {renderAdditionalInfo}
+            <CollapseButton onClick={() => handleCollapseClick(collapseUserAttribute)}>
+              {collapseUserAttribute.isTrue ? 'Show Less' : 'Show More'}
+            </CollapseButton>
+            <Collapse in={collapseUserAttribute.isTrue}>
+              {/* Additional User Attributes */}
+            </Collapse>
+          </Collapse>
+        </Collapse>
+      </Collapse>
+    </Stack>
   );
 }

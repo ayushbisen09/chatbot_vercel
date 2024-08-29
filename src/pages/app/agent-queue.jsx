@@ -8,7 +8,7 @@ import { DashboardContent } from 'src/layouts/dashboard';
 
 import PageHeader from 'src/components/page-header/page-header';
 
-import { KanbanView } from 'src/sections/agent-queue/view';
+import Kanban from 'src/sections/agent-queue/card/kanban';
 import Agentlist from 'src/sections/agent-queue/agent-list';
 
 // import { BlankView } from 'src/sections/blank/view';
@@ -63,11 +63,12 @@ export default function Page() {
 
               gap: 3,
               display: 'grid',
-              gridTemplateColumns: { xs: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' },
+              gridTemplateColumns: { xs: 'repeat(1, 1fr)', md: 'repeat(5, 1fr)' },
             }}
           />
 
-          <KanbanView />
+          {/* <KanbanView /> */}
+          <Kanban/>
         </Box>
       </Box>
     </DashboardContent>

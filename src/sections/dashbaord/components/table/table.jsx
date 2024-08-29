@@ -42,7 +42,7 @@ import { OrderTableFiltersResult } from './order-table-filters-result';
 // ----------------------------------------------------------------------
 
 const metadata = { title: `Page one | Dashboard - ${CONFIG.site.name}` };
-const STATUS_OPTIONS = [{ value: 'all', label: 'All',tooltip: 'All added WhatsApp numbers.'  }, ...ORDER_STATUS_OPTIONS];
+const STATUS_OPTIONS = [{ value: 'all', label: 'All', tooltip: 'All added WhatsApp numbers.' }, ...ORDER_STATUS_OPTIONS];
 
 const TABLE_HEAD = [
   { id: 'orderNumber', label: 'WhatsApp Number', width: 288, tooltip: 'The number associated with the WhatsApp account' },
@@ -53,19 +53,13 @@ const TABLE_HEAD = [
   { id: '', width: 88 },
 ];
 
-
 export default function DashboardTable({ sx, icon, title, total, color = 'warning', ...other }) {
   const theme = useTheme();
-
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const table = useTable({ defaultOrderBy: 'orderNumber' });
-
   const router = useRouter();
-
   const confirm = useBoolean();
-
   const [tableData, setTableData] = useState(_orders);
-
   const filters = useSetState({
     name: '',
     status: 'all',
@@ -94,11 +88,8 @@ export default function DashboardTable({ sx, icon, title, total, color = 'warnin
   const handleDeleteRow = useCallback(
     (id) => {
       const deleteRow = tableData.filter((row) => row.id !== id);
-
       toast.success('WhatsApp Number Removed Successfully!');
-
       setTableData(deleteRow);
-
       table.onUpdatePageDeleteRow(dataInPage.length);
     },
     [dataInPage.length, table, tableData]
@@ -106,11 +97,8 @@ export default function DashboardTable({ sx, icon, title, total, color = 'warnin
 
   const handleDeleteRows = useCallback(() => {
     const deleteRows = tableData.filter((row) => !table.selected.includes(row.id));
-
     toast.success('Delete success!');
-
     setTableData(deleteRows);
-
     table.onUpdatePageDeleteRows({
       totalRowsInPage: dataInPage.length,
       totalRowsFiltered: dataFiltered.length,
@@ -138,12 +126,10 @@ export default function DashboardTable({ sx, icon, title, total, color = 'warnin
       <Card
         sx={{
           boxShadow: '0px 12px 24px -4px rgba(145, 158, 171, 0.2)',
-
           mt: '24px',
         }}
       >
         <Tabs
-        
           value={filters.state.status}
           onChange={handleFilterStatus}
           sx={{
@@ -153,31 +139,30 @@ export default function DashboardTable({ sx, icon, title, total, color = 'warnin
           }}
         >
           {STATUS_OPTIONS.map((tab) => (
-        // <Tooltip key={tab.value} title={tab.tooltip} arrow placement="top">
-          <Tab
-            iconPosition="end"
-            value={tab.value}
-            label={tab.label}
-            icon={
-              <Label
-                variant={
-                  ((tab.value === 'all' || tab.value === filters.state.status) && 'filled') ||
-                  'soft'
-                }
-                color={
-                  (tab.value === 'active' && 'success') ||
-                  (tab.value === 'inactive' && 'error') ||
-                  'default'
-                }
-              >
-                {['active', 'inactive'].includes(tab.value)
-                  ? tableData.filter((user) => user.status === tab.value).length
-                  : tableData.length}
-              </Label>
-            }
-          />
-        // </Tooltip>
-      ))}
+            <Tab
+              key={tab.value}  // <-- Added key here
+              iconPosition="end"
+              value={tab.value}
+              label={tab.label}
+              icon={
+                <Label
+                  variant={
+                    ((tab.value === 'all' || tab.value === filters.state.status) && 'filled') ||
+                    'soft'
+                  }
+                  color={
+                    (tab.value === 'active' && 'success') ||
+                    (tab.value === 'inactive' && 'error') ||
+                    'default'
+                  }
+                >
+                  {['active', 'inactive'].includes(tab.value)
+                    ? tableData.filter((user) => user.status === tab.value).length
+                    : tableData.length}
+                </Label>
+              }
+            />
+          ))}
         </Tabs>
 
         <OrderTableToolbar
@@ -208,16 +193,17 @@ export default function DashboardTable({ sx, icon, title, total, color = 'warnin
             }
             action={
               <Tooltip title="Delete">
-                <IconButton color="primary" onClick={confirm.onTrue}>
-                  <Iconify icon="solar:trash-bin-trash-bold" />
-                </IconButton>
+                <span>
+                  <IconButton color="primary" onClick={confirm.onTrue}>
+                    <Iconify icon="solar:trash-bin-trash-bold" />
+                  </IconButton>
+                </span>
               </Tooltip>
             }
           />
 
           <Scrollbar sx={{ minHeight: 444 }}>
             <Table size={table.dense ? 'small' : 'medium'} sx={{ minWidth: 960 }}>
-              
               <TableHeadCustom
                 showCheckbox={false}
                 order={table.order}
@@ -275,6 +261,7 @@ export default function DashboardTable({ sx, icon, title, total, color = 'warnin
     </>
   );
 }
+
 function applyFilter({ inputData, comparator, filters, dateError }) {
   const { status, name, startDate, endDate } = filters;
 
@@ -286,26 +273,23 @@ function applyFilter({ inputData, comparator, filters, dateError }) {
     return a[1] - b[1];
   });
 
-  inputData = stabilizedThis.map((el) => el[0]);
+  let filteredData = stabilizedThis.map((el) => el[0]);
 
   if (name) {
-    inputData = inputData.filter(
-      (order) =>
-        order.orderNumber.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
-        order.customer.name.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
-        order.customer.email.toLowerCase().indexOf(name.toLowerCase()) !== -1
+    filteredData = filteredData.filter(
+      (item) => item.orderNumber.toLowerCase().indexOf(name.toLowerCase()) !== -1
     );
   }
 
   if (status !== 'all') {
-    inputData = inputData.filter((order) => order.status === status);
+    filteredData = filteredData.filter((item) => item.status === status);
   }
 
-  if (!dateError) {
-    if (startDate && endDate) {
-      inputData = inputData.filter((order) => fIsBetween(order.createdAt, startDate, endDate));
-    }
+  if (startDate && endDate && !dateError) {
+    filteredData = filteredData.filter(
+      (item) => fIsBetween(item.createdAt, startDate, endDate)
+    );
   }
 
-  return inputData;
+  return filteredData;
 }
