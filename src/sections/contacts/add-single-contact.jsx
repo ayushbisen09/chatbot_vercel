@@ -370,7 +370,7 @@ export default function AddSingleContact() {
                     <TextField
                       fullWidth
                       // placeholder="Enter value"
-                      select
+                      
                       type="text"
                       margin="dense"
                       variant="outlined"
@@ -408,7 +408,7 @@ export default function AddSingleContact() {
                     <TextField
                       fullWidth
                       // placeholder="Enter value"
-                      select
+                      
                       type="text"
                       margin="dense"
                       variant="outlined"
@@ -446,7 +446,7 @@ export default function AddSingleContact() {
                     <TextField
                       fullWidth
                       // placeholder="Enter value"
-                      select
+                      
                       type="text"
                       margin="dense"
                       variant="outlined"

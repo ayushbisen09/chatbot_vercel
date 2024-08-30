@@ -10,6 +10,8 @@ import {
   Radio,
   Stack,
   Button,
+  Select,
+  Switch,
   Divider,
   Tooltip,
   MenuItem,
@@ -17,9 +19,12 @@ import {
   CardHeader,
   RadioGroup,
   Typography,
+  InputLabel,
+  IconButton,
+  FormControl,
   useMediaQuery,
   InputAdornment,
-  FormControlLabel,
+  FormControlLabel
 } from '@mui/material';
 
 import { DashboardContent } from 'src/layouts/dashboard';
@@ -30,16 +35,46 @@ import FileUpload from 'src/components/upload/upload';
 import ChatBox from 'src/components/chat-box/chat-box';
 import PageHeader from 'src/components/page-header/page-header';
 
+import { CarouselAlign } from './hook/carousel-align';
 import Image1 from '../../assets/images/chatImage/imagechat.png';
 import { TEMPLATE_LANGUAGES } from '../../assets/data/template-languages';
 
 export default function AddTemplate() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-
-  // Template Cateogry List Events
-
+  const [carouselMediaType, setCarouselMediaType] = useState('');
+  const [headerType, setHeaderType] = useState('');
   const [categorylist, setCategorytList] = useState('Marketing');
+  const [selectedLanguage, setSelectedLanguage] = useState('English');
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [templateType, setTemplateType] = useState('text');
+  const [actionType, setaActionType] = useState('none');
+  const [chatBoxImage, setChatBoxImage] = useState(Image1); // Initial image
+  const [chatBoxes, setChatBoxes] = useState([
+    {
+      id: 1,
+      text: (
+        <>
+          <span style={{ fontWeight: '600' }}>{`Hi {{1}}! 🎧🛒`}</span> <br /> <br />
+          `Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌`
+          <br /> <br />
+          `Order Details:`
+          <br />
+          {`Product: {{2}}`}
+          <br />
+          {`Quantity: {{3}}`}
+          <br />
+          {`Order ID: {{4}}`}
+          <br />
+          {`Delivery Address: {{5}}`}
+          <br />
+          {`Estimated Delivery Date: {{6}}`}
+        </>
+      ),
+      image: '/path/to/image.png',
+    },
+  ]);
+  
 
   const handleChangeCategoryList = useCallback((event) => {
     setCategorytList(event.target.value);
@@ -50,11 +85,6 @@ export default function AddTemplate() {
     { value: 'Utility', label: 'Utility' },
     { value: 'Authentication', label: 'Authentication' },
   ];
-
-  // Country code Events
-
-  const [selectedLanguage, setSelectedLanguage] = useState('English');
-  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -68,21 +98,35 @@ export default function AddTemplate() {
     setSelectedLanguage(event.target.value);
   }, []);
 
-  //   Template Type radio controls
-  const [templateType, setTemplateType] = useState('text');
-
   const handleTemplateTypeChange = (event) => {
-    setTemplateType(event.target.value);
-  };
+    const selectedType = event.target.value;
+    setTemplateType(selectedType);
 
-  //   Interactive Action radio controls
-  const [actionType, setaActionType] = useState('none');
+    // Change ChatBox image based on selected template type
+    switch (selectedType) {
+      case 'video':
+        setChatBoxImage('../../assets/images/chatImage/video.png');
+        break;
+      case 'document':
+        setChatBoxImage('../../assets/images/chatImage/document.png');
+        break;
+      case 'location':
+        setChatBoxImage('../../assets/images/chatImage/location.png');
+        break;
+      case 'limited_time_offer':
+        setChatBoxImage('../../assets/images/chatImage/limitedtimeoffer.png');
+        break;
+      case 'text':
+        setChatBoxImage('');
+        break;
+      default:
+        setChatBoxImage(Image1);
+    }
+  };
 
   const handleActionTypeChange = (event) => {
     setaActionType(event.target.value);
   };
-
-  //   Quick Reply action type
 
   const isTabletOrMobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -115,8 +159,6 @@ export default function AddTemplate() {
     }
   };
 
-  // Call to Action 1 (URL) Action type
-
   const {
     fields: callToAction1Fields,
     append: appendCallToAction1,
@@ -138,8 +180,6 @@ export default function AddTemplate() {
       removeCallToAction1(index);
     }
   };
-
-  // Call to Action 2 (Phone Number) Action Type
 
   const {
     fields: callToAction2Fields,
@@ -163,8 +203,6 @@ export default function AddTemplate() {
     }
   };
 
-  // Coupon Code Action Type
-
   const {
     fields: couponCodeFields,
     append: appendCouponCode,
@@ -187,16 +225,13 @@ export default function AddTemplate() {
     }
   };
 
-  // Handle form submission logic here
   const handleSubmit = (event) => {
     event.preventDefault();
   };
 
-  // Submit and Cancel Button Functions
   const navigate = useNavigate();
 
   const handleCancel = () => {
-    // Replace '/your-page' with the path you want to navigate to
     navigate('/app/template');
   };
 
@@ -208,6 +243,15 @@ export default function AddTemplate() {
     showToast();
     navigate('/app/template');
   };
+
+  const handleCarouselMediaTypeChange = (event) => {
+    setCarouselMediaType(event.target.value);
+  };
+
+  const handleHeaderTypeChange = (event) => {
+    setHeaderType(event.target.value);
+  };
+  
 
   return (
     <DashboardContent maxWidth="xl">
@@ -234,9 +278,8 @@ export default function AddTemplate() {
         <Card sx={{ width: { md: '90%', xs: '100%', sm: '90%' } }}>
           <CardHeader title="Add New Template" sx={{ mb: 3 }} />
           <Divider />
-          <FormProvider>
+          <FormProvider {...methods}>
             <Form onSubmit={handleSubmit}>
-              {/* Template Name */}
               <FormControlLabel
                 control={
                   <TextField
@@ -254,7 +297,7 @@ export default function AddTemplate() {
                             arrow
                             placement="top"
                             sx={{
-                              fontSize: '16px', // Adjust the font size as needed
+                              fontSize: '16px',
                             }}
                           >
                             <Iconify
@@ -269,8 +312,6 @@ export default function AddTemplate() {
                 }
                 sx={{ width: '100%', padding: '24px 24px 24px 24px', mr: 0, ml: 0 }}
               />
-              {/* Template Category */}
-
               <FormControlLabel
                 control={
                   <TextField
@@ -283,8 +324,8 @@ export default function AddTemplate() {
                     value={categorylist}
                     onChange={handleChangeCategoryList}
                     helperText="Select template category."
-                    InputLabelProps={{ htmlFor: `outlined-select-currency-label` }}
-                    inputProps={{ id: `outlined-select-currency-label` }}
+                    InputLabelProps={{ htmlFor: 'outlined-select-currency-label' }}
+                    inputProps={{ id: 'outlined-select-currency-label' }}
                   >
                     {CATEGORYLISTS.map((option) => (
                       <MenuItem key={option.value} value={option.value}>
@@ -295,8 +336,6 @@ export default function AddTemplate() {
                 }
                 sx={{ width: '100%', padding: '0px 24px 24px 24px', mr: 0, ml: 0 }}
               />
-              {/* Template Language */}
-
               <FormControlLabel
                 control={
                   <TextField
@@ -308,7 +347,7 @@ export default function AddTemplate() {
                     label="Select Language (Required)"
                     value={selectedLanguage}
                     onChange={handleChangeLanguage}
-                    onClick={handleClick} // Open menu on click
+                    onClick={handleClick}
                     helperText="Select the language for the template."
                     InputLabelProps={{ htmlFor: 'outlined-select-language-label' }}
                     inputProps={{ id: 'outlined-select-language-label' }}
@@ -316,8 +355,8 @@ export default function AddTemplate() {
                       MenuProps: {
                         PaperProps: {
                           style: {
-                            maxHeight: 400, // Adjust height as needed
-                            width: '20ch', // Adjust width as needed
+                            maxHeight: 400,
+                            width: '20ch',
                           },
                         },
                       },
@@ -332,8 +371,6 @@ export default function AddTemplate() {
                 }
                 sx={{ width: '100%', padding: '0px 24px 24px 24px', mr: 0, ml: 0 }}
               />
-              {/* Template Type */}
-
               <Box sx={{ width: '100%', padding: '0px 24px 24px 24px', mr: 0, ml: 0 }}>
                 <Typography variant="h7" sx={{ fontSize: '14px', fontWeight: '600' }}>
                   Template Type
@@ -368,7 +405,7 @@ export default function AddTemplate() {
                     label="Limited Time Offer"
                   />
                 </RadioGroup>
-
+                {/* Template-specific fields */}
                 {templateType === 'text' && (
                   <FormControlLabel
                     control={
@@ -387,7 +424,7 @@ export default function AddTemplate() {
                                 arrow
                                 placement="top"
                                 sx={{
-                                  fontSize: '16px', // Adjust the font size as needed
+                                  fontSize: '16px',
                                 }}
                               >
                                 <Iconify
@@ -552,7 +589,7 @@ export default function AddTemplate() {
                         type="text"
                         margin="dense"
                         variant="outlined"
-                        label="Location URl"
+                        label="Location URL"
                         helperText="You're allowed a maximum of 60 characters."
                         InputProps={{
                           endAdornment: (
@@ -562,7 +599,7 @@ export default function AddTemplate() {
                                 arrow
                                 placement="top"
                                 sx={{
-                                  fontSize: '16px', // Adjust the font size as needed
+                                  fontSize: '16px',
                                 }}
                               >
                                 <Iconify
@@ -579,76 +616,109 @@ export default function AddTemplate() {
                   />
                 )}
                 {templateType === 'carousel' && (
-                  <FormControlLabel
-                    control={
-                      <TextField
-                        fullWidth
-                        type="text"
-                        margin="dense"
-                        variant="outlined"
-                        label="Coupon Code"
-                        helperText="You're allowed a maximum of 60 characters."
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <Tooltip
-                                title="You're allowed a maximum of 60 characters."
-                                arrow
-                                placement="top"
-                                sx={{
-                                  fontSize: '16px', // Adjust the font size as needed
-                                }}
-                              >
-                                <Iconify
-                                  icon="material-symbols:info-outline"
-                                  style={{ width: 20, height: 20 }}
-                                />
-                              </Tooltip>
-                            </InputAdornment>
-                          ),
-                        }}
-                      />
-                    }
-                    sx={{ width: '100%', padding: '24px 0px 0px 0px', mr: 0, ml: 0 }}
-                  />
+                  <>
+                    <FormControlLabel
+                      control={
+                        <TextField
+                          fullWidth
+                          type="text"
+                          margin="dense"
+                          variant="outlined"
+                          label="Card 1 Body"
+                          helperText="You're allowed a maximum of 160 characters."
+                        />
+                      }
+                      sx={{ width: '100%', padding: '24px 0px 0px 0px', mr: 0, ml: 0 }}
+                    />
+                    <FormControl fullWidth sx={{ mt: 2 }}>
+                      <InputLabel id="carousel-select-label">Carousel Media Type</InputLabel>
+                      <Select
+                        labelId="carousel-select-label"
+                        id="carousel-select"
+                        value={carouselMediaType}
+                        label="Carousel Media Type"
+                        onChange={handleCarouselMediaTypeChange}
+                      >
+                        <MenuItem value='type1'>Image</MenuItem>
+                        <MenuItem value='type2'>Video</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </>
                 )}
                 {templateType === 'limited_time_offer' && (
-                  <FormControlLabel
-                    control={
-                      <TextField
-                        fullWidth
-                        type="text"
-                        margin="dense"
-                        variant="outlined"
-                        label="Location URl"
-                        helperText="You're allowed a maximum of 60 characters."
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <Tooltip
-                                title="You're allowed a maximum of 60 characters."
-                                arrow
-                                placement="top"
-                                sx={{
-                                  fontSize: '16px', // Adjust the font size as needed
-                                }}
-                              >
-                                <Iconify
-                                  icon="material-symbols:info-outline"
-                                  style={{ width: 20, height: 20 }}
-                                />
-                              </Tooltip>
-                            </InputAdornment>
-                          ),
-                        }}
+                  <>
+                    <FormControlLabel
+                      control={
+                        <TextField
+                          fullWidth
+                          type="text"
+                          margin="dense"
+                          variant="outlined"
+                          label="Limited Time Offer Text"
+                          helperText="You're allowed a maximum of 16 characters."
+                          InputProps={{
+                            endAdornment: (
+                              <InputAdornment position="end">
+                                <Tooltip
+                                  title="You're allowed a maximum of 16 characters."
+                                  arrow
+                                  placement="top"
+                                  sx={{
+                                    fontSize: '16px',
+                                  }}
+                                >
+                                  <Iconify
+                                    icon="material-symbols:info-outline"
+                                    style={{ width: 20, height: 20 }}
+                                  />
+                                </Tooltip>
+                              </InputAdornment>
+                            ),
+                          }}
+                        />
+                      }
+                      sx={{ width: '100%', padding: '24px 0px 0px 0px', mr: 0, ml: 0 }}
+                    />
+
+                    <Box display="flex" alignItems="center" sx={{ padding: '16px 0px 0px 0px' }}>
+                      <FormControlLabel
+                        control={<Switch />}
+                        label="Offer Expires"
+                        sx={{ marginRight: '0px' }}
                       />
-                    }
-                    sx={{ width: '100%', padding: '24px 0px 0px 0px', mr: 0, ml: 0 }}
-                  />
+                      <Tooltip
+                        title="Turn on the toggle to make this an expiring offer. You can choose the expiration date when sending it to the user."
+                        arrow
+                        placement="top"
+                        sx={{
+                          fontSize: '16px',
+                        }}
+                      >
+                        <IconButton>
+                          <Iconify
+                            icon="material-symbols:info-outline"
+                            style={{ width: 20, height: 20 }}
+                          />
+                        </IconButton>
+                      </Tooltip>
+                    </Box>
+
+                    <FormControl fullWidth sx={{ mt: 2 }}>
+                      <InputLabel id="carousel-select-label">Header Type</InputLabel>
+                      <Select
+                        labelId="header-select-label"
+                        id="header-select"
+                        value={headerType}
+                        label="Header Type"
+                        onChange={handleHeaderTypeChange}
+                      >
+                        <MenuItem value="type1">Image</MenuItem>
+                        <MenuItem value="type2">Video</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </>
                 )}
               </Box>
-              {/* Template Format */}
-
               <FormControlLabel
                 control={
                   <TextField
@@ -668,7 +738,7 @@ export default function AddTemplate() {
                             arrow
                             placement="top"
                             sx={{
-                              fontSize: '16px', // Adjust the font size as needed
+                              fontSize: '16px',
                             }}
                           >
                             <Iconify
@@ -683,8 +753,6 @@ export default function AddTemplate() {
                 }
                 sx={{ width: '100%', padding: '0px 24px 24px 24px', mr: 0, ml: 0 }}
               />
-              {/* Template Footer */}
-
               <FormControlLabel
                 control={
                   <TextField
@@ -702,7 +770,7 @@ export default function AddTemplate() {
                             arrow
                             placement="top"
                             sx={{
-                              fontSize: '16px', // Adjust the font size as needed
+                              fontSize: '16px',
                             }}
                           >
                             <Iconify
@@ -717,8 +785,6 @@ export default function AddTemplate() {
                 }
                 sx={{ width: '100%', padding: '0px 24px 24px 24px', mr: 0, ml: 0 }}
               />
-              {/* Template Interactive Actions */}
-
               <Box sx={{ width: '100%', padding: '0px 24px 24px 24px' }}>
                 <Typography variant="h7" sx={{ fontSize: '14px', fontWeight: '600' }}>
                   Interactive Actions
@@ -783,7 +849,7 @@ export default function AddTemplate() {
                                         arrow
                                         placement="top"
                                         sx={{
-                                          fontSize: '16px', // Adjust the font size as needed
+                                          fontSize: '16px',
                                         }}
                                       >
                                         <Iconify
@@ -808,7 +874,7 @@ export default function AddTemplate() {
                                         arrow
                                         placement="top"
                                         sx={{
-                                          fontSize: '16px', // Adjust the font size as needed
+                                          fontSize: '16px',
                                         }}
                                       >
                                         <Iconify
@@ -833,7 +899,7 @@ export default function AddTemplate() {
                                         arrow
                                         placement="top"
                                         sx={{
-                                          fontSize: '16px', // Adjust the font size as needed
+                                          fontSize: '16px',
                                         }}
                                       >
                                         <Iconify
@@ -919,7 +985,7 @@ export default function AddTemplate() {
                                         arrow
                                         placement="top"
                                         sx={{
-                                          fontSize: '16px', // Adjust the font size as needed
+                                          fontSize: '16px',
                                         }}
                                       >
                                         <Iconify
@@ -944,7 +1010,7 @@ export default function AddTemplate() {
                                         arrow
                                         placement="top"
                                         sx={{
-                                          fontSize: '16px', // Adjust the font size as needed
+                                          fontSize: '16px',
                                         }}
                                       >
                                         <Iconify
@@ -969,7 +1035,7 @@ export default function AddTemplate() {
                                         arrow
                                         placement="top"
                                         sx={{
-                                          fontSize: '16px', // Adjust the font size as needed
+                                          fontSize: '16px',
                                         }}
                                       >
                                         <Iconify
@@ -994,7 +1060,7 @@ export default function AddTemplate() {
                                         arrow
                                         placement="top"
                                         sx={{
-                                          fontSize: '16px', // Adjust the font size as needed
+                                          fontSize: '16px',
                                         }}
                                       >
                                         <Iconify
@@ -1082,7 +1148,7 @@ export default function AddTemplate() {
                                       arrow
                                       placement="top"
                                       sx={{
-                                        fontSize: '16px', // Adjust the font size as needed
+                                        fontSize: '16px',
                                       }}
                                     >
                                       <Iconify
@@ -1235,7 +1301,7 @@ export default function AddTemplate() {
                                         arrow
                                         placement="top"
                                         sx={{
-                                          fontSize: '16px', // Adjust the font size as needed
+                                          fontSize: '16px',
                                         }}
                                       >
                                         <Iconify
@@ -1260,7 +1326,7 @@ export default function AddTemplate() {
                                         arrow
                                         placement="top"
                                         sx={{
-                                          fontSize: '16px', // Adjust the font size as needed
+                                          fontSize: '16px',
                                         }}
                                       >
                                         <Iconify
@@ -1285,7 +1351,7 @@ export default function AddTemplate() {
                                         arrow
                                         placement="top"
                                         sx={{
-                                          fontSize: '16px', // Adjust the font size as needed
+                                          fontSize: '16px',
                                         }}
                                       >
                                         <Iconify
@@ -1371,7 +1437,7 @@ export default function AddTemplate() {
                                         arrow
                                         placement="top"
                                         sx={{
-                                          fontSize: '16px', // Adjust the font size as needed
+                                          fontSize: '16px',
                                         }}
                                       >
                                         <Iconify
@@ -1396,7 +1462,7 @@ export default function AddTemplate() {
                                         arrow
                                         placement="top"
                                         sx={{
-                                          fontSize: '16px', // Adjust the font size as needed
+                                          fontSize: '16px',
                                         }}
                                       >
                                         <Iconify
@@ -1421,7 +1487,7 @@ export default function AddTemplate() {
                                         arrow
                                         placement="top"
                                         sx={{
-                                          fontSize: '16px', // Adjust the font size as needed
+                                          fontSize: '16px',
                                         }}
                                       >
                                         <Iconify
@@ -1446,7 +1512,7 @@ export default function AddTemplate() {
                                         arrow
                                         placement="top"
                                         sx={{
-                                          fontSize: '16px', // Adjust the font size as needed
+                                          fontSize: '16px',
                                         }}
                                       >
                                         <Iconify
@@ -1532,7 +1598,7 @@ export default function AddTemplate() {
                                         arrow
                                         placement="top"
                                         sx={{
-                                          fontSize: '16px', // Adjust the font size as needed
+                                          fontSize: '16px',
                                         }}
                                       >
                                         <Iconify
@@ -1612,32 +1678,39 @@ export default function AddTemplate() {
             </Form>
           </FormProvider>
         </Card>
-        <Box>
-          <ChatBox
-            coverSrc={Image1}
-            showImage
-            text={
-              <>
-                <span style={{ fontWeight: '600' }}>{` Hi {{1}}! 🎧🛒`} </span> <br /> <br />
-                {`  Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌`}
-                <br /> <br />
-                {` Order Details:`}
-                <br />
-                {` Product: {{2}}`}
-                <br />
-                {`Quantity: {{3}}`}
-                <br />
-                {`Order ID: {{4}}`}
-                <br />
-                {`Delivery Address: {{5}}`}
-                <br />
-                {`Estimated Delivery Date: {{6}}`}
-              </>
-            }
-            showLinks
-            showVisit
-          />
-        </Box>
+        {/* Conditionally render ChatBox or CarouselAlign based on templateType */}
+        {templateType === 'carousel' ? (
+          <Box>
+            <CarouselAlign />
+          </Box>
+        ) : (
+          <Box>
+            <ChatBox
+              coverSrc={templateType !== 'text' ? chatBoxImage : undefined}
+              showImage={templateType !== 'text'}
+              text={
+                <>
+                  <span style={{ fontWeight: '600' }}>{`Hi {{1}}! 🎧🛒`}</span> <br /> <br />
+                  `Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌`
+                  <br /> <br />
+                  `Order Details:`
+                  <br />
+                  {`Product: {{2}}`}
+                  <br />
+                  {`Quantity: {{3}}`}
+                  <br />
+                  {`Order ID: {{4}}`}
+                  <br />
+                  {`Delivery Address: {{5}}`}
+                  <br />
+                  {`Estimated Delivery Date: {{6}}`}
+                </>
+              }
+              showLinks
+              showVisit
+            />
+          </Box>
+        )}
       </Box>
     </DashboardContent>
   );

@@ -272,7 +272,17 @@ export default function AddBulkContact() {
                             ),
                           }}
                         />
+                        
                         <TextField
+                      fullWidth
+                      // placeholder="Enter value"
+                      select
+                      type="text"
+                      margin="dense"
+                      variant="outlined"
+                      label="Enter Value"
+                    />
+                        {/* <TextField
                           fullWidth
                           placeholder="Enter value"
                           type="text"
@@ -301,7 +311,7 @@ export default function AddBulkContact() {
                               </InputAdornment>
                             ),
                           }}
-                        />
+                        /> */}
                       </Box>
                       <Box sx={{ width: '100%', display: 'flex', gap: '16px', mb: '24px' }}>
                         <TextField
@@ -331,36 +341,15 @@ export default function AddBulkContact() {
                             ),
                           }}
                         />
-                        <TextField
-                          fullWidth
-                          placeholder="Enter value"
-                          type="text"
-                          margin="dense"
-                          variant="outlined"
-                          label="Value"
-                          InputLabelProps={{
-                            shrink: true,
-                          }}
-                          InputProps={{
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                <Tooltip
-                                  title="Enter the value for the respective user attribute."
-                                  arrow
-                                  placement="top"
-                                  sx={{
-                                    fontSize: '16px',
-                                  }}
-                                >
-                                  <Iconify
-                                    icon="material-symbols:info-outline"
-                                    style={{ width: 20, height: 20 }}
-                                  />
-                                </Tooltip>
-                              </InputAdornment>
-                            ),
-                          }}
-                        />
+                       <TextField
+                      fullWidth
+                      // placeholder="Enter value"
+                      select
+                      type="text"
+                      margin="dense"
+                      variant="outlined"
+                      label="Enter Value"
+                    />
                       </Box>
                       <Box sx={{ width: '100%', display: 'flex', gap: '16px' }}>
                         <TextField
@@ -391,35 +380,14 @@ export default function AddBulkContact() {
                           }}
                         />
                         <TextField
-                          fullWidth
-                          placeholder="Enter value"
-                          type="text"
-                          margin="dense"
-                          variant="outlined"
-                          label="Value"
-                          InputLabelProps={{
-                            shrink: true,
-                          }}
-                          InputProps={{
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                <Tooltip
-                                  title="Enter the value for the respective user attribute."
-                                  arrow
-                                  placement="top"
-                                  sx={{
-                                    fontSize: '16px',
-                                  }}
-                                >
-                                  <Iconify
-                                    icon="material-symbols:info-outline"
-                                    style={{ width: 20, height: 20 }}
-                                  />
-                                </Tooltip>
-                              </InputAdornment>
-                            ),
-                          }}
-                        />
+                      fullWidth
+                      // placeholder="Enter value"
+                      select
+                      type="text"
+                      margin="dense"
+                      variant="outlined"
+                      label="Enter Value"
+                    />
                       </Box>
                     </Box>
                     <Box sx={{ width: '100%' }}>
@@ -463,35 +431,14 @@ export default function AddBulkContact() {
                           }}
                         />
                         <TextField
-                          fullWidth
-                          placeholder="Enter value"
-                          type="text"
-                          margin="dense"
-                          variant="outlined"
-                          label="Value"
-                          InputLabelProps={{
-                            shrink: true,
-                          }}
-                          InputProps={{
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                <Tooltip
-                                  title="Enter the value for the respective user attribute."
-                                  arrow
-                                  placement="top"
-                                  sx={{
-                                    fontSize: '16px',
-                                  }}
-                                >
-                                  <Iconify
-                                    icon="material-symbols:info-outline"
-                                    style={{ width: 20, height: 20 }}
-                                  />
-                                </Tooltip>
-                              </InputAdornment>
-                            ),
-                          }}
-                        />
+                      fullWidth
+                      // placeholder="Enter value"
+                      select
+                      type="text"
+                      margin="dense"
+                      variant="outlined"
+                      label="Enter Value"
+                    />
                       </Box>
                       <Box sx={{ width: '100%', display: 'flex', gap: '16px', mb: '24px' }}>
                         <TextField
@@ -521,36 +468,15 @@ export default function AddBulkContact() {
                             ),
                           }}
                         />
-                        <TextField
-                          fullWidth
-                          placeholder="Enter value"
-                          type="text"
-                          margin="dense"
-                          variant="outlined"
-                          label="Value"
-                          InputLabelProps={{
-                            shrink: true,
-                          }}
-                          InputProps={{
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                <Tooltip
-                                  title="Enter the value for the respective user attribute."
-                                  arrow
-                                  placement="top"
-                                  sx={{
-                                    fontSize: '16px',
-                                  }}
-                                >
-                                  <Iconify
-                                    icon="material-symbols:info-outline"
-                                    style={{ width: 20, height: 20 }}
-                                  />
-                                </Tooltip>
-                              </InputAdornment>
-                            ),
-                          }}
-                        />
+                       <TextField
+                      fullWidth
+                      // placeholder="Enter value"
+                      select
+                      type="text"
+                      margin="dense"
+                      variant="outlined"
+                      label="Enter Value"
+                    />
                       </Box>
                       <Box sx={{ width: '100%', display: 'flex', gap: '16px' }}>
                         <TextField
@@ -581,35 +507,14 @@ export default function AddBulkContact() {
                           }}
                         />
                         <TextField
-                          fullWidth
-                          placeholder="Enter value"
-                          type="text"
-                          margin="dense"
-                          variant="outlined"
-                          label="Value"
-                          InputLabelProps={{
-                            shrink: true,
-                          }}
-                          InputProps={{
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                <Tooltip
-                                  title="Enter the value for the respective user attribute."
-                                  arrow
-                                  placement="top"
-                                  sx={{
-                                    fontSize: '16px',
-                                  }}
-                                >
-                                  <Iconify
-                                    icon="material-symbols:info-outline"
-                                    style={{ width: 20, height: 20 }}
-                                  />
-                                </Tooltip>
-                              </InputAdornment>
-                            ),
-                          }}
-                        />
+                      fullWidth
+                      // placeholder="Enter value"
+                      select
+                      type="text"
+                      margin="dense"
+                      variant="outlined"
+                      label="Enter Value"
+                    />
                       </Box>
                     </Box>
                   </Box>
