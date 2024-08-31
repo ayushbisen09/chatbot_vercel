@@ -4,13 +4,13 @@ import { Box } from '@mui/material';
 
 import TemplateList from './template-list';
 import FoodTemplatesRender from './food-templates';
+import TravelTemplatesRender from './travel-templates';
 import EcommTemplatesRender from './ecommerce-templates';
-// import FestivalTemplatesRender from './festivaltemplates';
-// import HealthcareTemplatesRender from './healthcaretemplates';
-// import SpecialOccasionsTemplatesRender from './specialoccasionstemplates';
-// import TravelTemplatesRender from './traveltemplates';
-// import ServicesTemplatesRender from './servicestemplates';
-// import EducationTemplatesRender from './educationtemplates';
+import FestiveTemplatesRender from './festive-templates';
+import ServiceTemplatesRender from './service-templates';
+import EductionTemplatesRender from './education-templates';
+import HealthCareTemplatesRender from './health-care-template';
+import SpecialOccasionsTemplatesRender from './special-occasions-templates';
 
 export default function ExploreTemplate() {
   const [selectedListItem, setSelectedListItem] = useState(0);
@@ -25,18 +25,18 @@ export default function ExploreTemplate() {
         return <EcommTemplatesRender />;
       case 1:
         return <FoodTemplatesRender />;
-      // case 2:
-      //   return <FestivalTemplatesRender />;
-      // case 3:
-      //   return <HealthcareTemplatesRender />;
-      // case 4:
-      //   return <SpecialOccasionsTemplatesRender />;
-      // case 5:
-      //   return <TravelTemplatesRender />;
-      // case 6:
-      //   return <ServicesTemplatesRender />;
-      // case 7:
-      //   return <EducationTemplatesRender />;
+      case 2:
+        return <FestiveTemplatesRender/>;
+      case 3:
+        return <HealthCareTemplatesRender />;
+      case 4:
+        return <SpecialOccasionsTemplatesRender />;
+      case 5:
+        return <TravelTemplatesRender />;
+      case 6:
+        return <ServiceTemplatesRender />;
+      case 7:
+        return <EductionTemplatesRender />;
       default:
         return <EcommTemplatesRender />;
     }

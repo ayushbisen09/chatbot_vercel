@@ -18,7 +18,7 @@ import { Iconify } from 'src/components/iconify';
 import ChatBox from 'src/components/chat-box/chat-box';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
-export default function FoodTemplatesRender() {
+export default function ServiceTemplatesRender() {
   const popover = usePopover();
   const confirm = useBoolean();
   const [page, setPage] = useState(1); // State for current page
@@ -30,77 +30,77 @@ export default function FoodTemplatesRender() {
     setPage(value);
   };
 
-  // Data for ChatBox items with food-related messages
+  // Data for ChatBox items with service-related messages
   const chatBoxes = [
     {
       coverSrc: '../../assets/images/chatImage/food-template-images/f1.png',
-      text: `Hi {{1}}! 🍔 Try our new Gourmet Burger, crafted with the finest ingredients. Order now and indulge in a delicious experience!`,
-      title: 'Gourmet Burger',
+      text: `Hi {{1}}! 🎧🛒 Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌 Order Details: Product: {{2}} Quantity: {{3}} Order ID: {{4}} Delivery Address: {{5}} Estimated Delivery Date: {{6}}`,
+      title: 'Order Confirmation',
     },
     {
       coverSrc: '../../assets/images/chatImage/food-template-images/f2.png',
-      text: `Hi {{1}}! 🍕 Craving pizza? Check out our latest flavors and enjoy a cheesy delight! Order your favorite pizza today!`,
-      title: 'Pizza Delight',
+      text: `Hi {{1}}! 🎧🛒 Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌 Order Details: Product: {{2}} Quantity: {{3}} Order ID: {{4}} Delivery Address: {{5}} Estimated Delivery Date: {{6}}`,
+      title: 'Order Confirmation',
     },
     {
       coverSrc: '../../assets/images/chatImage/food-template-images/f3.png',
-      text: `Hi {{1}}! 🍣 Sushi lovers rejoice! Our fresh sushi rolls are here to tantalize your taste buds. Order now and enjoy a taste of Japan!`,
-      title: 'Sushi Rolls',
+      text: `Hi {{1}}! 🎧🛒 Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌 Order Details: Product: {{2}} Quantity: {{3}} Order ID: {{4}} Delivery Address: {{5}} Estimated Delivery Date: {{6}}`,
+      title: 'Order Confirmation',
     },
     {
       coverSrc: '../../assets/images/chatImage/food-template-images/f4.png',
-      text: `Hi {{1}}! 🍝 Introducing our new Pasta Alfredo! Creamy, delicious, and perfect for any pasta lover. Order now and savor the flavor!`,
-      title: 'Pasta Alfredo',
+      text: `Hi {{1}}! 🎧🛒 Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌 Order Details: Product: {{2}} Quantity: {{3}} Order ID: {{4}} Delivery Address: {{5}} Estimated Delivery Date: {{6}}`,
+      title: 'Order Confirmation',
     },
     {
       coverSrc: '../../assets/images/chatImage/food-template-images/f5.png',
-      text: `Hi {{1}}! 🍨 Cool down with our refreshing ice creams! Try our new exotic flavors and beat the heat in style. Order now!`,
-      title: 'Ice Creams',
+      text: `Hi {{1}}! 🎧🛒 Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌 Order Details: Product: {{2}} Quantity: {{3}} Order ID: {{4}} Delivery Address: {{5}} Estimated Delivery Date: {{6}}`,
+      title: 'Order Confirmation',
     },
     {
       coverSrc: '../../assets/images/chatImage/food-template-images/f6.png',
-      text: `Hi {{1}}! 🍷 Celebrate your special moments with our exquisite wine collection. Order your favorite bottle today and enjoy!`,
-      title: 'Wine Collection',
+      text: `Hi {{1}}! 🎧🛒 Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌 Order Details: Product: {{2}} Quantity: {{3}} Order ID: {{4}} Delivery Address: {{5}} Estimated Delivery Date: {{6}}`,
+      title: 'Order Confirmation',
     },
     {
       coverSrc: '../../assets/images/chatImage/food-template-images/f5.png',
-      text: `Hi {{1}}! 🥗 Looking for something healthy? Try our fresh and tasty salads, perfect for a light and nutritious meal. Order now!`,
-      title: 'Healthy Salads',
+      text: `Hi {{1}}! 🎧🛒 Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌 Order Details: Product: {{2}} Quantity: {{3}} Order ID: {{4}} Delivery Address: {{5}} Estimated Delivery Date: {{6}}`,
+      title: 'Order Confirmation',
     },
     {
       coverSrc: '../../assets/images/chatImage/food-template-images/f6.png',
-      text: `Hi {{1}}! 🍰 Sweeten your day with our delicious cakes and pastries. Perfect for every occasion! Order your favorite dessert today!`,
-      title: 'Cakes & Pastries',
+      text: `Hi {{1}}! 🎧🛒 Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌 Order Details: Product: {{2}} Quantity: {{3}} Order ID: {{4}} Delivery Address: {{5}} Estimated Delivery Date: {{6}}`,
+      title: 'Order Confirmation',
     },
     {
       coverSrc: '../../assets/images/chatImage/food-template-images/f3.png',
-      text: `Hi {{1}}! 🌮 Tacos anyone? Our new taco menu is out now! Packed with flavors that will transport you to Mexico. Order today!`,
-      title: 'Taco Menu',
+      text: `Hi {{1}}! 🎧🛒 Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌 Order Details: Product: {{2}} Quantity: {{3}} Order ID: {{4}} Delivery Address: {{5}} Estimated Delivery Date: {{6}}`,
+      title: 'Order Confirmation',
     },
     {
       coverSrc: '../../assets/images/chatImage/food-template-images/f4.png',
-      text: `Hi {{1}}! 🍵 Warm up with our special soups, made with fresh ingredients to comfort your soul. Order your bowl of goodness now!`,
-      title: 'Special Soups',
+      text: `Hi {{1}}! 🎧🛒 Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌 Order Details: Product: {{2}} Quantity: {{3}} Order ID: {{4}} Delivery Address: {{5}} Estimated Delivery Date: {{6}}`,
+      title: 'Order Confirmation',
     },
     {
       coverSrc: '../../assets/images/chatImage/food-template-images/f2.png',
-      text: `Hi {{1}}! 🍹 Refresh yourself with our new range of mocktails and beverages. Perfect for any time of the day. Order yours now!`,
-      title: 'Mocktails & Beverages',
+      text: `Hi {{1}}! 🎧🛒 Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌 Order Details: Product: {{2}} Quantity: {{3}} Order ID: {{4}} Delivery Address: {{5}} Estimated Delivery Date: {{6}}`,
+      title: 'Order Confirmation',
     },
     {
       coverSrc: '../../assets/images/chatImage/food-template-images/f1.png',
-      text: `Hi {{1}}! 🍜 Noodle lovers, rejoice! Our special ramen bowls are here to satisfy your cravings. Order now and slurp away!`,
-      title: 'Ramen Bowls',
+      text: `Hi {{1}}! 🎧🛒 Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌 Order Details: Product: {{2}} Quantity: {{3}} Order ID: {{4}} Delivery Address: {{5}} Estimated Delivery Date: {{6}}`,
+      title: 'Order Confirmation',
     },
     {
       coverSrc: '../../assets/images/chatImage/food-template-images/f3.png',
-      text: `Hi {{1}}! 🥙 Try our new wrap combos, packed with flavors and fresh ingredients. Perfect for a quick and tasty meal. Order now!`,
-      title: 'Wrap Combos',
+      text: `Hi {{1}}! 🎧🛒 Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌 Order Details: Product: {{2}} Quantity: {{3}} Order ID: {{4}} Delivery Address: {{5}} Estimated Delivery Date: {{6}}`,
+      title: 'Order Confirmation',
     },
     {
       coverSrc: '../../assets/images/chatImage/food-template-images/f4.png',
-      text: `Hi {{1}}! 🍪 Enjoy our freshly baked cookies, perfect with a cup of coffee or as a treat on the go. Order your batch now!`,
-      title: 'Fresh Cookies',
+      text: `Hi {{1}}! 🎧🛒 Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌 Order Details: Product: {{2}} Quantity: {{3}} Order ID: {{4}} Delivery Address: {{5}} Estimated Delivery Date: {{6}}`,
+      title: 'Order Confirmation',
     },
   ];
 
@@ -112,7 +112,7 @@ export default function FoodTemplatesRender() {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-      <Typography sx={{ fontSize: 18, fontWeight: 600 }}>Food Specials</Typography>
+      <Typography sx={{ fontSize: 18, fontWeight: 600 }}>Service Messages</Typography>
       <Box display="flex" justifyContent="space-between">
         <TextField
           placeholder="Search templates..."

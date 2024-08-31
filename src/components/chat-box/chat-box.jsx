@@ -11,6 +11,10 @@ export default function ChatBox({
   showCall,
   showCoupon,
   showVisit,
+  title,
+  showOnline = true, // Default to true, can be overridden
+  showAvatar = true, // Default to true, can be overridden
+  showTimestamp = true, // Default to true, can be overridden
 }) {
   return (
     <Card
@@ -22,31 +26,39 @@ export default function ChatBox({
     >
       <CardHeader
         sx={{ mb: 2 }}
-        avatar={<Avatar aria-label="profile picture">MC</Avatar>}
+        avatar={
+          showAvatar && ( // Conditionally render avatar
+            <Avatar aria-label="profile picture">MC</Avatar>
+          )
+        }
         title={
           <Typography variant="h7" sx={{ fontSize: 14, fontWeight: '700' }}>
-            Mireya Conner
+            {title || 'Mireya Conner'} {/* Use title prop if available */}
           </Typography>
         }
         subheader={
-          <Typography variant="subtitle2" sx={{ fontSize: 12, fontWeight: '400' }}>
-            Online
-          </Typography>
+          showOnline && ( // Conditionally render online status
+            <Typography variant="subtitle2" sx={{ fontSize: 12, fontWeight: '400' }}>
+              Online
+            </Typography>
+          )
         }
       />
       <Divider />
-      <Typography
-        variant="caption"
-        sx={{
-          pr: 2,
-          pt: 3,
-          display: 'flex',
-          color: '#919EAB',
-          justifyContent: 'end',
-        }}
-      >
-        4:02 PM
-      </Typography>
+      {showTimestamp && ( // Conditionally render timestamp
+        <Typography
+          variant="caption"
+          sx={{
+            pr: 2,
+            pt: 3,
+            display: 'flex',
+            color: '#919EAB',
+            justifyContent: 'end',
+          }}
+        >
+          4:02 PM
+        </Typography>
+      )}
       <Box
         sx={{
           p: 2,
@@ -65,8 +77,8 @@ export default function ChatBox({
               width: '100%',
               height: 'auto',
               objectFit: 'cover',
-              marginBottom: 2, // Add some space between the image and the text
-              borderRadius: '8px', // Optional: add rounded corners to the image
+              marginBottom: 2,
+              borderRadius: '8px',
             }}
           />
         )}
@@ -76,7 +88,6 @@ export default function ChatBox({
             px: 0,
             py: 0,
             color: 'primary',
-            // 24px margin bottom
           }}
         >
           {text}
@@ -85,32 +96,27 @@ export default function ChatBox({
           <Box sx={{ mt: 3 }}>
             {showCall && (
               <Box>
-                <Divider
-                  sx={{
-                    mb: 1,
-                  }}
-                />
-
+                <Divider sx={{ mb: 1 }} />
                 <Box
                   sx={{
                     display: 'flex',
-                    justifyContent: 'center', // Center horizontally
-                    alignItems: 'center', // Center vertically
+                    justifyContent: 'center',
+                    alignItems: 'center',
                   }}
                 >
                   <IconButton
                     size="small"
                     sx={{
-                      color: '#007BFF', // Change color of the icon button
+                      color: '#007BFF',
                     }}
                   >
                     <Iconify width={20} icon="material-symbols:call" />
                   </IconButton>
                   <Typography
                     sx={{
-                      color: '#007BFF', // Change color of the text
-                      fontSize: '14px', // Set font size to 12
-                      fontWeight: '400', // Set font weight to medium
+                      color: '#007BFF',
+                      fontSize: '14px',
+                      fontWeight: '400',
                     }}
                   >
                     Call Now
@@ -124,26 +130,26 @@ export default function ChatBox({
                 <Box
                   sx={{
                     display: 'flex',
-                    justifyContent: 'center', // Center horizontally
-                    alignItems: 'center', // Center vertically
+                    justifyContent: 'center',
+                    alignItems: 'center',
                   }}
                 >
                   <IconButton
                     size="small"
                     sx={{
-                      color: '#007BFF', // Change color of the icon button
+                      color: '#007BFF',
                     }}
                   >
                     <Iconify width={20} icon="solar:copy-bold" />
                   </IconButton>
                   <Typography
                     sx={{
-                      color: '#007BFF', // Change color of the text
-                      fontSize: '14px', // Set font size to 12
-                      fontWeight: '400', // Set font weight to medium
+                      color: '#007BFF',
+                      fontSize: '14px',
+                      fontWeight: '400',
                     }}
                   >
-                    Coupan Code
+                    Coupon Code
                   </Typography>
                 </Box>
               </Box>
@@ -154,23 +160,23 @@ export default function ChatBox({
                 <Box
                   sx={{
                     display: 'flex',
-                    justifyContent: 'center', // Center horizontally
-                    alignItems: 'center', // Center vertically
+                    justifyContent: 'center',
+                    alignItems: 'center',
                   }}
                 >
                   <IconButton
                     size="small"
                     sx={{
-                      color: '#007BFF', // Change color of the icon button
+                      color: '#007BFF',
                     }}
                   >
                     <Iconify width={20} icon="icon-park-outline:share" />
                   </IconButton>
                   <Typography
                     sx={{
-                      color: '#007BFF', // Change color of the text
-                      fontSize: '14px', // Set font size to 12
-                      fontWeight: '400', // Set font weight to medium
+                      color: '#007BFF',
+                      fontSize: '14px',
+                      fontWeight: '400',
                     }}
                   >
                     Visit Now
