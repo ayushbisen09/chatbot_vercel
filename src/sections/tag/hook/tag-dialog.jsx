@@ -114,6 +114,7 @@ export function TagDialog({ open, onClose }) {
               ),
             }}
           />
+          
           <Box sx={{ mt: 2, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
             <Typography variant="h7" sx={{ fontSize: '14px', fontWeight: '600' }}>
               Customer Journey
@@ -156,57 +157,59 @@ export function TagDialog({ open, onClose }) {
               />
             </Box>
           </Box>
-         <Autocomplete
-            multiple
-            freeSolo
-            options={[]}
-            value={tags}
-            onChange={(event, newValue) => setTags(newValue)}
-            inputValue={tagInput}
-            onInputChange={(event, newInputValue) => {
-              setTagInput(newInputValue);
-            }}
-            onKeyDown={(event) => {
-              if (event.key === 'Enter' && tagInput.trim()) {
-                setTags([...tags, tagInput.trim()]);
-                setTagInput('');
-                event.preventDefault();
-              }
-            }}
-            renderTags={(value, getTagProps) =>
-              value.map((option, index) => (
-                <Chip
-                  variant="soft"
-                  color="info"
-                  size="small"
-                  label={option}
-                  {...getTagProps({ index })}
-                />
-              ))
-            }
-            renderInput={(params) => (
-              <TextField
-                onClick={handleAddTag}
-                {...params}
-                variant="outlined"
-                size="large"
-                helperText="Enter opt-out keywords"
-                placeholder="+ Enter Keywords"
-                InputProps={{
-                  ...params.InputProps,
-                  endAdornment: <InputAdornment position="Start" />,
-                }}
-                sx={{
-                  '& .MuiAutocomplete-inputRoot': {
-                    minHeight: 'auto',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'start',
-                  },
-                }}
-              />
-            )}
-          />
+          {firstMessage && (
+  <Autocomplete
+    multiple
+    freeSolo
+    options={[]}
+    value={tags}
+    onChange={(event, newValue) => setTags(newValue)}
+    inputValue={tagInput}
+    onInputChange={(event, newInputValue) => {
+      setTagInput(newInputValue);
+    }}
+    onKeyDown={(event) => {
+      if (event.key === 'Enter' && tagInput.trim()) {
+        setTags([...tags, tagInput.trim()]);
+        setTagInput('');
+        event.preventDefault();
+      }
+    }}
+    renderTags={(value, getTagProps) =>
+      value.map((option, index) => (
+        <Chip
+          variant="soft"
+          color="info"
+          size="small"
+          label={option}
+          {...getTagProps({ index })}
+        />
+      ))
+    }
+    renderInput={(params) => (
+      <TextField
+        onClick={handleAddTag}
+        {...params}
+        variant="outlined"
+        size="large"
+        helperText="Enter opt-out keywords"
+        placeholder="+ Enter Keywords"
+        InputProps={{
+          ...params.InputProps,
+          endAdornment: <InputAdornment position="start" />,
+        }}
+        sx={{
+          '& .MuiAutocomplete-inputRoot': {
+            minHeight: 'auto',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'start',
+          },
+        }}
+      />
+    )}
+  />
+)}
         </DialogContent>
 
         <DialogActions>

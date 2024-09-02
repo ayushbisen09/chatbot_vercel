@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import { useTheme } from '@mui/material/styles'; // Corrected import
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -7,14 +9,15 @@ import MenuItem from '@mui/material/MenuItem';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
-import { Divider, Tooltip,Checkbox } from '@mui/material';
+import { Alert, Button, Divider, Tooltip, Checkbox, Snackbar } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
+import { ConfirmDialog } from 'src/components/custom-dialog';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
-// import { ConfirmDialog } from '../custom-dialog';
+
 const flowNames = [
   'send_offer_message_on_whatsapp',
   'process_customer_inquiry',
@@ -34,12 +37,17 @@ const secondaryNames = [
 ];
 
 export function FlowBuilderTableRow({ row, selected, onSelectRow, flowIndex }) {
+  const [flowToDelete, setFlowToDelete] = useState(null);
+  const [snackbarOpen, setSnackbarOpen] = useState(false); // State for Snackbar
+  const theme = useTheme(); // Corrected theme import
+
   const getRandomDate = () => {
-    const start = new Date(2024, 0, 1); // Start date (Jan 1, 2023)
+    const start = new Date(2024, 0, 1); // Start date (Jan 1, 2024)
     const end = new Date(); // Current date
     const randomTimestamp = start.getTime() + Math.random() * (end.getTime() - start.getTime());
     return new Date(randomTimestamp);
   };
+
   const formatDate = (date) => {
     const optionsDate = { month: 'short', day: 'numeric', year: 'numeric' };
     const optionsTime = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
@@ -49,12 +57,24 @@ export function FlowBuilderTableRow({ row, selected, onSelectRow, flowIndex }) {
     };
   };
 
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbarOpen(false);
+  };
+
   const randomDate = getRandomDate();
   const formattedDate = formatDate(randomDate);
 
   const confirm = useBoolean();
-
   const popover = usePopover();
+
+  const handleDelete = () => {
+    console.log(`Deleting flow: ${flowToDelete}`);
+    confirm.onFalse();
+    setSnackbarOpen(true); // Set Snackbar to open on delete
+  };
 
   const renderPrimary = (
     <TableRow hover selected={selected}>
@@ -74,14 +94,13 @@ export function FlowBuilderTableRow({ row, selected, onSelectRow, flowIndex }) {
               alignItems: 'flex-start',
             }}
           >
-
-<Tooltip title="Flow name" arrow placement="top">
-            <Box component="span">{flowNames[flowIndex % flowNames.length]}</Box>
+            <Tooltip title="Flow name" arrow placement="top">
+              <Box component="span">{flowNames[flowIndex % flowNames.length]}</Box>
             </Tooltip>
             <Tooltip title="Created by agent names." arrow placement="top">
-            <Box component="span" sx={{ color: 'text.disabled' }}>
-              {secondaryNames[flowIndex % secondaryNames.length]}
-            </Box>
+              <Box component="span" sx={{ color: 'text.disabled' }}>
+                {secondaryNames[flowIndex % secondaryNames.length]}
+              </Box>
             </Tooltip>
           </Stack>
         </Stack>
@@ -96,18 +115,16 @@ export function FlowBuilderTableRow({ row, selected, onSelectRow, flowIndex }) {
             }}
           >
             <Tooltip title="Date when flow is created by agent" arrow placement="top">
-            <Box component="span">{formattedDate.date}</Box>
+              <Box component="span">{formattedDate.date}</Box>
             </Tooltip>
-            <Tooltip title="Time  when flow is created by agent" arrow placement="top">
-            <Box component="span" sx={{ color: 'text.disabled' }}>
-              {formattedDate.time}
-            </Box>
+            <Tooltip title="Time when flow is created by agent" arrow placement="top">
+              <Box component="span" sx={{ color: 'text.disabled' }}>
+                {formattedDate.time}
+              </Box>
             </Tooltip>
           </Stack>
         </Stack>
       </TableCell>
-
-     
       <TableCell width={592}>
         {row.status === 'active' ? (
           <Tooltip title="This flow is currently active" arrow placement="top">
@@ -127,15 +144,13 @@ export function FlowBuilderTableRow({ row, selected, onSelectRow, flowIndex }) {
           </Label>
         )}
       </TableCell>
-      
       <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
-      <Tooltip title="Actions" arrow placement="top">
-        <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
-          <Iconify icon="eva:more-vertical-fill" />
-        </IconButton>
+        <Tooltip title="Actions" arrow placement="top">
+          <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
+            <Iconify icon="eva:more-vertical-fill" />
+          </IconButton>
         </Tooltip>
       </TableCell>
-      
     </TableRow>
   );
 
@@ -150,46 +165,71 @@ export function FlowBuilderTableRow({ row, selected, onSelectRow, flowIndex }) {
         slotProps={{ arrow: { placement: 'right-top' } }}
       >
         <MenuList>
-        <Tooltip title="Clear here to clone the flow" arrow placement="left">
-          <MenuItem sx={{ color: '' }}>
-            <Iconify icon="solar:copy-bold" />
-            Clone Flow
-          </MenuItem>
-        </Tooltip>
-        <Tooltip title="Clear here to edit the flow" arrow placement="left">
-          <MenuItem sx={{ color: '' }}>
-            <Iconify icon="solar:pen-bold" />
-            Edit Flow
-          </MenuItem>
+          <Tooltip title="Click here to clone the flow" arrow placement="left">
+            <MenuItem>
+              <Iconify icon="solar:copy-bold" />
+              Clone Flow
+            </MenuItem>
           </Tooltip>
-
+          <Tooltip title="Click here to edit the flow" arrow placement="left">
+            <MenuItem>
+              <Iconify icon="solar:pen-bold" />
+              Edit Flow
+            </MenuItem>
+          </Tooltip>
           <Divider style={{ borderStyle: 'dashed' }} />
-          <Tooltip title="Clear here to delete the flow" arrow placement="left">
-          <MenuItem
-            onClick={() => {
-              confirm.onTrue();
-              popover.onClose();
-            }}
-            sx={{ color: 'error.main' }}
-          >
-            <Iconify icon="solar:trash-bin-trash-bold" />
-            Delete Flow
-          </MenuItem>
+          <Tooltip title="Click here to delete the flow" arrow placement="left">
+            <MenuItem
+              onClick={() => {
+                setFlowToDelete(flowNames[flowIndex % flowNames.length]);
+                confirm.onTrue();
+                popover.onClose();
+              }}
+              sx={{ color: 'error.main' }}
+            >
+              <Iconify icon="solar:trash-bin-trash-bold" />
+              Delete Flow
+            </MenuItem>
           </Tooltip>
         </MenuList>
       </CustomPopover>
 
-      {/* <ConfirmDialog
+      <ConfirmDialog
         open={confirm.value}
         onClose={confirm.onFalse}
         title="Delete"
-        content="Are you sure want to remove this contact?"
+        content={`Are you sure you want to delete the flow "${flowToDelete}"?`}
         action={
-          <Button variant="contained" color="error" onClick={onDeleteRow}>
+          <Button variant="contained" color="error" onClick={handleDelete}>
             Delete
           </Button>
         }
-      /> */}
+      />
+
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={10000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        sx={{
+          boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+        }}
+        
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity="success"
+          sx={{
+            width: '100%',
+            fontSize: '14px',
+            fontWeight: 'bold',
+            backgroundColor: theme.palette.background.paper,
+            color: theme.palette.text.primary,
+          }}
+        >
+          WhatsApp Number Added Successfully!
+        </Alert>
+      </Snackbar>
     </>
   );
 }
