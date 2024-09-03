@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 
 import { Box, Tab, Card, Tabs, Switch, Button, Typography, CardContent } from '@mui/material';
 
+import { useBoolean } from 'src/hooks/use-boolean';
+
 import { Iconify } from 'src/components/iconify';
+
+import { FallbackAndIntentDialog } from '../../hook/fallback-&-intent-dialog';
 
 const Sidebar = () => {
   const [tabValue, setTabValue] = useState(0); // 0 for Messages, 1 for Actions
@@ -10,6 +14,7 @@ const Sidebar = () => {
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
   };
+  const dialog = useBoolean();
 
   // Define card data for each tab
   const messagesCardData = [
@@ -62,7 +67,8 @@ const Sidebar = () => {
 
         <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 2 }}>
           <Typography sx={{ fontSize: '14px', fontWeight: '500' }}>Set Flow</Typography>
-          <Button variant="outlined" color="primary">Fallback & Intents</Button>
+          <Button variant="outlined" color="primary" onClick={dialog.onTrue}>Fallback & Intents</Button>
+          <FallbackAndIntentDialog open={dialog.value} onClose={dialog.onFalse} />
         </Box>
 
         <Box display="flex" alignItems="center" justifyContent="space-between">

@@ -26,7 +26,7 @@ export default function RegularMessage() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [currency, setCurrency] = useState('text');
+  const [messagetype, setmessagetype] = useState('text');
   const [isFileUploaded, setIsFileUploaded] = useState(false);
   const [file, setFile] = useState(null); // To store uploaded file
   const [chatBoxImage, setChatBoxImage] = useState(''); // State for the image based on the selected type
@@ -54,7 +54,7 @@ export default function RegularMessage() {
     setMessage(event.target.value);
   };
 
-  const CURRENCIES = [
+  const MESSAGETYPE = [
     { value: 'text', label: 'Text' },
     { value: 'image', label: 'Image' },
     { value: 'file', label: 'File' },
@@ -62,9 +62,9 @@ export default function RegularMessage() {
     { value: 'audio', label: 'Audio' },
   ];
 
-  const handleChangeCurrency = useCallback((event) => {
+  const handleChangemessagetype = useCallback((event) => {
     const selectedType = event.target.value;
-    setCurrency(selectedType);
+    setmessagetype(selectedType);
     if (selectedType === 'file' || selectedType === 'audio' || selectedType === 'video') {
       setMessage('');}
     
@@ -106,15 +106,15 @@ export default function RegularMessage() {
             <Tooltip title="Click here to select regular message type" arrow placement="top">
               <TextField
                 sx={{ mb: 3 }}
-                id="select-currency-label-x"
+                id="select-messagetype-label-x"
                 select
                 fullWidth
                 label="Select Regular Message Type"
-                value={currency}
-                onChange={handleChangeCurrency}
+                value={messagetype}
+                onChange={handleChangemessagetype}
                 helperText="Select one from your WhatsApp approved template messages"
               >
-                {CURRENCIES.map((option) => (
+                {MESSAGETYPE.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
                     {option.label}
                   </MenuItem>
@@ -123,7 +123,7 @@ export default function RegularMessage() {
             </Tooltip>
 
             {/* Conditional rendering based on selected type */}
-            {currency === 'text' && (
+            {messagetype === 'text' && (
               <Tooltip title="Enter message here" arrow placement="top">
                 <TextField
                   rows={4}
@@ -136,7 +136,7 @@ export default function RegularMessage() {
               </Tooltip>
             )}
 
-            {(currency === 'image' || currency === 'video') && (
+            {(messagetype === 'image' || messagetype === 'video') && (
               <>
                 <Tooltip title="Enter caption here" arrow placement="top">
                   <TextField
@@ -224,7 +224,7 @@ export default function RegularMessage() {
               </>
             )}
 
-            {(currency === 'file' || currency === 'audio') && (
+            {(messagetype === 'file' || messagetype === 'audio') && (
               <>
                 <TextField
                   sx={{ mt: 0 }}

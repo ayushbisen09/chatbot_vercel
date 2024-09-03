@@ -115,7 +115,7 @@ export function Tagtable() {
           value={filters.name}
           onChange={handleFilterName}
           placeholder="Search by name..."
-          sx={{ width: '91%' }}
+          sx={{ width: '100%' }}
           InputProps={{
             startAdornment: (
               <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled', mr: 1 }} />

@@ -5,6 +5,25 @@ import VideoPlayListCards from 'src/components/video-play-list-card/video-playli
 // ----------------------------------------------------------------------
 
 export function VideoPlayList({ title, list, ...other }) {
+  const videoData = [
+    { title: 'How to use Pabbly Chatflow', videoId: 'CoIfgN0tfhE', time: '07 Min 23 Sec' },
+    { title: 'Video 2', videoId: 'CoIfgN0tfhE', time: '07 Min 23 Sec' },
+    { title: 'Video 3', videoId: 'your-youtube-video-id', time: '07 Min 23 Sec' },
+    { title: 'Video 4', videoId: 'your-youtube-video-id', time: '07 Min 23 Sec' },
+    { title: 'Video 5', videoId: 'your-youtube-video-id', time: '07 Min 23 Sec' },
+    { title: 'Video 6', videoId: 'your-youtube-video-id', time: '07 Min 23 Sec' },
+    { title: 'Video 7', videoId: 'your-youtube-video-id', time: '07 Min 23 Sec' },
+    { title: 'Video 8', videoId: 'your-youtube-video-id', time: '07 Min 23 Sec' },
+    { title: 'Video 9', videoId: 'your-youtube-video-id', time: '07 Min 23 Sec' },
+    { title: 'Video 10', videoId: 'your-youtube-video-id', time: '07 Min 23 Sec' },
+    { title: 'Video 11', videoId: 'your-youtube-video-id', time: '07 Min 23 Sec' },
+    { title: 'Video 12', videoId: 'your-youtube-video-id', time: '07 Min 23 Sec' },
+    { title: 'Video 13', videoId: 'your-youtube-video-id', time: '07 Min 23 Sec' },
+    { title: 'Video 14', videoId: 'your-youtube-video-id', time: '07 Min 23 Sec' },
+    { title: 'Video 15', videoId: 'your-youtube-video-id', time: '07 Min 23 Sec' },
+    { title: 'Video 16', videoId: 'your-youtube-video-id', time: '07 Min 23 Sec' },
+  ];
+
   return (
     <Box
       sx={{
@@ -13,122 +32,18 @@ export function VideoPlayList({ title, list, ...other }) {
         display: 'grid',
         gridTemplateColumns: { xs: 'repeat(1, 1fr)', md: 'repeat(4, 1fr)' },
       }}
+      {...other}
     >
-      <VideoPlayListCards
-        Videotitle="How to use Pabbly Chatflow"
-        buttonText="Watch Now"
-        thumbnailimage="Pabbly Broadcast Card.png"
-        videoId="CoIfgN0tfhE"
-        videoTime="07 Min 23 Sec"
-      />
-      <VideoPlayListCards
-        Videotitle="Video 2"
-        buttonText="Watch Now"
-        thumbnailimage="Pabbly Broadcast Card.png"
-        videoId="CoIfgN0tfhE"
-        videoTime="07 Min 23 Sec"
-        
-      />
-      <VideoPlayListCards
-        Videotitle="Video 3"
-        buttonText="Watch Now"
-        thumbnailimage="Pabbly Broadcast Card.png"
-        videoId="your-youtube-video-id"
-        videoTime="07 Min 23 Sec"
-      />
-      <VideoPlayListCards
-        Videotitle="Video 4"
-        buttonText="Watch Now"
-        thumbnailimage="Pabbly Broadcast Card.png"
-        videoId="your-youtube-video-id"
-        videoTime="07 Min 23 Sec"
-      />
-      <VideoPlayListCards
-        Videotitle="Video 5"
-        buttonText="Watch Now"
-        thumbnailimage="Pabbly Broadcast Card.png"
-        videoId="your-youtube-video-id"
-        videoTime="07 Min 23 Sec"
-      />
-      <VideoPlayListCards
-        Videotitle="Video 6"
-        buttonText="Watch Now"
-        thumbnailimage="Pabbly Broadcast Card.png"
-        videoId="your-youtube-video-id"
-        videoTime="07 Min 23 Sec"
-      />
-      <VideoPlayListCards
-        Videotitle="Video 7"
-        buttonText="Watch Now"
-        thumbnailimage="Pabbly Broadcast Card.png"
-        videoId="your-youtube-video-id"
-        videoTime="07 Min 23 Sec"
-      />
-      <VideoPlayListCards
-        Videotitle="Video 8"
-        buttonText="Watch Now"
-        thumbnailimage="Pabbly Broadcast Card.png"
-        videoId="your-youtube-video-id"
-        videoTime="07 Min 23 Sec"
-      />
-      <VideoPlayListCards
-        Videotitle="Video 9"
-        buttonText="Watch Now"
-        thumbnailimage="Pabbly Broadcast Card.png"
-        videoId="your-youtube-video-id"
-        videoTime="07 Min 23 Sec"
-      />
-      <VideoPlayListCards
-        Videotitle="Video 10"
-        buttonText="Watch Now"
-        thumbnailimage="Pabbly Broadcast Card.png"
-        videoId="your-youtube-video-id"
-        videoTime="07 Min 23 Sec"
-      />
-      <VideoPlayListCards
-        Videotitle="Video 11"
-        buttonText="Watch Now"
-        thumbnailimage="Pabbly Broadcast Card.png"
-        videoId="your-youtube-video-id"
-        videoTime="07 Min 23 Sec"
-      />
-      <VideoPlayListCards
-        Videotitle="Video 12"
-        buttonText="Watch Now"
-        thumbnailimage="Pabbly Broadcast Card.png"
-        videoId="your-youtube-video-id"
-        videoTime="07 Min 23 Sec"
-      />
-      <VideoPlayListCards
-        Videotitle="Video 13"
-        buttonText="Watch Now"
-        thumbnailimage="Pabbly Broadcast Card.png"
-        videoId="your-youtube-video-id"
-        videoTime="07 Min 23 Sec"
-      />
-      <VideoPlayListCards
-        Videotitle="Video 14"
-        buttonText="Watch Now"
-        thumbnailimage="Pabbly Broadcast Card.png"
-        videoId="your-youtube-video-id"
-        videoTime="07 Min 23 Sec"
-      />
-      <VideoPlayListCards
-        Videotitle="Video 15"
-        buttonText="Watch Now"
-        thumbnailimage="Pabbly Broadcast Card.png"
-        videoId="your-youtube-video-id"
-        videoTime="07 Min 23 Sec"
-      />
-      <VideoPlayListCards
-        Videotitle="Video 16"
-        buttonText="Watch Now"
-        thumbnailimage="Pabbly Broadcast Card.png"
-        videoId="your-youtube-video-id"
-        videoTime="07 Min 23 Sec"
-      />
-      
+      {videoData.map((video, index) => (
+        <VideoPlayListCards
+          key={index}
+          Videotitle={video.title}
+          buttonText="Watch Now"
+          thumbnailimage="Pabbly Broadcast Card.png"
+          videoId={video.videoId}
+          videoTime={video.time}
+        />
+      ))}
     </Box>
-    
   );
 }

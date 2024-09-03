@@ -5,10 +5,13 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import {
   Box,
   Card,
+  Alert,
   Avatar,
+  Button,
   Divider,
   Tooltip,
   MenuItem,
+  Snackbar,
   TextField,
   CardHeader,
   Typography,
@@ -21,161 +24,261 @@ import FileUpload from 'src/components/upload/upload';
 export default function RegularMessage() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [messageType, setMessageType] = useState('text');
+  const [file, setFile] = useState(null); 
+  const [chatBoxImage, setChatBoxImage] = useState(''); 
+  const [message, setMessage] = useState('Thank you for opting-out. In the future, if you ever want to connect again just send "Hello".');
 
-  const CURRENCIES = [
-    { value: 'USD', label: '$' },
-    { value: 'EUR', label: '€' },
-    { value: 'BTC', label: '฿' },
-    { value: 'JPY', label: '¥' },
+  const handleAdd = () => {
+    setSnackbarOpen(true);
+    setTimeout(() => {}, 500);
+  };
+
+  const handleSnackbarClose = (event, reason) => {
+    if (reason !== 'clickaway') {
+      setSnackbarOpen(false);
+    }
+  };
+
+  const handleMessageChange = (event) => {
+    setMessage(event.target.value);
+  };
+
+  const MESSAGETYPES = [
+    { value: 'text', label: 'Text' },
+    { value: 'image', label: 'Image' },
+    { value: 'file', label: 'File' },
+    { value: 'video', label: 'Video' },
+    { value: 'audio', label: 'Audio' },
   ];
 
-  const [currency, setCurrency] = useState('EUR');
+  const handleChangeMessageType = useCallback((event) => {
+    const selectedType = event.target.value;
+    setMessageType(selectedType);
 
-  const handleChangeCurrency = useCallback((event) => {
-    setCurrency(event.target.value);
+    if (['file', 'audio', 'video'].includes(selectedType)) {
+      setMessage('');
+    }
+
+    const images = {
+      text: '',
+      image: '../../assets/images/chatImage/imagechat.png',
+      video: '../../assets/images/chatImage/video.png',
+      file: '../../assets/images/chatImage/document.png',
+      audio: '../../assets/images/chatImage/audio.png',
+    };
+
+    setChatBoxImage(images[selectedType] || '../../assets/images/chatImage/default.png');
   }, []);
 
-  const [isFileUploaded, setIsFileUploaded] = useState(false);
-
-  const handleFileUpload = (file) => {
+  const handleFileUpload = () => {
     if (file) {
-      setIsFileUploaded(true);
+      setFile(file);
     }
   };
 
   return (
-    <Box sx={{ mt: '24px' }}>
-      <Box display="flex" flexDirection={isMobile ? 'column' : 'row'} width="100%">
-        <Box width={isMobile ? '100%' : '100%'} pr={isMobile ? 0 : '12px'}>
-        <Tooltip title="Click here to select regular message type" arrow placement="top">
-          <TextField
-            sx={{ mb: '24px' }}
-            id="select-currency-label-x"
-            select
-            fullWidth
-            label="Select Regular Message Type"
-            onChange={handleChangeCurrency}
-            helperText="Select one from your WhatsApp approved template messages"
-          >
-            {CURRENCIES.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-          </Tooltip>
-          <Tooltip title="Enter message here" arrow placement="top">
-          <TextField rows={4} fullWidth multiline label="Enter message here." />
-          </Tooltip>
-          <Divider sx={{ mt: '24px', borderStyle: 'dashed' }} />
-          <TextField
-            sx={{ mt: '24px' }}
-            fullWidth
-            type="text"
-            margin="dense"
-            variant="outlined"
-            label="Header File URL"
-            helperText="Size < 5MB, Accepted formats : .png or .jpeg"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <Tooltip
-                    title="Enter header url"
-                    arrow
-                    placement="top"
-                    sx={{
-                      fontSize: '16px',
-                    }}
-                  >
-                    <Iconify
-                      icon="material-symbols:info-outline"
-                      style={{ width: 20, height: 20 }}
-                    />
-                  </Tooltip>
-                </InputAdornment>
-              ),
-            }}
-          />
-          <Typography
-            sx={{
-              fontSize: '14px',
-              fontWeight: '600',
-              width: '100%',
-              padding: '24px 0px 24px 0px',
-              mr: 0,
-              ml: 0,
-            }}
-          >
-            OR
-          </Typography>
-
-          <FileUpload onFileUpload={handleFileUpload} />
-          {/* <Button sx={{ mt: '24px' }} variant='contained'> Save </Button> */}
-        </Box>
-        <Tooltip title="Regular message type preview" arrow placement="top">
-
-        <Box
-          width={isMobile ? '100%' : '40%'}
-          sx={{ pl: isMobile ? 0 : '12px', mt: isMobile ? '24px' : 0 }}
-        >
-          <Card
-            sx={{
-              border: '1px solid #919EAB33',
-              width: '100%',
-              maxWidth: '500px',
-            }}
-          >
-            <CardHeader
-              sx={{ mb: 2 }}
-              avatar={<Avatar aria-label="profile picture">MC</Avatar>}
-              title={
-                <Typography variant="h7" sx={{ fontSize: 14, fontWeight: '700' }}>
-                  Mireya Conner
-                </Typography>
-              }
-              subheader={
-                <Typography variant="subtitle2" sx={{ fontSize: 12, fontWeight: '400' }}>
-                  Online
-                </Typography>
-              }
-            />
-            <Divider />
-            <Typography
-              variant="caption"
-              sx={{
-                pr: 2,
-                pt: 3,
-                display: 'flex',
-                color: '#919EAB',
-                justifyContent: 'end',
-              }}
-            >
-              4:02 PM
-            </Typography>
-            <Box
-              sx={{
-                p: 2,
-                backgroundColor: '#CCF4FE',
-                borderRadius: '8px',
-                m: 2,
-              }}
-            >
-              <Typography
-                variant="body2"
-                color="text.primary"
-                sx={{ fontSize: 14, fontWeight: '500' }}
+    <>
+      <Box sx={{ mt: 3 }}>
+        <Box display="flex" flexDirection={isMobile ? 'column' : 'row'} width="100%">
+          <Box width={isMobile ? '100%' : '100%'} pr={isMobile ? 0 : 2}>
+            <Tooltip title="Select regular message type" arrow placement="top">
+              <TextField
+                sx={{ mb: 3 }}
+                select
+                fullWidth
+                label="Select Regular Message Type"
+                value={messageType}
+                onChange={handleChangeMessageType}
+                helperText="Select one from your WhatsApp approved template messages"
               >
-                Hey,
-                <br />
-                {
-                  ' Thank you for opting-out. In future if you ever want to connect again just send "Hello". '
-                }
-              </Typography>
+                {MESSAGETYPES.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Tooltip>
+
+            {messageType === 'text' && (
+              <Tooltip title="Enter your message" arrow placement="top">
+                <TextField
+                  rows={4}
+                  fullWidth
+                  multiline
+                  label="Message"
+                  value={message}
+                  onChange={handleMessageChange}
+                />
+              </Tooltip>
+            )}
+
+            {(messageType === 'image' || messageType === 'video') && (
+              <>
+                <Tooltip title="Enter caption" arrow placement="top">
+                  <TextField
+                    sx={{ mb: 3 }}
+                    fullWidth
+                    label="Caption"
+                    value={message}
+                    onChange={handleMessageChange}
+                    helperText="You are allowed a maximum of 4096 characters."
+                  />
+                </Tooltip>
+
+                <TextField
+                  sx={{ mb: 3 }}
+                  fullWidth
+                  type="text"
+                  margin="dense"
+                  variant="outlined"
+                  label="Header File URL"
+                  helperText="Size < 5MB, Accepted formats: .png, .jpeg"
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <Tooltip title="Enter header URL" arrow placement="top">
+                          <Iconify icon="material-symbols:info-outline" style={{ width: 20, height: 20 }} />
+                        </Tooltip>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+
+                <Typography sx={{ textAlign: 'center', fontWeight: 600, py: 3 }}>OR</Typography>
+
+                <FileUpload onFileUpload={handleFileUpload} />
+
+                <TextField
+                  sx={{ mt: 3 }}
+                  fullWidth
+                  type="text"
+                  margin="dense"
+                  variant="outlined"
+                  label="File Name"
+                  helperText="Display name of media file, visible on download."
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <Tooltip title="Enter the name of media file, visible on download" arrow placement="top">
+                          <Iconify icon="material-symbols:info-outline" style={{ width: 20, height: 20 }} />
+                        </Tooltip>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </>
+            )}
+
+            {(messageType === 'file' || messageType === 'audio') && (
+              <>
+                <TextField
+                  sx={{ mb: 3 }}
+                  fullWidth
+                  type="text"
+                  margin="dense"
+                  variant="outlined"
+                  label="Header File URL"
+                  helperText="Size < 5MB, Accepted formats: .png, .jpeg"
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <Tooltip title="Enter header URL" arrow placement="top">
+                          <Iconify icon="material-symbols:info-outline" style={{ width: 20, height: 20 }} />
+                        </Tooltip>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+
+                <Typography sx={{ textAlign: 'center', fontWeight: 600, py: 3 }}>OR</Typography>
+
+                <FileUpload onFileUpload={handleFileUpload} />
+
+                <TextField
+                  sx={{ mt: 3 }}
+                  fullWidth
+                  type="text"
+                  margin="dense"
+                  variant="outlined"
+                  label="File Name"
+                  helperText="Display name of media file, visible on download."
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <Tooltip title="Enter the name of media file, visible on download" arrow placement="top">
+                          <Iconify icon="material-symbols:info-outline" style={{ width: 20, height: 20 }} />
+                        </Tooltip>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </>
+            )}
+          </Box>
+
+          <Tooltip title="Regular message preview" arrow placement="top">
+            <Box width={isMobile ? '100%' : '40%'} sx={{ pl: isMobile ? 0 : 2, mt: isMobile ? 3 : 0 }}>
+              <Card sx={{ border: '1px solid #919EAB33', width: '391.77px' }}>
+                <CardHeader
+                  sx={{ mb: 2 }}
+                  avatar={<Avatar aria-label="profile picture">MC</Avatar>}
+                  title={
+                    <Typography variant="h6" sx={{ fontSize: 14, fontWeight: 700 }}>
+                      Mireya Conner
+                    </Typography>
+                  }
+                  subheader={
+                    <Typography variant="subtitle2" sx={{ fontSize: 12, fontWeight: 400 }}>
+                      Online
+                    </Typography>
+                  }
+                />
+                <Divider />
+                <Typography
+                  variant="caption"
+                  sx={{ pr: 2, pt: 3, display: 'flex', color: '#919EAB', justifyContent: 'flex-end' }}
+                >
+                  4:02 PM
+                </Typography>
+                <Box sx={{ p: 2, backgroundColor: '#CCF4FE', borderRadius: 1, m: 2 }}>
+                  {chatBoxImage && (
+                    <Box sx={{ mb: 2 }}>
+                      <img src={chatBoxImage} alt="Chat Preview" style={{ width: '100%', borderRadius: 8 }} />
+                    </Box>
+                  )}
+                  <Typography variant="body2" sx={{ fontSize: 14, fontWeight: 500 }}>
+                    {message}
+                  </Typography>
+                </Box>
+              </Card>
             </Box>
-          </Card>
+          </Tooltip>
         </Box>
+
+        <Tooltip title="Save regular message type" arrow placement="top">
+          <Button sx={{ mt: 3 }} variant="contained" onClick={handleAdd}>
+            Save
+          </Button>
         </Tooltip>
       </Box>
-    </Box>
+
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        sx={{ boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)' }}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity="success"
+          sx={{ boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)' }}
+        >
+          Regular message type has been saved successfully!
+        </Alert>
+      </Snackbar>
+    </>
   );
 }

@@ -24,7 +24,7 @@ export default function ChatBox({
         sx={{ mb: 2 }}
         avatar={<Avatar aria-label="profile picture">MC</Avatar>}
         title={
-          <Typography variant="h7" sx={{ fontSize: 14, fontWeight: '700' }}>
+          <Typography variant="h6" sx={{ fontSize: 14, fontWeight: '700' }}>
             Mireya Conner
           </Typography>
         }
