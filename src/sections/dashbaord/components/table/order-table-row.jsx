@@ -44,6 +44,10 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
     setStatusToToggle(newStatus);
     confirmStatus.onTrue();
   };
+  const token = '4545656565slfkvdkxvzck44554z65X4c65xz4v6zx4vxzv65xz4v64z35v4zZFzsgfsdgsvzxvdf45645s4cfdsgvjhxlcfOIaPDJSIGJFDGPIDS5464646465468464';
+  const truncatedToken = truncateText(token, 100);
+  const bulletPoints = '•'.repeat(token.length);
+  const generateBulletPoints = (length) => '●'.repeat(length);
 
   const renderPrimary = (
     <TableRow hover selected={selected}>
@@ -176,33 +180,73 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
           sx={{ bgcolor: 'background.neutral' }}
         >
           <Paper sx={{ m: 1.5 }}>
-            <Stack
-              direction="row"
-              gap={2}
-              alignItems="center"
-              sx={{
-                p: (theme) => theme.spacing(1.5, 2, 1.5, 1.5),
-                '&:not(:last-of-type)': {
-                  borderBottom: (theme) => `solid 2px ${theme.vars.palette.background.neutral}`,
-                },
-              }}
-            >
-              <Tooltip title="Verification token of your WhatsApp Number: 4545656565slfkvdkxvzck44554z65X4c65xz4v6zx4vxzv65xz4v64z35v4zZFzsgfsdgsvzxvdf45645s4cfdsgvjhxlcfOIaPDJSIGJFDGPIDS5464646465468464." arrow placement="top">
-                <span>
-                <ListItemText
-  primary={`Access Token: ${
-    showToken ? truncateText('4545656565slfkvdkxvzck44554z65X4c65xz4v6zx4vxzv65xz4v64z35v4zZFzsgfsdgsvzxvdf45645s4cfdsgvjhxlcfOIaPDJSIGJFDGPIDS5464646465468464', 100) : '●●●●●●●●●'
-  }`}
-  primaryTypographyProps={{ typography: 'body2' }}
-/>
-                </span>
-              </Tooltip>
-              <Tooltip title="Click here to show/hide verification token." arrow placement="top">
-                <IconButton onClick={handleToggleToken}>
-                  <Iconify icon={showToken ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
-                </IconButton>
-              </Tooltip>
-            </Stack>
+          {/* <Stack
+  direction="row"
+  gap={2}
+  alignItems="center"
+  sx={{
+    p: (theme) => theme.spacing(1.5, 2, 1.5, 1.5),
+    '&:not(:last-of-type)': {
+      borderBottom: (theme) => `solid 2px ${theme.vars.palette.background.neutral}`,
+    },
+  }}
+>
+  {showToken ? (
+    <Tooltip
+      title="Verification token of your WhatsApp Number: 4545656565slfkvdkxvzck44554z65X4c65xz4v6zx4vxzv65xz4v64z35v4zZFzsgfsdgsvzxvdf45645s4cfdsgvjhxlcfOIaPDJSIGJFDGPIDS5464646465468464."
+      arrow
+      placement="top"
+    >
+      <span>
+        <ListItemText
+          primary={`Access Token: ${truncateText('4545656565slfkvdkxvzck44554z65X4c65xz4v6zx4vxzv65xz4v64z35v4zZFzsgfsdgsvzxvdf45645s4cfdsgvjhxlcfOIaPDJSIGJFDGPIDS5464646465468464', 100)}`}
+          primaryTypographyProps={{ typography: 'body2' }}
+        />
+      </span>
+    </Tooltip>
+  ) : (
+    <span>
+      <ListItemText
+        primary="Access Token:"
+        primaryTypographyProps={{ typography: 'body2' }}
+      />
+    </span>
+  )}
+
+  <Tooltip title="Click here to show/hide verification token." arrow placement="top">
+    <IconButton onClick={handleToggleToken}>
+      <Iconify icon={showToken ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
+    </IconButton>
+  </Tooltip>
+</Stack> */}
+<Stack
+      direction="row"
+      gap={2}
+      alignItems="center"
+      sx={{
+        p: (theme) => theme.spacing(1.5, 2, 1.5, 1.5),
+        '&:not(:last-of-type)': {
+          borderBottom: (theme) => `solid 2px ${theme.vars.palette.background.neutral}`,
+        },
+      }}
+    >
+      <Tooltip
+        title={showToken ? `Verification token of your WhatsApp Number: ${token}` : ''}
+        arrow
+        placement="top"
+      >
+        <Typography variant="body2">
+          Access Token: {showToken ? truncatedToken : generateBulletPoints(token.length)}
+        </Typography>
+      </Tooltip>
+
+      <Tooltip title="Click here to show/hide verification token." arrow placement="top">
+        <IconButton onClick={handleToggleToken}>
+          <Iconify icon={showToken ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
+        </IconButton>
+      </Tooltip>
+    </Stack>
+
 
             <Stack
               direction="row"
