@@ -34,7 +34,12 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
   const handleToggleToken = () => {
     setShowToken((prev) => !prev);
   };
-
+  const truncateText = (text, maxLength) => {
+    if (text.length > maxLength) {
+      return `${text.substring(0, maxLength)}...`;
+    }
+    return text;
+  };
   const handleStatusToggle = (newStatus) => {
     setStatusToToggle(newStatus);
     confirmStatus.onTrue();
@@ -182,12 +187,14 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                 },
               }}
             >
-              <Tooltip title="Verification token of your WhatsApp Number." arrow placement="top">
+              <Tooltip title="Verification token of your WhatsApp Number: 4545656565slfkvdkxvzck44554z65X4c65xz4v6zx4vxzv65xz4v64z35v4zZFzsgfsdgsvzxvdf45645s4cfdsgvjhxlcfOIaPDJSIGJFDGPIDS5464646465468464." arrow placement="top">
                 <span>
-                  <ListItemText
-                    primary={`Access Token: ${showToken ? '4545656565' : '●●●●●●●●●'}`}
-                    primaryTypographyProps={{ typography: 'body2' }}
-                  />
+                <ListItemText
+  primary={`Access Token: ${
+    showToken ? truncateText('4545656565slfkvdkxvzck44554z65X4c65xz4v6zx4vxzv65xz4v64z35v4zZFzsgfsdgsvzxvdf45645s4cfdsgvjhxlcfOIaPDJSIGJFDGPIDS5464646465468464', 100) : '●●●●●●●●●'
+  }`}
+  primaryTypographyProps={{ typography: 'body2' }}
+/>
                 </span>
               </Tooltip>
               <Tooltip title="Click here to show/hide verification token." arrow placement="top">

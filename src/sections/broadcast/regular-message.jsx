@@ -1,5 +1,4 @@
 import { useState, useCallback } from 'react';
-
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {
@@ -17,7 +16,6 @@ import {
   Typography,
   InputAdornment,
 } from '@mui/material';
-
 import { Iconify } from 'src/components/iconify';
 import FileUpload from 'src/components/upload/upload';
 
@@ -26,24 +24,11 @@ export default function RegularMessage() {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [messageType, setMessageType] = useState('text');
-  const [file, setFile] = useState(null); 
-  const [chatBoxImage, setChatBoxImage] = useState(''); 
-  const [message, setMessage] = useState('Thank you for opting-out. In the future, if you ever want to connect again just send "Hello".');
-
-  const handleAdd = () => {
-    setSnackbarOpen(true);
-    setTimeout(() => {}, 500);
-  };
-
-  const handleSnackbarClose = (event, reason) => {
-    if (reason !== 'clickaway') {
-      setSnackbarOpen(false);
-    }
-  };
-
-  const handleMessageChange = (event) => {
-    setMessage(event.target.value);
-  };
+  const [file, setFile] = useState(null);
+  const [chatBoxImage, setChatBoxImage] = useState('');
+  const [message, setMessage] = useState(
+    'Thank you for opting-out. In the future, if you ever want to connect again just send "Hello".'
+  );
 
   const MESSAGETYPES = [
     { value: 'text', label: 'Text' },
@@ -57,11 +42,7 @@ export default function RegularMessage() {
     const selectedType = event.target.value;
     setMessageType(selectedType);
 
-    if (['file', 'audio', 'video'].includes(selectedType)) {
-      setMessage('');
-    }
-
-    const images = {
+    const defaultImages = {
       text: '',
       image: '../../assets/images/chatImage/imagechat.png',
       video: '../../assets/images/chatImage/video.png',
@@ -69,20 +50,35 @@ export default function RegularMessage() {
       audio: '../../assets/images/chatImage/audio.png',
     };
 
-    setChatBoxImage(images[selectedType] || '../../assets/images/chatImage/default.png');
+    setChatBoxImage(defaultImages[selectedType] || defaultImages.text);
+    if (['file', 'audio', 'video'].includes(selectedType)) {
+      setMessage('');
+    }
   }, []);
 
-  const handleFileUpload = () => {
-    if (file) {
-      setFile(file);
-    }
+  const handleFileUpload = useCallback((uploadedFile) => {
+    setFile(uploadedFile);
+  }, []);
+
+  const handleAdd = () => {
+    setSnackbarOpen(true);
   };
+
+  const handleSnackbarClose = useCallback((event, reason) => {
+    if (reason !== 'clickaway') {
+      setSnackbarOpen(false);
+    }
+  }, []);
+
+  const handleMessageChange = useCallback((event) => {
+    setMessage(event.target.value);
+  }, []);
 
   return (
     <>
       <Box sx={{ mt: 3 }}>
         <Box display="flex" flexDirection={isMobile ? 'column' : 'row'} width="100%">
-          <Box width={isMobile ? '100%' : '100%'} pr={isMobile ? 0 : 2}>
+          <Box width="100%" pr={isMobile ? 0 : 2}>
             <Tooltip title="Select regular message type" arrow placement="top">
               <TextField
                 sx={{ mb: 3 }}
@@ -130,7 +126,6 @@ export default function RegularMessage() {
                 <TextField
                   sx={{ mb: 3 }}
                   fullWidth
-                  type="text"
                   margin="dense"
                   variant="outlined"
                   label="Header File URL"
@@ -153,7 +148,6 @@ export default function RegularMessage() {
                 <TextField
                   sx={{ mt: 3 }}
                   fullWidth
-                  type="text"
                   margin="dense"
                   variant="outlined"
                   label="File Name"
@@ -176,7 +170,6 @@ export default function RegularMessage() {
                 <TextField
                   sx={{ mb: 3 }}
                   fullWidth
-                  type="text"
                   margin="dense"
                   variant="outlined"
                   label="Header File URL"
@@ -199,7 +192,6 @@ export default function RegularMessage() {
                 <TextField
                   sx={{ mt: 3 }}
                   fullWidth
-                  type="text"
                   margin="dense"
                   variant="outlined"
                   label="File Name"
@@ -276,7 +268,7 @@ export default function RegularMessage() {
           severity="success"
           sx={{ boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)' }}
         >
-          Regular message type has been saved successfully!
+          Your template regular message is saved successfully.
         </Alert>
       </Snackbar>
     </>
