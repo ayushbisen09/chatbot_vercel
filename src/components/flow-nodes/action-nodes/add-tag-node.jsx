@@ -20,7 +20,7 @@ import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Iconify } from 'src/components/iconify';
 
-import { TagDialog } from 'src/sections/tag/hook/tag-dialog';
+import { AddTagDialog } from './hooks/dialogs/tag-dialog';
 
 export default function AddTagNode({
   sx,
@@ -169,7 +169,7 @@ export default function AddTagNode({
           >
             Create Tag
           </Button>
-          <TagDialog open={dialog.value} onClose={dialog.onFalse} />
+          <AddTagDialog open={dialog.value} onClose={dialog.onFalse} />
         </FormControl>
       </Card>
     </Card>
