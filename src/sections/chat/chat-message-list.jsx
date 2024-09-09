@@ -1,10 +1,12 @@
+import React, { useState } from 'react';
+
 import Stack from '@mui/material/Stack';
 import LinearProgress from '@mui/material/LinearProgress';
 import { Box, Divider, Typography, IconButton } from '@mui/material';
 
 import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
-import { Lightbox, useLightBox } from 'src/components/light-box';
+import { ImageModal } from 'src/components/lightbox-modal';
 
 import { ChatMessageItem } from './chat-message-item';
 import { useMessagesScroll } from './hooks/use-messages-scroll';
@@ -161,12 +163,22 @@ const CustomMessage = ({ text1, text2, text3, src }) => (
 
 export function ChatMessageList({ messages = [], participants, loading }) {
   const { messagesEndRef } = useMessagesScroll(messages);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalImage, setModalImage] = useState('');
 
   const slides = messages
     .filter((message) => message.contentType === 'image')
     .map((message) => ({ src: message.body }));
 
-  const lightbox = useLightBox(slides);
+  const handleOpenModal = (src) => {
+    setModalImage(src);
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setModalImage('');
+  };
 
   if (loading) {
     return (
@@ -194,7 +206,7 @@ export function ChatMessageList({ messages = [], participants, loading }) {
             key={message.id}
             message={message}
             participants={participants}
-            onOpenLightbox={() => lightbox.onOpen(message.body)}
+            onOpenLightbox={() => handleOpenModal(message.body)}
           />
         ))}
         <CustomMessage
@@ -210,11 +222,10 @@ export function ChatMessageList({ messages = [], participants, loading }) {
         />
       </Scrollbar>
 
-      <Lightbox
-        slides={slides}
-        open={lightbox.open}
-        close={lightbox.onClose}
-        index={lightbox.selected}
+      <ImageModal
+        open={modalOpen}
+        onClose={handleCloseModal}
+        src={modalImage}
       />
     </>
   );

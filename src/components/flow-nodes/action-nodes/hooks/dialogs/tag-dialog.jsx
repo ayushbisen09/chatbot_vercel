@@ -100,7 +100,7 @@ export function AddTagDialog({ open, onClose }) {
             label="Tag Name"
             helperText={
               <span>
-                Pick a tag that.{' '}
+                Pick a tag.{' '}
                 <RouterLink to="#" style={{ color: '#078DEE' }} underline="always">
                   Learn more
                 </RouterLink>
@@ -110,7 +110,7 @@ export function AddTagDialog({ open, onClose }) {
               endAdornment: (
                 <InputAdornment position="end">
                   <Tooltip
-                    title="Enter webhook name here."
+                    title="Enter tag name here ."
                     arrow
                     placement="top"
                     sx={{

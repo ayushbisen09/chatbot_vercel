@@ -63,12 +63,8 @@ export const dashboardRoutes = [
       { path: 'broadcast/addbroadcast', element: <AddBroadcast /> },
       { path: 'flows', element: <Flows /> },
       { path: 'flows/createflow', element: <CreateFlow /> },
-      { path: 'contact', element: <Contact /> },
-      { path: 'contact', element: <Contact /> },
-      { path: 'contact', element: <Contact /> },
-      { path: 'contact', element: <Contact /> },
       {
-        path: 'group',
+        path: 'settings',
         children: [
           { element: <OptInManagement />, index: true },
           { path: 'inboxsetting', element: <InboxSettings /> },

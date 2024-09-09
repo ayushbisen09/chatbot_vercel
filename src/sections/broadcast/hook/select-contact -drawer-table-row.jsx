@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { useDispatch } from 'react-redux';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -6,11 +8,13 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import { Button, Tooltip, IconButton } from '@mui/material';
 
+import { setExcludedArray, setIncludedArray } from 'src/redux/slices/contactSlice';
+
 import { Iconify } from 'src/components/iconify';
 
 export function SelectContactDrawerTableRow({ row, selected }) {
   const [state, setState] = useState('initial');
-
+  const dispatch=useDispatch();
   const handleCheckIconClick = (action) => {
     if (action === 'confirm') {
       setState('showButtons');
@@ -29,10 +33,12 @@ export function SelectContactDrawerTableRow({ row, selected }) {
 
   const handleCheckConfirm = () => {
     setState('included');
+    dispatch(setIncludedArray('Pabbly Connect List'));
   };
 
   const handleCloseConfirm = () => {
     setState('excluded');
+    dispatch(setExcludedArray('Pabbly Connect List'));
   };
 
   const handleCancel = () => {

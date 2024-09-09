@@ -44,6 +44,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
     setStatusToToggle(newStatus);
     confirmStatus.onTrue();
   };
+  
   const token = '4545656565slfkvdkxvzck44554z65X4c65xz4v6zx4vxzv65xz4v64z35v4zZFzsgfsdgsvzxvdf45645s4cfdsgvjhxlcfOIaPDJSIGJFDGPIDS5464646465468464';
   const truncatedToken = truncateText(token, 100);
   const bulletPoints = '•'.repeat(token.length);
@@ -231,7 +232,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
       }}
     >
       <Tooltip
-        title={showToken ? `Verification token of your WhatsApp Number: ${token}` : ''}
+        title={showToken ? `Access token of your WhatsApp Number: ${token}` : ''}
         arrow
         placement="top"
       >

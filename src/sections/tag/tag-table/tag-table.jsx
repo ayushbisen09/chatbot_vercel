@@ -4,8 +4,7 @@ import { useState, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import { useTheme } from '@mui/material/styles';
-import { Tab, Tabs, Table, Tooltip, TableBody, IconButton, useMediaQuery } from '@mui/material';
+import { Table, Tooltip, Divider, TableBody, IconButton, CardHeader } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
@@ -15,11 +14,8 @@ import { useSetState } from 'src/hooks/use-set-state';
 
 import { fIsAfter, fIsBetween } from 'src/utils/format-time';
 
-import { CONFIG } from 'src/config-global';
-import { varAlpha } from 'src/theme/styles';
 // import { _orders, ORDER_STATUS_OPTIONS } from 'src/_mock';
-
-import { _broadcast, BROADCAST_STATUS_OPTIONS } from 'src/_mock/_broadcast';
+import { _templates } from 'src/_mock';
 
 import { Label } from 'src/components/label';
 import { toast } from 'src/components/snackbar';
@@ -37,36 +33,36 @@ import {
   TablePaginationCustom,
 } from 'src/components/table';
 
-import { OrderTableRow } from './broadcast-table-row';
-import { OrderTableToolbar } from './broadcast-table-toolbar';
-import { OrderTableFiltersResult } from './broadcast-table-filters-result';
-
+import { TagTableRow } from './tag-table-row';
+import { TagTableFilter } from './tag-table-filter';
+import { TagTableToolbar } from './tag-table-toolbar';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Page one | Dashboard - ${CONFIG.site.name}` };
-const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...BROADCAST_STATUS_OPTIONS];
-
 const TABLE_HEAD = [
-  { id: 'broadcastname', label: 'Broadcast Name', width: 353, tooltip : "Broadcast name"},
-  { id: 'templateused', label: 'Template Used', width: 298 , tooltip : "Template used with the broadcast" },
-  { id: 'date', label: 'Date', width: 262 , tooltip : "Date and Time when broadcast is created" },
-  { id: 'status', label: 'Status', width: 515 , tooltip : "Broadcast status weather it is Live/Scheduled/Sent"},
-
-  { id: '', width: 88 },
+  { id: 'name', label: 'Name', width: 700 , tooltip: "Team member email "},
+  { id: 'tagassignwhen', label: 'Tag Assign When', width: 700, tooltip: "Shared date and time " },
+  { id: 'sharedon', label: 'Shared On', width: 200 },
+  { id: '', label: '', width: 100 },
 ];
 
-export default function BroadcastTable({ sx, icon, title, total, color = 'warning', ...other }) {
-  const theme = useTheme();
+export default function TagTable({
+  sx,
+  icon,
+  title,
+  total,
+  color = 'warning',
+  ...other
+}) {
+  // const theme = useTheme();
 
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const table = useTable({ defaultOrderBy: 'orderNumber' });
 
   const router = useRouter();
 
   const confirm = useBoolean();
 
-  const [tableData, setTableData] = useState(_broadcast);
+  const [tableData, setTableData] = useState(_templates);
 
   const filters = useSetState({
     name: '',
@@ -144,51 +140,27 @@ export default function BroadcastTable({ sx, icon, title, total, color = 'warnin
           mt: '24px',
         }}
       >
-        <Tabs
-          value={filters.state.status}
-          onChange={handleFilterStatus}
+        <CardHeader
+          title={
+            <Box sx={{ typography: 'subtitle2', fontSize: '18px', fontWeight: 600 }}>
+              WhatsApp Number access shared by you
+            </Box>
+          }
+          action={total && <Label color={color}>{total}</Label>}
           sx={{
-            px: 2.5,
-            boxShadow: (theme1) =>
-              `inset 0 -2px 0 0 ${varAlpha(theme1.vars.palette.grey['500Channel'], 0.08)}`,
+            p: 3,
           }}
-        >
-          {STATUS_OPTIONS.map((tab) => (
-            <Tab
-              key={tab.value}
-              iconPosition="end"
-              value={tab.value}
-              label={tab.label}
-              icon={
-                <Label
-                  variant={
-                    ((tab.value === 'all' || tab.value === filters.state.status) && 'filled') ||
-                    'soft'
-                  }
-                  color={
-                    (tab.value === 'live' && 'success') ||
-                    (tab.value === 'sent' && 'warning') ||
-                    (tab.value === 'scheduled' && 'info') ||
-                    'default'
-                  }
-                >
-                  {['live', 'sent', 'scheduled'].includes(tab.value)
-                    ? tableData.filter((user) => user.status === tab.value).length
-                    : tableData.length}
-                </Label>
-              }
-            />
-          ))}
-        </Tabs>
+        />
+        <Divider />
 
-        <OrderTableToolbar
+        <TagTableToolbar
           filters={filters}
           onResetPage={table.onResetPage}
           dateError={dateError}
         />
 
         {canReset && (
-          <OrderTableFiltersResult
+          <TagTableFilter
             filters={filters}
             totalResults={dataFiltered.length}
             onResetPage={table.onResetPage}
@@ -239,15 +211,15 @@ export default function BroadcastTable({ sx, icon, title, total, color = 'warnin
                     table.page * table.rowsPerPage,
                     table.page * table.rowsPerPage + table.rowsPerPage
                   )
-                  .map((row,index) => (
-                    <OrderTableRow
+                  .map((row , index) => (
+                    <TagTableRow
                       key={row.id}
                       row={row}
                       selected={table.selected.includes(row.id)}
                       onSelectRow={() => table.onSelectRow(row.id)}
                       onDeleteRow={() => handleDeleteRow(row.id)}
                       onViewRow={() => handleViewRow(row.id)}
-                      broadcastIndex={table.page * table.rowsPerPage + index}
+                      tagIndex={table.page * table.rowsPerPage + index}
                     />
                   ))}
 

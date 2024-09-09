@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -20,17 +20,37 @@ import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
 import { ConfirmDialog } from '../../hook/confirm-dialog';
 
-export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteRow }) {
+const templatename = [
+  'Classic Layout',
+  'Creative Portfolio',
+  'Elegant Presentation',
+  'Professional Report',
+  'Educational Content',
+  // Add more flow names as needed
+];
+
+const templatetype = [
+  'Manual Broadcast',
+  'API Broadcast',
+  'Scheduled Broadcast',
+  'Instant Broadcast',
+  // Add more flow names as needed
+];
+
+const broadcastname = [
+  'Weekly Digest',
+  'Special Announcement',
+  'Product Launch',
+  'Seasonal Campaign',
+  'New Feature Alert'
+  // Add more flow names as needed
+];
+
+
+export function OrderTableRow({ row, selected, onSelectRow, onDeleteRow ,broadcastIndex}) {
   const confirm = useBoolean();
   const collapse = useBoolean();
   const popover = usePopover();
-
-  const [showToken, setShowToken] = useState(false);
-
-  const handleToggleToken = () => {
-    setShowToken((prev) => !prev);
-  };
-
   const renderPrimary = (
     <TableRow hover selected={selected}>
       <TableCell padding="checkbox">
@@ -50,7 +70,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             }}
           >
             <Tooltip title="Broadcast name " arrow placement="top">
-            <Box component="span">Test1232</Box>
+            <Box component="span">{broadcastname[broadcastIndex % broadcastname.length]}</Box>
             </Tooltip>
           </Stack>
         </Stack>
@@ -66,12 +86,12 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             }}
           >
              <Tooltip title="Template name " arrow placement="top">
-            <Box component="span">send_offer_message_on_whatsapp</Box>
+            <Box component="span">{templatename[broadcastIndex % templatename.length]}</Box>
             </Tooltip>
             <Tooltip title="Template type " arrow placement="top">
 
             <Box component="span" sx={{ color: 'text.disabled' }}>
-              Manual Broadcast
+            {templatetype[broadcastIndex % templatetype.length]}
             </Box>
             </Tooltip>
           </Stack>
@@ -201,7 +221,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                 </Stack>
               </Box>
               </Tooltip>
-              <Box sx={{ p: '6px 24px 24px 24px' }}>
+              {/* <Box sx={{ p: '6px 24px 24px 24px' }}>
                 <Stack direction="row" spacing={1}>
                   <Button variant="outlined" color="primary" sx={{ textTransform: 'none' }}>
                     Add to Existing list
@@ -210,7 +230,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                     Add to New list
                   </Button>
                 </Stack>
-              </Box>
+              </Box> */}
             </Stack>
           </Paper>
         </Collapse>
@@ -232,14 +252,14 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
       >
         <MenuList>
           
-        <Tooltip title="Click here to edit broadcast" arrow placement="left">
+        {/* <Tooltip title="Click here to edit broadcast" arrow placement="left">
           <MenuItem sx={{ color: '' }}>
             <Iconify icon="solar:pen-bold" />
             Edit Broadcast
           </MenuItem>
-          </Tooltip>
+          </Tooltip> */}
 
-          <Divider style={{ borderStyle: 'dashed' }} />
+          {/* <Divider style={{ borderStyle: 'dashed' }} /> */}
           <Tooltip title="Click here to detele the broadcast" arrow placement="left">
           <MenuItem
             onClick={() => {
@@ -259,7 +279,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
         open={confirm.value}
         onClose={confirm.onFalse}
         title="Delete"
-        content="Are you sure want to remove this contact?"
+        content="Are you sure want to remove this Broadcast?"
         action={
           <Button variant="contained" color="error" onClick={onDeleteRow}>
             Delete

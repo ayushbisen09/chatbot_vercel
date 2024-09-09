@@ -91,9 +91,9 @@ export default function ConnectFlowNode({
             label="Select Flow"
             onChange={handleFlowChange}
           >
-            <MenuItem value="Equal">User Attribute 1</MenuItem>
-            <MenuItem value="Exists">User Attribute 2</MenuItem>
-            <MenuItem value="Time In">User Attribute 3</MenuItem>
+            <MenuItem value="Equal">Connect Flow 1</MenuItem>
+            <MenuItem value="Exists">Connect Flow 2</MenuItem>
+            <MenuItem value="Time In">Connect Flow 3</MenuItem>
           </Select>
           <FormHelperText>Select your existing flow to connect.</FormHelperText>
         </FormControl>

@@ -7,12 +7,13 @@ import {
   Card,
   Stack,
   Select,
+  Tooltip,
   MenuItem,
   TextField,
   CardHeader,
   Typography,
   IconButton,
-  FormHelperText,
+  FormHelperText
 } from '@mui/material';
 
 import { Iconify } from 'src/components/iconify';
@@ -37,6 +38,15 @@ export default function AskQuestionNode({
   const handleAttributeChange = (event) => {
     setSelectedAttribute(event.target.value);
   };
+  const formatOptions = [
+    { value: 'any', label: 'Any', tooltip: 'Any format allowed' },
+    { value: 'text', label: 'Text', tooltip: 'Input should be text' },
+    { value: 'number', label: 'Number', tooltip: 'Input should be a number' },
+    { value: 'date', label: 'Date', tooltip: 'Input should be a date' },
+    { value: 'true/false', label: 'True/False', tooltip: 'Input should be true or false' },
+    { value: 'email', label: 'Email', tooltip: 'Input should be an email address' },
+    { value: 'regex', label: 'Regex', tooltip: 'Input should match a regular expression' }
+  ];
 
   return (
     <Card
@@ -117,24 +127,22 @@ export default function AskQuestionNode({
         </FormControl>
 
         <FormControl fullWidth size="large" sx={{ mb: 3 }}>
-          <InputLabel id="condition-select-label">Select Format</InputLabel>
-          <Select
-            labelId="condition-select-label"
-            id="condition-select"
-            value={selectedCondition}
-            label="Select Condition"
-            onChange={handleConditionChange}
-          >
-            <MenuItem value="any">Any</MenuItem>
-            <MenuItem value="text">Text</MenuItem>
-            <MenuItem value="number">Number</MenuItem>
-            <MenuItem value="date">Date</MenuItem>
-            <MenuItem value="true/false">True/False</MenuItem>
-            <MenuItem value="email">Email</MenuItem>
-            <MenuItem value="regex">Regex</MenuItem>
-          </Select>
-          <FormHelperText>Select format of the reply.</FormHelperText>
-        </FormControl>
+    <InputLabel id="Select Format">Select Format</InputLabel>
+    <Select
+      labelId="Select Format"
+      id="Select Format"
+      value={selectedCondition}
+      label="Select Format"
+      onChange={handleConditionChange}
+    >
+      {formatOptions.map(({ value, label, tooltip }) => (
+        <Tooltip key={value} title={tooltip} placement="left">
+          <MenuItem value={value}>{label}</MenuItem>
+        </Tooltip>
+      ))}
+    </Select>
+    <FormHelperText>Select format of the reply.</FormHelperText>
+  </FormControl>
 
         {/* Conditionally render fields based on selected condition */}
         {selectedCondition === 'text' && (

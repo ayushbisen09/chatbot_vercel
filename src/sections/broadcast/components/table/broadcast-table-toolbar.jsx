@@ -106,7 +106,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
               slotProps={{ textField: { fullWidth: false } }}
             />
           </LocalizationProvider>
-          <Tooltip title="click here to search by broadcast name or template name " arrow placement="top">
+          <Tooltip title="Click here to search by broadcast name or template name " arrow placement="top">
           <TextField
             sx={{ mr: '5px' }}
             fullWidth

@@ -14,18 +14,13 @@ import {
   Box,
   Alert,
   Switch,
-  Select,
   Divider,
   Tooltip,
   Snackbar,
-  MenuItem,
   TextField,
   Typography,
-  InputLabel,
-  FormControl,
   useMediaQuery,
   InputAdornment,
-  FormHelperText,
 } from '@mui/material';
 
 import { Iconify } from 'src/components/iconify';
@@ -102,7 +97,7 @@ export function TagDialog({ open, onClose }) {
             label="Tag Name"
             helperText={
               <span>
-                Pick a tag that.{' '}
+                Enter tag name here.{' '}
                 <RouterLink to="#" style={{ color: '#078DEE' }} underline="always">
                   Learn more
                 </RouterLink>
@@ -112,7 +107,7 @@ export function TagDialog({ open, onClose }) {
               endAdornment: (
                 <InputAdornment position="end">
                   <Tooltip
-                    title="Enter webhook name here."
+                    title="Enter tag name here."
                     arrow
                     placement="top"
                     sx={{
@@ -128,7 +123,7 @@ export function TagDialog({ open, onClose }) {
               ),
             }}
           />
-
+{/* 
           <FormControl fullWidth margin="dense" variant="outlined">
             <InputLabel>Category</InputLabel>
             <Select
@@ -149,9 +144,9 @@ export function TagDialog({ open, onClose }) {
                 </RouterLink>
               </span>
             </FormHelperText>
-          </FormControl>
+          </FormControl> */}
 
-          {category === 'new' && (
+          {/* {category === 'new' && (
             <TextField
               fullWidth
               type="text"
@@ -163,9 +158,9 @@ export function TagDialog({ open, onClose }) {
               placeholder="Enter new category name"
               helperText="Enter a name for your new category"
             />
-          )}
+          )} */}
 
-          <Typography variant="subtitle1" sx={{ fontSize: 14, fontWeight: 600, color: 'text.primary' }}>
+          {/* <Typography variant="subtitle1" sx={{ fontSize: 14, fontWeight: 600, color: 'text.primary' }}>
             Customer Journey
           </Typography>
           <Box>
@@ -184,12 +179,13 @@ export function TagDialog({ open, onClose }) {
                 </Typography>
               }
             />
-          </Box>
+          </Box> */}
 
           <Typography variant="subtitle1" sx={{ fontSize: 14, fontWeight: 600, color: 'text.primary' }}>
             First Message
           </Typography>
           <Box>
+            <Tooltip title="Click here to allows auto-tagging if users first message matches" arrow placement="left">
             <FormControlLabel
               sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
               control={
@@ -205,9 +201,11 @@ export function TagDialog({ open, onClose }) {
                 </Typography>
               }
             />
+            </Tooltip>
           </Box>
 
           {firstMessage && (
+            <Tooltip title="Add first messages as much as you want" arrow placement="right">
             <Autocomplete
               multiple
               freeSolo
@@ -240,12 +238,13 @@ export function TagDialog({ open, onClose }) {
                 <TextField
                   {...params}
                   variant="outlined"
-                  size="small"
-                  helperText="Enter opt-out keywords"
+                  size="medium"
+                  helperText="Allows auto-tagging if users first message matches"
                   placeholder="+ Enter Keywords"
                 />
               )}
             />
+            </Tooltip>
           )}
         </DialogContent>
 
@@ -253,9 +252,11 @@ export function TagDialog({ open, onClose }) {
           <Button onClick={onClose} variant="outlined" color="inherit">
             Cancel
           </Button>
+          <Tooltip title="Click here to add tag" arrow placement="top">
           <Button onClick={handleAdd} variant="contained">
             Add
           </Button>
+          </Tooltip>
         </DialogActions>
       </Dialog>
 

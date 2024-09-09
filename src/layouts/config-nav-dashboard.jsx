@@ -68,40 +68,29 @@ export const navData = [
           { title: 'Create Flow', path: paths.dashboard.flows.createflow },
         ],
       },
-    ],
-  },
-  /**
-   * Settings
-   */
-  {
-    items: [
       {
         title: 'Settings',
-        path: paths.dashboard.group.root,
+        path: paths.dashboard.settings.root,
         icon: ICONS.settings,
         children: [
-          { title: 'Opt-In Management', path: paths.dashboard.group.root },
-          { title: 'Inbox Settings', path: paths.dashboard.group.inboxsettings },
-          { title: 'User Attributes', path: paths.dashboard.group.userattributes },
-          { title: 'Tags', path: paths.dashboard.group.tags },
-          { title: 'Quick Replies', path: paths.dashboard.group.quickreplies },
-          { title: 'Team Members', path: paths.dashboard.group.teammembers },
-          { title: 'Chat Assignment Rules', path: paths.dashboard.group.chatassignmentrules },
-          { title: 'Configure SLAs', path: paths.dashboard.group.configureslas },
+          { title: 'Opt-In Management', path: paths.dashboard.settings.root },
+          { title: 'Inbox Settings', path: paths.dashboard.settings.inboxsettings },
+          { title: 'User Attributes', path: paths.dashboard.settings.userattributes },
+          { title: 'Tags', path: paths.dashboard.settings.tags },
+          { title: 'Quick Replies', path: paths.dashboard.settings.quickreplies },
+          { title: 'Team Members', path: paths.dashboard.settings.teammembers },
+          { title: 'Chat Assignment Rules', path: paths.dashboard.settings.chatassignmentrules },
+          { title: 'Configure SLAs', path: paths.dashboard.settings.configureslas },
           // { title: 'WhatsApp Widget', path: paths.dashboard.group.whatsAppwidget },
-          { title: 'API & Webhooks', path: paths.dashboard.group.apiwebhooks },
-          { title: 'Activity Log', path: paths.dashboard.group.activitylogs },
+          { title: 'API & Webhooks', path: paths.dashboard.settings.apiwebhooks },
+          { title: 'Activity Log', path: paths.dashboard.settings.activitylogs },
           {
             title: 'Notification Preferences',
-            path: paths.dashboard.group.notificationpreferences,
+            path: paths.dashboard.settings.notificationpreferences,
           },
-          { title: 'Time Zone', path: paths.dashboard.group.timezone },
+          { title: 'Time Zone', path: paths.dashboard.settings.timezone },
         ],
       },
-    ],
-  },
-  {
-    items: [
       {
         title: 'Get Help',
         path: paths.dashboard.gethelp,
