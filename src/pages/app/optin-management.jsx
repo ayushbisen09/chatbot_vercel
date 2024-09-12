@@ -119,7 +119,7 @@ export default function Page() {
                   variant="outlined"
                   size="large"
                   helperText="Enter opt-out keywords"
-                  placeholder="+ Add a tag"
+                  placeholder="+ Add a keyword"
                   InputProps={{
                     ...params.InputProps,
                     endAdornment: <InputAdornment position="Start" />,

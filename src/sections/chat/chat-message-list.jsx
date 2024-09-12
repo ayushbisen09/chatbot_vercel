@@ -12,6 +12,7 @@ import FileMessage from 'src/components/chat-messages/file-message/file-message'
 import MessageReply from 'src/components/chat-messages/reply-message/message-reply';
 import { ImageModal } from 'src/components/chat-messages/image-modal/lightbox-modal';
 import LocationCard from 'src/components/chat-messages/location-meesage/location-message';
+import ShareContact from 'src/components/chat-messages/contact-share/contact-share-message';
 
 import { ChatMessageItem } from './chat-message-item';
 import { useMessagesScroll } from './hooks/use-messages-scroll';
@@ -313,6 +314,19 @@ export function ChatMessageList({ messages = [], participants, loading }) {
             image="https://example.com/image.jpg" // Replace with your image URL
           />
           <HoverActions position="left" />
+        </Box>
+
+
+        <Box
+          sx={{
+            display: 'flex',
+            mt: 5,
+            position: 'relative',
+            '&:hover .hover-actions': { opacity: 1 },
+          }}
+        >
+          <ShareContact />
+          <HoverActions position="right" />
         </Box>
       </Scrollbar>
 

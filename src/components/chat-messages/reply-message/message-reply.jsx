@@ -20,7 +20,7 @@ export default function MessageReply() {
     >
       <Card
         sx={{
-          px:2,
+          px: 2,
           mb: 3,
           borderRadius: '8px',
           display: 'flex',
@@ -33,7 +33,6 @@ export default function MessageReply() {
         </IconButton>
       </Card>
       <Typography
-        
         sx={{
           fontSize: '16px',
           position: 'absolute',
@@ -44,13 +43,15 @@ export default function MessageReply() {
           border: '1px solid #E6E6E6',
           borderRadius: '20px',
           backgroundColor: '#FFFFFF',
-          p:0.1,
-
+          p: 0.1,
         }}
       >
         🙏
       </Typography>
-      I am good too. I just finished working on a new project at work. It’s been quite a challenge, but I’m excited about it.
+      <Typography sx={{ fontSize: '14px' }}>
+        I am good too. I just finished working on a new project at work. It’s been quite a
+        challenge, but I’m excited about it.
+      </Typography>
     </Box>
   );
 }

@@ -118,6 +118,24 @@ export default function APIRequestNode({
             helperText="API Request URL"
           />
         </FormControl>
+        <FormControl fullWidth size="large" sx={{ mb: 3 }}>
+          <TextField
+            helperText="JSON data to send."
+            variant="outlined"
+            fullWidth
+            multiline
+            rows={5}
+            defaultValue={`{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "age": 30
+}`}
+            InputProps={{
+              readOnly: true,
+            }}
+          />
+        </FormControl>
+
         <FormControl fullWidth>
           <Stack spacing={3}>
             {fields.map((item, index) => (
