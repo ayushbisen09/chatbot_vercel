@@ -6,13 +6,41 @@ import { Box, Divider, Typography, IconButton } from '@mui/material';
 
 import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
-import { ImageModal } from 'src/components/lightbox-modal';
+import VideoPlayer from 'src/components/chat-messages/video/video-message';
+import AudioPlayer from 'src/components/chat-messages/audio/audio-message';
+import FileMessage from 'src/components/chat-messages/file-message/file-message';
+import MessageReply from 'src/components/chat-messages/reply-message/message-reply';
+import { ImageModal } from 'src/components/chat-messages/image-modal/lightbox-modal';
+import LocationCard from 'src/components/chat-messages/location-meesage/location-message';
 
 import { ChatMessageItem } from './chat-message-item';
 import { useMessagesScroll } from './hooks/use-messages-scroll';
+import audio from '../../../public/assets/audios/new-instrumental.mp3';
+import vide from '../../../public/assets/videos/chat-videos/advertisement.mp4';
 
-// ----------------------------------------------------------------------
+// Updated HoverActions component with a 'position' prop
+const HoverActions = ({ position = 'left' }) => (
+  <Stack
+    direction="row"
+    className="hover-actions"
+    sx={{
+      [position]: 0,
+      mt: '4px',
+      mb: '8px',
+      opacity: 0,
+      top: '100%',
+      position: 'absolute',
+      transition: (theme) =>
+        theme.transitions.create(['opacity'], { duration: theme.transitions.duration.shorter }),
+    }}
+  >
+    <IconButton size="small">
+      <Iconify icon="solar:reply-bold" width={24} />
+    </IconButton>
+  </Stack>
+);
 
+// Updated CustomMessage component
 const CustomMessage = ({ text1, text2, text3, src }) => (
   <Box
     sx={{
@@ -20,6 +48,8 @@ const CustomMessage = ({ text1, text2, text3, src }) => (
       justifyContent: 'flex-end',
       width: '100%',
       my: 2,
+      position: 'relative',
+      '&:hover .hover-actions': { opacity: 1 },
     }}
   >
     <Box
@@ -48,7 +78,7 @@ const CustomMessage = ({ text1, text2, text3, src }) => (
           px: 2,
           py: 1,
           color: 'primary',
-          mb: 3, // 24px margin bottom
+          mb: 3,
         }}
       >
         {text1}
@@ -70,36 +100,32 @@ const CustomMessage = ({ text1, text2, text3, src }) => (
           px: 2,
           py: 1,
           color: 'primary',
-          mb: 3, // 24px margin bottom
+          mb: 3,
         }}
       >
         {text3}
       </Typography>
-      <Divider
-        sx={{
-          mb: 1,
-        }}
-      />
+      <Divider sx={{ mb: 1 }} />
       <Box
         sx={{
           display: 'flex',
-          justifyContent: 'center', // Center horizontally
-          alignItems: 'center', // Center vertically
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
         <IconButton
           size="small"
           sx={{
-            color: '#007BFF', // Change color of the icon button
+            color: '#007BFF',
           }}
         >
           <Iconify width={20} icon="material-symbols:call" />
         </IconButton>
         <Typography
           sx={{
-            color: '#007BFF', // Change color of the text
-            fontSize: '14px', // Set font size to 12
-            fontWeight: '400', // Set font weight to medium
+            color: '#007BFF',
+            fontSize: '14px',
+            fontWeight: '400',
           }}
         >
           Call Now
@@ -109,55 +135,56 @@ const CustomMessage = ({ text1, text2, text3, src }) => (
       <Box
         sx={{
           display: 'flex',
-          justifyContent: 'center', // Center horizontally
-          alignItems: 'center', // Center vertically
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
         <IconButton
           size="small"
           sx={{
-            color: '#007BFF', // Change color of the icon button
+            color: '#007BFF',
           }}
         >
           <Iconify width={20} icon="solar:copy-bold" />
         </IconButton>
         <Typography
           sx={{
-            color: '#007BFF', // Change color of the text
-            fontSize: '14px', // Set font size to 12
-            fontWeight: '400', // Set font weight to medium
+            color: '#007BFF',
+            fontSize: '14px',
+            fontWeight: '400',
           }}
         >
-          Coupan Code
+          Coupon Code
         </Typography>
       </Box>
       <Divider sx={{ mb: 1, mt: 1 }} />
       <Box
         sx={{
           display: 'flex',
-          justifyContent: 'center', // Center horizontally
-          alignItems: 'center', // Center vertically
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
         <IconButton
           size="small"
           sx={{
-            color: '#007BFF', // Change color of the icon button
+            color: '#007BFF',
           }}
         >
           <Iconify width={20} icon="icon-park-outline:share" />
         </IconButton>
         <Typography
           sx={{
-            color: '#007BFF', // Change color of the text
-            fontSize: '14px', // Set font size to 12
-            fontWeight: '400', // Set font weight to medium
+            color: '#007BFF',
+            fontSize: '14px',
+            fontWeight: '400',
           }}
         >
           Visit Now
         </Typography>
       </Box>
     </Box>
+    <HoverActions position="right" />
   </Box>
 );
 
@@ -209,24 +236,87 @@ export function ChatMessageList({ messages = [], participants, loading }) {
             onOpenLightbox={() => handleOpenModal(message.body)}
           />
         ))}
+
         <CustomMessage
           text1="Hi {{1}}! 🎧🛒"
           text2="Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌"
           text3={`Order Details: 
             Product: {{2}}
             Quantity: {{3}}
-             Order ID: {{4}}
-             Delivery Address: {{5}}
-             Estimated Delivery Date: {{6}}`}
-          src="/assets/images/chatImage/imagechat.png" // Replace with your custom avatar image path
+            Order ID: {{4}}
+            Delivery Address: {{5}}
+            Estimated Delivery Date: {{6}}`}
+          src="/assets/images/chatImage/imagechat.png"
         />
+
+        <Box
+          sx={{
+            mt: 5,
+            borderRadius: '8px',
+            position: 'relative',
+            '&:hover .hover-actions': { opacity: 1 },
+          }}
+        >
+          <VideoPlayer videoSrc={vide} />
+          <HoverActions />
+        </Box>
+
+        <Box
+          sx={{
+            mt: 5,
+            position: 'relative',
+            '&:hover .hover-actions': { opacity: 1 },
+          }}
+        >
+          <AudioPlayer audioSrc={audio} />
+          <HoverActions />
+        </Box>
+
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            mt: 5,
+            width: '100%',
+            position: 'relative',
+            '&:hover .hover-actions': { opacity: 1 },
+          }}
+        >
+          <FileMessage onButtonClick={() => alert('Button clicked!')} />
+          <HoverActions position="right" />
+        </Box>
+
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+
+            mt: 5,
+            position: 'relative',
+            '&:hover .hover-actions': { opacity: 1 },
+          }}
+        >
+          <MessageReply />
+          <HoverActions position="right" />
+        </Box>
+
+        <Box
+          sx={{
+            display: 'flex',
+            mt: 5,
+            position: 'relative',
+            '&:hover .hover-actions': { opacity: 1 },
+          }}
+        >
+          <LocationCard
+            location="New York City, NY"
+            image="https://example.com/image.jpg" // Replace with your image URL
+          />
+          <HoverActions position="left" />
+        </Box>
       </Scrollbar>
 
-      <ImageModal
-        open={modalOpen}
-        onClose={handleCloseModal}
-        src={modalImage}
-      />
+      <ImageModal open={modalOpen} onClose={handleCloseModal} src={modalImage} />
     </>
   );
 }

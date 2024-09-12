@@ -1,3 +1,5 @@
+import React from 'react';
+
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
@@ -12,8 +14,6 @@ import { useMockedUser } from 'src/auth/hooks';
 
 import { useMessage } from './hooks/use-message';
 
-// ----------------------------------------------------------------------
-
 export function ChatMessageItem({ message, participants, onOpenLightbox }) {
   const { user } = useMockedUser();
 
@@ -24,7 +24,6 @@ export function ChatMessageItem({ message, participants, onOpenLightbox }) {
   });
 
   const { firstName, avatarUrl } = senderDetails;
-
   const { body, createdAt } = message;
 
   const renderInfo = (
@@ -34,7 +33,6 @@ export function ChatMessageItem({ message, participants, onOpenLightbox }) {
       sx={{ mb: 1, color: 'text.disabled', ...(!me && { mr: 'auto' }) }}
     >
       {!me && `${firstName}, `}
-
       {fToNow(createdAt)}
     </Typography>
   );
@@ -90,15 +88,7 @@ export function ChatMessageItem({ message, participants, onOpenLightbox }) {
       }}
     >
       <IconButton size="small">
-        <Iconify icon="solar:reply-bold" width={16} />
-      </IconButton>
-
-      <IconButton size="small">
-        <Iconify icon="eva:smiling-face-fill" width={16} />
-      </IconButton>
-
-      <IconButton size="small">
-        <Iconify icon="solar:trash-bin-trash-bold" width={16} />
+        <Iconify icon="solar:reply-bold" width={24} />
       </IconButton>
     </Stack>
   );

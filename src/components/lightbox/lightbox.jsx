@@ -119,11 +119,10 @@ export function DisplayTotal({ totalItems, disableTotal }) {
       component="span"
       className="yarl__button"
       sx={{
-        position: 'fixed',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        zIndex: 1300, // Ensures it's above other elements
+        typography: 'body2',
+        alignItems: 'center',
+        display: 'inline-flex',
+        justifyContent: 'center',
       }}
     >
       <strong> {currentIndex + 1} </strong> / {totalItems}
