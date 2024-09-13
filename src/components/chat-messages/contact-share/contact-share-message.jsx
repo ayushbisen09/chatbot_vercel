@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Card, IconButton, Typography, Divider, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+
+import { Box, Accordion, Typography, AccordionSummary, AccordionDetails } from '@mui/material';
 
 import { Iconify } from 'src/components/iconify'; // Adjust your Iconify import as needed
 
@@ -10,8 +11,8 @@ export default function ShareContact() {
     <Box
       sx={{
         width: '320px',
-        p: 2,
-        backgroundColor: '#CCF4FE',
+        p: 1.5,
+        backgroundColor: '#F4F6F8',
         borderRadius: '8px',
       }}
     >
@@ -33,11 +34,11 @@ export default function ShareContact() {
           >
             🙏
           </Typography>
-          <Box>
-            <Typography>{contact}</Typography>
-          </Box>
+          <Box sx={{mb:2}}>
+            <Typography sx={{fontSize: '14px'}} > Contact Name: {contact}</Typography>
+          </Box> 
 
-         <Divider sx={{ my: 1 }} />
+         
         </React.Fragment>
       ))}
 
@@ -48,11 +49,11 @@ export default function ShareContact() {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography>More Details</Typography>
+          <Typography sx={{fontSize: '14px'}}>More Details</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            This is where you can add additional details or actions related to the contacts.
+          <Typography sx={{fontSize: '14px'}}>
+            Contact Number: XXX44524XX
           </Typography>
         </AccordionDetails>
       </Accordion>

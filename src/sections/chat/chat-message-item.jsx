@@ -74,21 +74,21 @@ export function ChatMessageItem({ message, participants, onOpenLightbox }) {
 
   const renderActions = (
     <Stack
-      direction="row"
       className="message-actions"
       sx={{
-        pt: 0.5,
-        left: 0,
+        mt: '4px',
+        mb: '8px',
         opacity: 0,
-        top: '100%',
-        position: 'absolute',
         transition: (theme) =>
           theme.transitions.create(['opacity'], { duration: theme.transitions.duration.shorter }),
-        ...(me && { right: 0, left: 'unset' }),
+        ...(me
+          ? {  order: -1 } // If the message is from the user, place actions on the left
+          : { }), // If the message is from others, place actions on the right
       }}
+      justifyContent="center"
     >
       <IconButton size="small">
-        <Iconify icon="solar:reply-bold" width={24} />
+        <Iconify icon="basil:reply-solid" width={24} />
       </IconButton>
     </Stack>
   );

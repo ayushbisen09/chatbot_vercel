@@ -13,6 +13,7 @@ import MessageReply from 'src/components/chat-messages/reply-message/message-rep
 import { ImageModal } from 'src/components/chat-messages/image-modal/lightbox-modal';
 import LocationCard from 'src/components/chat-messages/location-meesage/location-message';
 import ShareContact from 'src/components/chat-messages/contact-share/contact-share-message';
+import UnsupportedMessageType from 'src/components/chat-messages/unsupported-message/unsupported-message-type';
 
 import { ChatMessageItem } from './chat-message-item';
 import { useMessagesScroll } from './hooks/use-messages-scroll';
@@ -22,21 +23,19 @@ import vide from '../../../public/assets/videos/chat-videos/advertisement.mp4';
 // Updated HoverActions component with a 'position' prop
 const HoverActions = ({ position = 'left' }) => (
   <Stack
-    direction="row"
-    className="hover-actions"
+    className="message-actions"
     sx={{
       [position]: 0,
       mt: '4px',
       mb: '8px',
       opacity: 0,
-      top: '100%',
-      position: 'absolute',
       transition: (theme) =>
         theme.transitions.create(['opacity'], { duration: theme.transitions.duration.shorter }),
     }}
+    justifyContent="center"
   >
     <IconButton size="small">
-      <Iconify icon="solar:reply-bold" width={24} />
+      <Iconify icon="basil:reply-solid" width={24} />
     </IconButton>
   </Stack>
 );
@@ -50,9 +49,11 @@ const CustomMessage = ({ text1, text2, text3, src }) => (
       width: '100%',
       my: 2,
       position: 'relative',
-      '&:hover .hover-actions': { opacity: 1 },
+      '&:hover .message-actions': { opacity: 1 },
     }}
   >
+    <HoverActions />
+
     <Box
       sx={{
         bgcolor: '#ccf4fe',
@@ -185,7 +186,6 @@ const CustomMessage = ({ text1, text2, text3, src }) => (
         </Typography>
       </Box>
     </Box>
-    <HoverActions position="right" />
   </Box>
 );
 
@@ -252,10 +252,12 @@ export function ChatMessageList({ messages = [], participants, loading }) {
 
         <Box
           sx={{
+            display: 'flex',
+            justifyContent: 'flex-start',
+
             mt: 5,
-            borderRadius: '8px',
             position: 'relative',
-            '&:hover .hover-actions': { opacity: 1 },
+            '&:hover .message-actions': { opacity: 1 },
           }}
         >
           <VideoPlayer videoSrc={vide} />
@@ -264,9 +266,12 @@ export function ChatMessageList({ messages = [], participants, loading }) {
 
         <Box
           sx={{
+            display: 'flex',
+            justifyContent: 'flex-start',
+
             mt: 5,
             position: 'relative',
-            '&:hover .hover-actions': { opacity: 1 },
+            '&:hover .message-actions': { opacity: 1 },
           }}
         >
           <AudioPlayer audioSrc={audio} />
@@ -277,14 +282,26 @@ export function ChatMessageList({ messages = [], participants, loading }) {
           sx={{
             display: 'flex',
             justifyContent: 'flex-end',
+            alignItems: 'center', // Center the items vertically
             mt: 5,
             width: '100%',
             position: 'relative',
-            '&:hover .hover-actions': { opacity: 1 },
+            '&:hover .message-actions': { opacity: 1 },
           }}
         >
           <FileMessage onButtonClick={() => alert('Button clicked!')} />
-          <HoverActions position="right" />
+          <Box
+            className="message-actions" // Ensure the class name matches your CSS or style
+            sx={{
+              position: 'absolute', // Use absolute positioning
+              top: '20%', // Center vertically
+              right: '40%', // Center horizontally
+              // transform: 'translate(50%, -50%)', // Adjust position to truly center
+              justifyContent: 'center',
+            }}
+          >
+            <HoverActions position="right" />
+          </Box>
         </Box>
 
         <Box
@@ -294,11 +311,11 @@ export function ChatMessageList({ messages = [], participants, loading }) {
 
             mt: 5,
             position: 'relative',
-            '&:hover .hover-actions': { opacity: 1 },
+            '&:hover .message-actions': { opacity: 1 },
           }}
         >
+          <HoverActions />
           <MessageReply />
-          <HoverActions position="right" />
         </Box>
 
         <Box
@@ -306,7 +323,7 @@ export function ChatMessageList({ messages = [], participants, loading }) {
             display: 'flex',
             mt: 5,
             position: 'relative',
-            '&:hover .hover-actions': { opacity: 1 },
+            '&:hover .message-actions': { opacity: 1 },
           }}
         >
           <LocationCard
@@ -316,17 +333,27 @@ export function ChatMessageList({ messages = [], participants, loading }) {
           <HoverActions position="left" />
         </Box>
 
-
         <Box
           sx={{
             display: 'flex',
             mt: 5,
             position: 'relative',
-            '&:hover .hover-actions': { opacity: 1 },
+            '&:hover .message-actions': { opacity: 1 },
           }}
         >
           <ShareContact />
-          <HoverActions position="right" />
+          <HoverActions />
+        </Box>
+
+        <Box
+          sx={{
+            mt: 5,
+            display: 'flex',
+            justifyContent: 'center', // Centers horizontally
+            alignItems: 'center', // Centers vertically
+          }}
+        >
+          <UnsupportedMessageType />
         </Box>
       </Scrollbar>
 

@@ -17,7 +17,7 @@ export default function LocationCard() {
     <Box
       sx={{
         width: '320px',
-        p: 2,
+        p: 1.5,
         backgroundColor: '#F4F6F8',
         borderRadius: '8px',
       }}
@@ -35,10 +35,10 @@ export default function LocationCard() {
       </Box>
       {/* Display the dynamically extracted latitude and longitude values */}
       <Box >
-        <Box sx={{ mb: 1 }}>
+        <Box sx={{ mb: 1 , fontSize: '14px' }}>
           <div>Latitude: {latitude}</div>
         </Box>
-        <Box>
+        <Box sx={{fontSize: '14px'}}>
           <div>Longitude: {longitude}</div>
         </Box>
       </Box>

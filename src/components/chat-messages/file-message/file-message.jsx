@@ -47,7 +47,7 @@ const FileMessage = () => {
       sx={{
         width: '320px', // Correct property name for width
         backgroundColor: '#CCF4FE', // Background color
-        padding: 2, // Padding for better spacing
+        padding: 1.5, // Padding for better spacing
         borderRadius: '8px',
       }}
     >

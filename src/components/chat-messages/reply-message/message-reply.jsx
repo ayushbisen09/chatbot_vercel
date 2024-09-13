@@ -13,7 +13,7 @@ export default function MessageReply() {
     <Box
       sx={{
         width: '320px',
-        p: 2,
+        p: 1.5,
         backgroundColor: '#CCF4FE',
         borderRadius: '8px',
       }}

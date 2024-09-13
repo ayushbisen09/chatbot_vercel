@@ -281,12 +281,12 @@ const CaptureAttribute = () => {
         {fields.map((item, index) => (
           <Stack key={item.id} direction="row" spacing={2} alignItems="center">
             <FormControl fullWidth>
-                    <InputLabel id="condition-select-label">Select Attribute</InputLabel>
+                    <InputLabel id="Select Attribute">Select Attribute</InputLabel>
                     <Select
                       labelId="condition-select-label"
-                      id="condition-select"
+                      id="condition-select-label"
                       value={selectedFlow}
-                      label="Select Tag"
+                      label="Select Attribute"
                       onChange={handleFlowChange}
                     >
                       <MenuItem value="Equal">Tag 1</MenuItem>
@@ -301,7 +301,7 @@ const CaptureAttribute = () => {
                       labelId="condition-select-label"
                       id="condition-select"
                       value={selectedFlow}
-                      label="Select Tag"
+                      label="Select Attribute"
                       onChange={handleFlowChange}
                     >
                       <MenuItem value="Equal">Tag 1</MenuItem>

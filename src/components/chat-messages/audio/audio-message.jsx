@@ -37,7 +37,7 @@ const AudioPlayer = ({ audioSrc }) => {
       </Typography>
 
       {/* Audio Player */}
-      <audio ref={audioRef} src={audioSrc} controls style={{ width: '280px' }}>
+      <audio ref={audioRef} src={audioSrc} controls style={{ width: '320px' }}>
         <track kind="captions" />
         Your browser does not support the audio element.
       </audio>
