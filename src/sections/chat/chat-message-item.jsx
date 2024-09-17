@@ -16,7 +16,7 @@ import { useMessage } from './hooks/use-message';
 
 export function ChatMessageItem({ message, participants, onOpenLightbox }) {
   const { user } = useMockedUser();
-
+   console.log("message",message);
   const { me, senderDetails, hasImage } = useMessage({
     message,
     participants,
@@ -51,6 +51,7 @@ export function ChatMessageItem({ message, participants, onOpenLightbox }) {
       }}
     >
       {hasImage ? (
+        
         <Box
           component="img"
           alt="attachment"

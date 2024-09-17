@@ -52,6 +52,7 @@ export function ChatNavItem({ selected, collapse, conversation, onCloseMobile })
     }
   }, [conversation.id, mdUp, onCloseMobile, router]);
 
+
   const renderSingle = (
     <Badge key={status} variant={status} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
       <Avatar alt={name} src="/assets/images/chatavatar/Ayush.png" sx={{ width: 48, height: 48 }} />

@@ -1,11 +1,13 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { configureStore } from '@reduxjs/toolkit';
 
-import includedArrayReducer from './slices/contactSlice'; // Import the reducer
+import messageReplyReducer from './slices/messageReply';
+import includedArrayReducer from './slices/contactSlice'; // Import the new reducer
 
 const store = configureStore({
   reducer: {
-    includedArray: includedArrayReducer, // Add the slice reducer to the store
+    includedArray: includedArrayReducer,
+    messageReply: messageReplyReducer, // Add the messageReply slice reducer to the store
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

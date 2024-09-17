@@ -39,6 +39,7 @@ export function ChatView() {
     `${selectedConversationId}`
   );
 
+  console.log("conversation k andar ka message",conversation?.messages);
   const roomNav = useCollapseNav();
 
   const conversationsNav = useCollapseNav();

@@ -1,11 +1,21 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Box } from '@mui/material';
 
+import { setReplyText } from 'src/redux/slices/messageReply';
+
 const VideoPlayer = ({ videoSrc, captionsSrc }) => {
   const videoRef = useRef(null);
+  const dispatch=useDispatch();
+  const isVisible = useSelector(state=>state.messageReply.isVisible);
+
+  useEffect(()=>{
+    dispatch(setReplyText('video'));
+   },[isVisible,dispatch]);
 
   return (
+
     <Box sx={{ maxWidth: 320, borderRadius: '12px', overflow: 'hidden' }}>
       <video
         ref={videoRef}
@@ -23,6 +33,7 @@ const VideoPlayer = ({ videoSrc, captionsSrc }) => {
         Your browser does not support the video tag.
       </video>
     </Box>
+  
   );
 };
 

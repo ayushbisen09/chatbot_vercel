@@ -1,6 +1,7 @@
 import 'react-modal-video/scss/modal-video.scss';
 
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import { Box, Card, IconButton, Typography } from '@mui/material';
 
@@ -8,7 +9,8 @@ import { Iconify } from 'src/components/iconify';
 
 export default function MessageReply() {
   // Handlers for dialog open/close
-
+  const isVisible = useSelector(state=>state.messageReply.isVisible);
+  const replyText=" I am good too. I just finished working on a new project at work. It’s been quite a challenge, but I’m excited about it";
   return (
     <Box
       sx={{
@@ -49,8 +51,7 @@ export default function MessageReply() {
         🙏
       </Typography>
       <Typography sx={{ fontSize: '14px' }}>
-        I am good too. I just finished working on a new project at work. It’s been quite a
-        challenge, but I’m excited about it.
+       {replyText}
       </Typography>
     </Box>
   );

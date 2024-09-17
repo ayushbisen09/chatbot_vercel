@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import Chip from '@mui/material/Chip';
+import { Button } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 import Select from '@mui/material/Select';
@@ -35,10 +36,17 @@ export function ChatRoomSingle({ participant }) {
     `${CONFIG.site.basePath}/assets/images/chatavatar/Ayush.png`
   );
 
-  // Separate state for each dropdown
   const [chatOwner, setChatOwner] = useState('');
   const [incomingStatus, setIncomingStatus] = useState('');
   const [userStatus, setUserStatus] = useState('');
+
+  // New state for user attributes
+  const [userAttributes, setUserAttributes] = useState({
+    email: 'xyz@gmail.com',
+    city: 'Bhopal',
+    orderId: '#87887656'
+  });
+  const [isEditing, setIsEditing] = useState(false);
 
   const handlePriorityChange = (event) => {
     setPriority(event.target.value);
@@ -80,6 +88,19 @@ export function ChatRoomSingle({ participant }) {
 
   const handleUserStatusChange = (event) => {
     setUserStatus(event.target.value);
+  };
+
+  // New function to handle editing user attributes
+  const handleEditUserAttributes = () => {
+    setIsEditing(!isEditing);
+  };
+
+  // New function to handle changes in user attributes
+  const handleUserAttributeChange = (attribute, value) => {
+    setUserAttributes(prev => ({
+      ...prev,
+      [attribute]: value
+    }));
   };
 
   const renderInfo = (
@@ -132,16 +153,51 @@ export function ChatRoomSingle({ participant }) {
   const renderAdditionalInfo = (
     <Stack spacing={1} sx={{ px: 2, py: 2.5 }}>
       <Stack>
-        <Typography sx={{ fontSize: '14px', fontWeight: 'regular' }}>Email</Typography>
+        <Button 
+          variant='outlined' 
+          color='inherit' 
+          size='small' 
+          sx={{width:32 ,mb: 1}}
+          onClick={handleEditUserAttributes}
+        >
+          {isEditing ? 'Save' : 'Edit'}
+        </Button>
+      </Stack>
+      {['email', 'city', 'orderId'].map((attribute) => (
+        <Stack key={attribute}>
+          <Typography sx={{ fontSize: '14px', fontWeight: 'regular' }}>
+            {attribute.charAt(0).toUpperCase() + attribute.slice(1)}
+          </Typography>
+          {isEditing ? (
+            <TextField
+              size="small"
+              value={userAttributes[attribute]}
+              onChange={(e) => handleUserAttributeChange(attribute, e.target.value)}
+              sx={{ fontSize: '12px' }}
+            />
+          ) : (
+            <Typography sx={{ fontSize: '12px', fontWeight: 'regular', color: 'text.secondary' }}>
+              {userAttributes[attribute]}
+            </Typography>
+          )}
+        </Stack>
+      ))}
+    </Stack>
+  );
+
+  const rendergeneraldetails = (
+    <Stack spacing={1} sx={{ px: 2, py: 2.5 }}>
+      <Stack>
+        <Typography sx={{ fontSize: '14px', fontWeight: 'regular' }}>First Message</Typography>
         <Typography sx={{ fontSize: '12px', fontWeight: 'regular', color: 'text.secondary' }}>
-          xyz@gmail.com
+          01 Aug 2022 11:00 AM{' '}
         </Typography>
       </Stack>
 
       <Stack>
-        <Typography sx={{ fontSize: '14px', fontWeight: 'regular' }}>City</Typography>
+        <Typography sx={{ fontSize: '14px', fontWeight: 'regular' }}>24 Hours Status</Typography>
         <Typography sx={{ fontSize: '12px', fontWeight: 'regular', color: 'text.secondary' }}>
-          Bhopal
+          Active
         </Typography>
       </Stack>
 
@@ -223,12 +279,8 @@ export function ChatRoomSingle({ participant }) {
               InputProps={{
                 ...params.InputProps,
                 endAdornment: (
-                  <InputAdornment position="start">
-                    {/* <IconButton size="medium">
-                      <AddIcon style={{ fontSize: 16 }} />
-                    </IconButton> */}
-                    {/* <Typography sx={{ fontSize: 12 }}>Add a tag</Typography> */}
-                  </InputAdornment>
+                  <InputAdornment position="start"/>
+                 
                 ),
               }}
               sx={{
@@ -242,31 +294,6 @@ export function ChatRoomSingle({ participant }) {
             />
           )}
         />
-      </Stack>
-    </Stack>
-  );
-
-  const rendergeneraldetails = (
-    <Stack spacing={1} sx={{ px: 2, py: 2.5 }}>
-      <Stack>
-        <Typography sx={{ fontSize: '14px', fontWeight: 'regular' }}>First Message</Typography>
-        <Typography sx={{ fontSize: '12px', fontWeight: 'regular', color: 'text.secondary' }}>
-          01 Aug 2022 11:00 AM{' '}
-        </Typography>
-      </Stack>
-
-      <Stack>
-        <Typography sx={{ fontSize: '14px', fontWeight: 'regular' }}>24 Hours Status</Typography>
-        <Typography sx={{ fontSize: '12px', fontWeight: 'regular', color: 'text.secondary' }}>
-          Active
-        </Typography>
-      </Stack>
-
-      <Stack>
-        <Typography sx={{ fontSize: '14px', fontWeight: 'regular' }}>Order ID</Typography>
-        <Typography sx={{ fontSize: '12px', fontWeight: 'regular', color: 'text.secondary' }}>
-          #87887656
-        </Typography>
       </Stack>
       <Stack>
         <Typography sx={{ fontSize: '14px', fontWeight: 'regular', mb: '10px' }}>

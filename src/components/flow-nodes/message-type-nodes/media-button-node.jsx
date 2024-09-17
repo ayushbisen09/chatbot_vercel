@@ -118,7 +118,7 @@ export default function MediaButtonNode({ sx, ...other }) {
       {...other}
     >
       <CardHeader
-        title={<Typography variant="h6">Text Buttons</Typography>}
+        title={<Typography variant="h6">Media Button</Typography>}
         action={
           <Box sx={{ display: 'flex' }}>
             <IconButton>
