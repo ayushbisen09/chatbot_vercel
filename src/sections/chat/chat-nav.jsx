@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from 'react';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Drawer from '@mui/material/Drawer';
+import { Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
@@ -16,27 +17,27 @@ import { useResponsive } from 'src/hooks/use-responsive';
 
 import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
+import { useBoolean } from 'src/hooks/use-boolean';
 
 import { ToggleButton } from './styles';
 import { ChatNavItem } from './chat-nav-item';
 import { ChatNavAccount } from './chat-nav-account';
 import { ChatNavItemSkeleton } from './chat-skeleton';
 import { ChatNavSearchResults } from './chat-nav-search-results';
+import { ChatFilterDialog } from './hooks/chat-filter-dialog';
 
 // ----------------------------------------------------------------------
 
 const NAV_WIDTH = 320;
-
 const NAV_COLLAPSE_WIDTH = 96;
 
 // ----------------------------------------------------------------------
 
 export function ChatNav({ loading, contacts, conversations, collapseNav, selectedConversationId }) {
   const theme = useTheme();
-
   const router = useRouter();
-
   const mdUp = useResponsive('up', 'md');
+  const dialog = useBoolean();
 
   const {
     openMobile,
@@ -48,12 +49,33 @@ export function ChatNav({ loading, contacts, conversations, collapseNav, selecte
   } = collapseNav;
 
   const [searchContacts, setSearchContacts] = useState({ query: '', results: [] });
+  const [chatCount, setChatCount] = useState(0); // State to store chat count
+  const [visitedCount, setVisitedCount] = useState(0); // State to track visited chats
 
   useEffect(() => {
     if (!mdUp) {
       onCloseDesktop();
     }
   }, [onCloseDesktop, mdUp]);
+
+  useEffect(() => {
+    // Simulate API call to fetch chat count and visited count
+    const fetchChatData = async () => {
+      try {
+        // Assume this is an API call to get the chat count
+        const count = conversations.allIds.length;
+        setChatCount(count);
+
+        // Here, we'll mock the visited chat count (for example purposes)
+        const visited = Math.min(1, count); // This assumes you've visited at least 1 chat
+        setVisitedCount(visited);
+      } catch (error) {
+        console.error('Error fetching chat count:', error);
+      }
+    };
+
+    fetchChatData();
+  }, [conversations.allIds]); // Dependency array ensures it runs when the conversation list updates
 
   const handleToggleNav = useCallback(() => {
     if (mdUp) {
@@ -68,7 +90,6 @@ export function ChatNav({ loading, contacts, conversations, collapseNav, selecte
       onCloseMobile();
     }
     router.push(paths.dashboard.inbox);
-    // router.push(paths.dashboard.chat);
   }, [mdUp, onCloseMobile, router]);
 
   const handleSearchContacts = useCallback(
@@ -79,7 +100,6 @@ export function ChatNav({ loading, contacts, conversations, collapseNav, selecte
         const results = contacts.filter((contact) =>
           contact.name.toLowerCase().includes(inputValue)
         );
-
         setSearchContacts((prevState) => ({ ...prevState, results }));
       }
     },
@@ -93,7 +113,6 @@ export function ChatNav({ loading, contacts, conversations, collapseNav, selecte
   const handleClickResult = useCallback(
     (result) => {
       handleClickAwaySearch();
-
       router.push(`${paths.dashboard.inbox}?id=${result.id}`);
     },
     [handleClickAwaySearch, router]
@@ -103,16 +122,18 @@ export function ChatNav({ loading, contacts, conversations, collapseNav, selecte
 
   const renderList = (
     <nav>
-      <Box component="ul">
-        {conversations.allIds.map((conversationId) => (
-          <ChatNavItem
-            key={conversationId}
-            collapse={collapseDesktop}
-            conversation={conversations.byId[conversationId]}
-            selected={conversationId === selectedConversationId}
-            onCloseMobile={onCloseMobile}
-          />
-        ))}
+      <Box>
+        <Box>
+          {conversations.allIds.map((conversationId) => (
+            <ChatNavItem
+              key={conversationId}
+              collapse={collapseDesktop}
+              conversation={conversations.byId[conversationId]}
+              selected={conversationId === selectedConversationId}
+              onCloseMobile={onCloseMobile}
+            />
+          ))}
+        </Box>
       </Box>
     </nav>
   );
@@ -165,6 +186,11 @@ export function ChatNav({ loading, contacts, conversations, collapseNav, selecte
             <Iconify width={24} icon="solar:user-plus-bold" />
           </IconButton>
         )}
+
+        <IconButton onClick={dialog.onTrue} >
+          <Iconify width={24} icon="iconoir:filter-solid" />
+        </IconButton>
+        <ChatFilterDialog open={dialog.value} onClose={dialog.onFalse} />
       </Stack>
 
       <Box sx={{ p: 2.5, pt: 0 }}>{!collapseDesktop && renderSearchInput}</Box>
@@ -172,9 +198,48 @@ export function ChatNav({ loading, contacts, conversations, collapseNav, selecte
       {loading ? (
         renderLoading
       ) : (
-        <Scrollbar sx={{ pb: 1 }}>
-          {searchContacts.query && !!conversations.allIds.length ? renderListResults : renderList}
-        </Scrollbar>
+        <>
+          <Scrollbar>
+            {searchContacts.query && !!conversations.allIds.length ? renderListResults : renderList}
+          </Scrollbar>
+          <Box
+            sx={{
+              position: 'sticky',
+              bottom: 0,
+              backgroundColor: '#FFFFFF', // Ensure it has a background
+              padding: '12px', // Add some padding for better appearance
+              borderTop: '1px solid rgba(145, 158, 171, 0.2)',
+            }}
+          >
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row', // Display side by side
+                alignItems: 'center',
+                justifyContent: 'center',
+                textAlign: 'center',
+                gap: 1, // spacing between texts
+              }}
+            >
+              <Box
+                sx={{
+                  fontWeight: '400',
+                  fontSize: '14px',
+                  // color: '#919EAB', // using the MUI secondary color
+                  display: 'felx',
+                }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Typography sx={{ mr: 0.5 }}>{visitedCount}</Typography>
+                  <Typography sx={{ mr: 0.5 }}>-</Typography>
+                  <Typography sx={{ mr: 0.5 }}>{chatCount}</Typography>
+                  <Typography sx={{ mr: 0.5 }}>of</Typography>
+                  <Typography>{chatCount}</Typography>
+                </Box>
+              </Box>
+            </Box>
+          </Box>
+        </>
       )}
     </>
   );

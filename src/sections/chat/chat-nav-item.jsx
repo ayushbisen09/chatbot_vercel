@@ -1,5 +1,4 @@
 import { useCallback } from 'react';
-
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Badge from '@mui/material/Badge';
@@ -7,35 +6,23 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
-
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
-
 import { useResponsive } from 'src/hooks/use-responsive';
-
 import { fToNow } from 'src/utils/format-time';
-
 import { clickConversation } from 'src/actions/chat';
-
 import { useMockedUser } from 'src/auth/hooks';
-
 import { useNavItem } from './hooks/use-nav-item';
 
 // ----------------------------------------------------------------------
 
 export function ChatNavItem({ selected, collapse, conversation, onCloseMobile }) {
-  const names = ['John Doe', 'Jane Smith', 'Alex Johnson', 'Emily Brown'];
   const { user } = useMockedUser();
-
   const mdUp = useResponsive('up', 'md');
-
   const router = useRouter();
-
   const { group, displayName, displayText, participants, lastActivity, hasOnlineInGroup } =
     useNavItem({ conversation, currentUserId: `${user?.id}` });
-
   const singleParticipant = participants[0];
-
   const { name, avatarUrl, status } = singleParticipant;
 
   const handleClickConversation = useCallback(async () => {
@@ -43,18 +30,15 @@ export function ChatNavItem({ selected, collapse, conversation, onCloseMobile })
       if (!mdUp) {
         onCloseMobile();
       }
-
       await clickConversation(conversation.id);
-
       router.push(`${paths.dashboard.inbox}?id=${conversation.id}`);
     } catch (error) {
       console.error(error);
     }
   }, [conversation.id, mdUp, onCloseMobile, router]);
 
-
-  const renderSingle = (
-    <Badge key={status} variant={status} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+  const renderSingle = ( 
+    <Badge key={status} variant={status} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} sx={{ zIndex: -1 }}>
       <Avatar alt={name} src="/assets/images/chatavatar/Ayush.png" sx={{ width: 48, height: 48 }} />
     </Badge>
   );
@@ -73,7 +57,10 @@ export function ChatNavItem({ selected, collapse, conversation, onCloseMobile })
         <Badge
           color="error"
           overlap="circular"
-          badgeContent={collapse ? conversation.unreadCount : 0}
+          badgeContent={
+            !collapse && conversation.unreadCount ? conversation.unreadCount : undefined
+          }
+          sx={{ zIndex: -1 }}
         >
           {renderSingle}
         </Badge>
@@ -116,6 +103,7 @@ export function ChatNavItem({ selected, collapse, conversation, onCloseMobile })
           </>
         )}
       </ListItemButton>
+  
     </Box>
   );
 }

@@ -4,7 +4,6 @@ import { useTheme } from '@mui/material/styles';
 
 import { Scrollbar } from 'src/components/scrollbar';
 
-import { ChatRoomGroup } from './chat-room-group';
 import { ChatRoomSkeleton } from './chat-skeleton';
 import { ChatRoomSingle } from './chat-room-single';
 import { ChatRoomAttachments } from './chat-room-attachments';
@@ -20,8 +19,6 @@ export function ChatRoom({ collapseNav, participants, messages, loading }) {
 
   const { collapseDesktop, openMobile, onCloseMobile } = collapseNav;
 
-  const group = participants.length > 1;
-
   const attachments = messages.map((msg) => msg.attachments).flat(1) || [];
 
   const renderContent = loading ? (
@@ -29,11 +26,7 @@ export function ChatRoom({ collapseNav, participants, messages, loading }) {
   ) : (
     <Scrollbar>
       <div>
-        {group ? (
-          <ChatRoomGroup participants={participants} />
-        ) : (
-          <ChatRoomSingle participant={participants[0]} />
-        )}
+        <ChatRoomSingle participant={participants[0]} />
 
         <ChatRoomAttachments attachments={attachments} />
       </div>

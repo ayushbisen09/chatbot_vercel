@@ -16,8 +16,18 @@ import { useMessage } from 'src/sections/chat/hooks/use-message';
 
 
 export function  ImageMessage({ message, participants, onOpenLightbox }) {
+
+  // let defaultMessage = {
+  //   id: "a9174687-9684-4d2b-af4f-7388714f571a",
+  //   body: "https://api-dev-minimal-v6.vercel.app/assets/images/cover/cover-9.webp",
+  //   contentType: "image",
+  //   attachments: [],
+  //   createdAt: "2024-09-17T05:01:23+00:00",
+  //   senderId: "e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4",
+  // };
+
   const { user } = useMockedUser();
-console.log("image message k andar vala message",message);
+  console.log("image message k andar vala message",message);
   const { me, senderDetails, hasImage } = useMessage({
     message,
     participants,
