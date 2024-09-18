@@ -5,7 +5,14 @@ import Stack from '@mui/material/Stack';
 import LinearProgress from '@mui/material/LinearProgress';
 import { Box, Divider, Typography, IconButton } from '@mui/material';
 
-import { setImageUrlInReply, setImageVisibilityInReply, setIsVisible, setOriginalImageVisibility, setOriginalReplyText, setReplyText } from 'src/redux/slices/messageReply';
+import {
+  setIsVisible,
+  setReplyText,
+  setImageUrlInReply,
+  setOriginalReplyText,
+  setImageVisibilityInReply,
+  setOriginalImageVisibility,
+} from 'src/redux/slices/messageReply';
 
 import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
@@ -13,8 +20,8 @@ import VideoPlayer from 'src/components/chat-messages/video/video-message';
 import AudioPlayer from 'src/components/chat-messages/audio/audio-message';
 import FileMessage from 'src/components/chat-messages/file-message/file-message';
 import MessageReply from 'src/components/chat-messages/reply-message/message-reply';
-import { ImageMessage } from 'src/components/chat-messages/image-message/image-message';
 import { ImageModal } from 'src/components/chat-messages/image-modal/lightbox-modal';
+import { ImageMessage } from 'src/components/chat-messages/image-message/image-message';
 import LocationCard from 'src/components/chat-messages/location-meesage/location-message';
 import ShareContact from 'src/components/chat-messages/contact-share/contact-share-message';
 import UnsupportedMessageType from 'src/components/chat-messages/unsupported-message/unsupported-message-type';
@@ -24,23 +31,17 @@ import { useMessagesScroll } from './hooks/use-messages-scroll';
 import audio from '../../../public/assets/audios/new-instrumental.mp3';
 import vide from '../../../public/assets/videos/chat-videos/advertisement.mp4';
 
-
-
 // Updated HoverActions component with a 'position' prop
 
-
-
-const HoverActions = ({position='left',type}) => {
- // const replyText=useSelector(state=>state.MessageReply.replyText);
+const HoverActions = ({ position = 'left', type }) => {
+  // const replyText=useSelector(state=>state.MessageReply.replyText);
   const dispatch = useDispatch();
   const toggleVisibility = () => {
-    if(type!=='Image')
-    dispatch(setImageVisibilityInReply(false));
+    if (type !== 'Image') dispatch(setImageVisibilityInReply(false));
     dispatch(setIsVisible(true));
     dispatch(setOriginalReplyText());
     dispatch(setOriginalImageVisibility());
   };
-
 
   return (
     <Stack
@@ -67,7 +68,7 @@ const CustomMessage = ({ text1, text2, text3, src }) => {
   const dispatch = useDispatch();
 
   return (
-    <div 
+    <div
       onMouseEnter={() => {
         dispatch(setReplyText(text1 + text2));
       }}
@@ -225,11 +226,10 @@ export function ChatMessageList({ messages = [], participants, loading }) {
   const { messagesEndRef } = useMessagesScroll(messages);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalImage, setModalImage] = useState('');
-  const dispatch =useDispatch();
-  const isVisible= useSelector(state=>state.messageReply.isVisible);
+  const dispatch = useDispatch();
+  const isVisible = useSelector((state) => state.messageReply.isVisible);
 
-console.log("chat message list k andar vala message ",messages);
-
+  console.log('chat message list k andar vala message ', messages);
 
   const slides = messages
     .filter((message) => message.contentType === 'image')
@@ -264,14 +264,13 @@ console.log("chat message list k andar vala message ",messages);
   }
 
   const defaultMessage = {
-    id: "a9174687-9684-4d2b-af4f-7388714f571a",
-    body: "https://api-dev-minimal-v6.vercel.app/assets/images/cover/cover-9.webp",
-    contentType: "image",
+    id: 'a9174687-9684-4d2b-af4f-7388714f571a',
+    body: 'https://api-dev-minimal-v6.vercel.app/assets/images/cover/cover-9.webp',
+    contentType: 'image',
     attachments: [],
-    createdAt: "2024-09-17T05:01:23+00:00",
-    senderId: "e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4",
+    createdAt: '2024-09-17T05:01:23+00:00',
+    senderId: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
   };
-
 
   return (
     <>
@@ -285,7 +284,6 @@ console.log("chat message list k andar vala message ",messages);
           />
         ))}
 
-
         <CustomMessage
           text1="Hi {{1}}! 🎧🛒"
           text2="Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌"
@@ -298,174 +296,170 @@ console.log("chat message list k andar vala message ",messages);
           src="/assets/images/chatImage/imagechat.png"
         />
 
-
-<div 
-    onMouseEnter={() => {
-      dispatch(setReplyText('video'));
-    }}
-  >
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-start',
-
-            mt: 5,
-            position: 'relative',
-            '&:hover .message-actions': { opacity: 1 },
+        <div
+          onMouseEnter={() => {
+            dispatch(setReplyText('video'));
           }}
         >
-      <VideoPlayer  videoSrc={vide} />
-   
-          <HoverActions />
-      
-        </Box>
-        </div>
-
-        <div 
-    onMouseEnter={() => {
-      dispatch(setReplyText('audio'));
-    }}
-  >
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-start',
-
-            mt: 5,
-            position: 'relative',
-            '&:hover .message-actions': { opacity: 1 },
-          }}
-        >
-          <AudioPlayer audioSrc={audio} />
-          <HoverActions />
-        </Box>
-</div>
-
-<div 
-    onMouseEnter={() => {
-      dispatch(setReplyText('File'));
-    }}
-  >
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            alignItems: 'center', // Center the items vertically
-            mt: 5,
-            width: '100%',
-            position: 'relative',
-            '&:hover .message-actions': { opacity: 1 },
-          }}
-        >
-          <FileMessage onButtonClick={() => alert('Button clicked!')} />
           <Box
-            className="message-actions" // Ensure the class name matches your CSS or style
             sx={{
-              position: 'absolute', // Use absolute positioning
-              top: '20%', // Center vertically
-              right: '40%', // Center horizontally
-              // transform: 'translate(50%, -50%)', // Adjust position to truly center
-              justifyContent: 'center',
+              display: 'flex',
+              justifyContent: 'flex-start',
+
+              mt: 5,
+              position: 'relative',
+              '&:hover .message-actions': { opacity: 1 },
             }}
           >
-            <HoverActions position="right" />
+            <VideoPlayer videoSrc={vide} />
+
+            <HoverActions />
           </Box>
-        </Box>
-</div>
-
-<div 
-    onMouseEnter={() => {
-      dispatch(setReplyText('I am good too. I just finished working on a new project at work. It’s been quite a challenge, but I’m excited about it'));
-    }}
-  >
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-
-            mt: 5,
-            position: 'relative',
-            '&:hover .message-actions': { opacity: 1 },
-          }}
-        >
-          <HoverActions />
-          <MessageReply />
-        </Box>
-</div>
-
-<div 
-    onMouseEnter={() => {
-      dispatch(setReplyText('Location'));
-    }}
-  >
-
-        <Box
-          sx={{
-            display: 'flex',
-            mt: 5,
-            position: 'relative',
-            '&:hover .message-actions': { opacity: 1 },
-          }}
-        >
-          <LocationCard
-            location="New York City, NY"
-            image="https://example.com/image.jpg" // Replace with your image URL
-          />
-          <HoverActions position="left" />
-        </Box>
-</div>
-
-<div 
-    onMouseEnter={() => {
-      dispatch(setReplyText('contact'));
-    }}
-  //  onMouseLeave={() => dispatch(setIsVisible((false)}
-  >
-        <Box
-          sx={{
-            display: 'flex',
-            mt: 5,
-            position: 'relative',
-            '&:hover .message-actions': { opacity: 1 },
-          }}
-        >
-          <ShareContact />
-          <HoverActions />
-        </Box>
         </div>
 
-  <div 
-    onMouseEnter={() => {
-      dispatch(setReplyText('Image'));
-      dispatch(setImageVisibilityInReply(true));
-      dispatch(setImageUrlInReply(messages[5].body||defaultMessage.body));
-      // dispatch(setImage)
-    }}
-  //  onMouseLeave={() => dispatch(setIsVisible((false)}
-  >
- 
-        <Box
-          sx={{
-            display: 'flex',
-            mt: 5,
-            position: 'relative',
-            '&:hover .message-actions': { opacity: 1 },
+        <div
+          onMouseEnter={() => {
+            dispatch(setReplyText('audio'));
           }}
         >
-          <ImageMessage
-           // key={messages[5].id}
-            message={messages[5]||defaultMessage}
-            participants={participants}
-            onOpenLightbox={() => handleOpenModal((messages[5].body|| defaultMessage.body))}
-          />
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-start',
 
-          <HoverActions 
-          position='left'
-          type='Image'
-          />
-        </Box>
+              mt: 5,
+              position: 'relative',
+              '&:hover .message-actions': { opacity: 1 },
+            }}
+          >
+            <AudioPlayer audioSrc={audio} />
+            <HoverActions />
+          </Box>
+        </div>
 
-  </div>
+        <div
+          onMouseEnter={() => {
+            dispatch(setReplyText('File'));
+          }}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'center', // Center the items vertically
+              mt: 5,
+              width: '100%',
+              position: 'relative',
+              '&:hover .message-actions': { opacity: 1 },
+            }}
+          >
+            <FileMessage onButtonClick={() => alert('Button clicked!')} />
+            <Box
+              className="message-actions" // Ensure the class name matches your CSS or style
+              sx={{
+                position: 'absolute', // Use absolute positioning
+                top: '20%', // Center vertically
+                right: '40%', // Center horizontally
+                // transform: 'translate(50%, -50%)', // Adjust position to truly center
+                justifyContent: 'center',
+              }}
+            >
+              <HoverActions position="right" />
+            </Box>
+          </Box>
+        </div>
+
+        <div
+          onMouseEnter={() => {
+            dispatch(
+              setReplyText(
+                'I am good too. I just finished working on a new project at work. It’s been quite a challenge, but I’m excited about it'
+              )
+            );
+          }}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+
+              mt: 5,
+              position: 'relative',
+              '&:hover .message-actions': { opacity: 1 },
+            }}
+          >
+            <HoverActions />
+            <MessageReply />
+          </Box>
+        </div>
+
+        <div
+          onMouseEnter={() => {
+            dispatch(setReplyText('Location'));
+          }}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              mt: 5,
+              position: 'relative',
+              '&:hover .message-actions': { opacity: 1 },
+            }}
+          >
+            <LocationCard
+              location="New York City, NY"
+              image="https://example.com/image.jpg" // Replace with your image URL
+            />
+            <HoverActions position="left" />
+          </Box>
+        </div>
+
+        <div
+          onMouseEnter={() => {
+            dispatch(setReplyText('contact'));
+          }}
+          //  onMouseLeave={() => dispatch(setIsVisible((false)}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              mt: 5,
+              position: 'relative',
+              '&:hover .message-actions': { opacity: 1 },
+            }}
+          >
+            <ShareContact />
+            <HoverActions />
+          </Box>
+        </div>
+
+        <div
+          onMouseEnter={() => {
+            dispatch(setReplyText('Image'));
+            dispatch(setImageVisibilityInReply(true));
+            dispatch(setImageUrlInReply(messages[5].body || defaultMessage.body));
+            // dispatch(setImage)
+          }}
+          //  onMouseLeave={() => dispatch(setIsVisible((false)}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              mt: 5,
+              position: 'relative',
+              '&:hover .message-actions': { opacity: 1 },
+            }}
+          >
+            <ImageMessage
+              // key={messages[5].id}
+              message={messages[5] || defaultMessage}
+              participants={participants}
+              onOpenLightbox={() => handleOpenModal(messages[5].body || defaultMessage.body)}
+            />
+
+            <HoverActions position="left" type="Image" />
+          </Box>
+        </div>
         <Box
           sx={{
             mt: 5,

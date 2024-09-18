@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Badge from '@mui/material/Badge';
@@ -6,12 +7,18 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
+
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
+
 import { useResponsive } from 'src/hooks/use-responsive';
+
 import { fToNow } from 'src/utils/format-time';
+
 import { clickConversation } from 'src/actions/chat';
+
 import { useMockedUser } from 'src/auth/hooks';
+
 import { useNavItem } from './hooks/use-nav-item';
 
 // ----------------------------------------------------------------------

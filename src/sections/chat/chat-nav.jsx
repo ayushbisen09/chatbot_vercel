@@ -13,18 +13,18 @@ import ClickAwayListener from '@mui/material/ClickAwayListener';
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 
+import { useBoolean } from 'src/hooks/use-boolean';
 import { useResponsive } from 'src/hooks/use-responsive';
 
 import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
-import { useBoolean } from 'src/hooks/use-boolean';
 
 import { ToggleButton } from './styles';
 import { ChatNavItem } from './chat-nav-item';
 import { ChatNavAccount } from './chat-nav-account';
 import { ChatNavItemSkeleton } from './chat-skeleton';
-import { ChatNavSearchResults } from './chat-nav-search-results';
 import { ChatFilterDialog } from './hooks/chat-filter-dialog';
+import { ChatNavSearchResults } from './chat-nav-search-results';
 
 // ----------------------------------------------------------------------
 

@@ -12,11 +12,11 @@ import { fSub, today } from 'src/utils/format-time';
 
 import { sendMessage, createConversation } from 'src/actions/chat';
 import {
+  setIsVisible,
+  setReplyText,
   setImageUrlInReply,
   setImageVisibilityInReply,
-  setIsVisible,
   setOriginalImageVisibility,
-  setReplyText,
 } from 'src/redux/slices/messageReply';
 
 import { Iconify } from 'src/components/iconify';

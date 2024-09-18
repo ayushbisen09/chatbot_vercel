@@ -3,16 +3,13 @@ import React from 'react';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
 import { fToNow } from 'src/utils/format-time';
 
-import { Iconify } from 'src/components/iconify';
+import { useMessage } from 'src/sections/chat/hooks/use-message';
 
 import { useMockedUser } from 'src/auth/hooks';
-import { useMessage } from 'src/sections/chat/hooks/use-message';
 
 
 export function  ImageMessage({ message, participants, onOpenLightbox }) {
