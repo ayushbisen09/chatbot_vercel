@@ -12,8 +12,8 @@ import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
 import { usePopover } from 'src/components/custom-popover';
 
-import { TextTemplateTypeDialog } from '../template-type-dialogs/text-template-type-dialog';
 import { PreviewTempalteDailog } from './template-preview-dailog/template-preview-dailog';
+import { TextTemplateTypeDialog } from '../template-type-dialogs/text-template-type-dialog';
 
 const templatename = [
   'Classic Layout',
@@ -33,7 +33,8 @@ export function ChooseTemplateDialogTableRow({ row, selected, onDeleteRow, Templ
   const [openPreviewDialog, setOpenPreviewDialog] = useState(false);
   const [openTextTemplateDialog, setOpenTextTemplateDialog] = useState(false);
 
-  const handleOpenPreviewDialog = () => {
+  const handleOpenPreviewDialog = (event) => {
+    event.stopPropagation(); // Prevents the TableRow click handler from firing
     setOpenPreviewDialog(true);
   };
 
@@ -51,11 +52,15 @@ export function ChooseTemplateDialogTableRow({ row, selected, onDeleteRow, Templ
     setOpenTextTemplateDialog(false);
   };
 
+  const handleTableRowClick = () => {
+    handleOpenTextTemplateDialog();
+  };
+
   const renderPrimary = (
     <TableRow
       hover
       selected={selected}
-      onClick={handleOpenTextTemplateDialog}
+      onClick={handleTableRowClick} // Opens TextTemplateTypeDialog
       style={{ cursor: 'pointer' }}
     >
       <TableCell width={200}>
@@ -137,6 +142,8 @@ export function ChooseTemplateDialogTableRow({ row, selected, onDeleteRow, Templ
 
       <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
         <IconButton onClick={handleOpenPreviewDialog}>
+          {' '}
+          {/* Opens PreviewTempalteDailog */}
           <Iconify icon="solar:eye-bold" />
         </IconButton>
       </TableCell>
