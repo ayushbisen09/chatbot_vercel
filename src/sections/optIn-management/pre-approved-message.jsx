@@ -4,26 +4,25 @@ import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {
   Box,
+  Card,
+  Avatar,
   Divider,
   Tooltip,
   MenuItem,
   MenuList,
   TextField,
   Typography,
-  InputAdornment,
-  Card,
   CardHeader,
-  Avatar,
   IconButton,
+  InputAdornment,
 } from '@mui/material';
 
 import { Iconify } from 'src/components/iconify';
 import FileUpload from 'src/components/upload/upload';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
+
 import FileType from './hook/messages-type/file';
-
 import AudioType from './hook/messages-type/audio';
-
 import VideoType from './hook/messages-type/video';
 
 export default function PreApprovedMessage() {

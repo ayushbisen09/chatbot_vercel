@@ -12,14 +12,26 @@ import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
 import { usePopover } from 'src/components/custom-popover';
 
-import { PreviewTempalteDailog } from './template-preview-dailog/template-preview-dailog'; // Import your PreviewTemplateDialog component
+import { TextTemplateTypeDialog } from '../template-type-dialogs/text-template-type-dialog';
+import { PreviewTempalteDailog } from './template-preview-dailog/template-preview-dailog';
 
-export function ChooseTemplateDialogTableRow({ row, selected, onDeleteRow }) {
+const templatename = [
+  'Classic Layout',
+  'Creative Portfolio',
+  'Elegant Presentation',
+  'Professional Report',
+  'Educational Content',
+];
+
+const templatetype = ['Text', 'File', 'Audio', 'Video', 'Image'];
+
+export function ChooseTemplateDialogTableRow({ row, selected, onDeleteRow, TemplateIndex }) {
   const confirm = useBoolean();
   const collapse = useBoolean();
   const popover = usePopover();
 
   const [openPreviewDialog, setOpenPreviewDialog] = useState(false);
+  const [openTextTemplateDialog, setOpenTextTemplateDialog] = useState(false);
 
   const handleOpenPreviewDialog = () => {
     setOpenPreviewDialog(true);
@@ -29,8 +41,23 @@ export function ChooseTemplateDialogTableRow({ row, selected, onDeleteRow }) {
     setOpenPreviewDialog(false);
   };
 
+  const handleOpenTextTemplateDialog = () => {
+    if (templatetype[TemplateIndex % templatetype.length] === 'Text') {
+      setOpenTextTemplateDialog(true);
+    }
+  };
+
+  const handleCloseTextTemplateDialog = () => {
+    setOpenTextTemplateDialog(false);
+  };
+
   const renderPrimary = (
-    <TableRow hover selected={selected}>
+    <TableRow
+      hover
+      selected={selected}
+      onClick={handleOpenTextTemplateDialog}
+      style={{ cursor: 'pointer' }}
+    >
       <TableCell width={200}>
         <Stack spacing={2} direction="row" alignItems="center">
           <Stack
@@ -50,7 +77,7 @@ export function ChooseTemplateDialogTableRow({ row, selected, onDeleteRow }) {
                 textOverflow: 'ellipsis',
               }}
             >
-              Technical Documentation
+              {templatename[TemplateIndex % templatename.length]}
             </Box>
           </Stack>
         </Stack>
@@ -86,7 +113,7 @@ export function ChooseTemplateDialogTableRow({ row, selected, onDeleteRow }) {
                 textOverflow: 'ellipsis',
               }}
             >
-              File
+              {templatetype[TemplateIndex % templatetype.length]}
             </Box>
           </Stack>
         </Stack>
@@ -123,7 +150,12 @@ export function ChooseTemplateDialogTableRow({ row, selected, onDeleteRow }) {
       <PreviewTempalteDailog
         open={openPreviewDialog}
         onClose={handleClosePreviewDialog}
-        row={row} // Pass any necessary props to the dialog
+        row={row}
+      />
+
+      <TextTemplateTypeDialog
+        open={openTextTemplateDialog}
+        onClose={handleCloseTextTemplateDialog}
       />
     </>
   );

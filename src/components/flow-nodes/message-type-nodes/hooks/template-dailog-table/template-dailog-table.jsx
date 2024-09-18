@@ -145,13 +145,14 @@ export default function ChooseTemplateDailogTable({
                     table.page * table.rowsPerPage,
                     table.page * table.rowsPerPage + table.rowsPerPage
                   )
-                  .map((row) => (
+                  .map((row, index) => (
                     <ChooseTemplateDialogTableRow
                       key={row.id}
                       row={row}
                       selected={table.selected.includes(row.id)}
                       onSelectRow={() => table.onSelectRow(row.id)}
                       onViewRow={() => handleViewRow(row.id)}
+                      TemplateIndex={table.page * table.rowsPerPage + index}
                     />
                   ))}
 
