@@ -66,7 +66,7 @@ const FileUpload = ({ placeholder, error, disabled, sx, onFileUpload, ...other }
         type="file"
         ref={fileInputRef}
         onChange={handleFileChange}
-        accept=".csv"
+        // accept=".csv"
         style={{ display: 'none' }}
         {...other}
       />

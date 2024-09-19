@@ -14,6 +14,10 @@ import { usePopover } from 'src/components/custom-popover';
 
 import { PreviewTempalteDailog } from './template-preview-dailog/template-preview-dailog';
 import { TextTemplateTypeDialog } from '../template-type-dialogs/text-template-type-dialog';
+import { FileTemplateTypeDialog } from '../template-type-dialogs/file-template-type-dialog';
+import { AudioTemplateTypeDialog } from '../template-type-dialogs/audio-template-type-dialog';
+import { VideoTemplateTypeDialog } from '../template-type-dialogs/video-template-type-dialog';
+import { ImageTemplateTypeDialog } from '../template-type-dialogs/image-template-type-dialog';
 
 const templatename = [
   'Classic Layout',
@@ -32,6 +36,10 @@ export function ChooseTemplateDialogTableRow({ row, selected, onDeleteRow, Templ
 
   const [openPreviewDialog, setOpenPreviewDialog] = useState(false);
   const [openTextTemplateDialog, setOpenTextTemplateDialog] = useState(false);
+  const [openFileTemplateDialog, setOpenFileTemplateDialog] = useState(false);
+  const [openAudioTemplateDialog, setOpenAudioTemplateDialog] = useState(false);
+  const [openVideoTemplateDialog, setOpenVideoTemplateDialog] = useState(false);
+  const [openImageTemplateDialog, setOpenImageTemplateDialog] = useState(false);
 
   const handleOpenPreviewDialog = (event) => {
     event.stopPropagation(); // Prevents the TableRow click handler from firing
@@ -45,11 +53,35 @@ export function ChooseTemplateDialogTableRow({ row, selected, onDeleteRow, Templ
   const handleOpenTextTemplateDialog = () => {
     if (templatetype[TemplateIndex % templatetype.length] === 'Text') {
       setOpenTextTemplateDialog(true);
+    } else if (templatetype[TemplateIndex % templatetype.length] === 'File') {
+      setOpenFileTemplateDialog(true);
+    } else if (templatetype[TemplateIndex % templatetype.length] === 'Audio') {
+      setOpenAudioTemplateDialog(true);
+    } else if (templatetype[TemplateIndex % templatetype.length] === 'Video') {
+      setOpenVideoTemplateDialog(true);
+    } else if (templatetype[TemplateIndex % templatetype.length] === 'Image') {
+      setOpenImageTemplateDialog(true);
     }
   };
 
   const handleCloseTextTemplateDialog = () => {
     setOpenTextTemplateDialog(false);
+  };
+
+  const handleCloseFileTemplateDialog = () => {
+    setOpenFileTemplateDialog(false);
+  };
+
+  const handleCloseAudioTemplateDialog = () => {
+    setOpenAudioTemplateDialog(false);
+  };
+
+  const handleCloseVideoTemplateDialog = () => {
+    setOpenVideoTemplateDialog(false); // Correct state update for closing Video dialog
+  };
+
+  const handleCloseImageTemplateDialog = () => {
+    setOpenImageTemplateDialog(false);
   };
 
   const handleTableRowClick = () => {
@@ -60,7 +92,7 @@ export function ChooseTemplateDialogTableRow({ row, selected, onDeleteRow, Templ
     <TableRow
       hover
       selected={selected}
-      onClick={handleTableRowClick} // Opens TextTemplateTypeDialog
+      onClick={handleTableRowClick} // Opens TextTemplateTypeDialog or FileTemplateTypeDialog
       style={{ cursor: 'pointer' }}
     >
       <TableCell width={200}>
@@ -163,6 +195,26 @@ export function ChooseTemplateDialogTableRow({ row, selected, onDeleteRow, Templ
       <TextTemplateTypeDialog
         open={openTextTemplateDialog}
         onClose={handleCloseTextTemplateDialog}
+      />
+
+      <FileTemplateTypeDialog
+        open={openFileTemplateDialog}
+        onClose={handleCloseFileTemplateDialog}
+      />
+
+      <AudioTemplateTypeDialog
+        open={openAudioTemplateDialog}
+        onClose={handleCloseAudioTemplateDialog}
+      />
+
+      <VideoTemplateTypeDialog
+        open={openVideoTemplateDialog}
+        onClose={handleCloseVideoTemplateDialog} // Correct closing behavior
+      />
+
+      <ImageTemplateTypeDialog
+        open={openImageTemplateDialog}
+        onClose={handleCloseImageTemplateDialog} // Correct closing behavior
       />
     </>
   );
