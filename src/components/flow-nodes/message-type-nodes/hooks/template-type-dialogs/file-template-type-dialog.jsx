@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTheme } from '@emotion/react';
+
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import {
@@ -12,9 +13,12 @@ import {
   useMediaQuery,
   InputAdornment,
 } from '@mui/material';
+
 import { Iconify } from 'src/components/iconify';
 import FileUpload from 'src/components/upload/upload';
+
 import FilePreviewTemplateChatBox from 'src/sections/preview-template/file-chatbox';
+
 import FileImage from '../../../../../../public/assets/images/chatImage/document.png';
 
 export function FileTemplateTypeDialog({ title, content, action, open, onClose, ...other }) {

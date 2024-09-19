@@ -1,5 +1,6 @@
 import IconButton from '@mui/material/IconButton';
 import { Box, Divider, CardMedia, Typography } from '@mui/material';
+
 import { Iconify } from 'src/components/iconify';
 
 export default function FilePreviewTemplateChatBox({
