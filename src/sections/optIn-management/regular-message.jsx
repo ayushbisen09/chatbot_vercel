@@ -20,6 +20,7 @@ import {
 
 import { Iconify } from 'src/components/iconify';
 import FileUpload from 'src/components/upload/upload';
+import { ConfirmDialog } from 'src/components/custom-dialog';
 
 import FileType from './hook/messages-type/file';
 import VideoType from './hook/messages-type/video';
@@ -28,9 +29,24 @@ import AudioType from './hook/messages-type/audio';
 export default function RegularMessage() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [isFileUploaded, setIsFileUploaded] = useState(false);
+  const handleFileUpload = (file) => {
+    if (file) {
+      setIsFileUploaded(true);
+    }
+  };
+  const onDeleteUploadedFile = () => {
+    // Logic to delete the file
+    setIsFileUploaded(false); // Reset the state to indicate no file is uploaded
+    setUploadKey((prevKey) => prevKey + 1); // Increment the key to force a re-render
+  };
+  const handleRemove = (index) => {};
+  const [uploadKey, setUploadKey] = useState(0); // Create a key to force re-render
+
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [messagetype, setmessagetype] = useState('text');
-  const [isFileUploaded, setIsFileUploaded] = useState(false);
+
   const [file, setFile] = useState(null); // To store uploaded file
   const [chatBoxImage, setChatBoxImage] = useState(''); // State for the image based on the selected type
   const [message, setMessage] = useState(
@@ -95,13 +111,6 @@ export default function RegularMessage() {
         setChatBoxImage('../../assets/images/chatImage/default.png');
     }
   }, []);
-
-  const handleFileUpload = () => {
-    if (file) {
-      setIsFileUploaded(true);
-      setFile(file);
-    }
-  };
 
   return (
     <>
@@ -195,7 +204,24 @@ export default function RegularMessage() {
                   OR
                 </Typography>
 
-                <FileUpload onFileUpload={handleFileUpload} />
+                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  <Box sx={{ width: '100%' }}>
+                    <FileUpload key={uploadKey} onFileUpload={handleFileUpload} />{' '}
+                    {/* Reset the component */}
+                  </Box>
+                  <Box sx={{ pl: 2 }}>
+                    <Tooltip title="Click here to delete attribute" arrow placement="top">
+                      <Button
+                        size="small"
+                        sx={{ color: 'grey.600', minWidth: 'auto' }}
+                        onClick={() => setConfirmDelete(true)} // Open the confirm dialog
+                        disabled={!isFileUploaded} // Disable if no file is uploaded
+                      >
+                        <Iconify width={24} icon="solar:trash-bin-trash-bold" />
+                      </Button>
+                    </Tooltip>
+                  </Box>
+                </Box>
                 <TextField
                   sx={{ mt: 3 }}
                   fullWidth
@@ -270,7 +296,24 @@ export default function RegularMessage() {
                   OR
                 </Typography>
 
-                <FileUpload onFileUpload={handleFileUpload} />
+                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  <Box sx={{ width: '100%' }}>
+                    <FileUpload key={uploadKey} onFileUpload={handleFileUpload} />{' '}
+                    {/* Reset the component */}
+                  </Box>
+                  <Box sx={{ pl: 2 }}>
+                    <Tooltip title="Click here to delete attribute" arrow placement="top">
+                      <Button
+                        size="small"
+                        sx={{ color: 'grey.600', minWidth: 'auto' }}
+                        onClick={() => setConfirmDelete(true)} // Open the confirm dialog
+                        disabled={!isFileUploaded} // Disable if no file is uploaded
+                      >
+                        <Iconify width={24} icon="solar:trash-bin-trash-bold" />
+                      </Button>
+                    </Tooltip>
+                  </Box>
+                </Box>
                 <TextField
                   sx={{ mt: 3 }}
                   fullWidth
@@ -384,10 +427,12 @@ export default function RegularMessage() {
           </Tooltip>
         </Box>
         <Tooltip title="Click here to save regular message type" arrow placement="top">
-          <Button sx={{ mt: '24px' , mr: 2 }} variant="contained" onClick={handleAdd}>
+          <Button sx={{ mt: '24px', mr: 2 }} variant="contained" onClick={handleAdd}>
             Save
           </Button>
-          <Button sx={{ mt: '24px' }} variant="outlined" onClick={handleAdd}>
+        </Tooltip>
+        <Tooltip title="Click here to cancel regular message type" arrow placement="top">
+          <Button sx={{ mt: '24px' }} variant="outlined">
             Cancel
           </Button>
         </Tooltip>
@@ -415,6 +460,25 @@ export default function RegularMessage() {
           Opt-Out Configure Message Saved Successfully!
         </Alert>
       </Snackbar>
+
+      <ConfirmDialog
+        open={confirmDelete} // Controlled by state
+        onClose={() => setConfirmDelete(false)} // Close dialog
+        title="Remove"
+        content="Are you sure you want to remove uploaded file?"
+        action={
+          <Button
+            variant="contained"
+            color="error"
+            onClick={() => {
+              onDeleteUploadedFile(); // Call the delete function
+              setConfirmDelete(false); // Close the dialog after deletion
+            }}
+          >
+            Remove
+          </Button>
+        }
+      />
     </>
   );
 }

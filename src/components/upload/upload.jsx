@@ -41,7 +41,7 @@ const FileUpload = ({ placeholder, error, disabled, sx, onFileUpload, ...other }
       onDragOver={handleDragOver}
       onDrop={handleDrop}
       sx={{
-        padding: '20px 0px 20px 0px',
+        padding: '20px 20px 20px 20px',
         width: '100%',
         flexShrink: 0,
         display: 'flex',
