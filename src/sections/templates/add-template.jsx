@@ -1,7 +1,7 @@
 import { toast } from 'sonner';
 import { useTheme } from '@emotion/react';
 import { useNavigate } from 'react-router';
-import { useState, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useForm, FormProvider, useFieldArray } from 'react-hook-form';
 
 import {
@@ -24,7 +24,7 @@ import {
   FormControl,
   useMediaQuery,
   InputAdornment,
-  FormControlLabel
+  FormControlLabel,
 } from '@mui/material';
 
 import { DashboardContent } from 'src/layouts/dashboard';
@@ -74,7 +74,51 @@ export default function AddTemplate() {
       image: '/path/to/image.png',
     },
   ]);
-  
+  useEffect(() => {
+    setInputText(''); // Reset the input text
+    setFields([]); // Clear the dynamically rendered fields
+  }, [templateType]);
+
+  const [inputText, setInputText] = useState('');
+  const [fields, setFields] = useState([]);
+  const [sampleValues, setSampleValues] = useState({});
+
+  const handleInputChange = (e) => {
+    const { value } = e.target;
+    setInputText(value);
+
+    // Regex to match {{Any text}} but only add new fields if not already present
+    const regex = /\{\{.*?\}\}/g;
+    const matchedFields = value.match(regex);
+
+    if (matchedFields) {
+      const newFields = matchedFields.filter(
+        (match) => !fields.includes(match) // Only add fields that don't already exist
+      );
+      if (newFields.length > 0) {
+        setFields([...fields, ...newFields]);
+
+        // Set corresponding sample values, initially empty
+        const newSampleValues = newFields.reduce((acc, field, index) => {
+          acc[field] = ''; // Empty value for sample fields
+          return acc;
+        }, {});
+        setSampleValues({ ...sampleValues, ...newSampleValues });
+      }
+    }
+  };
+
+  const handleSampleValueChange = (e, field) => {
+    setSampleValues({
+      ...sampleValues,
+      [field]: e.target.value,
+    });
+  };
+
+  // Removed key handling for Enter and ',' as per the request
+  const handleKeyPress = (e) => {
+    // Optional: you can handle some other key-specific behavior if required
+  };
 
   const handleChangeCategoryList = useCallback((event) => {
     setCategorytList(event.target.value);
@@ -141,7 +185,11 @@ export default function AddTemplate() {
 
   const { control } = methods;
 
-  const { fields, append, remove } = useFieldArray({
+  const {
+    fields: formFields,
+    append,
+    remove,
+  } = useFieldArray({
     control,
     name: 'items',
   });
@@ -251,7 +299,6 @@ export default function AddTemplate() {
   const handleHeaderTypeChange = (event) => {
     setHeaderType(event.target.value);
   };
-  
 
   return (
     <DashboardContent maxWidth="xl">
@@ -639,8 +686,8 @@ export default function AddTemplate() {
                         label="Carousel Media Type"
                         onChange={handleCarouselMediaTypeChange}
                       >
-                        <MenuItem value='type1'>Image</MenuItem>
-                        <MenuItem value='type2'>Video</MenuItem>
+                        <MenuItem value="type1">Image</MenuItem>
+                        <MenuItem value="type2">Video</MenuItem>
                       </Select>
                     </FormControl>
                   </>
@@ -725,16 +772,19 @@ export default function AddTemplate() {
                     fullWidth
                     type="text"
                     margin="dense"
-                    rows={4}
                     multiline
+                    rows={4}
                     variant="outlined"
                     label="Template Format"
-                    helperText="Use text formatting - *bold* , _italic_ & ~strikethrough~. For example -  Hello {{1}}, your code will expire in {{2}} mins.. You're allowed a maximum of 1024 characters."
+                    helperText="Use text formatting - *bold*, _italic_, ~strikethrough~. For example - Hello {{1}}, your code will expire in {{2}} mins. You're allowed a maximum of 1024 characters."
+                    value={inputText}
+                    onChange={handleInputChange}
+                    onKeyPress={handleKeyPress}
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
                           <Tooltip
-                            title="Use text formatting - *bold* , _italic_ & ~strikethrough~. For example -  Hello {{1}}, your code will expire in {{2}} mins.. You're allowed a maximum of 1024 characters."
+                            title="Use text formatting - *bold* , _italic_ & ~strikethrough~. For example -  Hello {{1}}, your code will expire in {{2}} mins.. You're allowed a maximum of 1024 characters."
                             arrow
                             placement="top"
                             sx={{
@@ -753,6 +803,73 @@ export default function AddTemplate() {
                 }
                 sx={{ width: '100%', padding: '0px 24px 24px 24px', mr: 0, ml: 0 }}
               />
+              {/* Display dynamically added fields */}
+              <Box sx={{ width: '100%', px: 3, mr: 0, ml: 0 }}>
+                {fields.map((field, index) => (
+                  <Box key={index} sx={{ display: 'flex', gap: 2, mb: 1 }}>
+                    <TextField
+                      fullWidth
+                      margin="dense"
+                      variant="outlined"
+                      label={`Field ${index + 1}`}
+                      helperText="Specify the parameter to be replaced. These values can be changed at the time of sending"
+                      value={field}
+                      InputProps={{
+                        readOnly: true, // Make the field read-only
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <Tooltip
+                              title="Specify the parameter to be replaced. These values can be changed at the time of sending "
+                              arrow
+                              placement="top"
+                              sx={{
+                                fontSize: '16px',
+                              }}
+                            >
+                              <Iconify
+                                icon="material-symbols:info-outline"
+                                style={{ width: 20, height: 20 }}
+                              />
+                            </Tooltip>
+                          </InputAdornment>
+                        ),
+                      }}
+                      sx={{
+                        marginBottom: '8px',
+                      }}
+                    />
+                    <TextField
+                      fullWidth
+                      margin="dense"
+                      variant="outlined"
+                      label={`Sample Value ${index + 1}`}
+                      helperText="Enter a sample value for this parameter."
+                      value={sampleValues[field] || ''}
+                      onChange={(e) => handleSampleValueChange(e, field)}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <Tooltip
+                              title="Enter sample value for this field paramerter."
+                              arrow
+                              placement="top"
+                              sx={{
+                                fontSize: '16px',
+                              }}
+                            >
+                              <Iconify
+                                icon="material-symbols:info-outline"
+                                style={{ width: 20, height: 20 }}
+                              />
+                            </Tooltip>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </Box>
+                ))}
+              </Box>
+
               <FormControlLabel
                 control={
                   <TextField

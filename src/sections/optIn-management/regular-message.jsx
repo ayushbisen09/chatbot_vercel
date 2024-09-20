@@ -384,8 +384,11 @@ export default function RegularMessage() {
           </Tooltip>
         </Box>
         <Tooltip title="Click here to save regular message type" arrow placement="top">
-          <Button sx={{ mt: '24px' }} variant="contained" onClick={handleAdd}>
+          <Button sx={{ mt: '24px' , mr: 2 }} variant="contained" onClick={handleAdd}>
             Save
+          </Button>
+          <Button sx={{ mt: '24px' }} variant="outlined" onClick={handleAdd}>
+            Cancel
           </Button>
         </Tooltip>
       </Box>

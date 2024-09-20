@@ -1,5 +1,7 @@
 import { useRef } from 'react';
-import { Box, Divider, CardMedia, Typography, IconButton } from '@mui/material';
+
+import { Box, CardMedia, Typography, IconButton } from '@mui/material';
+
 import { Iconify } from 'src/components/iconify';
 
 export default function VideoTemplateChatBox({

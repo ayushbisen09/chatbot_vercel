@@ -6,6 +6,7 @@ import {
   Box,
   Card,
   Avatar,
+  Button,
   Divider,
   Tooltip,
   MenuItem,
@@ -34,6 +35,16 @@ export default function PreApprovedMessage() {
     if (file) {
       setIsFileUploaded(true);
     }
+  };
+  const handleAdd = () => {
+    // Implement your logic to add WhatsApp number here
+    // For example, you might want to validate the inputs first
+
+    // Show the snackbar
+    // setSnackbarOpen(true);
+
+    // Close the dialog after a short delay
+    setTimeout(() => {}, 500);
   };
 
   const popover1 = usePopover();
@@ -472,6 +483,12 @@ export default function PreApprovedMessage() {
             </Card>
           </Box>
         </Tooltip>
+      </Box>
+      <Box sx={{mt:3}}>
+        <Button sx={{ mr: 2 }} variant="contained" onClick={handleAdd}>
+          Save
+        </Button>
+        <Button variant="outlined">Cancel</Button>
       </Box>
     </Box>
   );
