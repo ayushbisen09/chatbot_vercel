@@ -83,6 +83,9 @@ export default function AddTemplate() {
   const [fields, setFields] = useState([]);
   const [sampleValues, setSampleValues] = useState({});
 
+  const replacePlaceholders = (text, values) =>
+    text.replace(/\{\{(\d+)\}\}/g, (match, number) => values[`{{${number}}}`] || match);
+
   const handleInputChange = (e) => {
     const { value } = e.target;
     setInputText(value);
@@ -109,10 +112,22 @@ export default function AddTemplate() {
   };
 
   const handleSampleValueChange = (e, field) => {
-    setSampleValues({
+    const updatedValues = {
       ...sampleValues,
       [field]: e.target.value,
-    });
+    };
+    setSampleValues(updatedValues);
+
+    // Update chatBox content with replaced values
+    setChatBoxes((prevChatBoxes) =>
+      prevChatBoxes.map((box) => ({
+        ...box,
+        text: replacePlaceholders(
+          `Hi {{1}}! 🎧🛒\n\nCongratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌\n\nOrder Details:\nProduct: {{2}}\nQuantity: {{3}}\nOrder ID: {{4}}\nDelivery Address: {{5}}\nEstimated Delivery Date: {{6}}`,
+          updatedValues
+        ),
+      }))
+    );
   };
 
   // Removed key handling for Enter and ',' as per the request
@@ -1807,20 +1822,21 @@ export default function AddTemplate() {
               showImage={templateType !== 'text'}
               text={
                 <>
-                  <span style={{ fontWeight: '600' }}>{`Hi {{1}}! 🎧🛒`}</span> <br /> <br />
-                  `Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌`
+                  <span style={{ fontWeight: '600' }}>
+                    {replacePlaceholders(`Hi {{1}}! 🎧🛒`, sampleValues)}
+                  </span>
                   <br /> <br />
-                  `Order Details:`
-                  <br />
-                  {`Product: {{2}}`}
-                  <br />
-                  {`Quantity: {{3}}`}
-                  <br />
-                  {`Order ID: {{4}}`}
-                  <br />
-                  {`Delivery Address: {{5}}`}
-                  <br />
-                  {`Estimated Delivery Date: {{6}}`}
+                  {replacePlaceholders(
+                    `Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌`,
+                    sampleValues
+                  )}
+                  <br /> <br />
+                  {replacePlaceholders(`Order Details:`, sampleValues)} <br />
+                  {replacePlaceholders(`Product: {{2}}`, sampleValues)} <br />
+                  {replacePlaceholders(`Quantity: {{3}}`, sampleValues)} <br />
+                  {replacePlaceholders(`Order ID: {{4}}`, sampleValues)} <br />
+                  {replacePlaceholders(`Delivery Address: {{5}}`, sampleValues)} <br />
+                  {replacePlaceholders(`Estimated Delivery Date: {{6}}`, sampleValues)}
                 </>
               }
               showLinks

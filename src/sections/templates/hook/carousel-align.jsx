@@ -1,37 +1,78 @@
 import { useState } from 'react';
 
 import Box from '@mui/material/Box';
+import { Button } from '@mui/material';
 
-import { Image } from 'src/components/image';
 import ChatBox from 'src/components/chat-box/chat-box';
-import { Carousel, useCarousel, CarouselDotButtons, CarouselArrowBasicButtons } from 'src/components/carousel';
-
-import { IndexLabel } from './elements';
+import {
+  Carousel,
+  useCarousel,
+  CarouselDotButtons,
+  CarouselArrowBasicButtons,
+} from 'src/components/carousel';
 
 // ----------------------------------------------------------------------
 
-export function CarouselAlign({ data }) {
+export function CarouselAlign() {
   const carousel = useCarousel({
     containScroll: false,
     slideSpacing: '20px',
   });
-  const [chatBoxImage, setChatBoxImage] = useState('../../assets/images/chatImage/location.png'); // Initial image
+  const [chatBoxImage] = useState('../../assets/images/chatImage/location.png'); // Static image
+  const [chatData, setChatData] = useState([
+    {
+      id: 1,
+      name: 'Ayush',
+      product: 'Headway Bassheads',
+      quantity: 2,
+      orderId: '12345',
+      address: '123 Street, City',
+      deliveryDate: '2024-09-10',
+    },
+  ]); // Initial card data with only one card
 
-  // Sample data to map over, this can be replaced with your actual data
-  const chatData = [
-    { id: 1, name: 'Ayush', product: 'Headway Bassheads', quantity: 2, orderId: '12345', address: '123 Street, City', deliveryDate: '2024-09-10' },
-    { id: 2, name: 'Ankit', product: 'Headway Bassheads', quantity: 2, orderId: '67892', address: '456 Avenue, City', deliveryDate: '2024-09-11' },
-    { id: 3, name: 'Nikhil', product: 'Headway Bassheads', quantity: 3, orderId: '67820', address: '456 Amar, City', deliveryDate: '2024-09-11' },
-    { id: 4, name: 'Ankit', product: 'Headway Bassheads', quantity: 4, orderId: '67893', address: '456 Balaghat, City', deliveryDate: '2024-09-11' },
-    { id: 5, name: 'Sarthak', product: 'Headway Bassheads', quantity: 5, orderId: '69890', address: '456 Bhopal, City', deliveryDate: '2024-09-11' },
-    { id: 6, name: 'Rajendra', product: 'Headway Bassheads', quantity: 6, orderId: '67790', address: '456 Indore, City', deliveryDate: '2024-09-11' },
-    // Add more objects as needed
-  ];
+  // Function to generate random card data
+  const generateRandomData = () => {
+    const names = ['Ayush', 'Ankit', 'Nikhil', 'Sarthak', 'Rajendra'];
+    const products = ['Headway Bassheads', 'Xiaomi Earbuds', 'Sony Headphones', 'JBL Speakers'];
+    const addresses = [
+      '123 Street, City',
+      '456 Avenue, City',
+      '789 Block, Town',
+      '101 Circle, Village',
+    ];
+    const randomIndex = (arr) => Math.floor(Math.random() * arr.length);
+
+    return {
+      id: chatData.length + 1, // Increment ID
+      name: names[randomIndex(names)],
+      product: products[randomIndex(products)],
+      quantity: Math.floor(Math.random() * 5) + 1, // Random quantity between 1 and 5
+      orderId: Math.random().toString(36).substring(7), // Random order ID
+      address: addresses[randomIndex(addresses)],
+      deliveryDate: `2024-09-${Math.floor(Math.random() * 30) + 1}`, // Random date in September
+    };
+  };
+
+  // Function to handle adding a new card
+  const addCard = () => {
+    if (chatData.length < 10) {
+      const newCard = generateRandomData();
+      setChatData((prevData) => [...prevData, newCard]); // Add new card to the state
+    }
+  };
+
+  // Function to handle deleting the most recent card
+  const deleteCard = () => {
+    if (chatData.length > 1) {
+      setChatData((prevData) => prevData.slice(0, -1)); // Remove the last card
+    }
+  };
 
   return (
     <>
       <Carousel carousel={carousel} sx={{ width: '335px' }}>
-        {chatData.map((item, index) => (
+        {chatData.map((item) => (
           <Box key={item.id} sx={{ width: '335px' }}>
             <ChatBox
               coverSrc={chatBoxImage}
@@ -39,7 +80,7 @@ export function CarouselAlign({ data }) {
               text={
                 <>
                   <span style={{ fontWeight: '600' }}>{`Hi ${item.name}! 🎧🛒`}</span> <br /> <br />
-                  `Congratulations! 🎉 Your order for the ${item.product} has been confirmed. 🙌`
+                  {`Congratulations! 🎉 Your order for the ${item.product} has been confirmed. 🙌`}
                   <br /> <br />
                   `Order Details:`
                   <br />
@@ -70,15 +111,15 @@ export function CarouselAlign({ data }) {
           onClickDot={carousel.dots.onClickDot}
         />
       </Box>
-    </>
-  );
-}
+      <Box display="flex" alignItems="center" gap={2} sx={{ mt: 1 }}>
+        <Button onClick={addCard} disabled={chatData.length >= 10} variant="outlined">
+          Add Card
+        </Button>
 
-function CarouselItem({ item, index }) {
-  return (
-    <Box sx={{ borderRadius: 2, overflow: 'hidden', position: 'relative' }}>
-      <IndexLabel index={index + 1} />
-      <Image alt={item.title} src={item.coverUrl} ratio="4/3" />
-    </Box>
+        <Button onClick={deleteCard} disabled={chatData.length <= 1} variant="outlined" color='error'>
+          Delete Card
+        </Button>
+      </Box>
+    </>
   );
 }
