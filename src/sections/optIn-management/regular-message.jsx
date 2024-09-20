@@ -210,7 +210,7 @@ export default function RegularMessage() {
                     {/* Reset the component */}
                   </Box>
                   <Box sx={{ pl: 2 }}>
-                    <Tooltip title="Click here to delete attribute" arrow placement="top">
+                    <Tooltip title="Click here to remove uploaded file" arrow placement="top">
                       <Button
                         size="small"
                         sx={{ color: 'grey.600', minWidth: 'auto' }}
