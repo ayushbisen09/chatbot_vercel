@@ -30,7 +30,7 @@ export function ChatNavItem({ selected, collapse, conversation, onCloseMobile })
   const { group, displayName, displayText, participants, lastActivity, hasOnlineInGroup } =
     useNavItem({ conversation, currentUserId: `${user?.id}` });
   const singleParticipant = participants[0];
-  const { name, avatarUrl, status } = singleParticipant;
+  console.log("tsdkjksdh",singleParticipant);
 
   const handleClickConversation = useCallback(async () => {
     try {
@@ -45,8 +45,8 @@ export function ChatNavItem({ selected, collapse, conversation, onCloseMobile })
   }, [conversation.id, mdUp, onCloseMobile, router]);
 
   const renderSingle = ( 
-    <Badge key={status} variant={status} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} sx={{ zIndex: -1 }}>
-      <Avatar alt={name} src="/assets/images/chatavatar/Ayush.png" sx={{ width: 48, height: 48 }} />
+    <Badge key={singleParticipant?.status} variant={singleParticipant?.status} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} sx={{ zIndex: -1 }}>
+      <Avatar alt={singleParticipant?.name} src="/assets/images/chatavatar/Ayush.png" sx={{ width: 48, height: 48 }} />
     </Badge>
   );
 

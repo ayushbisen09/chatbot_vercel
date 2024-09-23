@@ -212,7 +212,7 @@ export default function AddSingleContact() {
                   label="Optin Status (Required)"
                   value={optinstatus}
                   onChange={optinStatusChange}
-                  helperText="Select contact list in which this contact is added."
+                  helperText="Select opt-in status here."
                   InputLabelProps={{ htmlFor: `outlined-select-currency-label` }}
                   inputProps={{ id: `outlined-select-currency-label` }}
                 >
