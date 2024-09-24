@@ -1,21 +1,20 @@
 import { Link } from 'react-router-dom';
 import { useTheme } from '@emotion/react';
-import { useRef, useState, useCallback } from 'react';
+import React, { useRef, useState, useCallback } from 'react';
 
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
 import {
   Box,
-  Alert,
+  Button,
+  Dialog,
   Divider,
   Tooltip,
   MenuItem,
   Snackbar,
   TextField,
   Typography,
+  DialogTitle,
+  DialogActions,
+  DialogContent,
   useMediaQuery,
   FormControlLabel,
 } from '@mui/material';
@@ -26,7 +25,7 @@ import { Iconify } from 'src/components/iconify';
 import FileUpload from 'src/components/upload/upload';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 
-export function AttachFileDialog({ title, content, action, open, onClose, ...other }) {
+export function AttachFileDialog({ open, onFileAttached, onClose, ...other }) {
   const theme = useTheme();
   const isWeb = useMediaQuery(theme.breakpoints.up('sm'));
   const dialog = useBoolean();
@@ -59,7 +58,6 @@ export function AttachFileDialog({ title, content, action, open, onClose, ...oth
     setIsFileUploaded(false);
     setPreviewUrl('');
     setSelectedFile(null);
-    // Reset the FileUpload component
     if (fileUploadRef.current) {
       fileUploadRef.current.resetFile();
     }
@@ -69,8 +67,8 @@ export function AttachFileDialog({ title, content, action, open, onClose, ...oth
     { value: 'text', label: 'Text File' },
     { value: 'audio', label: 'Audio File' },
     { value: 'image', label: 'Image File' },
-    { value: 'Video', label: 'Video File' },
-    { value: 'Doc', label: 'Document File (pdf, word, doc)' },
+    { value: 'video', label: 'Video File' },
+    { value: 'doc', label: 'Document File (pdf, word, doc)' },
   ];
 
   const handleFileUpload = (file) => {
@@ -93,13 +91,13 @@ export function AttachFileDialog({ title, content, action, open, onClose, ...oth
   };
 
   const handleConfirmRemove = () => {
-    setIsFileUploaded(false);     // Reset the file uploaded state
-    setSelectedFile(null);        // Clear the selected file
-    setPreviewUrl('');            // Clear the preview URL (this will reset the URL field to its initial state)
-    setTempUrl('');               // Clear the temporary URL
-    setShowConfirmDialog(false);  // Close the confirm dialog
+    setIsFileUploaded(false);
+    setSelectedFile(null);
+    setPreviewUrl('');
+    setTempUrl('');
+    setShowConfirmDialog(false);
     if (fileUploadRef.current) {
-      fileUploadRef.current.resetFile();  // Reset the file upload component
+      fileUploadRef.current.resetFile();
     }
   };
 
@@ -114,9 +112,9 @@ export function AttachFileDialog({ title, content, action, open, onClose, ...oth
         return '.txt';
       case 'image':
         return 'image/*';
-      case 'Video':
+      case 'video':
         return 'video/*';
-      case 'Doc':
+      case 'doc':
         return '.pdf,.doc,.docx,.csv';
       case 'audio':
         return '.mp3, .mp4';
@@ -128,6 +126,8 @@ export function AttachFileDialog({ title, content, action, open, onClose, ...oth
   const handleSendMessage = () => {
     if (isFileUploaded) {
       console.log('Message sent with file:', selectedFile);
+      onFileAttached(selectedFile);
+      handleAdd(); // Close the dialog after attaching the file
     }
   };
 
@@ -139,11 +139,8 @@ export function AttachFileDialog({ title, content, action, open, onClose, ...oth
         {...other}
         PaperProps={isWeb ? { style: { minWidth: '600px' } } : { style: { minWidth: '330px' } }}
       >
-        <DialogTitle
-          sx={{ fontWeight: '700', display: 'flex', justifyContent: 'space-between' }}
-          onClick={dialog.onFalse}
-        >
-          Attach File{' '}
+        <DialogTitle sx={{ fontWeight: '700', display: 'flex', justifyContent: 'space-between' }}>
+          Attach File
           <Iconify
             onClick={onClose}
             icon="uil:times"
@@ -163,8 +160,6 @@ export function AttachFileDialog({ title, content, action, open, onClose, ...oth
               value={fileType}
               onChange={handleChangeContactList}
               helperText="Choose file type."
-              InputLabelProps={{ htmlFor: `outlined-select-currency-label` }}
-              inputProps={{ id: `outlined-select-currency-label` }}
             >
               {CONTACTLISTS.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
@@ -173,6 +168,7 @@ export function AttachFileDialog({ title, content, action, open, onClose, ...oth
               ))}
             </TextField>
           </Tooltip>
+<Box>
 
           <TextField
             sx={{ width: '100%' }}
@@ -181,12 +177,12 @@ export function AttachFileDialog({ title, content, action, open, onClose, ...oth
             type="text"
             margin="dense"
             variant="outlined"
-            label="Enter url or choose file."
+            label="Enter URL or choose file."
             value={previewUrl}
             onChange={handleUrlChange}
             helperText={
               <span>
-                Choose file or enter the file URL..{' '}
+                Choose file or enter the file URL.{' '}
                 <Link href="#" style={{ color: '#078DEE' }} underline="always">
                   Learn more
                 </Link>
@@ -194,9 +190,7 @@ export function AttachFileDialog({ title, content, action, open, onClose, ...oth
             }
           />
 
-          <Typography sx={{ fontWeight: '600', width: '100%', mr: 0, ml: 0, mb: 3, mt: 3 }}>
-            OR
-          </Typography>
+          <Typography sx={{ fontWeight: '600', width: '100%', mb: 3, mt: 3 }}>OR</Typography>
 
           <Tooltip title="Click here to upload file." arrow placement="top">
             <FormControlLabel
@@ -207,28 +201,33 @@ export function AttachFileDialog({ title, content, action, open, onClose, ...oth
                   accept={getAcceptedFileTypes()}
                   selectedFile={selectedFile}
                 />
+                
               }
-              sx={{ width: '100%', mr: 0, ml: 0 }}
+              sx={{ width: '100%' }}
+            
             />
           </Tooltip>
+</Box>
 
           {isFileUploaded && previewUrl && (
             <Box sx={{ mt: 2, borderRadius: 2 }}>
-              {fileType === 'image' && <img src={previewUrl} alt="Preview" style={{ maxWidth: '100%' }} />}
+              {fileType === 'image' && (
+                <img src={previewUrl} alt="Preview" style={{ maxWidth: '100%' }} />
+              )}
               {fileType === 'audio' && (
-                <audio src={previewUrl} controls style={{ width: '320px' }}>
+                <audio src={previewUrl} controls style={{ width: '100%' }}>
                   <track kind="captions" />
                   Your browser does not support the audio element.
                 </audio>
               )}
-              {fileType === 'Video' && (
+              {fileType === 'video' && (
                 <video controls style={{ maxWidth: '100%' }}>
                   <source src={previewUrl} type="video/mp4" />
                   <track kind="captions" srcLang="en" label="English captions" />
                   Your browser does not support the video tag.
                 </video>
               )}
-              {['text', 'Doc'].includes(fileType) && (
+              {['text', 'doc'].includes(fileType) && (
                 <iframe src={previewUrl} title="File Preview" width="100%" height="400px" />
               )}
             </Box>
@@ -245,14 +244,13 @@ export function AttachFileDialog({ title, content, action, open, onClose, ...oth
             color="primary"
             endIcon={<Iconify icon="akar-icons:attach" style={{ width: 18, height: 18 }} />}
             disabled={!isFileUploaded}
-            sx={{ mb: 0.5 }}
           >
             Attach
           </Button>
         </DialogActions>
       </Dialog>
 
-      {/* Using ConfirmDialog for file removal confirmation */}
+      {/* Confirmation dialog for file removal */}
       <ConfirmDialog
         open={showConfirmDialog}
         onClose={handleCancelRemove}
@@ -267,27 +265,11 @@ export function AttachFileDialog({ title, content, action, open, onClose, ...oth
 
       <Snackbar
         open={snackbarOpen}
-        autoHideDuration={10000}
+        autoHideDuration={6000}
         onClose={handleSnackbarClose}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        sx={{
-          boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
-        }}
-      >
-        <Alert
-          onClose={handleSnackbarClose}
-          severity="success"
-          sx={{
-            width: '100%',
-            fontSize: '14px',
-            fontWeight: 'bold',
-            backgroundColor: theme.palette.background.paper,
-            color: theme.palette.text.primary,
-          }}
-        >
-          File Uploaded Successfully!
-        </Alert>
-      </Snackbar>
+        message="File attached successfully"
+      />
     </>
   );
 }
