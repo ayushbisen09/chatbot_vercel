@@ -256,6 +256,22 @@ export function ChatFilterDialog({ title, content, action, open, onClose, ...oth
     setAttributeValues([...attributeValues, '']);
   };
 
+  const getAttributeValueOptions = (attribute) => {
+    switch (attribute) {
+      case 'text':
+        return ['Vip', 'Stream', 'Random Values'];
+      case 'first_message':
+        return ['Set', 'Not Set', 'Something'];
+      case 'campaign':
+        return ['Boost Your Brand 2024', 'Summer Sales Surge', 'Holiday Cheer Deals' , 'New Year, New Deals' , 'Spring Refresh Campaign' , 'Back-to-School Bonanza']; // Replace with actual campaign names
+      case 'closed':
+      case 'requested':
+        return ['Yes', 'No'];
+      default:
+        return [];
+    }
+  };
+
   return (
     <>
       <Dialog
@@ -596,9 +612,11 @@ export function ChatFilterDialog({ title, content, action, open, onClose, ...oth
                       onChange={(event) => handleAttributeValueChange(index, event)}
                       helperText="Select Attribute value"
                     >
-                      {/* Add options for select input if necessary */}
-                      <MenuItem value="option1">Option 1</MenuItem>
-                      <MenuItem value="option2">Option 2</MenuItem>
+                      {getAttributeValueOptions(attributes[index]).map((option) => (
+                        <MenuItem key={option} value={option}>
+                          {option}
+                        </MenuItem>
+                      ))}
                     </TextField>
                   ) : (
                     <TextField

@@ -1,17 +1,26 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, forwardRef, useImperativeHandle } from 'react';
 
 import { Box, Button, Typography } from '@mui/material';
 
 import { varAlpha } from 'src/theme/styles';
 
-const FileUpload = ({ placeholder, error, disabled, sx, onFileUpload, ...other }) => {
-  const [selectedFile, setSelectedFile] = useState(null);
+const FileUpload = forwardRef(({ placeholder, error, disabled, sx, onFileUpload, selectedFile, ...other }, ref) => {
+  const [localSelectedFile, setLocalSelectedFile] = useState(null);
   const fileInputRef = useRef(null);
+
+  useImperativeHandle(ref, () => ({
+    resetFile: () => {
+      setLocalSelectedFile(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  }));
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setSelectedFile(file);
+      setLocalSelectedFile(file);
       onFileUpload(file);
     }
     // Reset the file input value to allow selecting the same file again
@@ -30,8 +39,8 @@ const FileUpload = ({ placeholder, error, disabled, sx, onFileUpload, ...other }
   const handleDrop = (event) => {
     event.preventDefault();
     const file = event.dataTransfer.files[0];
-    if (file && file.type === 'any') {
-      setSelectedFile(file);
+    if (file) {
+      setLocalSelectedFile(file);
       onFileUpload(file);
     }
   };
@@ -66,20 +75,19 @@ const FileUpload = ({ placeholder, error, disabled, sx, onFileUpload, ...other }
         type="file"
         ref={fileInputRef}
         onChange={handleFileChange}
-        // accept=".csv"
         style={{ display: 'none' }}
         {...other}
       />
       <Button size="large" component="span" onClick={handleButtonClick} disabled={disabled}>
         {placeholder || 'Upload File'}
       </Button>
-      {selectedFile && (
+      {(selectedFile || localSelectedFile) && (
         <Typography variant="body1" sx={{ mt: 2 }}>
-          Selected file: {selectedFile.name}
+          Selected file: {selectedFile ? selectedFile.name : localSelectedFile.name}
         </Typography>
       )}
     </Box>
   );
-};
+});
 
 export default FileUpload;

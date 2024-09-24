@@ -111,7 +111,7 @@ export function TextTemplateTypeDialog({ title, content, action, open, onClose, 
       </Box>
       <Box sx={{ px: 2, pb: 2 }}>
         <Button variant="contained" sx={{ mr: 1 }}>
-          Done
+          Send
         </Button>
         <Button variant="outlined">Cancel</Button>
       </Box>

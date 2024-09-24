@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useTheme } from '@emotion/react';
-import { useState, useCallback } from 'react';
+import { useRef, useState, useCallback } from 'react';
 
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -24,8 +24,7 @@ import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Iconify } from 'src/components/iconify';
 import FileUpload from 'src/components/upload/upload';
-
-// ----------------------------------------------------------------------
+import { ConfirmDialog } from 'src/components/custom-dialog';
 
 export function AttachFileDialog({ title, content, action, open, onClose, ...other }) {
   const theme = useTheme();
@@ -33,15 +32,16 @@ export function AttachFileDialog({ title, content, action, open, onClose, ...oth
   const dialog = useBoolean();
 
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState('');
+  const [fileType, setFileType] = useState('text');
+  const [isFileUploaded, setIsFileUploaded] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const fileUploadRef = useRef(null);
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [tempUrl, setTempUrl] = useState('');
 
   const handleAdd = () => {
-    // Implement your logic to add WhatsApp number here
-    // For example, you might want to validate the inputs first
-
-    // Show the snackbar
     setSnackbarOpen(true);
-
-    // Close the dialog after a short delay
     setTimeout(() => {
       onClose();
     }, 1000);
@@ -54,22 +54,80 @@ export function AttachFileDialog({ title, content, action, open, onClose, ...oth
     setSnackbarOpen(false);
   };
 
-  const [contactlist, setContatList] = useState('text');
-
   const handleChangeContactList = useCallback((event) => {
-    setContatList(event.target.value);
+    setFileType(event.target.value);
+    setIsFileUploaded(false);
+    setPreviewUrl('');
+    setSelectedFile(null);
+    // Reset the FileUpload component
+    if (fileUploadRef.current) {
+      fileUploadRef.current.resetFile();
+    }
   }, []);
 
   const CONTACTLISTS = [
     { value: 'text', label: 'Text File' },
+    { value: 'audio', label: 'Audio File' },
     { value: 'image', label: 'Image File' },
     { value: 'Video', label: 'Video File' },
-    { value: 'Doc', label: 'Document File(pdf, word, doc)' },
+    { value: 'Doc', label: 'Document File (pdf, word, doc)' },
   ];
-  const [isFileUploaded, setIsFileUploaded] = useState(false);
+
   const handleFileUpload = (file) => {
     if (file) {
       setIsFileUploaded(true);
+      setSelectedFile(file);
+      const fileUrl = URL.createObjectURL(file);
+      setPreviewUrl(fileUrl);
+    }
+  };
+
+  const handleUrlChange = (event) => {
+    const newUrl = event.target.value;
+    if (isFileUploaded && newUrl !== previewUrl) {
+      setTempUrl(newUrl);
+      setShowConfirmDialog(true);
+    } else {
+      setPreviewUrl(newUrl);
+    }
+  };
+
+  const handleConfirmRemove = () => {
+    setIsFileUploaded(false);     // Reset the file uploaded state
+    setSelectedFile(null);        // Clear the selected file
+    setPreviewUrl('');            // Clear the preview URL (this will reset the URL field to its initial state)
+    setTempUrl('');               // Clear the temporary URL
+    setShowConfirmDialog(false);  // Close the confirm dialog
+    if (fileUploadRef.current) {
+      fileUploadRef.current.resetFile();  // Reset the file upload component
+    }
+  };
+
+  const handleCancelRemove = () => {
+    setShowConfirmDialog(false);
+    setTempUrl('');
+  };
+
+  const getAcceptedFileTypes = () => {
+    switch (fileType) {
+      case 'text':
+        return '.txt';
+      case 'image':
+        return 'image/*';
+      case 'Video':
+        return 'video/*';
+      case 'Doc':
+        return '.pdf,.doc,.docx,.csv';
+      case 'audio':
+        return '.mp3, .mp4';
+      default:
+        return '';
+    }
+  };
+
+  const handleSendMessage = () => {
+    if (isFileUploaded) {
+      console.log('Message sent with file:', selectedFile);
     }
   };
 
@@ -102,7 +160,7 @@ export function AttachFileDialog({ title, content, action, open, onClose, ...oth
               select
               fullWidth
               label="Select File Type (Required)"
-              value={contactlist}
+              value={fileType}
               onChange={handleChangeContactList}
               helperText="Choose file type."
               InputLabelProps={{ htmlFor: `outlined-select-currency-label` }}
@@ -124,6 +182,8 @@ export function AttachFileDialog({ title, content, action, open, onClose, ...oth
             margin="dense"
             variant="outlined"
             label="Enter url or choose file."
+            value={previewUrl}
+            onChange={handleUrlChange}
             helperText={
               <span>
                 Choose file or enter the file URL..{' '}
@@ -133,56 +193,78 @@ export function AttachFileDialog({ title, content, action, open, onClose, ...oth
               </span>
             }
           />
+
           <Typography sx={{ fontWeight: '600', width: '100%', mr: 0, ml: 0, mb: 3, mt: 3 }}>
             OR
           </Typography>
+
           <Tooltip title="Click here to upload file." arrow placement="top">
             <FormControlLabel
               control={
-                <FileUpload onFileUpload={handleFileUpload} />
-                // <Upload/>
+                <FileUpload
+                  ref={fileUploadRef}
+                  onFileUpload={handleFileUpload}
+                  accept={getAcceptedFileTypes()}
+                  selectedFile={selectedFile}
+                />
               }
               sx={{ width: '100%', mr: 0, ml: 0 }}
             />
-
-            {isFileUploaded && (
-              <FormControlLabel
-                control={
-                  <Box sx={{ width: '100%' }}>
-                    <Box sx={{ width: '100%' }}>
-                      <FormControlLabel
-                        control={
-                          <Divider
-                            sx={{
-                              borderStyle: 'dashed',
-                              fontWeight: '600',
-                              width: '100%',
-
-                              mr: 2,
-                              ml: 0,
-                            }}
-                          />
-                        }
-                        sx={{ width: '100%', mr: 0, ml: 0 }}
-                      />
-                    </Box>
-                  </Box>
-                }
-                sx={{ width: '100%', mr: 0, ml: 0 }}
-              />
-            )}
           </Tooltip>
+
+          {isFileUploaded && previewUrl && (
+            <Box sx={{ mt: 2, borderRadius: 2 }}>
+              {fileType === 'image' && <img src={previewUrl} alt="Preview" style={{ maxWidth: '100%' }} />}
+              {fileType === 'audio' && (
+                <audio src={previewUrl} controls style={{ width: '320px' }}>
+                  <track kind="captions" />
+                  Your browser does not support the audio element.
+                </audio>
+              )}
+              {fileType === 'Video' && (
+                <video controls style={{ maxWidth: '100%' }}>
+                  <source src={previewUrl} type="video/mp4" />
+                  <track kind="captions" srcLang="en" label="English captions" />
+                  Your browser does not support the video tag.
+                </video>
+              )}
+              {['text', 'Doc'].includes(fileType) && (
+                <iframe src={previewUrl} title="File Preview" width="100%" height="400px" />
+              )}
+            </Box>
+          )}
         </DialogContent>
 
         <DialogActions>
           <Button onClick={onClose} variant="outlined" color="inherit">
             Cancel
           </Button>
-          <Button onClick={handleAdd} variant="contained">
-            Add
+          <Button
+            onClick={handleSendMessage}
+            variant="contained"
+            color="primary"
+            endIcon={<Iconify icon="akar-icons:attach" style={{ width: 18, height: 18 }} />}
+            disabled={!isFileUploaded}
+            sx={{ mb: 0.5 }}
+          >
+            Attach
           </Button>
         </DialogActions>
       </Dialog>
+
+      {/* Using ConfirmDialog for file removal confirmation */}
+      <ConfirmDialog
+        open={showConfirmDialog}
+        onClose={handleCancelRemove}
+        title="Remove"
+        content="Are you sure you want to remove this file?"
+        action={
+          <Button variant="contained" color="error" onClick={handleConfirmRemove}>
+            Remove
+          </Button>
+        }
+      />
+
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={10000}

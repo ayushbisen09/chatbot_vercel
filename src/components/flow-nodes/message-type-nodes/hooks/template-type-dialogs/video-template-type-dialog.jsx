@@ -215,7 +215,7 @@ export function VideoTemplateTypeDialog({
       </Box>
       <Box sx={{ px: 2, pb: 2 }}>
         <Button variant="contained" sx={{ mr: 1 }} onClick={handleDone}>
-          Done
+          Send
         </Button>
         <Button variant="outlined" onClick={handleCancel}>
           Cancel
