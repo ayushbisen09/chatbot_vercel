@@ -4,6 +4,7 @@ import React, { useRef, useState, useCallback } from 'react';
 
 import {
   Box,
+  Alert,
   Button,
   Dialog,
   Divider,
@@ -43,7 +44,7 @@ export function AttachFileDialog({ open, onFileAttached, onClose, ...other }) {
     setSnackbarOpen(true);
     setTimeout(() => {
       onClose();
-    }, 1000);
+    }, 200);
   };
 
   const handleSnackbarClose = (event, reason) => {
@@ -118,6 +119,7 @@ export function AttachFileDialog({ open, onFileAttached, onClose, ...other }) {
         return '.pdf,.doc,.docx,.csv';
       case 'audio':
         return '.mp3, .mp4';
+       
       default:
         return '';
     }
@@ -168,46 +170,43 @@ export function AttachFileDialog({ open, onFileAttached, onClose, ...other }) {
               ))}
             </TextField>
           </Tooltip>
-<Box>
-
-          <TextField
-            sx={{ width: '100%' }}
-            autoFocus
-            fullWidth
-            type="text"
-            margin="dense"
-            variant="outlined"
-            label="Enter URL or choose file."
-            value={previewUrl}
-            onChange={handleUrlChange}
-            helperText={
-              <span>
-                Choose file or enter the file URL.{' '}
-                <Link href="#" style={{ color: '#078DEE' }} underline="always">
-                  Learn more
-                </Link>
-              </span>
-            }
-          />
-
-          <Typography sx={{ fontWeight: '600', width: '100%', mb: 3, mt: 3 }}>OR</Typography>
-
-          <Tooltip title="Click here to upload file." arrow placement="top">
-            <FormControlLabel
-              control={
-                <FileUpload
-                  ref={fileUploadRef}
-                  onFileUpload={handleFileUpload}
-                  accept={getAcceptedFileTypes()}
-                  selectedFile={selectedFile}
-                />
-                
-              }
+          <Box>
+            <TextField
               sx={{ width: '100%' }}
-            
+              autoFocus
+              fullWidth
+              type="text"
+              margin="dense"
+              variant="outlined"
+              label="Enter URL or choose file."
+              value={previewUrl}
+              onChange={handleUrlChange}
+              helperText={
+                <span>
+                  Choose file or enter the file URL.{' '}
+                  <Link href="#" style={{ color: '#078DEE' }} underline="always">
+                    Learn more
+                  </Link>
+                </span>
+              }
             />
-          </Tooltip>
-</Box>
+
+            <Typography sx={{ fontWeight: '600', width: '100%', mb: 3, mt: 3 }}>OR</Typography>
+
+            <Tooltip title="Click here to upload file." arrow placement="top">
+              <FormControlLabel
+                control={
+                  <FileUpload
+                    ref={fileUploadRef}
+                    onFileUpload={handleFileUpload}
+                    accept={getAcceptedFileTypes()}
+                    selectedFile={selectedFile}
+                  />
+                }
+                sx={{ width: '100%' }}
+              />
+            </Tooltip>
+          </Box>
 
           {isFileUploaded && previewUrl && (
             <Box sx={{ mt: 2, borderRadius: 2 }}>
@@ -263,13 +262,37 @@ export function AttachFileDialog({ open, onFileAttached, onClose, ...other }) {
         }
       />
 
-      <Snackbar
+      {/* <Snackbar
         open={snackbarOpen}
-        autoHideDuration={6000}
+        autoHideDuration={1000}
         onClose={handleSnackbarClose}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         message="File attached successfully"
-      />
+      /> */}
+
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={1000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        sx={{
+          boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+        }}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity="success"
+          sx={{
+            width: '100%',
+            fontSize: '14px',
+            fontWeight: 'bold',
+            backgroundColor: theme.palette.background.paper,
+            color: theme.palette.text.primary,
+          }}
+        >
+          File Uploaded Successfully!
+        </Alert>
+      </Snackbar>
     </>
   );
 }

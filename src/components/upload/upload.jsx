@@ -82,9 +82,18 @@ const FileUpload = forwardRef(({ placeholder, error, disabled, sx, onFileUpload,
         {placeholder || 'Upload File'}
       </Button>
       {(selectedFile || localSelectedFile) && (
-        <Typography variant="body1" sx={{ mt: 2 }}>
-          Selected file: {selectedFile ? selectedFile.name : localSelectedFile.name}
-        </Typography>
+        <Typography
+        variant="body1"
+        sx={{
+          mt: 2,
+          width: '100%',  // Ensure it takes the full width of the container
+          wordBreak: 'break-all',  // Break words if they are too long
+          whiteSpace: 'normal',  // Allow text to wrap to the next line
+         textAlign: 'center'
+        }}
+      >
+        Selected file: {selectedFile ? selectedFile.name : localSelectedFile.name}
+      </Typography>
       )}
     </Box>
   );
