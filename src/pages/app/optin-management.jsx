@@ -16,6 +16,9 @@ import { DashboardContent } from 'src/layouts/dashboard';
 
 import PageHeader from 'src/components/page-header/page-header';
 
+import FileType from 'src/sections/optIn-management/hook/messages-type/file';
+import AudioType from 'src/sections/optIn-management/hook/messages-type/audio';
+import VideoType from 'src/sections/optIn-management/hook/messages-type/video';
 import {
   ConfigurationDrawer1,
   ConfigurationDrawer2,
@@ -53,6 +56,26 @@ export default function Page() {
     if (tagInput.trim() !== '') {
       setTags([...tags, tagInput.trim()]);
       setTagInput('');
+    }
+  };
+
+
+
+  const renderTemplateContent = () => {
+    switch (savedTemplate.type) {
+      case 'video':
+        return (
+          <VideoType
+            videoSrc="../../../public/assets/videos/chat-videos/advertisement.mp4"
+            captionsSrc="../../assets/captions/sample.vtt"
+          />
+        );
+      case 'audio':
+        return <AudioType audioSrc="../../../public/assets/audios/new-instrumental.mp3" />;
+      case 'file':
+        return <FileType />;
+      default:
+        return null;
     }
   };
 
@@ -209,13 +232,15 @@ export default function Page() {
                         m: 2,
                       }}
                     >
-                      {savedTemplate.chatBoxImage && (
-                        <img
-                          src={savedTemplate.chatBoxImage}
-                          alt="Chat Preview"
-                          style={{ width: '100%', borderRadius: '8px' }}
-                        />
-                      )}
+                      {renderTemplateContent()}
+                  
+                  {savedTemplate.chatBoxImage && (
+                    <img
+                      src={savedTemplate.chatBoxImage}
+                      alt="Chat Preview"
+                      style={{ width: '100%', borderRadius: '8px' }}
+                    />
+                  )}
                       
                       
                       <Box

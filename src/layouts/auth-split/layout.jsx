@@ -5,7 +5,6 @@ import { useBoolean } from 'src/hooks/use-boolean';
 import { Section } from './section';
 import { Main, Content } from './main';
 import { HeaderBase } from '../core/header-base';
-import { FooterBase } from '../core/footer-base';
 import { LayoutSection } from '../core/layout-section';
 
 // ----------------------------------------------------------------------
@@ -47,25 +46,7 @@ export function AuthSplitLayout({ sx, section, children }) {
           sx={{ position: { [layoutQuery]: 'fixed' } }}
         />
       }
-      /** **************************************
-       * Footer
-       *************************************** */
-      footerSection={
-        /** **************************************
-         * Header
-         *************************************** */
-        <FooterBase
-          
-        
-        
-          
-  // slotProps={{ container: { maxWidth: false } }}
-          sx={{ position: 'fixed'  }}
-        />
-      }
-      /** **************************************
-       * Style
-       *************************************** */
+      
       sx={sx}
       cssVars={{
         '--layout-auth-content-width': '420px',
