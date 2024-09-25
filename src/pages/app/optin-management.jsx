@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
@@ -25,6 +26,7 @@ import {
 const metadata = { title: `Page four | Dashboard - ${CONFIG.site.name}` };
 
 export default function Page() {
+  const savedTemplate = useSelector((state) => state.template.selectedTemplate);
   const [openDrawer1, setOpenDrawer1] = useState(false);
   const [openDrawer2, setOpenDrawer2] = useState(false);
 
@@ -65,12 +67,16 @@ export default function Page() {
         <Card>
           <CardHeader title="API Campaign Opt-out" sx={{ mb: 3 }} />
           <Divider />
-          <Tooltip title="Click here to Enable/Disable this if you don't wish to send api campaign to opted-out contacts" arrow placement="top">
-          <FormControlLabel
-            control={<Switch id="toggle-taxes" />}
-            label="Enable this if you don't wish to send api campaign to opted-out contacts"
-            sx={{ paddingLeft: 3, mt: 2, mb: 2 }}
-          />
+          <Tooltip
+            title="Click here to Enable/Disable this if you don't wish to send api campaign to opted-out contacts"
+            arrow
+            placement="top"
+          >
+            <FormControlLabel
+              control={<Switch id="toggle-taxes" />}
+              label="Enable this if you don't wish to send api campaign to opted-out contacts"
+              sx={{ paddingLeft: 3, mt: 2, mb: 2 }}
+            />
           </Tooltip>
         </Card>
       </Box>
@@ -79,62 +85,61 @@ export default function Page() {
           <CardHeader title=" Opt-Out Settings" sx={{ mb: 3 }} />
           <Divider />
           <Stack sx={{ padding: '32px 24px 32px 24px' }}>
-            
             <Typography variant="h7" sx={{ fontSize: '14px', fontWeight: '600', mb: '10px' }}>
               Opt-Out Keywords:
             </Typography>
             <Tooltip title="Opt-Out keywords" arrow placement="top">
-            <Autocomplete
-              multiple
-              freeSolo
-              options={[]}
-              value={tags}
-              onChange={(event, newValue) => setTags(newValue)}
-              inputValue={tagInput}
-              onInputChange={(event, newInputValue) => {
-                setTagInput(newInputValue);
-              }}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter' && tagInput.trim()) {
-                  setTags([...tags, tagInput.trim()]);
-                  setTagInput('');
-                  event.preventDefault();
+              <Autocomplete
+                multiple
+                freeSolo
+                options={[]}
+                value={tags}
+                onChange={(event, newValue) => setTags(newValue)}
+                inputValue={tagInput}
+                onInputChange={(event, newInputValue) => {
+                  setTagInput(newInputValue);
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' && tagInput.trim()) {
+                    setTags([...tags, tagInput.trim()]);
+                    setTagInput('');
+                    event.preventDefault();
+                  }
+                }}
+                renderTags={(value, getTagProps) =>
+                  value.map((option, index) => (
+                    <Chip
+                      variant="soft"
+                      color="info"
+                      size="small"
+                      label={option}
+                      {...getTagProps({ index })}
+                    />
+                  ))
                 }
-              }}
-              renderTags={(value, getTagProps) =>
-                value.map((option, index) => (
-                  <Chip
-                    variant="soft"
-                    color="info"
-                    size="small"
-                    label={option}
-                    {...getTagProps({ index })}
+                renderInput={(params) => (
+                  <TextField
+                    onClick={handleAddTag}
+                    {...params}
+                    variant="outlined"
+                    size="large"
+                    helperText="Enter opt-out keywords"
+                    placeholder="+ Add a keyword"
+                    InputProps={{
+                      ...params.InputProps,
+                      endAdornment: <InputAdornment position="Start" />,
+                    }}
+                    sx={{
+                      '& .MuiAutocomplete-inputRoot': {
+                        minHeight: 'auto',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'start',
+                      },
+                    }}
                   />
-                ))
-              }
-              renderInput={(params) => (
-                <TextField
-                  onClick={handleAddTag}
-                  {...params}
-                  variant="outlined"
-                  size="large"
-                  helperText="Enter opt-out keywords"
-                  placeholder="+ Add a keyword"
-                  InputProps={{
-                    ...params.InputProps,
-                    endAdornment: <InputAdornment position="Start" />,
-                  }}
-                  sx={{
-                    '& .MuiAutocomplete-inputRoot': {
-                      minHeight: 'auto',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'start',
-                    },
-                  }}
-                />
-              )}
-            />
+                )}
+              />
             </Tooltip>
           </Stack>
           <Divider sx={{ mx: 3, borderStyle: 'dashed' }} />
@@ -146,77 +151,99 @@ export default function Page() {
             }
           />
           <Box sx={{ px: 3, py: 2 }}>
-          <Tooltip title="Click here to Enable/Disable Setup a response message for opt-out user keywords" arrow placement="top">
-            <FormControlLabel
-              control={<Switch id="toggle-taxes" />}
-              label="Setup a response message for opt-out user keywords"
-            />
+            <Tooltip
+              title="Click here to Enable/Disable Setup a response message for opt-out user keywords"
+              arrow
+              placement="top"
+            >
+              <FormControlLabel
+                control={<Switch id="toggle-taxes" />}
+                label="Setup a response message for opt-out user keywords"
+              />
             </Tooltip>
           </Box>
-          
+
           <Box sx={{ px: 3, pb: 3 }}>
-          <Tooltip title="Opt-Out response preview" arrow placement="top">
-            <Card
-              sx={{
-                border: '1px solid #919EAB33',
-                width: '100%',
-                maxWidth: '500px',
-              }}
-            >
-              
-              <CardHeader
-                sx={{ mb: 2 }}
-                avatar={<Avatar aria-label="profile picture">MC</Avatar>}
-                title={
-                  <Typography variant="h7" sx={{ fontSize: 14, fontWeight: '700' }}>
-                    Mireya Conner
-                  </Typography>
-                }
-                subheader={
-                  <Typography variant="subtitle2" sx={{ fontSize: 12, fontWeight: '400' }}>
-                    Online
-                  </Typography>
-                }
-              />
-              <Divider />
-              <Typography
-                variant="caption"
-                sx={{
-                  pr: 2,
-                  pt: 3,
-                  display: 'flex',
-                  color: '#919EAB',
-                  justifyContent: 'end',
-                }}
-              >
-                4:02 PM
-              </Typography>
-              <Box
-                sx={{
-                  p: 2,
-                  backgroundColor: '#CCF4FE',
-                  borderRadius: '8px',
-                  m: 2,
-                }}
-              >
-                <Typography
-                  variant="body2"
-                  color="text.primary"
-                  sx={{ fontSize: 14, fontWeight: '500' }}
-                >
-                  Hey,
-                  <br />
-                  {
-                    ' Thank you for opting-out. In future if you ever want to connect again just send "Hello". '
-                  }
-                </Typography>
+            {savedTemplate && (
+              <Box sx={{ mt: 4 }}>
+                <Tooltip title="Opt-Out response preview" arrow placement="top">
+                  <Card
+                    sx={{
+                      border: '1px solid #919EAB33',
+                      width: '100%',
+                      maxWidth: '380px',
+                    }}
+                  >
+                    <CardHeader
+                      sx={{ mb: 2 }}
+                      avatar={<Avatar aria-label="profile picture">MC</Avatar>}
+                      title={
+                        <Typography variant="h7" sx={{ fontSize: 14, fontWeight: '700' }}>
+                          Mireya Conner
+                        </Typography>
+                      }
+                      subheader={
+                        <Typography variant="subtitle2" sx={{ fontSize: 12, fontWeight: '400' }}>
+                          Online
+                        </Typography>
+                      }
+                    />
+                    <Divider />
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        pr: 2,
+                        pt: 3,
+                        display: 'flex',
+                        color: '#919EAB',
+                        justifyContent: 'end',
+                      }}
+                    >
+                      4:02 PM
+                    </Typography>
+                    <Box
+                      sx={{
+                        p: 2,
+                        backgroundColor: '#CCF4FE',
+                        borderRadius: '8px',
+                        m: 2,
+                      }}
+                    >
+                      {savedTemplate.chatBoxImage && (
+                        <img
+                          src={savedTemplate.chatBoxImage}
+                          alt="Chat Preview"
+                          style={{ width: '100%', borderRadius: '8px' }}
+                        />
+                      )}
+                      
+                      
+                      <Box
+                      sx={{mt:2}}>
+                      <Typography
+                        variant="body2"
+                        color="text.primary"
+                        sx={{ fontSize: 14, fontWeight: '500' }}
+                      >
+                        {savedTemplate.message}
+                      </Typography>
+
+                      </Box>
+                    </Box>
+                  </Card>
+                </Tooltip>
               </Box>
-            </Card>
-            </Tooltip>
+            )}
+
             <Tooltip title=" Configure Opt-Out response " arrow placement="top">
-            <Button sx={{ mt: 3 }} variant="contained" color="inherit" onClick={handleOpenDrawer1}>
-              Configure
-            </Button>
+              <Button
+                sx={{ mt: 3 }}
+                variant="contained"
+                color="inherit"
+                onClick={handleOpenDrawer1}
+              >
+                Configure
+              </Button>
             </Tooltip>
             <ConfigurationDrawer1 open={openDrawer1} onClose={handleCloseDrawer1} />
           </Box>
@@ -231,57 +258,57 @@ export default function Page() {
               Opt-In Keywords:
             </Typography>
             <Tooltip title="Opt-In keywords" arrow placement="top">
-            <Autocomplete
-              multiple
-              freeSolo
-              options={[]}
-              value={tags}
-              onChange={(event, newValue) => setTags(newValue)}
-              inputValue={tagInput}
-              onInputChange={(event, newInputValue) => {
-                setTagInput(newInputValue);
-              }}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter' && tagInput.trim()) {
-                  setTags([...tags, tagInput.trim()]);
-                  setTagInput('');
-                  event.preventDefault();
+              <Autocomplete
+                multiple
+                freeSolo
+                options={[]}
+                value={tags}
+                onChange={(event, newValue) => setTags(newValue)}
+                inputValue={tagInput}
+                onInputChange={(event, newInputValue) => {
+                  setTagInput(newInputValue);
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' && tagInput.trim()) {
+                    setTags([...tags, tagInput.trim()]);
+                    setTagInput('');
+                    event.preventDefault();
+                  }
+                }}
+                renderTags={(value, getTagProps) =>
+                  value.map((option, index) => (
+                    <Chip
+                      variant="soft"
+                      color="info"
+                      size="small"
+                      label={option}
+                      {...getTagProps({ index })}
+                    />
+                  ))
                 }
-              }}
-              renderTags={(value, getTagProps) =>
-                value.map((option, index) => (
-                  <Chip
-                    variant="soft"
-                    color="info"
-                    size="small"
-                    label={option}
-                    {...getTagProps({ index })}
+                renderInput={(params) => (
+                  <TextField
+                    onClick={handleAddTag}
+                    {...params}
+                    variant="outlined"
+                    size="large"
+                    helperText="Enter opt-out keywords"
+                    placeholder="+ Add a tag"
+                    InputProps={{
+                      ...params.InputProps,
+                      endAdornment: <InputAdornment position="Start" />,
+                    }}
+                    sx={{
+                      '& .MuiAutocomplete-inputRoot': {
+                        minHeight: 'auto',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'start',
+                      },
+                    }}
                   />
-                ))
-              }
-              renderInput={(params) => (
-                <TextField
-                  onClick={handleAddTag}
-                  {...params}
-                  variant="outlined"
-                  size="large"
-                  helperText="Enter opt-out keywords"
-                  placeholder="+ Add a tag"
-                  InputProps={{
-                    ...params.InputProps,
-                    endAdornment: <InputAdornment position="Start" />,
-                  }}
-                  sx={{
-                    '& .MuiAutocomplete-inputRoot': {
-                      minHeight: 'auto',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'start',
-                    },
-                  }}
-                />
-              )}
-            />
+                )}
+              />
             </Tooltip>
           </Stack>
           <Divider sx={{ mx: 3, borderStyle: 'dashed' }} />
@@ -293,78 +320,85 @@ export default function Page() {
             }
           />
           <Box sx={{ px: 3, py: 2 }}>
-          <Tooltip title="Click here to Enable/Disable Setup a response message for Opt-In user keywords" arrow placement="top">
-            <FormControlLabel
-              control={<Switch id="toggle-taxes" />}
-              label="Setup a response message for Opt-In user keywords"
-            />
+            <Tooltip
+              title="Click here to Enable/Disable Setup a response message for Opt-In user keywords"
+              arrow
+              placement="top"
+            >
+              <FormControlLabel
+                control={<Switch id="toggle-taxes" />}
+                label="Setup a response message for Opt-In user keywords"
+              />
             </Tooltip>
           </Box>
           <Box sx={{ px: 3, pb: 3 }}>
-          <Tooltip title="Opt-In response preview" arrow placement="top">
-
-            <Card
-              sx={{
-                border: '1px solid #919EAB33',
-                width: '100%',
-                maxWidth: '500px',
-              }}
-            >
-              
-              <CardHeader
-                sx={{ mb: 2 }}
-                avatar={<Avatar aria-label="profile picture">MC</Avatar>}
-                title={
-                  <Typography variant="h7" sx={{ fontSize: 14, fontWeight: '700' }}>
-                    Mireya Conner
-                  </Typography>
-                }
-                subheader={
-                  <Typography variant="subtitle2" sx={{ fontSize: 12, fontWeight: '400' }}>
-                    Online
-                  </Typography>
-                }
-              />
-              <Divider />
-              <Typography
-                variant="caption"
+            <Tooltip title="Opt-In response preview" arrow placement="top">
+              <Card
                 sx={{
-                  pr: 2,
-                  pt: 3,
-                  display: 'flex',
-                  color: '#919EAB',
-                  justifyContent: 'end',
+                  border: '1px solid #919EAB33',
+                  width: '100%',
+                  maxWidth: '500px',
                 }}
               >
-                4:02 PM
-              </Typography>
-              <Box
-                sx={{
-                  p: 2,
-                  backgroundColor: '#CCF4FE',
-                  borderRadius: '8px',
-                  m: 2,
-                }}
-              >
-                <Typography
-                  variant="body2"
-                  color="text.primary"
-                  sx={{ fontSize: 14, fontWeight: '500' }}
-                >
-                  Hey,
-                  <br />
-                  {
-                    ' Thank you for opting-out. In future if you ever want to connect again just send "Hello". '
+                <CardHeader
+                  sx={{ mb: 2 }}
+                  avatar={<Avatar aria-label="profile picture">MC</Avatar>}
+                  title={
+                    <Typography variant="h7" sx={{ fontSize: 14, fontWeight: '700' }}>
+                      Mireya Conner
+                    </Typography>
                   }
+                  subheader={
+                    <Typography variant="subtitle2" sx={{ fontSize: 12, fontWeight: '400' }}>
+                      Online
+                    </Typography>
+                  }
+                />
+                <Divider />
+                <Typography
+                  variant="caption"
+                  sx={{
+                    pr: 2,
+                    pt: 3,
+                    display: 'flex',
+                    color: '#919EAB',
+                    justifyContent: 'end',
+                  }}
+                >
+                  4:02 PM
                 </Typography>
-              </Box>
-            </Card>
+                <Box
+                  sx={{
+                    p: 2,
+                    backgroundColor: '#CCF4FE',
+                    borderRadius: '8px',
+                    m: 2,
+                  }}
+                >
+                  <Typography
+                    variant="body2"
+                    color="text.primary"
+                    sx={{ fontSize: 14, fontWeight: '500' }}
+                  >
+                    Hey,
+                    <br />
+                    {
+                      ' Thank you for opting-out. In future if you ever want to connect again just send "Hello". '
+                    }
+                  </Typography>
+                </Box>
+              </Card>
             </Tooltip>
             <Tooltip title="Configure Opt-In response " arrow placement="top">
-            <Button sx={{ mt: 3 }} variant="contained" color="inherit" onClick={handleOpenDrawer2}>
-              Configure
-            </Button>
-</Tooltip>
+              <Button
+                sx={{ mt: 3 }}
+                variant="contained"
+                color="inherit"
+                onClick={handleOpenDrawer2}
+              >
+                Configure
+              </Button>
+            </Tooltip>
             <ConfigurationDrawer2 open={openDrawer2} onClose={handleCloseDrawer2} />
           </Box>
         </Card>
