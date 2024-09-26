@@ -19,7 +19,7 @@ import {
   InputAdornment,
 } from '@mui/material';
 
-import { saveTemplate } from 'src/redux/slices/templateSlice';
+import { saveOptInTemplate } from 'src/redux/slices/templateSlice';
 
 import { Iconify } from 'src/components/iconify';
 import FileUpload from 'src/components/upload/upload';
@@ -30,7 +30,7 @@ import FileType from './hook/messages-type/file';
 import AudioType from './hook/messages-type/audio';
 import VideoType from './hook/messages-type/video';
  
-export default function PreApprovedMessage() {
+export default function OptInPreApprovedMessage() {
   const dispatch = useDispatch();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -54,7 +54,7 @@ export default function PreApprovedMessage() {
       message,
       chatBoxImage,
     };
-    dispatch(saveTemplate(templateData));
+    dispatch(saveOptInTemplate(templateData));
   };
   
 

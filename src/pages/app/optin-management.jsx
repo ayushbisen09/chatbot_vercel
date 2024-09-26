@@ -5,8 +5,10 @@ import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
+import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Autocomplete from '@mui/material/Autocomplete';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Box, Card, Avatar, Button, Divider, Tooltip, CardHeader } from '@mui/material';
@@ -19,34 +21,38 @@ import PageHeader from 'src/components/page-header/page-header';
 import FileType from 'src/sections/optIn-management/hook/messages-type/file';
 import AudioType from 'src/sections/optIn-management/hook/messages-type/audio';
 import VideoType from 'src/sections/optIn-management/hook/messages-type/video';
-import {
-  ConfigurationDrawer1,
-  ConfigurationDrawer2,
-} from 'src/sections/optIn-management/hook/drawer';
-
+import { OptInDrawer } from 'src/sections/optIn-management/hook/opt-in-drawer';
+import { OptOutDrawer } from 'src/sections/optIn-management/hook/opt-out-drawer';
 // ----------------------------------------------------------------------
 
 const metadata = { title: `Page four | Dashboard - ${CONFIG.site.name}` };
 
 export default function Page() {
-  const savedTemplate = useSelector((state) => state.template.selectedTemplate);
-  const [openDrawer1, setOpenDrawer1] = useState(false);
-  const [openDrawer2, setOpenDrawer2] = useState(false);
+  const savedOptOutTemplate = useSelector((state) => state.template.selectedTemplateOptOut);
+  const savedOptInTemplate = useSelector((state) => state.template.selectedTemplateOptIn);
+  // const savedRegularMessage = useSelector((state) => state.regularMessage);
+  const savedRegularMessage = useSelector((state) => state.regularMessage);
 
-  const handleOpenDrawer1 = () => {
-    setOpenDrawer1(true);
+  const [optOutDrawer, setOpenOptOutDrawer] = useState(false);
+  const [optInDrawer, setOpenOptInDrawer] = useState(false);
+  const [optInMessageType, setOptInMessageType] = useState('regular');
+  const [optOutMessageType, setOptOutMessageType] = useState('regular');
+  
+
+  const handleOpenOptOutDrawer = () => {
+    setOpenOptOutDrawer(true);
   };
 
-  const handleCloseDrawer1 = () => {
-    setOpenDrawer1(false);
+  const handleCloseOptOutDrawer = () => {
+    setOpenOptOutDrawer(false);
   };
 
-  const handleOpenDrawer2 = () => {
-    setOpenDrawer2(true);
+  const handleOpenOptInDrawer = () => {
+    setOpenOptInDrawer(true);
   };
 
-  const handleCloseDrawer2 = () => {
-    setOpenDrawer2(false);
+  const handleCloseOptInDrawer = () => {
+    setOpenOptInDrawer(false);
   };
 
   const [tags, setTags] = useState(['Purchase', 'Pabbly Connect', 'Pabbly Subscription Billing']);
@@ -59,10 +65,8 @@ export default function Page() {
     }
   };
 
-
-
-  const renderTemplateContent = () => {
-    switch (savedTemplate.type) {
+  const renderTemplateOptOutContent = () => {
+    switch (savedOptOutTemplate?.type) {
       case 'video':
         return (
           <VideoType
@@ -79,6 +83,42 @@ export default function Page() {
     }
   };
 
+  const renderTemplateOptInContent = () => {
+    switch (savedOptInTemplate?.type) {
+      case 'video':
+        return (
+          <VideoType
+            videoSrc="../../../public/assets/videos/chat-videos/advertisement.mp4"
+            captionsSrc="../../assets/captions/sample.vtt"
+          />
+        );
+      case 'audio':
+        return <AudioType audioSrc="../../../public/assets/audios/new-instrumental.mp3" />;
+      case 'file':
+        return <FileType />;
+      default:
+        return null;
+    }
+  };
+
+  const renderSavedRegularMessage = () => {
+    switch (savedRegularMessage.regularMessageType) {
+      case 'video':
+        return <VideoType videoSrc={savedRegularMessage.videoSrc} />; // Adjust as per your source
+      case 'audio':
+        return <AudioType audioSrc={savedRegularMessage.audioSrc} />;
+      case 'file':
+        return <FileType fileSrc={savedRegularMessage.fileSrc} />;
+      default:
+        return <Typography>{savedRegularMessage.regularMessageContent}</Typography>; // Default text
+    }
+  };
+  const theme = useTheme();
+
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  const [chatBoxImage, setChatBoxImage] = useState(''); // State for the image based on the selected type
+
   return (
     <DashboardContent maxWidth="xl">
       <PageHeader
@@ -86,6 +126,8 @@ export default function Page() {
         Subheading="Setup keywords that user can type to Opt-in & Opt-out from messaging campaign."
         showButton={false}
       />
+      {/* Opt-Out Section */}
+
       <Box sx={{ mt: 4 }}>
         <Card>
           <CardHeader title="API Campaign Opt-out" sx={{ mb: 3 }} />
@@ -103,9 +145,11 @@ export default function Page() {
           </Tooltip>
         </Card>
       </Box>
+
+      {/* Repeated Content for Opt-Out */}
       <Box sx={{ mt: 4 }}>
         <Card>
-          <CardHeader title=" Opt-Out Settings" sx={{ mb: 3 }} />
+          <CardHeader title="Opt-Out Settings" sx={{ mb: 3 }} />
           <Divider />
           <Stack sx={{ padding: '32px 24px 32px 24px' }}>
             <Typography variant="h7" sx={{ fontSize: '14px', fontWeight: '600', mb: '10px' }}>
@@ -186,8 +230,8 @@ export default function Page() {
             </Tooltip>
           </Box>
 
-          <Box sx={{ px: 3, pb: 3 }}>
-            {savedTemplate && (
+          {optOutMessageType === 'pre' ? (
+            <Box sx={{ px: 3, pb: 3 }}>
               <Box sx={{ mt: 4 }}>
                 <Tooltip title="Opt-Out response preview" arrow placement="top">
                   <Card
@@ -232,48 +276,137 @@ export default function Page() {
                         m: 2,
                       }}
                     >
-                      {renderTemplateContent()}
-                  
-                  {savedTemplate.chatBoxImage && (
-                    <img
-                      src={savedTemplate.chatBoxImage}
-                      alt="Chat Preview"
-                      style={{ width: '100%', borderRadius: '8px' }}
-                    />
-                  )}
-                      
-                      
-                      <Box
-                      sx={{mt:2}}>
-                      <Typography
-                        variant="body2"
-                        color="text.primary"
-                        sx={{ fontSize: 14, fontWeight: '500' }}
-                      >
-                        {savedTemplate.message}
-                      </Typography>
+                      {renderTemplateOptOutContent()}
 
+                      {savedOptOutTemplate?.chatBoxImage && (
+                        <img
+                          src={savedOptOutTemplate?.chatBoxImage}
+                          alt="Chat Preview"
+                          style={{ width: '100%', borderRadius: '8px' }}
+                        />
+                      )}
+                      <Box sx={{ mt: 2 }}>
+                        <Typography
+                          variant="body2"
+                          color="text.primary"
+                          sx={{ fontSize: 14, fontWeight: '500' }}
+                        >
+                          {savedOptOutTemplate?.message}
+                        </Typography>
                       </Box>
                     </Box>
                   </Card>
                 </Tooltip>
               </Box>
-            )}
+            </Box>
+          ) : (
+            <Box
+              sx={{
+                pl: 3,
+                width: '380px',
+              }}
+            >
+              <Card
+                sx={{
+                  border: '1px solid #919EAB33',
+                  width: '380px',
+                }}
+              >
+                <CardHeader
+                  sx={{ mb: 2 }}
+                  avatar={<Avatar aria-label="profile picture">MC</Avatar>}
+                  title={
+                    <Typography variant="h7" sx={{ fontSize: 14, fontWeight: '700' }}>
+                      Mireya Conner
+                    </Typography>
+                  }
+                  subheader={
+                    <Typography variant="subtitle2" sx={{ fontSize: 12, fontWeight: '400' }}>
+                      Online
+                    </Typography>
+                  }
+                />
+                <Divider />
+                <Typography
+                  variant="caption"
+                  sx={{
+                    pr: 2,
+                    pt: 3,
+                    display: 'flex',
+                    color: '#919EAB',
+                    justifyContent: 'end',
+                  }}
+                >
+                  4:02 PM
+                </Typography>
+                <Box
+                  sx={{
+                    p: 2,
+                    backgroundColor: '#CCF4FE',
+                    borderRadius: '8px',
+                    m: 2,
+                  }}
+                >
+                  {/* Display the saved regular message type conditionally */}
+                  {savedRegularMessage.regularMessageType === 'video' && (
+                    <VideoType videoSrc="../../../public/assets/videos/chat-videos/advertisement.mp4" />
+                  )}
 
+                  {savedRegularMessage.regularMessageType === 'audio' && (
+                    <AudioType audioSrc="../../../public/assets/audios/new-instrumental.mp3" />
+                  )}
+
+                  {savedRegularMessage.regularMessageType === 'file' && <FileType />}
+
+                  {/* Display image if available */}
+                  <Box sx={{ mb: 2 }}>
+                    {chatBoxImage && (
+                      <img
+                        src={chatBoxImage}
+                        alt="Chat Preview"
+                        style={{ width: '100%', borderRadius: '8px' }}
+                      />
+                    )}
+                  </Box>
+
+                  {/* Display the regular message content */}
+                  <Typography
+                    variant="body2"
+                    color="text.primary"
+                    sx={{ fontSize: 14, fontWeight: '500', mb: chatBoxImage ? 0 : 0 }}
+                  >
+                    {savedRegularMessage.regularMessageContent}
+                  </Typography>
+                </Box>
+              </Card>
+            </Box>
+          )}
+          <Box sx={{ px: 3, pb: 3 }}>
             <Tooltip title=" Configure Opt-Out response " arrow placement="top">
               <Button
                 sx={{ mt: 3 }}
                 variant="contained"
                 color="inherit"
-                onClick={handleOpenDrawer1}
+                onClick={handleOpenOptOutDrawer}
               >
                 Configure
               </Button>
             </Tooltip>
-            <ConfigurationDrawer1 open={openDrawer1} onClose={handleCloseDrawer1} />
           </Box>
+
+          <OptOutDrawer
+            open={optOutDrawer}
+            onClose={handleCloseOptOutDrawer}
+            setMessageType={setOptOutMessageType}
+            messageType={optOutMessageType}
+          />
         </Card>
       </Box>
+
+{/* ========================================================================================================= */}
+
+
+      {/* Opt-In Section */}
       <Box sx={{ mt: 4 }}>
         <Card>
           <CardHeader title="Opt-In Settings" sx={{ mb: 3 }} />
@@ -317,7 +450,7 @@ export default function Page() {
                     {...params}
                     variant="outlined"
                     size="large"
-                    helperText="Enter opt-out keywords"
+                    helperText="Enter opt-in keywords"
                     placeholder="+ Add a tag"
                     InputProps={{
                       ...params.InputProps,
@@ -346,23 +479,105 @@ export default function Page() {
           />
           <Box sx={{ px: 3, py: 2 }}>
             <Tooltip
-              title="Click here to Enable/Disable Setup a response message for Opt-In user keywords"
+              title="Click here to Enable/Disable Setup a response message for opt-in user keywords"
               arrow
               placement="top"
             >
               <FormControlLabel
                 control={<Switch id="toggle-taxes" />}
-                label="Setup a response message for Opt-In user keywords"
+                label="Setup a response message for opt-in user keywords"
               />
             </Tooltip>
           </Box>
-          <Box sx={{ px: 3, pb: 3 }}>
-            <Tooltip title="Opt-In response preview" arrow placement="top">
+
+          
+
+
+
+
+
+
+
+          {optInMessageType === 'pre' ? (
+            <Box sx={{ px: 3, pb: 3 }}>
+              <Box sx={{ mt: 4 }}>
+                <Tooltip title="Opt-Out response preview" arrow placement="top">
+                  <Card
+                    sx={{
+                      border: '1px solid #919EAB33',
+                      width: '100%',
+                      maxWidth: '380px',
+                    }}
+                  >
+                    <CardHeader
+                      sx={{ mb: 2 }}
+                      avatar={<Avatar aria-label="profile picture">MC</Avatar>}
+                      title={
+                        <Typography variant="h7" sx={{ fontSize: 14, fontWeight: '700' }}>
+                          Mireya Conner
+                        </Typography>
+                      }
+                      subheader={
+                        <Typography variant="subtitle2" sx={{ fontSize: 12, fontWeight: '400' }}>
+                          Online
+                        </Typography>
+                      }
+                    />
+                    <Divider />
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        pr: 2,
+                        pt: 3,
+                        display: 'flex',
+                        color: '#919EAB',
+                        justifyContent: 'end',
+                      }}
+                    >
+                      4:02 PM
+                    </Typography>
+                    <Box
+                      sx={{
+                        p: 2,
+                        backgroundColor: '#CCF4FE',
+                        borderRadius: '8px',
+                        m: 2,
+                      }}
+                    >
+                      {renderTemplateOptInContent()}
+
+                      {savedOptInTemplate?.chatBoxImage && (
+                        <img
+                          src={savedOptInTemplate?.chatBoxImage}
+                          alt="Chat Preview"
+                          style={{ width: '100%', borderRadius: '8px' }}
+                        />
+                      )}
+                      <Box sx={{ mt: 2 }}>
+                        <Typography
+                          variant="body2"
+                          color="text.primary"
+                          sx={{ fontSize: 14, fontWeight: '500' }}
+                        >
+                          {savedOptInTemplate?.message}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Card>
+                </Tooltip>
+              </Box>
+            </Box>
+          ) : (
+            <Box
+              sx={{
+                pl: 3,
+                width: '380px',
+              }}
+            >
               <Card
                 sx={{
                   border: '1px solid #919EAB33',
-                  width: '100%',
-                  maxWidth: '500px',
+                  width: '380px',
                 }}
               >
                 <CardHeader
@@ -400,32 +615,68 @@ export default function Page() {
                     m: 2,
                   }}
                 >
+                  {/* Display the saved regular message type conditionally */}
+                  {savedRegularMessage.regularMessageType === 'video' && (
+                    <VideoType videoSrc="../../../public/assets/videos/chat-videos/advertisement.mp4" />
+                  )}
+
+                  {savedRegularMessage.regularMessageType === 'audio' && (
+                    <AudioType audioSrc="../../../public/assets/audios/new-instrumental.mp3" />
+                  )}
+
+                  {savedRegularMessage.regularMessageType === 'file' && <FileType />}
+
+                  {/* Display image if available */}
+                  <Box sx={{ mb: 2 }}>
+                    {chatBoxImage && (
+                      <img
+                        src={chatBoxImage}
+                        alt="Chat Preview"
+                        style={{ width: '100%', borderRadius: '8px' }}
+                      />
+                    )}
+                  </Box>
+
+                  {/* Display the regular message content */}
                   <Typography
                     variant="body2"
                     color="text.primary"
-                    sx={{ fontSize: 14, fontWeight: '500' }}
+                    sx={{ fontSize: 14, fontWeight: '500', mb: chatBoxImage ? 0 : 0 }}
                   >
-                    Hey,
-                    <br />
-                    {
-                      ' Thank you for opting-out. In future if you ever want to connect again just send "Hello". '
-                    }
+                    {savedRegularMessage.regularMessageContent}
                   </Typography>
                 </Box>
               </Card>
-            </Tooltip>
-            <Tooltip title="Configure Opt-In response " arrow placement="top">
+            </Box>
+          )}
+          <Box sx={{ px: 3, pb: 3 }}>
+            <Tooltip title=" Configure Opt-Out response " arrow placement="top">
               <Button
                 sx={{ mt: 3 }}
                 variant="contained"
                 color="inherit"
-                onClick={handleOpenDrawer2}
+                onClick={handleOpenOptInDrawer}
               >
                 Configure
               </Button>
             </Tooltip>
-            <ConfigurationDrawer2 open={openDrawer2} onClose={handleCloseDrawer2} />
           </Box>
+
+          <OptInDrawer
+            open={optInDrawer}
+            onClose={handleCloseOptInDrawer}
+            setMessageType={setOptInMessageType}
+            messageType={optInMessageType}
+          />
+
+
+
+
+
+
+
+
+
         </Card>
       </Box>
     </DashboardContent>
