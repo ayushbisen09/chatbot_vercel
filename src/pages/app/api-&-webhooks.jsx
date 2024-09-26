@@ -21,6 +21,7 @@ import { Iconify } from 'src/components/iconify';
 import PageHeader from 'src/components/page-header/page-header';
 
 import BigCard from 'src/sections/api-&-webhook/components/bigcard/big-card';
+import { ApiWebhookTable } from 'src/sections/api-&-webhook/components/table/api-webhook-table';
 
 // ----------------------------------------------------------------------
 
@@ -116,7 +117,9 @@ export default function Page() {
             </Box>
           </Card>
           {/* card section started */}
+
           <BigCard />
+          <ApiWebhookTable/>
         </Box>
       </DashboardContent>
       <Snackbar
