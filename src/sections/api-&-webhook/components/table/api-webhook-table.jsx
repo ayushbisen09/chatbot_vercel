@@ -140,21 +140,6 @@ export function ApiWebhookTable() {
           mb: 2,
         }}
       />
-      <Divider />
-
-      <Box sx={{ p: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <TextField
-          value={filters.name}
-          onChange={handleFilterName}
-          placeholder="Search by Webhook Name..."
-          sx={{ width: '100%' }}
-          InputProps={{
-            startAdornment: (
-              <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled', mr: 1 }} />
-            ),
-          }}
-        />
-      </Box>
 
       <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
         <Scrollbar>
@@ -181,7 +166,16 @@ export function ApiWebhookTable() {
                   table.page * table.rowsPerPage + table.rowsPerPage
                 )
                 .map((row) => (
-                  <TableRow key={row.id}>
+                  <TableRow
+                    key={row.id}
+                    hover
+                    sx={{
+                      '&:hover': {
+                        backgroundColor: 'action.hover',
+                        cursor: 'pointer',
+                      },
+                    }}
+                  >
                     <TableCell padding="checkbox">
                       <Checkbox
                         checked={table.selected.includes(row.id)}
@@ -204,9 +198,7 @@ export function ApiWebhookTable() {
                       </Box>
                     </TableCell>
                     <TableCell>
-                      {' '}
                       <Tooltip title={row.webhook_url} arrow placement="top">
-                        {' '}
                         {truncateUrl(row.webhook_url)}
                       </Tooltip>
                     </TableCell>
@@ -237,17 +229,7 @@ export function ApiWebhookTable() {
           </Table>
         </Scrollbar>
       </TableContainer>
-
-      <TablePaginationCustom
-        count={dataFiltered.length}
-        page={table.page}
-        rowsPerPage={table.rowsPerPage}
-        onPageChange={table.onChangePage}
-        onRowsPerPageChange={table.onChangeRowsPerPage}
-        dense={table.dense}
-        onChangeDense={table.onChangeDense}
-      />
-
+      <Box sx={{ mb: '24px' }} />
       <CustomPopover
         open={popover.open}
         anchorEl={popover.anchorEl}
@@ -263,10 +245,9 @@ export function ApiWebhookTable() {
             <Iconify icon="teenyicons:toggle-solid" />
             Mark as Active
           </MenuItem>
-       
-    
-           <Divider sx={{borderStyle:'dashed'}}/>
-      
+
+          <Divider sx={{ borderStyle: 'dashed' }} />
+
           <MenuItem
             onClick={() => {
               confirm.onTrue();
