@@ -1,9 +1,20 @@
+
+
+
+
+
+
+
+
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useTheme } from '@emotion/react';
 
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Box, Button, Divider, TextField, Typography, useMediaQuery } from '@mui/material';
+
+import { setTemplateFields } from 'src/redux/slices/textTypeTemplateSlice';
 
 import { Iconify } from 'src/components/iconify';
 
@@ -23,6 +34,14 @@ export function TextTemplateTypeDialog({ title, content, action, open, onClose, 
 
   const replacePlaceholders = (template, fields) =>
     template.replace(/\{\{(\d+)\}\}/g, (match, number) => fields[number - 1] || match);
+
+
+
+  const dispatch = useDispatch(); // Initialize the Redux dispatch
+  const handleSave = () => {
+    dispatch(setTemplateFields(bodyFields)); // Dispatch the fields to Redux
+    onClose(); // Close the dialog after saving
+  };
 
   return (
     <Dialog
@@ -110,10 +129,10 @@ export function TextTemplateTypeDialog({ title, content, action, open, onClose, 
         </Box>
       </Box>
       <Box sx={{ px: 2, pb: 2 }}>
-        <Button variant="contained" sx={{ mr: 1 }}>
-          Send
+        <Button variant="contained" sx={{ mr: 1 }} onClick={handleSave}>
+          Save
         </Button>
-        <Button variant="outlined">Cancel</Button>
+        <Button variant="outlined" onClick={onClose}>Cancel</Button>
       </Box>
     </Dialog>
   );

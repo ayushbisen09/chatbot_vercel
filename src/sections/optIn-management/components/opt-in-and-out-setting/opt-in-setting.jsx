@@ -21,6 +21,7 @@ import {
   FormControlLabel,
 } from '@mui/material';
 
+import PreviewTemplateChatBox from 'src/sections/preview-template/chat-box';
 import { OptInDrawer } from 'src/sections/optIn-management/hook/opt-in-drawer';
 
 import FileType from '../../hook/messages-type/file';
@@ -29,7 +30,9 @@ import AudioType from '../../hook/messages-type/audio';
 // ----------------------------------------------------------------------
 
 export default function OptInSetting() {
-    const { messageType, messageContent, chatBoxImage } = useSelector((state) => state.optInMessage);
+  const { messageType, messageContent, chatBoxImage } = useSelector((state) => state.optInMessage);
+  const templateFields = useSelector((state) => state.texttypetemplate.templateFields); // Access the saved template fields
+
   const [optInDrawer, setOptInDrawer] = useState(false);
   const [optInMessageType, setOptInMessageType] = useState('pre');
   const [tags, setTags] = useState(['Purchase', 'Pabbly Connect', 'Pabbly Subscription Billing']);
@@ -44,6 +47,8 @@ export default function OptInSetting() {
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const replacePlaceholders = (template, fields) =>
+    template.replace(/\{\{(\d+)\}\}/g, (match, number) => fields[number - 1] || match);
 
   return (
     <Box>
@@ -126,49 +131,173 @@ export default function OptInSetting() {
           </Tooltip>
         </Box>
 
-        <Box sx={{ px: 3 }}>
+        {/* <Box sx={{ px: 3 }}>
           <Box sx={{ width: '380px' }}>
             <Tooltip title="Opt-Out response preview" arrow placement="top">
-            <Box sx={{ width: '380px' }}>
-          <Card sx={{ border: '1px solid #919EAB33', width: '100%', maxWidth: '500px' }}>
-            <CardHeader
-              avatar={<Avatar aria-label="profile picture">MC</Avatar>}
-              title="Mireya Conner"
-              subheader="Online"
-            />
-            <Divider />
-            <Typography
-              variant="caption"
-              sx={{ pr: 2, pt: 3, display: 'flex', justifyContent: 'end' }}
-            >
-              4:02 PM
-            </Typography>
-            <Box sx={{ p: 2, backgroundColor: '#CCF4FE', borderRadius: '8px', m: 2 }}>
-              {messageType === 'video' && <VideoType videoSrc="../../../public/assets/videos/chat-videos/advertisement.mp4" />}
-              {messageType === 'audio' && <AudioType audioSrc="../../../public/assets/audios/new-instrumental.mp3" />}
-              {messageType === 'file' && <FileType />}
-
-              <Box sx={{ mb: 2 }}>
-                {chatBoxImage && (
-                  <img
-                    src={chatBoxImage}
-                    alt="Chat Preview"
-                    style={{ width: '100%', borderRadius: '8px' }}
+              <Box sx={{ width: '380px' }}>
+                <Card sx={{ border: '1px solid #919EAB33', width: '100%', maxWidth: '500px' }}>
+                  <CardHeader
+                    avatar={<Avatar aria-label="profile picture">MC</Avatar>}
+                    title="Mireya Conner"
+                    subheader="Online"
                   />
+                  <Divider />
+                  <Typography
+                    variant="caption"
+                    sx={{ pr: 2, pt: 3, display: 'flex', justifyContent: 'end' }}
+                  >
+                    4:02 PM
+                  </Typography>
+                  <Box sx={{ p: 2, backgroundColor: '#CCF4FE', borderRadius: '8px', m: 2 }}>
+                    {messageType === 'video' && (
+                      <VideoType videoSrc="../../../public/assets/videos/chat-videos/advertisement.mp4" />
+                    )}
+                    {messageType === 'audio' && (
+                      <AudioType audioSrc="../../../public/assets/audios/new-instrumental.mp3" />
+                    )}
+                    {messageType === 'file' && <FileType />}
+
+                    <Box sx={{ mb: 2 }}>
+                      {chatBoxImage && (
+                        <img
+                          src={chatBoxImage}
+                          alt="Chat Preview"
+                          style={{ width: '100%', borderRadius: '8px' }}
+                        />
+                      )}
+                    </Box>
+                    <Typography
+                      variant="body2"
+                      color="text.primary"
+                      sx={{ fontSize: 14, fontWeight: '500' }}
+                    >
+                      {messageContent}
+                    </Typography>
+                  </Box>
+                </Card>
+                {templateFields.length > 0 && (
+                  <Box sx={{ mt: 3 }}>
+                    <PreviewTemplateChatBox
+                      coverSrc="/assets/images/templateImage/template-image1.jpg"
+                      text={
+                        <>
+                          <span style={{ fontWeight: '600' }}>
+                            {replacePlaceholders(` Hi {{1}}! 🎧🛒`, templateFields)}
+                          </span>
+                          <br /> <br />
+                          {`  Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌`}
+                          <br /> <br />
+                          {` Order Details:`}
+                          <br />
+                          {replacePlaceholders(` Product: {{2}}`, templateFields)}
+                          <br />
+                          {replacePlaceholders(`Quantity: {{3}}`, templateFields)}
+                          <br />
+                          {replacePlaceholders(`Order ID: {{4}}`, templateFields)}
+                          <br />
+                          {replacePlaceholders(`Delivery Address: {{5}}`, templateFields)}
+                          <br />
+                          {replacePlaceholders(`Estimated Delivery Date: {{6}}`, templateFields)}
+                        </>
+                      }
+                      showLinks
+                      showVisit
+                      showCall
+                    />
+                  </Box>
                 )}
               </Box>
-              <Typography
-                variant="body2"
-                color="text.primary"
-                sx={{ fontSize: 14, fontWeight: '500' }}
-              >
-                {messageContent}
-              </Typography>
-            </Box>
-          </Card>
-        </Box>
             </Tooltip>
           </Box>
+        </Box> */}
+        <Box sx={{ px: 3 }}>
+          {/* Conditionally rendering either the templateFields or the Card */}
+          {templateFields.length > 0 ? (
+            <Box sx={{ width: '380px' }}>
+              <Tooltip title="Opt-Out response preview" arrow placement="top">
+                <Box sx={{ width: '380px' }}>
+                  {/* TemplateFields Content */}
+                  <Box sx={{ mt: 3 }}>
+                    <PreviewTemplateChatBox
+                      coverSrc="/assets/images/templateImage/template-image1.jpg"
+                      text={
+                        <>
+                          <span style={{ fontWeight: '600' }}>
+                            {replacePlaceholders(` Hi {{1}}! 🎧🛒`, templateFields)}
+                          </span>
+                          <br /> <br />
+                          {`  Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌`}
+                          <br /> <br />
+                          {` Order Details:`}
+                          <br />
+                          {replacePlaceholders(` Product: {{2}}`, templateFields)}
+                          <br />
+                          {replacePlaceholders(`Quantity: {{3}}`, templateFields)}
+                          <br />
+                          {replacePlaceholders(`Order ID: {{4}}`, templateFields)}
+                          <br />
+                          {replacePlaceholders(`Delivery Address: {{5}}`, templateFields)}
+                          <br />
+                          {replacePlaceholders(`Estimated Delivery Date: {{6}}`, templateFields)}
+                        </>
+                      }
+                      showLinks
+                      showVisit
+                      showCall
+                    />
+                  </Box>
+                </Box>
+              </Tooltip>
+            </Box>
+          ) : (
+            <Box sx={{ width: '380px' }}>
+              <Tooltip title="Opt-Out response preview" arrow placement="top">
+                <Box sx={{ width: '380px' }}>
+                  {/* Card component if templateFields is not present */}
+                  <Card sx={{ border: '1px solid #919EAB33', width: '100%', maxWidth: '500px' }}>
+                    <CardHeader
+                      avatar={<Avatar aria-label="profile picture">MC</Avatar>}
+                      title="Mireya Conner"
+                      subheader="Online"
+                    />
+                    <Divider />
+                    <Typography
+                      variant="caption"
+                      sx={{ pr: 2, pt: 3, display: 'flex', justifyContent: 'end' }}
+                    >
+                      4:02 PM
+                    </Typography>
+                    <Box sx={{ p: 2, backgroundColor: '#CCF4FE', borderRadius: '8px', m: 2 }}>
+                      {messageType === 'video' && (
+                        <VideoType videoSrc="../../../public/assets/videos/chat-videos/advertisement.mp4" />
+                      )}
+                      {messageType === 'audio' && (
+                        <AudioType audioSrc="../../../public/assets/audios/new-instrumental.mp3" />
+                      )}
+                      {messageType === 'file' && <FileType />}
+
+                      <Box sx={{ mb: 2 }}>
+                        {chatBoxImage && (
+                          <img
+                            src={chatBoxImage}
+                            alt="Chat Preview"
+                            style={{ width: '100%', borderRadius: '8px' }}
+                          />
+                        )}
+                      </Box>
+                      <Typography
+                        variant="body2"
+                        color="text.primary"
+                        sx={{ fontSize: 14, fontWeight: '500' }}
+                      >
+                        {messageContent}
+                      </Typography>
+                    </Box>
+                  </Card>
+                </Box>
+              </Tooltip>
+            </Box>
+          )}
         </Box>
 
         <Box sx={{ px: 3, pb: 3 }}>
