@@ -1,3 +1,4 @@
+import { useDispatch } from 'react-redux';
 import { useState, useCallback } from 'react';
 
 import { useTheme } from '@mui/material/styles';
@@ -18,6 +19,8 @@ import {
   InputAdornment,
 } from '@mui/material';
 
+import { saveRegularMessage } from 'src/redux/slices/regularMessageTemplateSlice';
+
 import { Iconify } from 'src/components/iconify';
 import FileUpload from 'src/components/upload/upload';
 import { ConfirmDialog } from 'src/components/custom-dialog';
@@ -26,7 +29,8 @@ import FileType from './hook/messages-type/file';
 import VideoType from './hook/messages-type/video';
 import AudioType from './hook/messages-type/audio';
 
-export default function RegularMessage() {
+export default function OptOutRegularMessage() {
+  const dispatch = useDispatch(); // Initialize dispatch
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -54,8 +58,8 @@ export default function RegularMessage() {
   ); // State to store the entered message
 
   const handleAdd = () => {
-    // Implement your logic to add WhatsApp number here
-    // For example, you might want to validate the inputs first
+    // Dispatch the action with selected message type and content
+    dispatch(saveRegularMessage({ messageType: messagetype, messageContent: message }));
 
     // Show the snackbar
     setSnackbarOpen(true);
@@ -116,7 +120,7 @@ export default function RegularMessage() {
     <>
       <Box sx={{ mt: '24px' }}>
         <Box display="flex" flexDirection={isMobile ? 'column' : 'row'} width="100%">
-          <Box width={isMobile ? '100%' : '60%'} pr={isMobile ? 0 : '12px'}>
+          <Box width={isMobile ? '100%' : '59.01%'} pr={isMobile ? 0 : '12px'}>
             <Tooltip title="Click here to select regular message type" arrow placement="top">
               <TextField
                 sx={{ mb: 3 }}

@@ -1,3 +1,4 @@
+import { useDispatch } from 'react-redux';
 import { useState, useCallback } from 'react';
 
 import { useTheme } from '@mui/material/styles';
@@ -18,6 +19,8 @@ import {
   InputAdornment,
 } from '@mui/material';
 
+import { saveOptInTemplate } from 'src/redux/slices/templateSlice';
+
 import { Iconify } from 'src/components/iconify';
 import FileUpload from 'src/components/upload/upload';
 import { ConfirmDialog } from 'src/components/custom-dialog';
@@ -26,8 +29,9 @@ import { usePopover, CustomPopover } from 'src/components/custom-popover';
 import FileType from './hook/messages-type/file';
 import AudioType from './hook/messages-type/audio';
 import VideoType from './hook/messages-type/video';
-
-export default function PreApprovedMessage() {
+ 
+export default function OptInPreApprovedMessage() {
+  const dispatch = useDispatch();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -44,15 +48,15 @@ export default function PreApprovedMessage() {
   };
 
   const handleAdd = () => {
-    // Implement your logic to add WhatsApp number here
-    // For example, you might want to validate the inputs first
-
-    // Show the snackbar
-    // setSnackbarOpen(true);
-
-    // Close the dialog after a short delay
-    setTimeout(() => {}, 500);
+    console.log('Selected Template Type:', templateType);  // Debug line
+    const templateData = {
+      type: templateType,
+      message,
+      chatBoxImage,
+    };
+    dispatch(saveOptInTemplate(templateData));
   };
+  
 
   const popover1 = usePopover();
   const popover2 = usePopover();
@@ -93,6 +97,8 @@ export default function PreApprovedMessage() {
   const handleChangemessagetype = useCallback((event) => {
     const selectedType = event.target.value;
     setmessagetype(selectedType);
+    
+    // Check if this block is correctly updating the message template
     if (selectedType === 'file' || selectedType === 'audio' || selectedType === 'video') {
       setMessage(
         <>
@@ -116,8 +122,8 @@ export default function PreApprovedMessage() {
         </>
       );
     }
-
-    // Update the chat box image based on the selected type
+  
+    // Update the chatBoxImage based on the selected type
     switch (selectedType) {
       case 'text':
         setChatBoxImage('');
@@ -126,18 +132,15 @@ export default function PreApprovedMessage() {
         setChatBoxImage('../../assets/images/chatImage/imagechat.png');
         break;
       case 'video':
-        setChatBoxImage('');
-        break;
       case 'file':
-        setChatBoxImage('');
-        break;
       case 'audio':
-        setChatBoxImage('');
+        setChatBoxImage('');  // Ensure this doesn't interfere with your logic
         break;
       default:
         setChatBoxImage('../../assets/images/chatImage/default.png');
     }
   }, []);
+  
 
   const TEMPLATETYPE = [
     { value: 'text', label: 'Text Template' },
