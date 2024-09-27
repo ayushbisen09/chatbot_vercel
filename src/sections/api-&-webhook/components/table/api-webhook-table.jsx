@@ -34,6 +34,8 @@ import {
   TableHeadCustom,
   TablePaginationCustom,
 } from 'src/components/table';
+import { ConfirmDialog } from 'src/components/custom-dialog';
+import { WebhookDialog } from '../../hook/add-webhook';
 
 const TABLE_HEAD = [
   { id: 'webhoon_name', label: 'Webhook Name & Event', width: 358 },
@@ -103,6 +105,10 @@ export function ApiWebhookTable() {
   });
 
   const [selectedRow, setSelectedRow] = useState(null);
+  const dialog = useBoolean();
+  const confirmDelete = useBoolean();
+
+
   const confirm = useBoolean();
   const table = useTable();
   const popover = usePopover();
@@ -237,20 +243,20 @@ export function ApiWebhookTable() {
         slotProps={{ arrow: { placement: 'right-top' } }}
       >
         <MenuList>
-          <MenuItem>
+          <MenuItem onClick={dialog.onTrue}>
             <Iconify icon="solar:pen-bold" />
             Edit
           </MenuItem>
           <MenuItem>
-            <Iconify icon="teenyicons:toggle-solid" />
-            Mark as Active
+            <Iconify icon="line-md:switch-filled-to-switch-off-filled-transition" />
+            Active
           </MenuItem>
 
           <Divider sx={{ borderStyle: 'dashed' }} />
 
           <MenuItem
             onClick={() => {
-              confirm.onTrue();
+              confirmDelete.onTrue();
               popover.onClose();
             }}
             sx={{ color: 'error.main' }}
@@ -260,6 +266,19 @@ export function ApiWebhookTable() {
           </MenuItem>
         </MenuList>
       </CustomPopover>
+      <WebhookDialog open={dialog.value} onClose={dialog.onFalse} />
+      <ConfirmDialog
+        open={confirmDelete.value}
+        onClose={confirmDelete.onFalse}
+        title="Delete"
+        content="Are you sure you want to remove this Webhook?"
+        action={
+          <Button variant="contained" color="error">
+            Delete
+          </Button>
+        }
+      />
+
     </Card>
   );
 }
