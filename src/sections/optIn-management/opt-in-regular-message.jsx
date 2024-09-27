@@ -1,3 +1,4 @@
+
 import { useDispatch } from 'react-redux';
 import { useState, useCallback } from 'react';
 
@@ -19,7 +20,7 @@ import {
   InputAdornment,
 } from '@mui/material';
 
-import { saveRegularMessage } from 'src/redux/slices/regularMessageTemplateSlice';
+import { setMessageData } from 'src/redux/slices/regularMessageTemplateSlice';
 
 import { Iconify } from 'src/components/iconify';
 import FileUpload from 'src/components/upload/upload';
@@ -29,8 +30,26 @@ import FileType from './hook/messages-type/file';
 import VideoType from './hook/messages-type/video';
 import AudioType from './hook/messages-type/audio';
 
-export default function OptInRegularMessage() {
-  const dispatch = useDispatch(); // Initialize dispatch
+export default function OptInRegularMessage(onClose) {
+  const dispatch = useDispatch();
+  const handleAdd = () => {
+    // Dispatch the selected message type and content to Redux store
+    dispatch(
+      setMessageData({
+        messageType: messagetype,
+        messageContent: message,
+        chatBoxImage, // If there is an image
+      })
+    );
+
+    // Show the snackbar
+    setSnackbarOpen(true);
+    onClose();
+
+    // Close the dialog after a short delay
+    setTimeout(() => {}, 500);
+  };
+ 
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -58,16 +77,7 @@ export default function OptInRegularMessage() {
     'Thank you for opting-out. In future if you ever want to connect again just send "Hello".'
   ); // State to store the entered message
 
-  const handleAdd = () => {
-    // Dispatch the action with selected message type and content
-    dispatch(saveRegularMessage({ messageType: messagetype, messageContent: message }));
-
-    // Show the snackbar
-    setSnackbarOpen(true);
-
-    // Close the dialog after a short delay
-    setTimeout(() => {}, 500);
-  };
+  
 
   const handleSnackbarClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -437,7 +447,7 @@ export default function OptInRegularMessage() {
           </Button>
         </Tooltip>
         <Tooltip title="Click here to cancel regular message type" arrow placement="top">
-          <Button sx={{ mt: '24px' }} variant="outlined">
+          <Button sx={{ mt: '24px' }} variant="outlined" onClick={onClose}>
             Cancel
           </Button>
         </Tooltip>
