@@ -140,21 +140,6 @@ export function ApiWebhookTable() {
           mb: 2,
         }}
       />
-      <Divider />
-
-      <Box sx={{ p: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <TextField
-          value={filters.name}
-          onChange={handleFilterName}
-          placeholder="Search by Webhook Name..."
-          sx={{ width: '100%' }}
-          InputProps={{
-            startAdornment: (
-              <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled', mr: 1 }} />
-            ),
-          }}
-        />
-      </Box>
 
       <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
         <Scrollbar>
@@ -263,10 +248,9 @@ export function ApiWebhookTable() {
             <Iconify icon="teenyicons:toggle-solid" />
             Mark as Active
           </MenuItem>
-       
-    
-           <Divider sx={{borderStyle:'dashed'}}/>
-      
+
+          <Divider sx={{ borderStyle: 'dashed' }} />
+
           <MenuItem
             onClick={() => {
               confirm.onTrue();
