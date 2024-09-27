@@ -19,7 +19,7 @@ import {
   InputAdornment,
 } from '@mui/material';
 
-import { saveRegularMessage } from 'src/redux/slices/regularMessageTemplateSlice';
+import { setOptOutMessageData } from 'src/redux/slices/optOutRegularMessageSlice';
 
 import { Iconify } from 'src/components/iconify';
 import FileUpload from 'src/components/upload/upload';
@@ -29,8 +29,9 @@ import FileType from './hook/messages-type/file';
 import VideoType from './hook/messages-type/video';
 import AudioType from './hook/messages-type/audio';
 
-export default function OptOutRegularMessage() {
-  const dispatch = useDispatch(); // Initialize dispatch
+export default function OptOutRegularMessage({onClose}) {
+  const dispatch = useDispatch();
+  
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -58,16 +59,22 @@ export default function OptOutRegularMessage() {
   ); // State to store the entered message
 
   const handleAdd = () => {
-    // Dispatch the action with selected message type and content
-    dispatch(saveRegularMessage({ messageType: messagetype, messageContent: message }));
+    // Dispatch the selected message type and content to Redux store
+    dispatch(
+      setOptOutMessageData({
+        messageType: messagetype,
+        messageContent: message,
+        chatBoxImage, // If there is an image
+      })
+    );
 
     // Show the snackbar
     setSnackbarOpen(true);
+    onClose();
 
     // Close the dialog after a short delay
     setTimeout(() => {}, 500);
-  };
-
+  }
   const handleSnackbarClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -436,7 +443,7 @@ export default function OptOutRegularMessage() {
           </Button>
         </Tooltip>
         <Tooltip title="Click here to cancel regular message type" arrow placement="top">
-          <Button sx={{ mt: '24px' }} variant="outlined">
+          <Button sx={{ mt: '24px' }} variant="outlined" onClick={onClose}>
             Cancel
           </Button>
         </Tooltip>

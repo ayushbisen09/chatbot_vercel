@@ -1,4 +1,4 @@
-import React from 'react';
+import React , { useState }from 'react';
 import { Link } from 'react-router-dom';
 
 import {
@@ -7,6 +7,7 @@ import {
   Radio,
   Drawer,
   styled,
+  Button,
   Divider,
   Tooltip,
   CardHeader,
@@ -14,13 +15,14 @@ import {
   IconButton,
   RadioGroup,
   FormControlLabel,
-  Backdrop as MuiBackdrop,
+  Backdrop as MuiBackdrop
 } from '@mui/material';
 
 import { Iconify } from 'src/components/iconify';
+import { ChooseTemplate } from 'src/components/flow-nodes/message-type-nodes/hooks/dailogs/flow-start-node-choose-templates-dailog';
 
 import OptOutRegularMessage from '../opt-out-regular-message';
-import OptOutPreApprovedMessage from '../opt-out-pre-approved-message';
+// import OptOutPreApprovedMessage from '../opt-out-pre-approved-message';
 
 // Custom backdrop component
 const CustomBackdrop = (props) => (
@@ -31,6 +33,9 @@ const CustomBackdrop = (props) => (
 );
 
 const OptOutDrawer = ({ open, onClose,setMessageType, messageType }) => {
+  const [isTemplateDialogOpen, setIsTemplateDialogOpen] = useState(false); // Moved inside the component
+  const openTemplateDialog = () => setIsTemplateDialogOpen(true);
+  const closeTemplateDialog = () => setIsTemplateDialogOpen(false);
   const handleBackdropClick = (event) => {
     // Prevent clicks inside the drawer from closing it
     if (event.target === event.currentTarget) {
@@ -110,16 +115,25 @@ const OptOutDrawer = ({ open, onClose,setMessageType, messageType }) => {
               </RadioGroup>
               {messageType === 'pre' && (
                 <form>
-                  <OptOutPreApprovedMessage />
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    size="Medium"
+                    onClick={openTemplateDialog}
+                    sx={{width: '230px' ,mt: 2}}
+                  >
+                    Select Whatsapp Template
+                  </Button>
                 </form>
               )}
 
               {messageType === 'regular' && (
                 <form>
-                  <OptOutRegularMessage />
+                  <OptOutRegularMessage onClose={onClose} />
                 </form>
               )}
             </Box>
+            <ChooseTemplate open={isTemplateDialogOpen} onClose={closeTemplateDialog} />
           </Card>
         </Box>
       </Drawer>

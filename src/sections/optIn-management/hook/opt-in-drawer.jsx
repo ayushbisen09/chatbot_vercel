@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import {
@@ -7,6 +7,7 @@ import {
   Radio,
   Drawer,
   styled,
+  Button,
   Divider,
   Tooltip,
   CardHeader,
@@ -14,13 +15,13 @@ import {
   IconButton,
   RadioGroup,
   FormControlLabel,
-  Backdrop as MuiBackdrop,
+  Backdrop as MuiBackdrop
 } from '@mui/material';
 
 import { Iconify } from 'src/components/iconify';
+import { ChooseTemplate } from 'src/components/flow-nodes/message-type-nodes/hooks/dailogs/flow-start-node-choose-templates-dailog';
 
 import OptInRegularMessage from '../opt-in-regular-message';
-import OptInPreApprovedMessage from '../opt-in-pre-approved-message';
 
 // Custom backdrop component
 const CustomBackdrop = (props) => (
@@ -31,6 +32,11 @@ const CustomBackdrop = (props) => (
 );
 
 const OptInDrawer = ({ open, onClose, messageType, setMessageType }) => {
+  const [isTemplateDialogOpen, setIsTemplateDialogOpen] = useState(false); // Moved inside the component
+
+  const openTemplateDialog = () => setIsTemplateDialogOpen(true);
+  const closeTemplateDialog = () => setIsTemplateDialogOpen(false);
+
   const handleBackdropClick = (event) => {
     // Prevent clicks inside the drawer from closing it
     if (event.target === event.currentTarget) {
@@ -41,7 +47,6 @@ const OptInDrawer = ({ open, onClose, messageType, setMessageType }) => {
   const CustomLink = styled(Link)({
     color: '#078DEE',
   });
-
 
   const handleRadioChange = (event) => {
     setMessageType(event.target.value);
@@ -82,7 +87,7 @@ const OptInDrawer = ({ open, onClose, messageType, setMessageType }) => {
         <Box sx={{ mt: 4 }}>
           <Card>
             <CardHeader
-              subheader="Setup keywords that user can type to Opt-in & Opt-out from messaging campaign. "
+              subheader="Setup keywords that users can type to Opt-in & Opt-out from messaging campaigns."
               title="Opt-In Response"
               sx={{ mb: 3 }}
             />
@@ -110,7 +115,16 @@ const OptInDrawer = ({ open, onClose, messageType, setMessageType }) => {
               </RadioGroup>
               {messageType === 'pre' && (
                 <form>
-                  <OptInPreApprovedMessage />
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    size="Medium"
+                    onClick={openTemplateDialog}
+                    sx={{width: '230px' ,mt: 2}}
+                    
+                  >
+                   Select WhatsApp Template
+                  </Button>
                 </form>
               )}
 
@@ -120,6 +134,7 @@ const OptInDrawer = ({ open, onClose, messageType, setMessageType }) => {
                 </form>
               )}
             </Box>
+            <ChooseTemplate open={isTemplateDialogOpen} onClose={closeTemplateDialog} />
           </Card>
         </Box>
       </Drawer>

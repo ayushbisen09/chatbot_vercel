@@ -3,20 +3,20 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   messageType: 'text',
-  messageContent: 'Thank you for opting-in. In future if you ever want to connect again just send "Hello".',
+  messageContent: 'Thank you for opting-out. In future if you ever want to connect again just send "Hello".',
   chatBoxImage: '',
 };
 
-export const optInMessageSlice = createSlice({
-  name: 'optInMessage',
+export const optOutMessageSlice = createSlice({
+  name: 'optOutMessage',
   initialState,
   reducers: {
-    setMessageData: (state, action) => {
+    setOptOutMessageData: (state, action) => {
       state.messageType = action.payload.messageType;
       state.messageContent = action.payload.messageContent;
       state.chatBoxImage = action.payload.chatBoxImage;
     },
-    resetMessageData: (state) => {
+    resetOptOutMessageData: (state) => {
       state.messageType = 'text';
       state.messageContent = '';
       state.chatBoxImage = '';
@@ -24,6 +24,6 @@ export const optInMessageSlice = createSlice({
   },
 });
 
-export const { setMessageData, resetMessageData } = optInMessageSlice.actions;
+export const { setOptOutMessageData, resetOptOutMessageData } = optOutMessageSlice.actions;
 
-export default optInMessageSlice.reducer;
+export default optOutMessageSlice.reducer;
