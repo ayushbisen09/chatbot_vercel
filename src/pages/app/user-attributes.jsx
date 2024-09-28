@@ -1,13 +1,27 @@
 import React, { useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
+
 import {
-  Box, Card, Stack, Button, Divider, Tooltip, useTheme, Snackbar, CardHeader, Typography, useMediaQuery, TextField, InputAdornment,
-  Alert
+  Box,
+  Card,
+  Stack,
+  Alert,
+  Button,
+  Divider,
+  Tooltip,
+  useTheme,
+  Snackbar,
+  TextField,
+  CardHeader,
+  Typography,
+  useMediaQuery,
 } from '@mui/material';
+
 import { DashboardContent } from 'src/layouts/dashboard';
+
 import { Iconify } from 'src/components/iconify';
-import PageHeader from 'src/components/page-header/page-header';
 import { ConfirmDialog } from 'src/components/custom-dialog';
+import PageHeader from 'src/components/page-header/page-header';
 
 export default function Page() {
   const theme = useTheme();
@@ -67,6 +81,22 @@ export default function Page() {
           <CardHeader title="User Attributes" sx={{ mb: 3 }} />
           <Divider />
           <Box sx={{ p: 3 }}>
+            <Box sx={{ mr: 6 }}>
+              {!isTabletOrMobile && (
+                <Box sx={{ display: 'flex', mb: 3 }}>
+                  <Box sx={{ mb: { xs: 2, sm: 0 }, width: '50%' }}>
+                    <Typography variant="h7" sx={{ mb: 3, fontWeight: 600 }}>
+                      Attribute Name
+                    </Typography>
+                  </Box>
+                  <Box sx={{ ml: 2, width: '50%' }}>
+                    <Typography variant="h7" sx={{ mb: 3, fontWeight: 600 }}>
+                      Attribute Description
+                    </Typography>
+                  </Box>
+                </Box>
+              )}
+            </Box>
             <Stack spacing={3}>
               {fields.map((item, index) => (
                 <Stack key={item.id} spacing={isTabletOrMobile ? 1 : 0}>
@@ -127,10 +157,7 @@ export default function Page() {
         onClose={handleSnackbarClose}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
-        <Alert
-          onClose={handleSnackbarClose}
-          severity="success"
-        >
+        <Alert onClose={handleSnackbarClose} severity="success">
           Attributes Saved Successfully!
         </Alert>
       </Snackbar>

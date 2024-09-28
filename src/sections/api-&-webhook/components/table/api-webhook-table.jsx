@@ -9,12 +9,10 @@ import {
   Divider,
   Tooltip,
   TableRow,
-  Checkbox,
   MenuList,
   MenuItem,
   TableBody,
   TableCell,
-  TextField,
   CardHeader,
   IconButton,
   Typography,
@@ -25,6 +23,7 @@ import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
+import { ConfirmDialog } from 'src/components/custom-dialog';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
 import {
   useTable,
@@ -32,14 +31,18 @@ import {
   TableNoData,
   TableEmptyRows,
   TableHeadCustom,
-  TablePaginationCustom,
 } from 'src/components/table';
-import { ConfirmDialog } from 'src/components/custom-dialog';
+
 import { WebhookDialog } from '../../hook/add-webhook';
 
 const TABLE_HEAD = [
-  { id: 'webhoon_name', label: 'Webhook Name & Event', width: 358 },
-  { id: 'text', label: 'Webhook URL', width: 742 },
+  {
+    id: 'webhoon_name',
+    label: 'Webhook Name & Event',
+    width: 358,
+    tooltip: 'Webhook Name & Event',
+  },
+  { id: 'text', label: 'Webhook URL', width: 742, tooltip: 'Webhook URL' },
   { id: 'type', label: '', width: 200 },
   { id: 'actions', label: '', width: 50 },
 ];
@@ -56,8 +59,8 @@ const SAMPLE_DATA = [
   },
   {
     id: 2,
-    webhook_name: 'Webhook Name',
-    event: 'New Workflow Error',
+    webhook_name: 'Webhook Name fgfgffgfg ghghghgh hhghdhrt tydr dr',
+    event: 'New Workflow Error sdsdsdsd sdsdsdsdsds sdsdsdsds',
     webhook_url: 'http://54.186.67.24/workflow/sendwebhookdata/Ijsfsrgdtgmsg;msrgmsedm:ESAm:AEfm',
     type: 'Image',
     status: 'Inactive',
@@ -96,6 +99,9 @@ const SAMPLE_DATA = [
   },
 ];
 
+const truncateText = (text, maxLength = 37) =>
+  text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
+
 const truncateUrl = (url, maxLength = 78) =>
   url.length > maxLength ? `${url.substring(0, maxLength)}...` : url;
 
@@ -105,11 +111,12 @@ export function ApiWebhookTable() {
   });
 
   const [selectedRow, setSelectedRow] = useState(null);
+  const [tableData, setTableData] = useState(SAMPLE_DATA);
   const dialog = useBoolean();
   const confirmDelete = useBoolean();
+  const confirmStatus = useBoolean();
+  const [statusToToggle, setStatusToToggle] = useState('');
 
-
-  const confirm = useBoolean();
   const table = useTable();
   const popover = usePopover();
 
@@ -124,7 +131,7 @@ export function ApiWebhookTable() {
     [table]
   );
 
-  const dataFiltered = SAMPLE_DATA.filter((item) =>
+  const dataFiltered = tableData.filter((item) =>
     item.webhook_name.toLowerCase().includes(filters.name.toLowerCase())
   );
 
@@ -134,23 +141,34 @@ export function ApiWebhookTable() {
   };
 
   const handleDelete = () => {
-    console.log('Delete', selectedRow);
+    setTableData((prevData) => prevData.filter((item) => item.id !== selectedRow.id));
+    confirmDelete.onFalse();
+  };
+
+  const handleStatusToggle = (newStatus) => {
+    setStatusToToggle(newStatus);
+    confirmStatus.onTrue();
+  };
+
+  const handleConfirmStatusChange = () => {
+    setTableData((prevData) =>
+      prevData.map((item) =>
+        item.id === selectedRow.id ? { ...item, status: statusToToggle } : item
+      )
+    );
+    confirmStatus.onFalse();
     popover.onClose();
   };
 
   return (
     <Card sx={{ mt: 3 }}>
-      <CardHeader
-        title="Webhooks"
-        sx={{
-          mb: 2,
-        }}
-      />
+      <CardHeader title="Webhooks" sx={{ mb: 2 }} />
 
       <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
         <Scrollbar>
           <Table size={table.dense ? 'small' : 'medium'}>
             <TableHeadCustom
+            showCheckbox={false}
               order={table.order}
               orderBy={table.orderBy}
               headLabel={TABLE_HEAD}
@@ -182,39 +200,51 @@ export function ApiWebhookTable() {
                       },
                     }}
                   >
-                    <TableCell padding="checkbox">
-                      <Checkbox
-                        checked={table.selected.includes(row.id)}
-                        onChange={() => table.onSelectRow(row.id)}
-                      />
-                    </TableCell>
+                    
                     <TableCell>
                       <Box>
-                        <Chip
-                          variant="soft"
-                          label={row.status}
-                          color={row.status === 'Active' ? 'success' : 'error'}
-                          size="small"
-                          sx={{ mb: 1 }}
-                        />
-                        <Typography variant="body2">{row.webhook_name}</Typography>
-                        <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-                          {row.event}
+                        <Tooltip arrow placement="top" title={row.status} disableInteractive>
+                          <Chip
+                            variant="soft"
+                            label={row.status}
+                            color={row.status === 'Active' ? 'success' : 'error'}
+                            size="small"
+                            sx={{ mb: 1 }}
+                          />
+                        </Tooltip>
+                        <Typography variant="body2">
+                          <Tooltip
+                            arrow
+                            placement="top"
+                            title={row.webhook_name}
+                            disableInteractive
+                          >
+                            <span>{truncateText(`${row.webhook_name}`)}</span>
+                          </Tooltip>
                         </Typography>
+
+                        <Tooltip arrow placement="top" title={row.event} disableInteractive>
+                          <Typography variant="caption" sx={{ color: 'text.secondary' }}>
+                            {truncateText(`${row.event}`)}
+                          </Typography>
+                        </Tooltip>
                       </Box>
                     </TableCell>
                     <TableCell>
-                      <Tooltip title={row.webhook_url} arrow placement="top">
-                        {truncateUrl(row.webhook_url)}
+                      <Tooltip title={row.webhook_url} arrow placement="top" disableInteractive>
+                        <span>{truncateUrl(row.webhook_url)}</span>
                       </Tooltip>
                     </TableCell>
                     <TableCell>
-                      <Button variant="outlined" color="primary">
-                        Test Webhook
-                      </Button>
+                      <Tooltip title=" Test Webhook" arrow placement="top" disableInteractive>
+                        <Button variant="outlined" color="primary">
+                          Test Webhook
+                        </Button>
+                      </Tooltip>
                     </TableCell>
-                    <TableCell>
+                    <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
                       <IconButton
+                        color={popover.open ? 'inherit' : 'default'}
                         onClick={(event) => {
                           setSelectedRow(row);
                           popover.onOpen(event);
@@ -229,7 +259,6 @@ export function ApiWebhookTable() {
                 height={table.dense ? 52 : 72}
                 emptyRows={emptyRows(table.page, table.rowsPerPage, dataFiltered.length)}
               />
-
               <TableNoData notFound={!dataFiltered.length} />
             </TableBody>
           </Table>
@@ -243,27 +272,50 @@ export function ApiWebhookTable() {
         slotProps={{ arrow: { placement: 'right-top' } }}
       >
         <MenuList>
-          <MenuItem onClick={dialog.onTrue}>
-            <Iconify icon="solar:pen-bold" />
-            Edit
-          </MenuItem>
-          <MenuItem>
-            <Iconify icon="line-md:switch-filled-to-switch-off-filled-transition" />
-            Active
-          </MenuItem>
+          <Tooltip title="Edit this Webhook." arrow placement="left">
+            <MenuItem onClick={dialog.onTrue}>
+              <Iconify icon="solar:pen-bold" />
+              Edit Webhook
+            </MenuItem>
+          </Tooltip>
+
+          {selectedRow && selectedRow.status === 'Active' ? (
+            <Tooltip title="Click to set status to Inactive" arrow placement="left">
+              <MenuItem
+                onClick={() => {
+                  handleStatusToggle('Inactive');
+                }}
+              >
+                <Iconify icon="line-md:switch-off-filled-to-switch-filled-transition" />
+                Inactive
+              </MenuItem>
+            </Tooltip>
+          ) : (
+            <Tooltip title="Click to set status to Active" arrow placement="left">
+              <MenuItem
+                onClick={() => {
+                  handleStatusToggle('Active');
+                }}
+              >
+                <Iconify icon="line-md:switch-filled-to-switch-off-filled-transition" />
+                Active
+              </MenuItem>
+            </Tooltip>
+          )}
 
           <Divider sx={{ borderStyle: 'dashed' }} />
-
-          <MenuItem
-            onClick={() => {
-              confirmDelete.onTrue();
-              popover.onClose();
-            }}
-            sx={{ color: 'error.main' }}
-          >
-            <Iconify icon="solar:trash-bin-trash-bold" />
-            Remove
-          </MenuItem>
+          <Tooltip title="Remove this Webhook." arrow placement="left">
+            <MenuItem
+              onClick={() => {
+                confirmDelete.onTrue();
+                popover.onClose();
+              }}
+              sx={{ color: 'error.main' }}
+            >
+              <Iconify icon="solar:trash-bin-trash-bold" />
+              Remove
+            </MenuItem>
+          </Tooltip>
         </MenuList>
       </CustomPopover>
       <WebhookDialog open={dialog.value} onClose={dialog.onFalse} />
@@ -273,12 +325,22 @@ export function ApiWebhookTable() {
         title="Delete"
         content="Are you sure you want to remove this Webhook?"
         action={
-          <Button variant="contained" color="error">
+          <Button variant="contained" color="error" onClick={handleDelete}>
             Delete
           </Button>
         }
       />
-
+      <ConfirmDialog
+        open={confirmStatus.value}
+        onClose={confirmStatus.onFalse}
+        title="Change Status"
+        content={`Are you sure you want to mark this Webhook as ${statusToToggle}?`}
+        action={
+          <Button variant="contained" color="inherit" onClick={handleConfirmStatusChange}>
+            Yes
+          </Button>
+        }
+      />
     </Card>
   );
 }
