@@ -14,7 +14,6 @@ import {
   MenuItem,
   TableBody,
   TableCell,
-  TextField,
   CardHeader,
   IconButton,
   Typography,
@@ -32,7 +31,6 @@ import {
   TableNoData,
   TableEmptyRows,
   TableHeadCustom,
-  TablePaginationCustom,
 } from 'src/components/table';
 
 const TABLE_HEAD = [
