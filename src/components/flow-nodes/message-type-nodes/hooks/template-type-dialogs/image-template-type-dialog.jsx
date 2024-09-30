@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTheme } from '@emotion/react';
 
 import Dialog from '@mui/material/Dialog';
@@ -49,25 +49,31 @@ export function ImageTemplateTypeDialog({ title, content, action, open, onClose,
     }
   };
 
+  const chosen =useSelector(state=>state.optInMessageTemplateType.chosen);
   const handleDone = () => {
-    dispatch(optInSetTemplateType('image')); // This sets the template type to 'image'
 
-    dispatch(
-      optInSetImageData({
-        imageUrl: file ? URL.createObjectURL(file) : null, // This stores the image URL
-        bodyFields,
-        fileName: file ? file.name : '', // This stores the file name
-      })
-    );
-    dispatch(optOutSetTemplateType('image')); // This sets the template type to 'image'
+    if(chosen==='optIn'){
+      dispatch(optInSetTemplateType('image')); // This sets the template type to 'image'
 
-    dispatch(
-      optOutSetImageData({
-        imageUrl: file ? URL.createObjectURL(file) : null, // This stores the image URL
-        bodyFields,
-        fileName: file ? file.name : '', // This stores the file name
-      })
-    );
+      dispatch(
+        optInSetImageData({
+          imageUrl: file ? URL.createObjectURL(file) : null, // This stores the image URL
+          bodyFields,
+          fileName: file ? file.name : '', // This stores the file name
+        })
+      );
+    }else{
+      dispatch(optOutSetTemplateType('image')); // This sets the template type to 'image'
+
+      dispatch(
+        optOutSetImageData({
+          imageUrl: file ? URL.createObjectURL(file) : null, // This stores the image URL
+          bodyFields,
+          fileName: file ? file.name : '', // This stores the file name
+        })
+      );
+    }
+
 
     onClose(); // Close the dialog
   };

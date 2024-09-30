@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTheme } from '@emotion/react';
 
 import Dialog from '@mui/material/Dialog';
@@ -29,14 +29,15 @@ export function TextTemplateTypeDialog({ title, content, action, open, onClose, 
     template.replace(/\{\{(\d+)\}\}/g, (match, number) => fields[number - 1] || match);
 
   const dispatch = useDispatch(); // Initialize the Redux dispatch
+  const chosen =useSelector(state=>state.optInMessageTemplateType.chosen);
   const handleSave = () => {
-    dispatch(optInSetTemplateType('text')); // Dispatch the fields to Redux
-    dispatch(optInSetTemplateFields(bodyFields)); // Dispatch the fields to Redux
-
-    dispatch(optOutSetTemplateType('text')); // Dispatch the fields to Redux
-    dispatch(optOutSetTemplateFields(bodyFields)); // Dispatch the fields to Redux
-    
-
+    if(chosen==='optIn'){
+      dispatch(optInSetTemplateType('text')); // Dispatch the fields to Redux
+      dispatch(optInSetTemplateFields(bodyFields)); // Dispatch the fields to Redux
+    }else{
+      dispatch(optOutSetTemplateType('text')); // Dispatch the fields to Redux
+      dispatch(optOutSetTemplateFields(bodyFields)); // Dispatch the fields to Redux
+    }
     onClose(); // Close the dialog after saving
   };
 

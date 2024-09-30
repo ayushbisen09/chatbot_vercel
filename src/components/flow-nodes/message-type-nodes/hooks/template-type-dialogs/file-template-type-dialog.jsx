@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTheme } from '@emotion/react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -57,19 +57,24 @@ export function FileTemplateTypeDialog({ title, content, action, open, onClose, 
     }
   };
 
+  const chosen =useSelector(state=>state.optInMessageTemplateType.chosen);
+
   const handleDone = () => {
     // Dispatch the Redux actions to store the file template data
-    dispatch(optInSetTemplateType('file'));
+if(chosen==='optIn'){
+  dispatch(optInSetTemplateType('file'));
 
-    dispatch(optInSetFileTemplateFields(bodyFields));
+  dispatch(optInSetFileTemplateFields(bodyFields));
 
-    dispatch(optInSetUploadedFile(file));
+  dispatch(optInSetUploadedFile(file));
+}else{
+  dispatch(optOutSetTemplateType('file'));
 
-    dispatch(optOutSetTemplateType('file'));
+  dispatch(optOutSetFileTemplateFields(bodyFields));
 
-    dispatch(optOutSetFileTemplateFields(bodyFields));
+  dispatch(optOutSetUploadedFile(file));
+}
 
-    dispatch(optOutSetUploadedFile(file));
     console.log('File:', file);
     console.log('Body Fields:', bodyFields);
 
@@ -80,6 +85,7 @@ export function FileTemplateTypeDialog({ title, content, action, open, onClose, 
     onClose(); // Close the dialog without making changes
   };
 
+ 
   return (
     <Dialog
       open={open}

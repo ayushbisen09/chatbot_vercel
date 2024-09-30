@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTheme } from '@emotion/react';
 
 import Dialog from '@mui/material/Dialog';
@@ -49,24 +49,30 @@ export function VideoTemplateTypeDialog({ title, content, action, open, onClose,
     }
   };
 
-  const handleDone = () => {
-    dispatch(optInSetTemplateType('video'));
-    dispatch(
-      optInSetVideoData({
-        videoUrl: file, // File URL from the file upload
-        bodyFields, // Body fields filled in the form
-        fileName: 'Video File', // You can update this based on your form field for file name
-      })
-    );
+  const chosen =useSelector(state=>state.optInMessageTemplateType.chosen);
 
-    dispatch(optOutSetTemplateType('video'));
-    dispatch(
-      optOutSetVideoData({
-        videoUrl: file, // File URL from the file upload
-        bodyFields, // Body fields filled in the form
-        fileName: 'Video File', // You can update this based on your form field for file name
-      })
-    );
+  const handleDone = () => {
+    if(chosen==='optIn'){
+
+      dispatch(optInSetTemplateType('video'));
+      dispatch(
+        optInSetVideoData({
+          videoUrl: file, // File URL from the file upload
+          bodyFields, // Body fields filled in the form
+          fileName: 'Video File', // You can update this based on your form field for file name
+        })
+      );
+    }else{
+
+      dispatch(optOutSetTemplateType('video'));
+      dispatch(
+        optOutSetVideoData({
+          videoUrl: file, // File URL from the file upload
+          bodyFields, // Body fields filled in the form
+          fileName: 'Video File', // You can update this based on your form field for file name
+        })
+      );
+    }
 
     onClose(); // Close dialog
   };

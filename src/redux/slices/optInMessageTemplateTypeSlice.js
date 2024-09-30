@@ -14,9 +14,10 @@ const initialState = {
   optInImageUrl: null, // Image URL for image template
   optInImageBodyFields: [], // Image template fields
   optInImageFileName: '', // Image file name
+  chosen:'',
 };
 
-const templateSlice = createSlice({
+const optInMessageTemplateTypeSlice = createSlice({
   name: 'optInMessageTemplateType',
   initialState,
   reducers: {
@@ -75,6 +76,9 @@ const templateSlice = createSlice({
       state.optInImageBodyFields = [];
       state.imageFileName = '';
     },
+    setChosen :(state,action)=>{
+      state.chosen=action.payload;
+    }
   },
 });
 
@@ -90,8 +94,9 @@ export const {
   optInClearVideoData,
   optInSetImageData,
   optInClearImageData,
-  optInSetTemplateType
-} = templateSlice.actions;
+  optInSetTemplateType,
+  setChosen
+} = optInMessageTemplateTypeSlice.actions;
 
-export default templateSlice.reducer;
+export default optInMessageTemplateTypeSlice.reducer;
 

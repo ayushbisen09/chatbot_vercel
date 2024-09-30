@@ -21,6 +21,8 @@ import {
   FormControlLabel,
 } from '@mui/material';
 
+import { setChosen } from 'src/redux/slices/optInMessageTemplateTypeSlice';
+
 import PreviewTemplateChatBox from 'src/sections/preview-template/chat-box';
 import AudioTemplateChatBox from 'src/sections/preview-template/audio-chatbox';
 import VideoTemplateChatBox from 'src/sections/preview-template/video-chatbox';
@@ -376,6 +378,7 @@ export default function OptOutSetting() {
               sx={{ mt: 3 }}
               variant="contained"
               onClick={() => {
+                dispatch(setChosen('optOut'));
                 setOptOutDrawer(true);
               }}
             >

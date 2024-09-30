@@ -16,7 +16,7 @@ const initialState = {
   optOutImageFileName: '', // Image file name
 };
 
-const templateSlice = createSlice({
+const optOutMessageTemplateType = createSlice({
   name: 'optOutMessageTemplateType',
   initialState,
   reducers: {
@@ -91,7 +91,7 @@ export const {
   optOutSetImageData,
   optOutClearImageData,
   optOutSetTemplateType
-} = templateSlice.actions;
+} = optOutMessageTemplateType.actions;
 
-export default templateSlice.reducer;
+export default optOutMessageTemplateType.reducer;
 

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { useTheme } from '@mui/material/styles';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -20,6 +20,8 @@ import {
   Typography,
   FormControlLabel,
 } from '@mui/material';
+
+import { setChosen } from 'src/redux/slices/optInMessageTemplateTypeSlice';
 
 import PreviewTemplateChatBox from 'src/sections/preview-template/chat-box';
 import { OptInDrawer } from 'src/sections/optIn-management/hook/opt-in-drawer';
@@ -65,7 +67,7 @@ export default function OptInSetting() {
     template.replace(/\{\{(\d+)\}\}/g, (match, number) => fields[number - 1] || match);
 
   console.log(optInTemplateType);
-  
+  const dispatch=useDispatch();
   return (
     <Box>
       <Card>
@@ -376,6 +378,7 @@ export default function OptInSetting() {
               sx={{ mt: 3 }}
               variant="contained"
               onClick={() => {
+                dispatch(setChosen('optIn'));
                 setOptInDrawer(true);
               }}
             >

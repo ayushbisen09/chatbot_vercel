@@ -1,5 +1,5 @@
 import { useTheme } from '@emotion/react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState, useCallback } from 'react';
 
 import Dialog from '@mui/material/Dialog';
@@ -53,27 +53,30 @@ export function AudioTemplateTypeDialog({ title, content, action, open, onClose,
     }
   }, []);
 
+  const chosen =useSelector(state=>state.optInMessageTemplateType.chosen);
+
   const handleDone = () => {
     // Dispatch audio data to the Redux store
-    dispatch(optInSetTemplateType('audio'));
-    dispatch(
-      optInSetAudioData({
-        audioUrl,
-        bodyFields,
-        fileName,
-      })
-    );
-
-    dispatch(optOutSetTemplateType('audio'));
-    dispatch(
-      optOutSetAudioData({
-        audioUrl,
-        bodyFields,
-        fileName,
-      })
-    );
-
-
+    if(chosen==='optIn'){
+      dispatch(optInSetTemplateType('audio'));
+      dispatch(
+        optInSetAudioData({
+          audioUrl,
+          bodyFields,
+          fileName,
+        })
+      );
+    }else{
+      dispatch(optOutSetTemplateType('audio'));
+      dispatch(
+        optOutSetAudioData({
+          audioUrl,
+          bodyFields,
+          fileName,
+        })
+      );
+    }
+ 
     onClose(); // Close the dialog
   };
 
