@@ -3,9 +3,10 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import messageReplyReducer from './slices/messageReply';
 import includedArrayReducer from './slices/contactSlice'; // Import the new reducer
-import optOutMessageReducer from './slices/optOutRegularMessageSlice'
-import textTypeTemplateReducer from './slices/textTypeTemplateSlice';
-import optInMessageReducer from './slices/regularMessageTemplateSlice'; 
+import optOutMessageReducer from './slices/optOutRegularMessageSlice';
+import optInMessageReducer from './slices/regularMessageTemplateSlice';
+import optInTemplateTypeReducer from './slices/optInMessageTemplateTypeSlice';
+import optOutTemplateTypeReducer from './slices/optOutMessageTemplateTypeSlice';
 
 const store = configureStore({
   reducer: {
@@ -13,7 +14,8 @@ const store = configureStore({
     messageReply: messageReplyReducer, // Add the messageReply slice reducer to the store
     optInMessage: optInMessageReducer,
     optOutMessage: optOutMessageReducer,
-    texttypetemplate: textTypeTemplateReducer
+    optInMessageTemplateType: optInTemplateTypeReducer,
+    optOutMessageTemplateType: optOutTemplateTypeReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useTheme } from '@emotion/react';
 
 import Dialog from '@mui/material/Dialog';
@@ -14,6 +15,9 @@ import {
   InputAdornment,
 } from '@mui/material';
 
+import { optInSetImageData, optInSetTemplateType } from 'src/redux/slices/optInMessageTemplateTypeSlice';
+import { optOutSetImageData, optOutSetTemplateType } from 'src/redux/slices/optOutMessageTemplateTypeSlice';
+
 import { Iconify } from 'src/components/iconify';
 import FileUpload from 'src/components/upload/upload';
 
@@ -22,6 +26,7 @@ import ImagePreviewTemplateChatBox from 'src/sections/preview-template/image-cha
 import Image from '../../../../../../public/assets/images/chatImage/imagechat.png';
 
 export function ImageTemplateTypeDialog({ title, content, action, open, onClose, ...other }) {
+  const dispatch = useDispatch();
   const theme = useTheme();
   const isWeb = useMediaQuery(theme.breakpoints.up('sm'));
   const [file, setFile] = useState(null); // To store uploaded file
@@ -45,9 +50,26 @@ export function ImageTemplateTypeDialog({ title, content, action, open, onClose,
   };
 
   const handleDone = () => {
-    console.log('File:', file);
-    console.log('Body Fields:', bodyFields);
-    onClose(); // Close the dialog after operation
+    dispatch(optInSetTemplateType('image')); // This sets the template type to 'image'
+
+    dispatch(
+      optInSetImageData({
+        imageUrl: file ? URL.createObjectURL(file) : null, // This stores the image URL
+        bodyFields,
+        fileName: file ? file.name : '', // This stores the file name
+      })
+    );
+    dispatch(optOutSetTemplateType('image')); // This sets the template type to 'image'
+
+    dispatch(
+      optOutSetImageData({
+        imageUrl: file ? URL.createObjectURL(file) : null, // This stores the image URL
+        bodyFields,
+        fileName: file ? file.name : '', // This stores the file name
+      })
+    );
+
+    onClose(); // Close the dialog
   };
 
   const handleCancel = () => {

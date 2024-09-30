@@ -1,4 +1,5 @@
 import { useTheme } from '@emotion/react';
+import { useDispatch } from 'react-redux';
 import { useState, useCallback } from 'react';
 
 import Dialog from '@mui/material/Dialog';
@@ -14,12 +15,16 @@ import {
   InputAdornment,
 } from '@mui/material';
 
+import { optInSetAudioData, optInSetTemplateType } from 'src/redux/slices/optInMessageTemplateTypeSlice';
+import { optOutSetAudioData, optOutSetTemplateType } from 'src/redux/slices/optOutMessageTemplateTypeSlice';
+
 import { Iconify } from 'src/components/iconify';
 import FileUpload from 'src/components/upload/upload';
 
 import AudioTemplateChatBox from 'src/sections/preview-template/audio-chatbox';
 
 export function AudioTemplateTypeDialog({ title, content, action, open, onClose, ...other }) {
+  const dispatch = useDispatch();
   const theme = useTheme();
   const isWeb = useMediaQuery(theme.breakpoints.up('sm'));
   const [file, setFile] = useState(null);
@@ -49,10 +54,27 @@ export function AudioTemplateTypeDialog({ title, content, action, open, onClose,
   }, []);
 
   const handleDone = () => {
-    console.log('File:', file);
-    console.log('Body Fields:', bodyFields);
-    console.log('File Name:', fileName);
-    onClose();
+    // Dispatch audio data to the Redux store
+    dispatch(optInSetTemplateType('audio'));
+    dispatch(
+      optInSetAudioData({
+        audioUrl,
+        bodyFields,
+        fileName,
+      })
+    );
+
+    dispatch(optOutSetTemplateType('audio'));
+    dispatch(
+      optOutSetAudioData({
+        audioUrl,
+        bodyFields,
+        fileName,
+      })
+    );
+
+
+    onClose(); // Close the dialog
   };
 
   const handleCancel = () => {

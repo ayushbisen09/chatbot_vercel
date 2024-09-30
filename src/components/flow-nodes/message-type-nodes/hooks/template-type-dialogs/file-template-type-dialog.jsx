@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTheme } from '@emotion/react';
+import { useDispatch } from 'react-redux';
 
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -14,6 +15,17 @@ import {
   InputAdornment,
 } from '@mui/material';
 
+import {
+  optInSetUploadedFile,
+  optInSetTemplateType,
+  optInSetFileTemplateFields,
+} from 'src/redux/slices/optInMessageTemplateTypeSlice';
+import {
+  optOutSetUploadedFile,
+  optOutSetTemplateType,
+  optOutSetFileTemplateFields,
+} from 'src/redux/slices/optOutMessageTemplateTypeSlice';
+
 import { Iconify } from 'src/components/iconify';
 import FileUpload from 'src/components/upload/upload';
 
@@ -22,6 +34,7 @@ import FilePreviewTemplateChatBox from 'src/sections/preview-template/file-chatb
 import FileImage from '../../../../../../public/assets/images/chatImage/document.png';
 
 export function FileTemplateTypeDialog({ title, content, action, open, onClose, ...other }) {
+  const dispatch = useDispatch(); // Hook to dispatch actions
   const theme = useTheme();
   const isWeb = useMediaQuery(theme.breakpoints.up('sm'));
   const [file, setFile] = useState(null); // To store uploaded file
@@ -45,11 +58,21 @@ export function FileTemplateTypeDialog({ title, content, action, open, onClose, 
   };
 
   const handleDone = () => {
-    // Handle the operation here
-    // Example: Save data or process the file
+    // Dispatch the Redux actions to store the file template data
+    dispatch(optInSetTemplateType('file'));
 
+    dispatch(optInSetFileTemplateFields(bodyFields));
+
+    dispatch(optInSetUploadedFile(file));
+
+    dispatch(optOutSetTemplateType('file'));
+
+    dispatch(optOutSetFileTemplateFields(bodyFields));
+
+    dispatch(optOutSetUploadedFile(file));
     console.log('File:', file);
     console.log('Body Fields:', bodyFields);
+
     onClose(); // Close the dialog after operation
   };
 
