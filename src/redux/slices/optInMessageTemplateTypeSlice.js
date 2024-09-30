@@ -15,6 +15,7 @@ const initialState = {
   optInImageBodyFields: [], // Image template fields
   optInImageFileName: '', // Image file name
   chosen:'',
+  imageUrl:''
 };
 
 const optInMessageTemplateTypeSlice = createSlice({
@@ -78,7 +79,11 @@ const optInMessageTemplateTypeSlice = createSlice({
     },
     setChosen :(state,action)=>{
       state.chosen=action.payload;
-    }
+    },
+    // setImageUrl:(state,action)=>{
+    //   if()
+    //   state.imageUrl=
+    // }
   },
 });
 

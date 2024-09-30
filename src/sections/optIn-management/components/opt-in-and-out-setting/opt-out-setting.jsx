@@ -34,7 +34,7 @@ import FileType from '../../hook/messages-type/file';
 import VideoType from '../../hook/messages-type/video';
 import AudioType from '../../hook/messages-type/audio';
 import video from '../../../../../public/assets/images/chatImage/video.png';
-import FileImage from '../../../../../public/assets/images/chatImage/document.png';
+import FileImage from '../../../../../public/assets/images/chatImage/imagechat.png';
 
 // ----------------------------------------------------------------------
 
@@ -46,8 +46,10 @@ export default function OptOutSetting() {
   const optOutUploadedFile = useSelector((state) => state.optOutMessageTemplateType.optOutUploadedFile); // New uploaded file
   const { optOutAudioUrl, optOutAudioBodyFields } = useSelector((state) => state.optOutMessageTemplateType); // Access audio data from the template slice
   const { optOutVideoUrl, optOutVideoBodyFields } = useSelector((state) => state.optOutMessageTemplateType); // Access video data from Redux
-  const optOutImageTemplateData = useSelector((state) => state.optOutMessageTemplateType.optOutImageUrl);
-  const optOutImageBodyFields = useSelector((state) => state.optOutMessageTemplateType.optOutImageBodyFields);
+  const { optOutImageUrl, optOutImageBodyFields } = useSelector((state) => state.optOutMessageTemplateType); // Access video data from Redux
+
+  // const optOutImageTemplateData = useSelector((state) => state.optOutMessageTemplateType.optOutImageUrl);
+  // const optOutImageBodyFields = useSelector((state) => state.optOutMessageTemplateType.optOutImageBodyFields);
 
   const [optOutDrawer, setOptOutDrawer] = useState(false);
   const [optOutMessageType, setOptOutMessageType] = useState('pre');
@@ -337,29 +339,29 @@ export default function OptOutSetting() {
                     </Box>
                   )}
 
-                {optOutTemplateType === 'image' && optOutMessageType === 'pre' && optOutImageTemplateData && (
+                {optOutTemplateType === 'image' && optOutMessageType === 'pre' && optOutImageBodyFields && (
                   <ImagePreviewTemplateChatBox
-                    // coverSrc={isFileUploaded ? URL.createObjectURL(file) : Image}
-                    showImage
+                  showImage={FileImage}
+                  coverSrc={optOutImageUrl ||FileImage } // Pass the video URL from Redux state
                     text={
                       <>
                         <span style={{ fontWeight: '600' }}>
-                          {replacePlaceholders(` Hi {{1}}! 🎧🛒`, optOutImageTemplateData)}
+                          {replacePlaceholders(` Hi {{1}}! 🎧🛒`, optOutImageBodyFields)}
                         </span>
                         <br /> <br />
                         {` Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌`}
                         <br /> <br />
                         {` Order Details:`}
                         <br />
-                        {replacePlaceholders(` Product: {{2}}`, optOutImageTemplateData)}
+                        {replacePlaceholders(` Product: {{2}}`, optOutImageBodyFields)}
                         <br />
-                        {replacePlaceholders(`Quantity: {{3}}`, optOutImageTemplateData)}
+                        {replacePlaceholders(`Quantity: {{3}}`, optOutImageBodyFields)}
                         <br />
-                        {replacePlaceholders(`Order ID: {{4}}`, optOutImageTemplateData)}
+                        {replacePlaceholders(`Order ID: {{4}}`, optOutImageBodyFields)}
                         <br />
-                        {replacePlaceholders(`Delivery Address: {{5}}`, optOutImageTemplateData)}
+                        {replacePlaceholders(`Delivery Address: {{5}}`, optOutImageBodyFields)}
                         <br />
-                        {replacePlaceholders(`Estimated Delivery Date: {{6}}`, optOutImageTemplateData)}
+                        {replacePlaceholders(`Estimated Delivery Date: {{6}}`, optOutImageBodyFields)}
                       </>
                     }
                     showLinks

@@ -34,7 +34,7 @@ import FileType from '../../hook/messages-type/file';
 import VideoType from '../../hook/messages-type/video';
 import AudioType from '../../hook/messages-type/audio';
 import video from '../../../../../public/assets/images/chatImage/video.png';
-import FileImage from '../../../../../public/assets/images/chatImage/document.png';
+import FileImage from '../../../../../public/assets/images/chatImage/imagechat.png';
 
 // ----------------------------------------------------------------------
 
@@ -46,8 +46,12 @@ export default function OptInSetting() {
   const optInUploadedFile = useSelector((state) => state.optInMessageTemplateType.optInUploadedFile); // New uploaded file
   const { optInAudioUrl, optInAudioBodyFields } = useSelector((state) => state.optInMessageTemplateType); // Access audio data from the template slice
   const { optInVideoUrl, optInVideoBodyFields } = useSelector((state) => state.optInMessageTemplateType); // Access video data from Redux
-  const optInImageTemplateData = useSelector((state) => state.optInMessageTemplateType.optInImageUrl);
-  const optInImageBodyFields = useSelector((state) => state.optInMessageTemplateType.optInImageBodyFields);
+  const { optInImageUrl, optInImageBodyFields } = useSelector((state) => state.optInMessageTemplateType); // Access video data from Redux
+  
+
+
+  // const optInImageTemplateData = useSelector((state) => state.optInMessageTemplateType.optInImageUrl);
+  // const optInImageBodyFields = useSelector((state) => state.optInMessageTemplateType.optInImageBodyFields);
 
   const [optInDrawer, setOptInDrawer] = useState(false);
   const [optInMessageType, setOptInMessageType] = useState('pre');
@@ -337,29 +341,30 @@ export default function OptInSetting() {
                     </Box>
                   )}
 
-                {optInTemplateType === 'image' && optInMessageType === 'pre' && optInImageTemplateData && (
+                {optInTemplateType === 'image' && optInMessageType === 'pre' && optInImageBodyFields && (
                   <ImagePreviewTemplateChatBox
                     // coverSrc={isFileUploaded ? URL.createObjectURL(file) : Image}
-                    showImage
+                    showImage={FileImage}
+                    coverSrc={optInImageUrl ||FileImage } // Pass the video URL from Redux state
                     text={
                       <>
                         <span style={{ fontWeight: '600' }}>
-                          {replacePlaceholders(` Hi {{1}}! 🎧🛒`, optInImageTemplateData)}
+                          {replacePlaceholders(` Hi {{1}}! 🎧🛒`, optInImageBodyFields)}
                         </span>
                         <br /> <br />
                         {` Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌`}
                         <br /> <br />
                         {` Order Details:`}
                         <br />
-                        {replacePlaceholders(` Product: {{2}}`, optInImageTemplateData)}
+                        {replacePlaceholders(` Product: {{2}}`, optInImageBodyFields)}
                         <br />
-                        {replacePlaceholders(`Quantity: {{3}}`, optInImageTemplateData)}
+                        {replacePlaceholders(`Quantity: {{3}}`,  optInImageBodyFields)}
                         <br />
-                        {replacePlaceholders(`Order ID: {{4}}`, optInImageTemplateData)}
+                        {replacePlaceholders(`Order ID: {{4}}`,  optInImageBodyFields)}
                         <br />
-                        {replacePlaceholders(`Delivery Address: {{5}}`, optInImageTemplateData)}
+                        {replacePlaceholders(`Delivery Address: {{5}}`,  optInImageBodyFields)}
                         <br />
-                        {replacePlaceholders(`Estimated Delivery Date: {{6}}`, optInImageTemplateData)}
+                        {replacePlaceholders(`Estimated Delivery Date: {{6}}`,  optInImageBodyFields)}
                       </>
                     }
                     showLinks
