@@ -50,7 +50,7 @@ export function ImageTemplateTypeDialog({ title, content, action, open, onClose,
   };
 
   const chosen =useSelector(state=>state.optInMessageTemplateType.chosen);
-  const handleDone = () => {
+  const handleSave = () => {
 
     if(chosen==='optIn'){
       dispatch(optInSetTemplateType('image')); // This sets the template type to 'image'
@@ -232,8 +232,8 @@ export function ImageTemplateTypeDialog({ title, content, action, open, onClose,
         </Box>
       </Box>
       <Box sx={{ px: 2, pb: 2 }}>
-        <Button variant="contained" sx={{ mr: 1 }} onClick={handleDone}>
-          Send
+        <Button variant="contained" sx={{ mr: 1 }} onClick={handleSave}>
+          Save
         </Button>
         <Button variant="outlined" onClick={handleCancel}>
           Cancel

@@ -59,7 +59,7 @@ export function FileTemplateTypeDialog({ title, content, action, open, onClose, 
 
   const chosen =useSelector(state=>state.optInMessageTemplateType.chosen);
 
-  const handleDone = () => {
+  const handleSave = () => {
     // Dispatch the Redux actions to store the file template data
 if(chosen==='optIn'){
   dispatch(optInSetTemplateType('file'));
@@ -238,8 +238,8 @@ if(chosen==='optIn'){
         </Box>
       </Box>
       <Box sx={{ px: 2, pb: 2 }}>
-        <Button variant="contained" sx={{ mr: 1 }} onClick={handleDone}>
-          Send
+        <Button variant="contained" sx={{ mr: 1 }} onClick={handleSave}>
+          Save
         </Button>
         <Button variant="outlined" onClick={handleCancel}>
           Cancel
