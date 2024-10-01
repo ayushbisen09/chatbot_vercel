@@ -351,6 +351,8 @@ export default function AddTemplate() {
     return regex.test(input);
   };
 
+  
+
   return (
     <DashboardContent maxWidth="xl">
       <Box
@@ -791,6 +793,7 @@ export default function AddTemplate() {
                       }
                       sx={{ width: '100%', padding: '24px 0px 0px 0px', mr: 0, ml: 0 }}
                     />
+
                     <FormControl fullWidth sx={{ mt: 2 }}>
                       <InputLabel id="carousel-select-label">Carousel Media Type</InputLabel>
                       <Select
