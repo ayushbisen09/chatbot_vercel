@@ -16,7 +16,7 @@ import {
   FormControlLabel,
 } from '@mui/material';
 
-import { wellComeMessageSetChosen } from 'src/redux/slices/wellcomeMessageTemplateTypeSlice';
+import { wellComeSetChosen } from 'src/redux/slices/wellcomeMessageTemplateTypeSlice';
 
 import PreviewTemplateChatBox from 'src/sections/preview-template/chat-box';
 import FileType from 'src/sections/optIn-management/hook/messages-type/file';
@@ -34,7 +34,7 @@ import FileImage from '../../../../../public/assets/images/chatImage/imagechat.p
 // ----------------------------------------------------------------------
 
 export default function OffHourMessage() {
-  const { messageType, messageContent, chatBoxImage } = useSelector((state) => state.offHourMessageRegularMessage);
+  const { messageType, messageContent, chatBoxImage } = useSelector((state) => state.offHourRegularMessage);
   const offHourTemplateType = useSelector(
     (state) => state.offHourMessageTemplateType.offHourTemplateType
   ); // Access the saved template fields
@@ -60,7 +60,7 @@ export default function OffHourMessage() {
   
 
   const [offHourMessageDrawer, setOffHourMessageDrawer] = useState(false);
-  const [offHourMessageMessageType, setOffHourMessageMessageType] = useState('pre');
+  const [offHourMessageType, setOffHourMessageType] = useState('pre');
 
   ;
 
@@ -98,7 +98,7 @@ export default function OffHourMessage() {
         <Box sx={{ width: '380px' }}>
           <Tooltip title="Opt-Out response preview" arrow placement="top">
             <Box sx={{ width: '380px' }}>
-              {offHourMessageMessageType === 'regular' && (
+              {offHourMessageType === 'regular' && (
                 <Card sx={{ border: '1px solid #919EAB33', width: '100%', maxWidth: '500px' }}>
                   <CardHeader
                     avatar={<Avatar aria-label="profile picture">MC</Avatar>}
@@ -141,7 +141,7 @@ export default function OffHourMessage() {
                 </Card>
               )}
               {offHourTemplateType === 'text' &&
-                offHourMessageMessageType === 'pre' &&
+                offHourMessageType === 'pre' &&
                 offHourTemplateFields.length > 0 && (
                   <Box sx={{ mt: 3 }}>
                     <PreviewTemplateChatBox
@@ -178,7 +178,7 @@ export default function OffHourMessage() {
                 )}
 
               {offHourTemplateType === 'file' &&
-                offHourMessageMessageType === 'pre' &&
+                offHourMessageType === 'pre' &&
                 offHourFileTemplateFields.length > 0 && (
                   <Box sx={{ mt: 3 }}>
                     <FilePreviewTemplateChatBox
@@ -216,7 +216,7 @@ export default function OffHourMessage() {
                 )}
 
               {offHourTemplateType === 'audio' &&
-                offHourMessageMessageType === 'pre' &&
+                offHourMessageType === 'pre' &&
                 offHourAudioBodyFields.length > 0 && (
                   <Box sx={{ mt: 3 }}>
                     <AudioTemplateChatBox
@@ -250,7 +250,7 @@ export default function OffHourMessage() {
                 )}
 
               {offHourTemplateType === 'video' &&
-                offHourMessageMessageType === 'pre' &&
+                offHourMessageType === 'pre' &&
                 offHourVideoBodyFields.length > 0 && (
                   <Box sx={{ mt: 3 }}>
                     <VideoTemplateChatBox
@@ -289,7 +289,7 @@ export default function OffHourMessage() {
                 )}
 
               {offHourTemplateType === 'image' &&
-                offHourMessageMessageType === 'pre' &&
+                offHourMessageType === 'pre' &&
                 offHourImageBodyFields && (
                   <ImagePreviewTemplateChatBox
                     showImage={FileImage}
@@ -334,7 +334,7 @@ export default function OffHourMessage() {
             sx={{ mt: 3 }}
             variant="contained"
             onClick={() => {
-              dispatch(wellComeMessageSetChosen('optOut'));
+              dispatch(wellComeSetChosen('optOut'));
               setOffHourMessageDrawer(true);
             }}
           >
@@ -346,8 +346,8 @@ export default function OffHourMessage() {
       <OffHourMessageDrawer
         open={offHourMessageDrawer}
         onClose={() => setOffHourMessageDrawer(false)}
-        setMessageType={setOffHourMessageMessageType}
-        messageType={setOffHourMessageMessageType}
+        setMessageType={setOffHourMessageType}
+        messageType={setOffHourMessageType}
       />
     </Box>
   );

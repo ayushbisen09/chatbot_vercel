@@ -7,16 +7,16 @@ const initialState = {
   chatBoxImage: '',
 };
 
-export const offHourMessageSlice = createSlice({
-  name: 'offHourMessageRegularMessage',
+export const offHourRegularMessageSlice = createSlice({
+  name: 'offHourRegularMessage',
   initialState,
   reducers: {
-    setOffHourMessageData: (state, action) => {
+    setOffHourData: (state, action) => {
       state.messageType = action.payload.messageType;
       state.messageContent = action.payload.messageContent;
       state.chatBoxImage = action.payload.chatBoxImage;
     },
-    resetOffHourMessageData: (state) => {
+    resetOffHourData: (state) => {
       state.messageType = 'text';
       state.messageContent = '';
       state.chatBoxImage = '';
@@ -24,6 +24,6 @@ export const offHourMessageSlice = createSlice({
   },
 });
 
-export const { setOffHourMessageData, resetOffHourMessageData } = offHourMessageSlice.actions;
+export const { setOffHourData, resetOffHourData } = offHourRegularMessageSlice.actions;
 
-export default offHourMessageSlice.reducer;
+export default offHourRegularMessageSlice.reducer;

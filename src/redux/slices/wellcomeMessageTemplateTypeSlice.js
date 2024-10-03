@@ -14,7 +14,7 @@ const initialState = {
   wellComeImageUrl: null, // Image URL for image template
   wellComeImageBodyFields: [], // Image template fields
   wellComeImageFileName: '', // Image file name
-  chosen:'',
+  WellcomeChosen:'',
   imageUrl:''
 };
 
@@ -23,62 +23,62 @@ const wellComeMessageTemplateTypeSlice = createSlice({
   initialState,
   reducers: {
     wellComeSetTemplateType: (state, action) => {
-      state.wellComeMessageTemplateType = action.payload;
+      state.wellComeTemplateType = action.payload;
     },
     wellComeSetTemplateFields: (state, action) => {
-      state.wellComeMessageTemplateFields = action.payload;
+      state.wellComeTemplateFields = action.payload;
     },
     wellComeClearTemplateFields: (state) => {
-      state.wellComeMessageTemplateFields = [];
+      state.wellComeTemplateFields = [];
     },
     // File template related actions
     wellComeSetFileTemplateFields: (state, action) => {
-      state.wellComeMessageFileTemplateFields = action.payload;
+      state.wellComeFileTemplateFields = action.payload;
     },
     wellComeClearFileTemplateFields: (state) => {
-      state.wellComeMessageFileTemplateFields = [];
+      state.wellComeFileTemplateFields = [];
     },
     wellComeSetUploadedFile: (state, action) => {
-      state.wellComeMessageUploadedFile = action.payload;
+      state.wellComeUploadedFile = action.payload;
     },
     wellComeClearUploadedFile: (state) => {
-      state.wellComeMessageUploadedFile = null;
+      state.wellComeUploadedFile = null;
     },
     // Audio template related actions
     wellComeSetAudioData: (state, action) => {
-      state.wellComeMessageAudioUrl = action.payload.audioUrl;
-      state.wellComeMessageAudioBodyFields = action.payload.bodyFields;
-      state.wellComeMessageAudioFileName = action.payload.fileName;
+      state.wellComeAudioUrl = action.payload.audioUrl;
+      state.wellComeAudioBodyFields = action.payload.bodyFields;
+      state.wellComeAudioFileName = action.payload.fileName;
     },
     wellComeClearAudioData: (state) => {
-      state.wellComeMessageAudioUrl = null;
-      state.wellComeMessageAudioBodyFields = [];
-      state.wellComeMessageAudioFileName = '';
+      state.wellComeAudioUrl = null;
+      state.wellComeAudioBodyFields = [];
+      state.wellComeAudioFileName = '';
     },
     // Video template related actions
     wellComeSetVideoData: (state, action) => {
-      state.wellComeMessageVideoUrl = action.payload.videoUrl;
-      state.wellComeMessageVideoBodyFields = action.payload.bodyFields;
-      state.wellComeMessageVideoFileName = action.payload.fileName;
+      state.wellComeVideoUrl = action.payload.videoUrl;
+      state.wellComeVideoBodyFields = action.payload.bodyFields;
+      state.wellComeVideoFileName = action.payload.fileName;
     },
     wellComeClearVideoData: (state) => {
-      state.wellComeMessageVideoUrl = null;
-      state.wellComeMessageVideoBodyFields = [];
-      state.wellComeMessageVideoFileName = '';
+      state.wellComeVideoUrl = null;
+      state.wellComeVideoBodyFields = [];
+      state.wellComeVideoFileName = '';
     },
     // Image template related actions
     wellComeSetImageData: (state, action) => {
-      state.wellComeMessageImageUrl = action.payload.imageUrl;
-      state.wellComeMessageImageBodyFields = action.payload.bodyFields;
-      state.imageFileName = action.payload.fileName;
+      state.wellComeImageUrl = action.payload.imageUrl;
+      state.wellComeImageBodyFields = action.payload.bodyFields;
+      state.wellComeImageFileName = action.payload.fileName;
     },
     wellComeClearImageData: (state) => {
-      state.wellComeMessageImageUrl = null;
-      state.wellComeMessageImageBodyFields = [];
-      state.imageFileName = '';
+      state.wellComeImageUrl = null;
+      state.wellComeImageBodyFields = [];
+      state.wellComeImageFileName = '';
     },
     wellComeSetChosen :(state,action)=>{
-      state.chosen=action.payload;
+      state.wellComeChosen=action.payload;
     },
     // setImageUrl:(state,action)=>{
     //   if()

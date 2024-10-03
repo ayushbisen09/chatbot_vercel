@@ -23,7 +23,7 @@ const store = configureStore({
 
     wellComeMessageRegularMessage: wellComeMessageReducer,
 
-    offHourMessageRegularMessage: offHourMessageRegularMessageReducer,
+    offHourRegularMessage: offHourMessageRegularMessageReducer,
 
     wellComeMessageTemplateType: wellComeMessageTemplateTypeReducer,
 

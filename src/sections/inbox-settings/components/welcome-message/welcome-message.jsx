@@ -16,7 +16,7 @@ import {
   FormControlLabel,
 } from '@mui/material';
 
-import { wellComeMessageSetChosen } from 'src/redux/slices/wellcomeMessageTemplateTypeSlice';
+import { wellComeSetChosen } from 'src/redux/slices/wellcomeMessageTemplateTypeSlice';
 
 import PreviewTemplateChatBox from 'src/sections/preview-template/chat-box';
 import FileType from 'src/sections/optIn-management/hook/messages-type/file';
@@ -67,7 +67,7 @@ export default function WellComeMessage() {
   ); // Access video data from Redux
 
   const [wellComeMessageDrawer, setWellComeMessageDrawer] = useState(false);
-  const [wellComeMessageMessageType, setWellComeMessageMessageType] = useState('pre');
+  const [wellComeMessageType, setWellComeMessageType] = useState('pre');
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -102,7 +102,7 @@ export default function WellComeMessage() {
         <Box sx={{ width: '380px' }}>
           <Tooltip title="Opt-Out response preview" arrow placement="top">
             <Box sx={{ width: '380px' }}>
-              {wellComeMessageMessageType === 'regular' && (
+              {wellComeMessageType === 'regular' && (
                 <Card sx={{ border: '1px solid #919EAB33', width: '100%', maxWidth: '500px' }}>
                   <CardHeader
                     avatar={<Avatar aria-label="profile picture">MC</Avatar>}
@@ -145,7 +145,7 @@ export default function WellComeMessage() {
                 </Card>
               )}
               {wellComeMessageTemplateType === 'text' &&
-                wellComeMessageMessageType === 'pre' &&
+                wellComeMessageType === 'pre' &&
                 wellComeMessageTemplateFields.length > 0 && (
                   <Box sx={{ mt: 3 }}>
                     <PreviewTemplateChatBox
@@ -185,7 +185,7 @@ export default function WellComeMessage() {
                 )}
 
               {wellComeMessageTemplateType === 'file' &&
-                wellComeMessageMessageType === 'pre' &&
+                wellComeMessageType === 'pre' &&
                 wellComeMessageFileTemplateFields.length > 0 && (
                   <Box sx={{ mt: 3 }}>
                     <FilePreviewTemplateChatBox
@@ -238,7 +238,7 @@ export default function WellComeMessage() {
                 )}
 
               {wellComeMessageTemplateType === 'audio' &&
-                wellComeMessageMessageType === 'pre' &&
+                wellComeMessageType === 'pre' &&
                 wellComeMessageAudioBodyFields.length > 0 && (
                   <Box sx={{ mt: 3 }}>
                     <AudioTemplateChatBox
@@ -272,7 +272,7 @@ export default function WellComeMessage() {
                 )}
 
               {wellComeMessageTemplateType === 'video' &&
-                wellComeMessageMessageType === 'pre' &&
+                wellComeMessageType === 'pre' &&
                 wellComeMessageVideoBodyFields.length > 0 && (
                   <Box sx={{ mt: 3 }}>
                     <VideoTemplateChatBox
@@ -314,7 +314,7 @@ export default function WellComeMessage() {
                 )}
 
               {wellComeMessageTemplateType === 'image' &&
-                wellComeMessageMessageType === 'pre' &&
+                wellComeMessageType === 'pre' &&
                 wellComeMessageImageBodyFields && (
                   <ImagePreviewTemplateChatBox
                     // coverSrc={isFileUploaded ? URL.createObjectURL(file) : Image}
@@ -363,7 +363,7 @@ export default function WellComeMessage() {
             sx={{ mt: 3 }}
             variant="contained"
             onClick={() => {
-              dispatch(wellComeMessageSetChosen('optIn'));
+              dispatch(wellComeSetChosen('optIn'));
               setWellComeMessageDrawer(true);
             }}
           >
@@ -375,8 +375,8 @@ export default function WellComeMessage() {
       <WellComeMessageDrawer
         open={wellComeMessageDrawer}
         onClose={() => setWellComeMessageDrawer(false)}
-        setMessageType={setWellComeMessageMessageType}
-        messageType={wellComeMessageMessageType}
+        setMessageType={setWellComeMessageType}
+        messageType={wellComeMessageType}
       />
     </Box>
   );

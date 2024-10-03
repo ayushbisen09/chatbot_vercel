@@ -9,7 +9,7 @@ import { Box, Button, Divider, TextField, Typography, useMediaQuery } from '@mui
 import { optInSetTemplateType, optInSetTemplateFields } from 'src/redux/slices/optInMessageTemplateTypeSlice';
 import { optOutSetTemplateType, optOutSetTemplateFields } from 'src/redux/slices/optOutMessageTemplateTypeSlice';
 import { offHourSetTemplateType, offHourSetTemplateFields } from 'src/redux/slices/offHourMessageTemplateTypeSlice';
-import { wellComeMessageSetTemplateType, wellComeMessageSetFileTemplateFields } from 'src/redux/slices/wellcomeMessageTemplateTypeSlice';
+import { wellComeSetTemplateType, wellComeSetFileTemplateFields } from 'src/redux/slices/wellcomeMessageTemplateTypeSlice';
 
 import { Iconify } from 'src/components/iconify';
 
@@ -38,8 +38,8 @@ export function TextTemplateTypeDialog({ title, content, action, open, onClose, 
       dispatch(optInSetTemplateFields(bodyFields)); // Dispatch the fields to Redux
 
 
-      dispatch(wellComeMessageSetTemplateType('text')); // Dispatch the fields to Redux
-      dispatch(wellComeMessageSetFileTemplateFields(bodyFields)); // Dispatch the fields to Redux
+      dispatch(wellComeSetTemplateType('text')); // Dispatch the fields to Redux
+      dispatch(wellComeSetFileTemplateFields(bodyFields)); // Dispatch the fields to Redux
     }else{
       dispatch(optOutSetTemplateType('text')); // Dispatch the fields to Redux
       dispatch(optOutSetTemplateFields(bodyFields)); // Dispatch the fields to Redux

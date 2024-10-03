@@ -27,9 +27,9 @@ import {
   optOutSetFileTemplateFields,
 } from 'src/redux/slices/optOutMessageTemplateTypeSlice';
 import {
-  wellComeMessageSetTemplateType,
-  wellComeMessageSetUploadedFile,
-  wellComeMessageSetFileTemplateFields,
+  wellComeSetUploadedFile,
+  wellComeSetTemplateType,
+  wellComeSetFileTemplateFields,
 } from 'src/redux/slices/wellcomeMessageTemplateTypeSlice';
 
 import { Iconify } from 'src/components/iconify';
@@ -74,11 +74,11 @@ export function FileTemplateTypeDialog({ title, content, action, open, onClose, 
 
       dispatch(optInSetUploadedFile(file));
 
-      dispatch(wellComeMessageSetTemplateType('file'));
+      dispatch(wellComeSetTemplateType('file'));
 
-      dispatch(wellComeMessageSetFileTemplateFields(bodyFields));
+      dispatch(wellComeSetFileTemplateFields(bodyFields));
 
-      dispatch(wellComeMessageSetUploadedFile(file));
+      dispatch(wellComeSetUploadedFile(file));
     } else {
       dispatch(optOutSetTemplateType('file'));
 

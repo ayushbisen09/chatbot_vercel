@@ -18,7 +18,7 @@ import {
 import { optInSetImageData, optInSetTemplateType } from 'src/redux/slices/optInMessageTemplateTypeSlice';
 import { optOutSetImageData, optOutSetTemplateType } from 'src/redux/slices/optOutMessageTemplateTypeSlice';
 import { offHourSetImageData, offHourSetTemplateType } from 'src/redux/slices/offHourMessageTemplateTypeSlice';
-import { wellComeMessageSetImageData, wellComeMessageSetTemplateType } from 'src/redux/slices/wellcomeMessageTemplateTypeSlice';
+import { wellComeSetImageData, wellComeSetTemplateType } from 'src/redux/slices/wellcomeMessageTemplateTypeSlice';
 
 import { Iconify } from 'src/components/iconify';
 import FileUpload from 'src/components/upload/upload';
@@ -67,10 +67,10 @@ export function ImageTemplateTypeDialog({ title, content, action, open, onClose,
 
 
 
-      dispatch(wellComeMessageSetTemplateType('image')); // This sets the template type to 'image'
+      dispatch(wellComeSetTemplateType('image')); // This sets the template type to 'image'
 
       dispatch(
-        wellComeMessageSetImageData({
+        wellComeSetImageData({
           imageUrl: file ? URL.createObjectURL(file) : null, // This stores the image URL
           bodyFields,
           fileName: file ? file.name : '', // This stores the file name
