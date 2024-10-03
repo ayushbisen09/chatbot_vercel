@@ -90,8 +90,8 @@ const OffHourMessageDrawer= ({ open, onClose }) => {
         <Box sx={{ mt: 4 }}>
           <Card>
             <CardHeader
-              subheader="Setup keywords that user can type to Opt-in & Opt-out from messaging campaign. "
-              title="Welcome Message"
+              subheader="Send template message from one of your pre approved templates. "
+              title="Off Hours Message"
               sx={{ mb: 3 }}
             />
 

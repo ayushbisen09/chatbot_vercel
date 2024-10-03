@@ -20,7 +20,7 @@ import {
   InputAdornment,
 } from '@mui/material';
 
-import { setwellComeMessageMessageData } from 'src/redux/slices/wellComeMessageRegularTemplateSlice';
+import { setwellComeMessageData } from 'src/redux/slices/wellComeMessageRegularTemplateSlice';
 
 import { Iconify } from 'src/components/iconify';
 import FileUpload from 'src/components/upload/upload';
@@ -36,7 +36,7 @@ export default function WellcomeMessageRegularMessage(onClose) {
   const handleAdd = () => {
     // Dispatch the selected message type and content to Redux store
     dispatch(
-      setwellComeMessageMessageData({
+      setwellComeMessageData({
         messageType: messagetype,
         messageContent: message,
         chatBoxImage, // If there is an image

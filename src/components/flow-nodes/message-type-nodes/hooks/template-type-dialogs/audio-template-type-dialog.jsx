@@ -17,6 +17,8 @@ import {
 
 import { optInSetAudioData, optInSetTemplateType } from 'src/redux/slices/optInMessageTemplateTypeSlice';
 import { optOutSetAudioData, optOutSetTemplateType } from 'src/redux/slices/optOutMessageTemplateTypeSlice';
+import { offHourSetAudioData, offHourSetTemplateType } from 'src/redux/slices/offHourMessageTemplateTypeSlice';
+import { wellComeMessageSetAudioData, wellComeMessageSetTemplateType } from 'src/redux/slices/wellcomeMessageTemplateTypeSlice';
 
 import { Iconify } from 'src/components/iconify';
 import FileUpload from 'src/components/upload/upload';
@@ -66,10 +68,31 @@ export function AudioTemplateTypeDialog({ title, content, action, open, onClose,
           fileName,
         })
       );
+
+
+      dispatch(wellComeMessageSetTemplateType('audio'));
+      dispatch(
+        wellComeMessageSetAudioData({
+          audioUrl,
+          bodyFields,
+          fileName,
+        })
+      );
+
     }else{
       dispatch(optOutSetTemplateType('audio'));
       dispatch(
         optOutSetAudioData({
+          audioUrl,
+          bodyFields,
+          fileName,
+        })
+      );
+
+
+      dispatch(offHourSetTemplateType('audio'));
+      dispatch(
+        offHourSetAudioData({
           audioUrl,
           bodyFields,
           fileName,

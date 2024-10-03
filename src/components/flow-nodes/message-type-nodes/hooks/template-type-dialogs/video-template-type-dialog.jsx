@@ -17,6 +17,8 @@ import {
 
 import { optInSetVideoData, optInSetTemplateType } from 'src/redux/slices/optInMessageTemplateTypeSlice';
 import { optOutSetVideoData, optOutSetTemplateType } from 'src/redux/slices/optOutMessageTemplateTypeSlice'
+import { offHourSetVideoData, offHourSetTemplateType } from 'src/redux/slices/offHourMessageTemplateTypeSlice';
+import { wellComeMessageSetVideoData, wellComeMessageSetTemplateType } from 'src/redux/slices/wellcomeMessageTemplateTypeSlice';
 
 import { Iconify } from 'src/components/iconify';
 import FileUpload from 'src/components/upload/upload';
@@ -62,6 +64,17 @@ export function VideoTemplateTypeDialog({ title, content, action, open, onClose,
           fileName: 'Video File', // You can update this based on your form field for file name
         })
       );
+
+      dispatch(wellComeMessageSetTemplateType('video'));
+      dispatch(
+        wellComeMessageSetVideoData({
+          videoUrl: file, // File URL from the file upload
+          bodyFields, // Body fields filled in the form
+          fileName: 'Video File', // You can update this based on your form field for file name
+        })
+      );
+
+
     }else{
 
       dispatch(optOutSetTemplateType('video'));
@@ -72,6 +85,19 @@ export function VideoTemplateTypeDialog({ title, content, action, open, onClose,
           fileName: 'Video File', // You can update this based on your form field for file name
         })
       );
+
+
+      dispatch(offHourSetTemplateType('video'));
+      dispatch(
+        offHourSetVideoData({
+          videoUrl: file, // File URL from the file upload
+          bodyFields, // Body fields filled in the form
+          fileName: 'Video File', // You can update this based on your form field for file name
+        })
+      );
+
+
+
     }
 
     onClose(); // Close dialog

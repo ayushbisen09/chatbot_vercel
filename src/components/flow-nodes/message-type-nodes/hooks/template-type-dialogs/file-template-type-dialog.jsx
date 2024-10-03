@@ -15,6 +15,7 @@ import {
   InputAdornment,
 } from '@mui/material';
 
+import { offHourSetTemplateType, offHourSetUploadedFile, offHourSetFileTemplateFields } from 'src/redux/slices/offHourMessageTemplateTypeSlice';
 import {
   optInSetUploadedFile,
   optInSetTemplateType,
@@ -25,6 +26,11 @@ import {
   optOutSetTemplateType,
   optOutSetFileTemplateFields,
 } from 'src/redux/slices/optOutMessageTemplateTypeSlice';
+import {
+  wellComeMessageSetTemplateType,
+  wellComeMessageSetUploadedFile,
+  wellComeMessageSetFileTemplateFields,
+} from 'src/redux/slices/wellcomeMessageTemplateTypeSlice';
 
 import { Iconify } from 'src/components/iconify';
 import FileUpload from 'src/components/upload/upload';
@@ -57,23 +63,35 @@ export function FileTemplateTypeDialog({ title, content, action, open, onClose, 
     }
   };
 
-  const chosen =useSelector(state=>state.optInMessageTemplateType.chosen);
+  const chosen = useSelector((state) => state.optInMessageTemplateType.chosen);
 
   const handleSave = () => {
     // Dispatch the Redux actions to store the file template data
-if(chosen==='optIn'){
-  dispatch(optInSetTemplateType('file'));
+    if (chosen === 'optIn') {
+      dispatch(optInSetTemplateType('file'));
 
-  dispatch(optInSetFileTemplateFields(bodyFields));
+      dispatch(optInSetFileTemplateFields(bodyFields));
 
-  dispatch(optInSetUploadedFile(file));
-}else{
-  dispatch(optOutSetTemplateType('file'));
+      dispatch(optInSetUploadedFile(file));
 
-  dispatch(optOutSetFileTemplateFields(bodyFields));
+      dispatch(wellComeMessageSetTemplateType('file'));
 
-  dispatch(optOutSetUploadedFile(file));
-}
+      dispatch(wellComeMessageSetFileTemplateFields(bodyFields));
+
+      dispatch(wellComeMessageSetUploadedFile(file));
+    } else {
+      dispatch(optOutSetTemplateType('file'));
+
+      dispatch(optOutSetFileTemplateFields(bodyFields));
+
+      dispatch(optOutSetUploadedFile(file));
+
+      dispatch(offHourSetTemplateType('file'));
+
+      dispatch(offHourSetFileTemplateFields(bodyFields));
+
+      dispatch(offHourSetUploadedFile(file));
+    }
 
     console.log('File:', file);
     console.log('Body Fields:', bodyFields);
@@ -85,7 +103,6 @@ if(chosen==='optIn'){
     onClose(); // Close the dialog without making changes
   };
 
- 
   return (
     <Dialog
       open={open}

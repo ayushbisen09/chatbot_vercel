@@ -8,15 +8,15 @@ const initialState = {
 };
 
 export const WellComeMessageSlice = createSlice({
-  name: 'wellComeMessage',
+  name: 'wellComeMessageRegularMessage',
   initialState,
   reducers: {
-    setwellComeMessageMessageData: (state, action) => {
+    setwellComeMessageData: (state, action) => {
       state.messageType = action.payload.messageType;
       state.messageContent = action.payload.messageContent;
       state.chatBoxImage = action.payload.chatBoxImage;
     },
-    resetwellComeMessageMessageData: (state) => {
+    resetwellComeMessageData: (state) => {
       state.messageType = 'text';
       state.messageContent = '';
       state.chatBoxImage = '';
@@ -24,6 +24,6 @@ export const WellComeMessageSlice = createSlice({
   },
 });
 
-export const { setwellComeMessageMessageData, resetwellComeMessageMessageData } = WellComeMessageSlice.actions;
+export const { setwellComeMessageData, resetwellComeMessageData } = WellComeMessageSlice.actions;
 
 export default WellComeMessageSlice.reducer;
