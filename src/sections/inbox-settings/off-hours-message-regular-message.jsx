@@ -22,7 +22,7 @@ import {
 import { Iconify } from 'src/components/iconify';
 import FileUpload from 'src/components/upload/upload';
 
-export default function RegularMessage() {
+export default function OffHourMessageRegularMessage() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [snackbarOpen, setSnackbarOpen] = useState(false);

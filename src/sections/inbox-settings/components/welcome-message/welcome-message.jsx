@@ -6,21 +6,20 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import { Box, Card, Avatar, Button, Divider, Tooltip, CardHeader } from '@mui/material';
 
 import { CONFIG } from 'src/config-global';
-import { DashboardContent } from 'src/layouts/dashboard';
 
-import { ConfigurationDrawer1 } from 'src/sections/inbox-settings/hook/drawer';
+import { WellComeMessageDrawer } from '../../hook/wellcome-message-drawer';
 
 const metadata = { title: `Page four | Dashboard - ${CONFIG.site.name}` };
 
 export default function WellComeMessage() {
-  const [openDrawer1, setOpenDrawer1] = useState(false);
+  const [openWellComeMessage, setOpenWellComeMessage] = useState(false);
 
-  const handleOpenDrawer1 = () => {
-    setOpenDrawer1(true);
+  const handleOpenWellComeMessage = () => {
+    setOpenWellComeMessage(true);
   };
 
-  const handleCloseDrawer1 = () => {
-    setOpenDrawer1(false);
+  const handleCloseWellComeMessage = () => {
+    setOpenWellComeMessage(false);
   };
 
   return (
@@ -108,11 +107,11 @@ export default function WellComeMessage() {
             arrow
             placement="top"
           >
-            <Button sx={{ mt: 3 }} variant="contained" color="inherit" onClick={handleOpenDrawer1}>
+            <Button sx={{ mt: 3 }} variant="contained" color="inherit" onClick={handleOpenWellComeMessage}>
               Configure
             </Button>
           </Tooltip>
-          <ConfigurationDrawer1 open={openDrawer1} onClose={handleCloseDrawer1} />
+          <WellComeMessageDrawer open={openWellComeMessage} onClose={handleCloseWellComeMessage} />
         </Box>
 
         <Divider sx={{ mx: 3, borderStyle: 'dashed' }} />

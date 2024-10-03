@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
-import { Button, TextField } from '@mui/material';
+import { Button } from '@mui/material';
 
 import ChatBox from 'src/components/chat-box/chat-box';
 import {
@@ -31,14 +31,8 @@ export function CarouselAlign() {
     },
   ]);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
-  const [currentBodyText, setCurrentBodyText] = useState('');
 
   // Sync bodyText with the current card
-  useEffect(() => {
-    if (chatData[currentCardIndex]) {
-      setCurrentBodyText(chatData[currentCardIndex].bodyText);
-    }
-  }, [currentCardIndex, chatData]);
 
   const generateRandomData = () => {
     const names = ['Ayush', 'Ankit', 'Nikhil', 'Sarthak', 'Rajendra'];
@@ -76,15 +70,6 @@ export function CarouselAlign() {
       setChatData((prevData) => prevData.slice(0, -1));
       setCurrentCardIndex(Math.max(currentCardIndex - 1, 0));
     }
-  };
-
-  const handleBodyTextChange = (value) => {
-    setCurrentBodyText(value);
-    setChatData((prevData) =>
-      prevData.map((item, index) =>
-        index === currentCardIndex ? { ...item, bodyText: value } : item
-      )
-    );
   };
 
   // Handle carousel arrow and dot controls
@@ -173,17 +158,6 @@ export function CarouselAlign() {
         >
           Delete Card
         </Button>
-      </Box>
-
-      {/* Body Text Input */}
-      <Box display="flex" alignItems="center" gap={2} sx={{ mt: 1 }}>
-        <TextField
-          variant="outlined"
-          label={`Card ${currentCardIndex + 1} Body`}
-          value={currentBodyText}
-          onChange={(e) => handleBodyTextChange(e.target.value)}
-          fullWidth
-        />
       </Box>
     </>
   );

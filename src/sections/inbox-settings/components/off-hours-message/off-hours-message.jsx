@@ -5,17 +5,19 @@ import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Box, Card, Avatar, Button, Divider, Tooltip, CardHeader } from '@mui/material';
 
-import { ConfigurationDrawer2 } from 'src/sections/inbox-settings/hook/drawer';
+import { OffHourMessageDrawer } from '../../hook/off-hours-messages-drawer';
+
+
 
 export default function OffHourMessages() {
-  const [openDrawer2, setOpenDrawer2] = useState(false);
+  const [openOffHourMessage, setOpenOffHourMessage] = useState(false);
 
-  const handleOpenDrawer2 = () => {
-    setOpenDrawer2(true);
+  const handleOpenOffHourMessage= () => {
+    setOpenOffHourMessage(true);
   };
 
-  const handleCloseDrawer2 = () => {
-    setOpenDrawer2(false);
+  const handleCloseOffHourMessage = () => {
+    setOpenOffHourMessage(false);
   };
 
   return (
@@ -102,12 +104,12 @@ export default function OffHourMessages() {
           arrow
           placement="top"
         >
-          <Button sx={{ mt: 3 }} variant="contained" color="inherit" onClick={handleOpenDrawer2}>
+          <Button sx={{ mt: 3 }} variant="contained" color="inherit" onClick={handleOpenOffHourMessage}>
             Configure
           </Button>
         </Tooltip>
 
-        <ConfigurationDrawer2 open={openDrawer2} onClose={handleCloseDrawer2} />
+        <OffHourMessageDrawer open={openOffHourMessage} onClose={handleCloseOffHourMessage} />
       </Box>
     </Box>
   );

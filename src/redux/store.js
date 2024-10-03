@@ -3,9 +3,9 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import messageReplyReducer from './slices/messageReply';
 import includedArrayReducer from './slices/contactSlice'; // Import the new reducer
-import optOutMessageReducer from './slices/optOutRegularMessageSlice';
 import optInMessageReducer from './slices/regularMessageTemplateSlice';
 import optInTemplateTypeReducer from './slices/optInMessageTemplateTypeSlice';
+import optOutMessageReducer from './slices/offHoursMessageRegularTemplateSlice';
 import optOutTemplateTypeReducer from './slices/optOutMessageTemplateTypeSlice';
 
 const store = configureStore({

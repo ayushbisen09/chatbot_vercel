@@ -10,7 +10,7 @@ import PageHeader from 'src/components/page-header/page-header';
 
 import WorkingHours from 'src/sections/inbox-settings/components/working-hours/working-hours';
 import WellComeMessage from 'src/sections/inbox-settings/components/welcome-message/welcome-message';
-import OffHourMessages from 'src/sections/inbox-settings/components/off-hours-message/working-hours';
+import OffHourMessages from 'src/sections/inbox-settings/components/off-hours-message/off-hours-message';
 
 const metadata = { title: `Page four | Dashboard - ${CONFIG.site.name}` };
 

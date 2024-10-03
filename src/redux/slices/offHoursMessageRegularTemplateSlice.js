@@ -7,16 +7,16 @@ const initialState = {
   chatBoxImage: '',
 };
 
-export const optOutMessageSlice = createSlice({
-  name: 'optOutMessage',
+export const offHourMessageSlice = createSlice({
+  name: 'offHourMessage',
   initialState,
   reducers: {
-    setOptOutMessageData: (state, action) => {
+    setoffHourMessageMessageData: (state, action) => {
       state.messageType = action.payload.messageType;
       state.messageContent = action.payload.messageContent;
       state.chatBoxImage = action.payload.chatBoxImage;
     },
-    resetOptOutMessageData: (state) => {
+    resetoffHourMessageMessageData: (state) => {
       state.messageType = 'text';
       state.messageContent = '';
       state.chatBoxImage = '';
@@ -24,6 +24,6 @@ export const optOutMessageSlice = createSlice({
   },
 });
 
-export const { setOptOutMessageData, resetOptOutMessageData } = optOutMessageSlice.actions;
+export const { setoffHourMessageMessageData, resetoffHourMessageMessageData } = offHourMessageSlice.actions;
 
-export default optOutMessageSlice.reducer;
+export default offHourMessageSlice.reducer;
