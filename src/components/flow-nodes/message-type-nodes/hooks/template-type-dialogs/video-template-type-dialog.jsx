@@ -15,10 +15,22 @@ import {
   InputAdornment,
 } from '@mui/material';
 
-import { optInSetVideoData, optInSetTemplateType } from 'src/redux/slices/optInMessageTemplateTypeSlice';
-import { optOutSetVideoData, optOutSetTemplateType } from 'src/redux/slices/optOutMessageTemplateTypeSlice'
-import { offHourSetVideoData, offHourSetTemplateType } from 'src/redux/slices/offHourMessageTemplateTypeSlice';
-import { wellComeSetVideoData, wellComeSetTemplateType } from 'src/redux/slices/wellcomeMessageTemplateTypeSlice';
+import {
+  optInSetVideoData,
+  optInSetTemplateType,
+} from 'src/redux/slices/optInMessageTemplateTypeSlice';
+import {
+  optOutSetVideoData,
+  optOutSetTemplateType,
+} from 'src/redux/slices/optOutMessageTemplateTypeSlice';
+import {
+  offHourSetVideoData,
+  offHourSetTemplateType,
+} from 'src/redux/slices/offHourMessageTemplateTypeSlice';
+import {
+  wellComeSetVideoData,
+  wellComeSetTemplateType,
+} from 'src/redux/slices/wellcomeMessageTemplateTypeSlice';
 
 import { Iconify } from 'src/components/iconify';
 import FileUpload from 'src/components/upload/upload';
@@ -51,11 +63,11 @@ export function VideoTemplateTypeDialog({ title, content, action, open, onClose,
     }
   };
 
-  const chosen =useSelector(state=>state.optInMessageTemplateType.chosen);
+  const chosen = useSelector((state) => state.optInMessageTemplateType.chosen);
+  const wellComeChosen = useSelector((state) => state.wellComeMessageTemplateType.wellComeChosen);
 
   const handleSave = () => {
-    if(chosen==='optIn'){
-
+    if (chosen === 'optIn') {
       dispatch(optInSetTemplateType('video'));
       dispatch(
         optInSetVideoData({
@@ -64,19 +76,7 @@ export function VideoTemplateTypeDialog({ title, content, action, open, onClose,
           fileName: 'Video File', // You can update this based on your form field for file name
         })
       );
-
-      dispatch(wellComeSetTemplateType('video'));
-      dispatch(
-        wellComeSetVideoData({
-          videoUrl: file, // File URL from the file upload
-          bodyFields, // Body fields filled in the form
-          fileName: 'Video File', // You can update this based on your form field for file name
-        })
-      );
-
-
-    }else{
-
+    } else {
       dispatch(optOutSetTemplateType('video'));
       dispatch(
         optOutSetVideoData({
@@ -85,8 +85,23 @@ export function VideoTemplateTypeDialog({ title, content, action, open, onClose,
           fileName: 'Video File', // You can update this based on your form field for file name
         })
       );
+    }
+    
 
-
+    onClose(); // Close dialog
+  };
+  const handleSend = () => {
+  
+    if (wellComeChosen === 'wellCome') {
+      dispatch(wellComeSetTemplateType('video'));
+      dispatch(
+        wellComeSetVideoData({
+          videoUrl: file, // File URL from the file upload
+          bodyFields, // Body fields filled in the form
+          fileName: 'Video File', // You can update this based on your form field for file name
+        })
+      );
+    } else {
       dispatch(offHourSetTemplateType('video'));
       dispatch(
         offHourSetVideoData({
@@ -95,9 +110,6 @@ export function VideoTemplateTypeDialog({ title, content, action, open, onClose,
           fileName: 'Video File', // You can update this based on your form field for file name
         })
       );
-
-
-
     }
 
     onClose(); // Close dialog
@@ -260,7 +272,13 @@ export function VideoTemplateTypeDialog({ title, content, action, open, onClose,
         </Box>
       </Box>
       <Box sx={{ px: 2, pb: 2 }}>
-        <Button variant="contained" sx={{ mr: 1 }} onClick={handleSave}>
+        <Button variant="contained" sx={{ mr: 1 }} onClick={() => {
+            if (chosen === 'optIn') {
+              handleSave();
+            } else {
+              handleSend();
+            }
+          }}>
           Save
         </Button>
         <Button variant="outlined" onClick={handleCancel}>

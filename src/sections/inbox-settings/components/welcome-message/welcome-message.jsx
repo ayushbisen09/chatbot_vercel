@@ -38,31 +38,31 @@ export default function WellComeMessage() {
     (state) => state.wellComeMessageRegularMessage
   );
 
-  const wellComeMessageTemplateType = useSelector(
-    (state) => state.wellComeMessageTemplateType.wellComeMessageTemplateType
+  const wellComeTemplateType = useSelector(
+    (state) => state.wellComeMessageTemplateType.wellComeTemplateType
   ); // Access the saved template fields
 
-  const wellComeMessageTemplateFields = useSelector(
-    (state) => state.wellComeMessageTemplateType.wellComeMessageTemplateFields
+  const wellComeTemplateFields = useSelector(
+    (state) => state.wellComeMessageTemplateType.wellComeTemplateFields
   ); // Access the saved template fields
 
-  const wellComeMessageFileTemplateFields = useSelector(
-    (state) => state.wellComeMessageTemplateType.wellComeMessageFileTemplateFields
+  const wellComeFileTemplateFields = useSelector(
+    (state) => state.wellComeMessageTemplateType.wellComeFileTemplateFields
   ); // New file template fields
 
-  const wellComeMessageUploadedFile = useSelector(
-    (state) => state.wellComeMessageTemplateType.wellComeMessageUploadedFile
+  const wellComeUploadedFile = useSelector(
+    (state) => state.wellComeMessageTemplateType.wellComeUploadedFile
   ); // New uploaded file
 
-  const { wellComeMessageAudioUrl, wellComeMessageAudioBodyFields } = useSelector(
+  const { wellComeAudioUrl, wellComeAudioBodyFields } = useSelector(
     (state) => state.wellComeMessageTemplateType
   ); // Access audio data from the template slice
 
-  const { wellComeMessageVideoUrl, wellComeMessageVideoBodyFields } = useSelector(
+  const { wellComeVideoUrl, wellComeVideoBodyFields } = useSelector(
     (state) => state.wellComeMessageTemplateType
   ); // Access video data from Redux
 
-  const { wellComeMessageImageUrl, wellComeMessageImageBodyFields } = useSelector(
+  const { wellComeImageUrl, wellComeImageBodyFields } = useSelector(
     (state) => state.wellComeMessageTemplateType
   ); // Access video data from Redux
 
@@ -74,7 +74,7 @@ export default function WellComeMessage() {
   const replacePlaceholders = (template, fields) =>
     template.replace(/\{\{(\d+)\}\}/g, (match, number) => fields[number - 1] || match);
 
-  console.log(wellComeMessageTemplateType);
+  console.log(wellComeTemplateType);
   const dispatch = useDispatch();
   return (
     <Box>
@@ -144,36 +144,33 @@ export default function WellComeMessage() {
                   </Box>
                 </Card>
               )}
-              {wellComeMessageTemplateType === 'text' &&
+              {wellComeTemplateType === 'text' &&
                 wellComeMessageType === 'pre' &&
-                wellComeMessageTemplateFields.length > 0 && (
+                wellComeTemplateFields.length > 0 && (
                   <Box sx={{ mt: 3 }}>
                     <PreviewTemplateChatBox
                       coverSrc="/assets/images/templateImage/template-image1.jpg"
                       text={
                         <>
                           <span style={{ fontWeight: '600' }}>
-                            {replacePlaceholders(` Hi {{1}}! 🎧🛒`, wellComeMessageTemplateFields)}
+                            {replacePlaceholders(`Hi {{1}}! 🎧🛒`, wellComeTemplateFields)}
                           </span>
                           <br /> <br />
-                          {`  Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌`}
+                          {` Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌`}
                           <br /> <br />
                           {` Order Details:`}
                           <br />
-                          {replacePlaceholders(` Product: {{2}}`, wellComeMessageTemplateFields)}
+                          {replacePlaceholders(`Product: {{2}}`, wellComeTemplateFields)}
                           <br />
-                          {replacePlaceholders(`Quantity: {{3}}`, wellComeMessageTemplateFields)}
+                          {replacePlaceholders(`Quantity: {{3}}`, wellComeTemplateFields)}
                           <br />
-                          {replacePlaceholders(`Order ID: {{4}}`, wellComeMessageTemplateFields)}
+                          {replacePlaceholders(`Order ID: {{4}}`, wellComeTemplateFields)}
                           <br />
-                          {replacePlaceholders(
-                            `Delivery Address: {{5}}`,
-                            wellComeMessageTemplateFields
-                          )}
+                          {replacePlaceholders(`Delivery Address: {{5}}`, wellComeTemplateFields)}
                           <br />
                           {replacePlaceholders(
                             `Estimated Delivery Date: {{6}}`,
-                            wellComeMessageTemplateFields
+                            wellComeTemplateFields
                           )}
                         </>
                       }
@@ -184,49 +181,37 @@ export default function WellComeMessage() {
                   </Box>
                 )}
 
-              {wellComeMessageTemplateType === 'file' &&
+              {wellComeTemplateType === 'file' &&
                 wellComeMessageType === 'pre' &&
-                wellComeMessageFileTemplateFields.length > 0 && (
+                wellComeFileTemplateFields.length > 0 && (
                   <Box sx={{ mt: 3 }}>
                     <FilePreviewTemplateChatBox
-                      coverSrc={wellComeMessageUploadedFile || FileImage} // Show the uploaded file or a default image
+                      coverSrc={wellComeUploadedFile || FileImage} // Show the uploaded file or a default image
                       showImage
                       text={
                         <>
                           <span style={{ fontWeight: '600' }}>
-                            {replacePlaceholders(
-                              ` Hi {{1}}! 🎧🛒`,
-                              wellComeMessageFileTemplateFields
-                            )}
+                            {replacePlaceholders(` Hi {{1}}! 🎧🛒`, wellComeFileTemplateFields)}
                           </span>
                           <br /> <br />
                           {` Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌`}
                           <br /> <br />
                           {` Order Details:`}
                           <br />
-                          {replacePlaceholders(
-                            ` Product: {{2}}`,
-                            wellComeMessageFileTemplateFields
-                          )}
+                          {replacePlaceholders(` Product: {{2}}`, wellComeFileTemplateFields)}
                           <br />
-                          {replacePlaceholders(
-                            `Quantity: {{3}}`,
-                            wellComeMessageFileTemplateFields
-                          )}
+                          {replacePlaceholders(`Quantity: {{3}}`, wellComeFileTemplateFields)}
                           <br />
-                          {replacePlaceholders(
-                            `Order ID: {{4}}`,
-                            wellComeMessageFileTemplateFields
-                          )}
+                          {replacePlaceholders(`Order ID: {{4}}`, wellComeFileTemplateFields)}
                           <br />
                           {replacePlaceholders(
                             `Delivery Address: {{5}}`,
-                            wellComeMessageFileTemplateFields
+                            wellComeFileTemplateFields
                           )}
                           <br />
                           {replacePlaceholders(
                             `Estimated Delivery Date: {{6}}`,
-                            wellComeMessageFileTemplateFields
+                            wellComeFileTemplateFields
                           )}
                         </>
                       }
@@ -237,31 +222,31 @@ export default function WellComeMessage() {
                   </Box>
                 )}
 
-              {wellComeMessageTemplateType === 'audio' &&
+              {wellComeTemplateType === 'audio' &&
                 wellComeMessageType === 'pre' &&
-                wellComeMessageAudioBodyFields.length > 0 && (
+                wellComeAudioBodyFields.length > 0 && (
                   <Box sx={{ mt: 3 }}>
                     <AudioTemplateChatBox
-                      audioSrc={wellComeMessageAudioUrl}
+                      audioSrc={wellComeAudioUrl}
                       text={
                         <>
                           <span style={{ fontWeight: '600' }}>
-                            {`Hi ${wellComeMessageAudioBodyFields[0]}! 🎧🛒`}
+                            {`Hi ${wellComeAudioBodyFields[0]}! 🎧🛒`}
                           </span>
                           <br /> <br />
                           {` Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌`}
                           <br /> <br />
                           {` Order Details:`}
                           <br />
-                          {`Product: ${wellComeMessageAudioBodyFields[1]}`}
+                          {`Product: ${wellComeAudioBodyFields[1]}`}
                           <br />
-                          {`Quantity: ${wellComeMessageAudioBodyFields[2]}`}
+                          {`Quantity: ${wellComeAudioBodyFields[2]}`}
                           <br />
-                          {`Order ID: ${wellComeMessageAudioBodyFields[3]}`}
+                          {`Order ID: ${wellComeAudioBodyFields[3]}`}
                           <br />
-                          {`Delivery Address: ${wellComeMessageAudioBodyFields[4]}`}
+                          {`Delivery Address: ${wellComeAudioBodyFields[4]}`}
                           <br />
-                          {`Estimated Delivery Date: ${wellComeMessageAudioBodyFields[5]}`}
+                          {`Estimated Delivery Date: ${wellComeAudioBodyFields[5]}`}
                         </>
                       }
                       showLinks
@@ -271,38 +256,35 @@ export default function WellComeMessage() {
                   </Box>
                 )}
 
-              {wellComeMessageTemplateType === 'video' &&
+              {wellComeTemplateType === 'video' &&
                 wellComeMessageType === 'pre' &&
-                wellComeMessageVideoBodyFields.length > 0 && (
+                wellComeVideoBodyFields.length > 0 && (
                   <Box sx={{ mt: 3 }}>
                     <VideoTemplateChatBox
                       coverSrc={video}
-                      showImage={!wellComeMessageVideoUrl}
-                      videoSrc={wellComeMessageVideoUrl} // Pass the video URL from Redux state
+                      showImage={!wellComeVideoUrl}
+                      videoSrc={wellComeVideoUrl} // Pass the video URL from Redux state
                       text={
                         <>
                           <span style={{ fontWeight: '600' }}>
-                            {replacePlaceholders(` Hi {{1}}! 🎧🛒`, wellComeMessageVideoBodyFields)}
+                            {replacePlaceholders(` Hi {{1}}! 🎧🛒`, wellComeVideoBodyFields)}
                           </span>
                           <br /> <br />
                           {` Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌`}
                           <br /> <br />
                           {` Order Details:`}
                           <br />
-                          {replacePlaceholders(` Product: {{2}}`, wellComeMessageVideoBodyFields)}
+                          {replacePlaceholders(` Product: {{2}}`, wellComeVideoBodyFields)}
                           <br />
-                          {replacePlaceholders(`Quantity: {{3}}`, wellComeMessageVideoBodyFields)}
+                          {replacePlaceholders(`Quantity: {{3}}`, wellComeVideoBodyFields)}
                           <br />
-                          {replacePlaceholders(`Order ID: {{4}}`, wellComeMessageVideoBodyFields)}
+                          {replacePlaceholders(`Order ID: {{4}}`, wellComeVideoBodyFields)}
                           <br />
-                          {replacePlaceholders(
-                            `Delivery Address: {{5}}`,
-                            wellComeMessageVideoBodyFields
-                          )}
+                          {replacePlaceholders(`Delivery Address: {{5}}`, wellComeVideoBodyFields)}
                           <br />
                           {replacePlaceholders(
                             `Estimated Delivery Date: {{6}}`,
-                            wellComeMessageVideoBodyFields
+                            wellComeVideoBodyFields
                           )}
                         </>
                       }
@@ -313,37 +295,34 @@ export default function WellComeMessage() {
                   </Box>
                 )}
 
-              {wellComeMessageTemplateType === 'image' &&
+              {wellComeTemplateType === 'image' &&
                 wellComeMessageType === 'pre' &&
-                wellComeMessageImageBodyFields && (
+                wellComeImageBodyFields && (
                   <ImagePreviewTemplateChatBox
                     // coverSrc={isFileUploaded ? URL.createObjectURL(file) : Image}
                     showImage={FileImage}
-                    coverSrc={wellComeMessageImageUrl || FileImage} // Pass the video URL from Redux state
+                    coverSrc={wellComeImageUrl || FileImage} // Pass the video URL from Redux state
                     text={
                       <>
                         <span style={{ fontWeight: '600' }}>
-                          {replacePlaceholders(` Hi {{1}}! 🎧🛒`, wellComeMessageImageBodyFields)}
+                          {replacePlaceholders(` Hi {{1}}! 🎧🛒`, wellComeImageBodyFields)}
                         </span>
                         <br /> <br />
                         {` Congratulations! 🎉 Your order for the Headway Bassheads has been confirmed. 🙌`}
                         <br /> <br />
                         {` Order Details:`}
                         <br />
-                        {replacePlaceholders(` Product: {{2}}`, wellComeMessageImageBodyFields)}
+                        {replacePlaceholders(` Product: {{2}}`, wellComeImageBodyFields)}
                         <br />
-                        {replacePlaceholders(`Quantity: {{3}}`, wellComeMessageImageBodyFields)}
+                        {replacePlaceholders(`Quantity: {{3}}`, wellComeImageBodyFields)}
                         <br />
-                        {replacePlaceholders(`Order ID: {{4}}`, wellComeMessageImageBodyFields)}
+                        {replacePlaceholders(`Order ID: {{4}}`, wellComeImageBodyFields)}
                         <br />
-                        {replacePlaceholders(
-                          `Delivery Address: {{5}}`,
-                          wellComeMessageImageBodyFields
-                        )}
+                        {replacePlaceholders(`Delivery Address: {{5}}`, wellComeImageBodyFields)}
                         <br />
                         {replacePlaceholders(
                           `Estimated Delivery Date: {{6}}`,
-                          wellComeMessageImageBodyFields
+                          wellComeImageBodyFields
                         )}
                       </>
                     }
@@ -358,12 +337,12 @@ export default function WellComeMessage() {
       </Box>
 
       <Box sx={{ px: 3, pb: 3 }}>
-        <Tooltip title="Configure Opt-In response" arrow placement="top">
+        <Tooltip title="Configure wellcome message response" arrow placement="top">
           <Button
             sx={{ mt: 3 }}
             variant="contained"
             onClick={() => {
-              dispatch(wellComeSetChosen('optIn'));
+              dispatch(wellComeSetChosen('wellCome'));
               setWellComeMessageDrawer(true);
             }}
           >

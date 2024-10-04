@@ -6,10 +6,22 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Box, Button, Divider, TextField, Typography, useMediaQuery } from '@mui/material';
 
-import { optInSetTemplateType, optInSetTemplateFields } from 'src/redux/slices/optInMessageTemplateTypeSlice';
-import { optOutSetTemplateType, optOutSetTemplateFields } from 'src/redux/slices/optOutMessageTemplateTypeSlice';
-import { offHourSetTemplateType, offHourSetTemplateFields } from 'src/redux/slices/offHourMessageTemplateTypeSlice';
-import { wellComeSetTemplateType, wellComeSetFileTemplateFields } from 'src/redux/slices/wellcomeMessageTemplateTypeSlice';
+import {
+  optInSetTemplateType,
+  optInSetTemplateFields,
+} from 'src/redux/slices/optInMessageTemplateTypeSlice';
+import {
+  optOutSetTemplateType,
+  optOutSetTemplateFields,
+} from 'src/redux/slices/optOutMessageTemplateTypeSlice';
+import {
+  offHourSetTemplateType,
+  offHourSetTemplateFields,
+} from 'src/redux/slices/offHourMessageTemplateTypeSlice';
+import {
+  wellComeSetTemplateType,
+  wellComeSetTemplateFields,
+} from 'src/redux/slices/wellcomeMessageTemplateTypeSlice';
 
 import { Iconify } from 'src/components/iconify';
 
@@ -31,27 +43,30 @@ export function TextTemplateTypeDialog({ title, content, action, open, onClose, 
     template.replace(/\{\{(\d+)\}\}/g, (match, number) => fields[number - 1] || match);
 
   const dispatch = useDispatch(); // Initialize the Redux dispatch
-  const chosen =useSelector(state=>state.optInMessageTemplateType.chosen);
+  const chosen = useSelector((state) => state.optInMessageTemplateType.chosen);
+  const wellComeChosen = useSelector((state) => state.wellComeMessageTemplateType.wellComeChosen);
+
   const handleSave = () => {
-    if(chosen==='optIn'){
+    if (chosen === 'optIn') {
       dispatch(optInSetTemplateType('text')); // Dispatch the fields to Redux
       dispatch(optInSetTemplateFields(bodyFields)); // Dispatch the fields to Redux
-
-
-      dispatch(wellComeSetTemplateType('text')); // Dispatch the fields to Redux
-      dispatch(wellComeSetFileTemplateFields(bodyFields)); // Dispatch the fields to Redux
-    }else{
+    } else {
       dispatch(optOutSetTemplateType('text')); // Dispatch the fields to Redux
       dispatch(optOutSetTemplateFields(bodyFields)); // Dispatch the fields to Redux
+    }
 
-
-
-      dispatch(offHourSetTemplateType('text')); // Dispatch the fields to Redux
-      dispatch(offHourSetTemplateFields(bodyFields)); // Dispatch the fields to Redux
+    onClose(); // Close the dialog after saving
+  };
+  const handleSend = () => {
+    if (wellComeChosen === 'wellCome') {
+      dispatch(wellComeSetTemplateType('text')); // Set the type as text for wellComeMessage
+      dispatch(wellComeSetTemplateFields(bodyFields)); // Save the body fields for wellComeMessage
+    } else {
+      dispatch(offHourSetTemplateType('text')); // Set type for offHour message
+      dispatch(offHourSetTemplateFields(bodyFields)); // Save body fields for offHour
     }
     onClose(); // Close the dialog after saving
   };
-
   return (
     <Dialog
       open={open}
@@ -138,7 +153,17 @@ export function TextTemplateTypeDialog({ title, content, action, open, onClose, 
         </Box>
       </Box>
       <Box sx={{ px: 2, pb: 2 }}>
-        <Button variant="contained" sx={{ mr: 1 }} onClick={handleSave}>
+        <Button
+          variant="contained"
+          sx={{ mr: 1 }}
+          onClick={() => {
+            if (chosen === 'optIn') {
+              handleSave();
+            } else {
+              handleSend();
+            }
+          }}
+        >
           Save
         </Button>
         <Button variant="outlined" onClick={onClose}>

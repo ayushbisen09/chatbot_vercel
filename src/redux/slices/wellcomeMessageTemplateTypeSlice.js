@@ -14,7 +14,7 @@ const initialState = {
   wellComeImageUrl: null, // Image URL for image template
   wellComeImageBodyFields: [], // Image template fields
   wellComeImageFileName: '', // Image file name
-  WellcomeChosen:'',
+  wellComeChosen:'',
   imageUrl:''
 };
 

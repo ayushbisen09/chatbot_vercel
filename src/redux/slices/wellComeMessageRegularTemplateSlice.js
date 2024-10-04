@@ -2,8 +2,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  messageType: 'text',
-  messageContent: 'Thank you for opting-in. In future if you ever want to connect again just send "Hello".',
+  wellComeMessageType: 'text',
+  wellComeMessageContent: 'Thank you for opting-in. In future if you ever want to connect again just send "Hello".',
   chatBoxImage: '',
 };
 
@@ -12,13 +12,13 @@ export const WellComeMessageSlice = createSlice({
   initialState,
   reducers: {
     setwellComeMessageData: (state, action) => {
-      state.messageType = action.payload.messageType;
-      state.messageContent = action.payload.messageContent;
+      state.wellComeMessageTypes = action.payload.wellComeMessageType;
+      state.wellComeMessageContents = action.payload.wellComeMessageContent;
       state.chatBoxImage = action.payload.chatBoxImage;
     },
     resetwellComeMessageData: (state) => {
-      state.messageType = 'text';
-      state.messageContent = '';
+      state.wellComeMessageType = 'text';
+      state.wellComeMessageContent = '';
       state.chatBoxImage = '';
     },
   },

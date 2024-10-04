@@ -15,7 +15,6 @@ import {
   InputAdornment,
 } from '@mui/material';
 
-import { offHourSetTemplateType, offHourSetUploadedFile, offHourSetFileTemplateFields } from 'src/redux/slices/offHourMessageTemplateTypeSlice';
 import {
   optInSetUploadedFile,
   optInSetTemplateType,
@@ -26,6 +25,11 @@ import {
   optOutSetTemplateType,
   optOutSetFileTemplateFields,
 } from 'src/redux/slices/optOutMessageTemplateTypeSlice';
+import {
+  offHourSetTemplateType,
+  offHourSetUploadedFile,
+  offHourSetFileTemplateFields,
+} from 'src/redux/slices/offHourMessageTemplateTypeSlice';
 import {
   wellComeSetUploadedFile,
   wellComeSetTemplateType,
@@ -64,6 +68,7 @@ export function FileTemplateTypeDialog({ title, content, action, open, onClose, 
   };
 
   const chosen = useSelector((state) => state.optInMessageTemplateType.chosen);
+  const wellComeChosen = useSelector((state) => state.wellComeMessageTemplateType.wellComeChosen);
 
   const handleSave = () => {
     // Dispatch the Redux actions to store the file template data
@@ -73,19 +78,30 @@ export function FileTemplateTypeDialog({ title, content, action, open, onClose, 
       dispatch(optInSetFileTemplateFields(bodyFields));
 
       dispatch(optInSetUploadedFile(file));
-
-      dispatch(wellComeSetTemplateType('file'));
-
-      dispatch(wellComeSetFileTemplateFields(bodyFields));
-
-      dispatch(wellComeSetUploadedFile(file));
     } else {
       dispatch(optOutSetTemplateType('file'));
 
       dispatch(optOutSetFileTemplateFields(bodyFields));
 
       dispatch(optOutSetUploadedFile(file));
+    }
+    
 
+    console.log('File:', file);
+    console.log('Body Fields:', bodyFields);
+
+    onClose(); // Close the dialog after operation
+  };
+  const handleSend = () => {
+    // Dispatch the Redux actions to store the file template data
+    
+    if (wellComeChosen === 'wellCome') {
+      dispatch(wellComeSetTemplateType('file'));
+
+      dispatch(wellComeSetFileTemplateFields(bodyFields));
+
+      dispatch(wellComeSetUploadedFile(file));
+    } else {
       dispatch(offHourSetTemplateType('file'));
 
       dispatch(offHourSetFileTemplateFields(bodyFields));
@@ -98,7 +114,6 @@ export function FileTemplateTypeDialog({ title, content, action, open, onClose, 
 
     onClose(); // Close the dialog after operation
   };
-
   const handleCancel = () => {
     onClose(); // Close the dialog without making changes
   };
@@ -255,7 +270,13 @@ export function FileTemplateTypeDialog({ title, content, action, open, onClose, 
         </Box>
       </Box>
       <Box sx={{ px: 2, pb: 2 }}>
-        <Button variant="contained" sx={{ mr: 1 }} onClick={handleSave}>
+        <Button variant="contained" sx={{ mr: 1 }} onClick={() => {
+            if (chosen === 'optIn') {
+              handleSave();
+            } else {
+              handleSend();
+            }
+          }}>
           Save
         </Button>
         <Button variant="outlined" onClick={handleCancel}>

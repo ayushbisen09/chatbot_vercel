@@ -46,9 +46,6 @@ export default function WellcomeMessageRegularMessage(onClose) {
     // Show the snackbar
     setSnackbarOpen(true);
     onClose();
-
-    // Close the dialog after a short delay
-    setTimeout(() => {}, 500);
   };
  
 

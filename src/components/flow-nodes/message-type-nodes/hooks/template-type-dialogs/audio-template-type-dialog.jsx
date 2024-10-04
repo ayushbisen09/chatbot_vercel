@@ -15,10 +15,22 @@ import {
   InputAdornment,
 } from '@mui/material';
 
-import { optInSetAudioData, optInSetTemplateType } from 'src/redux/slices/optInMessageTemplateTypeSlice';
-import { optOutSetAudioData, optOutSetTemplateType } from 'src/redux/slices/optOutMessageTemplateTypeSlice';
-import { offHourSetAudioData, offHourSetTemplateType } from 'src/redux/slices/offHourMessageTemplateTypeSlice';
-import { wellComeSetAudioData, wellComeSetTemplateType } from 'src/redux/slices/wellcomeMessageTemplateTypeSlice';
+import {
+  optInSetAudioData,
+  optInSetTemplateType,
+} from 'src/redux/slices/optInMessageTemplateTypeSlice';
+import {
+  optOutSetAudioData,
+  optOutSetTemplateType,
+} from 'src/redux/slices/optOutMessageTemplateTypeSlice';
+import {
+  offHourSetAudioData,
+  offHourSetTemplateType,
+} from 'src/redux/slices/offHourMessageTemplateTypeSlice';
+import {
+  wellComeSetAudioData,
+  wellComeSetTemplateType,
+} from 'src/redux/slices/wellcomeMessageTemplateTypeSlice';
 
 import { Iconify } from 'src/components/iconify';
 import FileUpload from 'src/components/upload/upload';
@@ -55,11 +67,12 @@ export function AudioTemplateTypeDialog({ title, content, action, open, onClose,
     }
   }, []);
 
-  const chosen =useSelector(state=>state.optInMessageTemplateType.chosen);
+  const chosen = useSelector((state) => state.optInMessageTemplateType.chosen);
+  const wellComeChosen = useSelector((state) => state.wellComeMessageTemplateType.wellComeChosen);
 
   const handleSave = () => {
     // Dispatch audio data to the Redux store
-    if(chosen==='optIn'){
+    if (chosen === 'optIn') {
       dispatch(optInSetTemplateType('audio'));
       dispatch(
         optInSetAudioData({
@@ -68,18 +81,7 @@ export function AudioTemplateTypeDialog({ title, content, action, open, onClose,
           fileName,
         })
       );
-
-
-      dispatch(wellComeSetTemplateType('audio'));
-      dispatch(
-        wellComeSetAudioData({
-          audioUrl,
-          bodyFields,
-          fileName,
-        })
-      );
-
-    }else{
+    } else {
       dispatch(optOutSetTemplateType('audio'));
       dispatch(
         optOutSetAudioData({
@@ -88,8 +90,23 @@ export function AudioTemplateTypeDialog({ title, content, action, open, onClose,
           fileName,
         })
       );
+    }
 
+    onClose(); // Close the dialog
+  };
+  const handleSend = () => {
+    // Dispatch audio data to the Redux store
 
+    if (wellComeChosen === 'wellCome') {
+      dispatch(wellComeSetTemplateType('audio'));
+      dispatch(
+        wellComeSetAudioData({
+          audioUrl,
+          bodyFields,
+          fileName,
+        })
+      );
+    } else {
       dispatch(offHourSetTemplateType('audio'));
       dispatch(
         offHourSetAudioData({
@@ -99,10 +116,9 @@ export function AudioTemplateTypeDialog({ title, content, action, open, onClose,
         })
       );
     }
- 
+
     onClose(); // Close the dialog
   };
-
   const handleCancel = () => {
     onClose();
   };
@@ -222,7 +238,17 @@ export function AudioTemplateTypeDialog({ title, content, action, open, onClose,
         </Box>
       </Box>
       <Box sx={{ px: 2, pb: 2 }}>
-        <Button variant="contained" sx={{ mr: 1 }} onClick={handleSave}>
+        <Button
+          variant="contained"
+          sx={{ mr: 1 }}
+          onClick={() => {
+            if (chosen === 'optIn') {
+              handleSave();
+            } else {
+              handleSend();
+            }
+          }}
+        >
           Save
         </Button>
         <Button variant="outlined" onClick={handleCancel}>

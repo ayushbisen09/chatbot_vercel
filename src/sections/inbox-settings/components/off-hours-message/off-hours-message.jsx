@@ -334,7 +334,7 @@ export default function OffHourMessage() {
             sx={{ mt: 3 }}
             variant="contained"
             onClick={() => {
-              dispatch(wellComeSetChosen('optOut'));
+              dispatch(wellComeSetChosen('offHour'));
               setOffHourMessageDrawer(true);
             }}
           >
