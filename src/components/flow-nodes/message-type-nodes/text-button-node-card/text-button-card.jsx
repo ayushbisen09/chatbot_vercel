@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
   Box,
@@ -11,9 +12,14 @@ import {
   Typography,
 } from '@mui/material';
 
-import { Iconify } from 'src/components/iconify';
+import {
+  addButton,
+  deleteButton,
+  updateMessage,
+  updateButtonText,
+} from 'src/redux/slices/textButtonNodeMessagePreviewSlice';
 
-import { OptInDrawer } from 'src/sections/optIn-management/hook/opt-in-drawer';
+import { Iconify } from 'src/components/iconify';
 
 import { TextButtonNodeMessagePreview } from './hook/text-button-node-message-preview';
 
@@ -25,9 +31,25 @@ const RenderTextButtonNode = (
   deleteCard,
   handleHoverCardClick
 ) => {
-  const [showTextButtonNodeMessagePreview, setShowTextButtonNodeMessagePreview] = useState(false); // Example state for hover
+  const [showTextButtonNodeMessagePreview, setShowTextButtonNodeMessagePreview] = useState(false);
 
-  const { id, textFields } = card; // Destructure card properties
+  const { id, textFields } = card;
+
+  const dispatch = useDispatch();
+  const buttons = useSelector((state) => state.textButtonNode.buttons);
+
+  const handleAddButton = () => {
+    if (textFields.length < 3) {
+      const newButtonId = Date.now().toString();
+      dispatch(addButton({ id: newButtonId, text: '' }));
+      addTextField(id, newButtonId);
+    }
+  };
+
+  const handleDeleteTextField = (cardId, fieldId) => {
+    dispatch(deleteButton(fieldId)); // This deletes the button from the Redux state
+    deleteTextField(cardId, fieldId); // Additional UI-specific logic
+  };
 
   return (
     <>
@@ -60,7 +82,9 @@ const RenderTextButtonNode = (
             fullWidth
             multiline
             rows={4}
+            onChange={(e) => dispatch(updateMessage(e.target.value))}
           />
+
           {textFields.map((field) => (
             <Stack key={field.id} spacing={3}>
               <Box
@@ -69,8 +93,17 @@ const RenderTextButtonNode = (
                   alignItems: 'center',
                 }}
               >
-                <TextField label="Enter Button Text" variant="outlined" fullWidth />
-                <IconButton onClick={() => deleteTextField(id, field.id)}>
+                <TextField
+                  label="Enter Button Text"
+                  variant="outlined"
+                  fullWidth
+                  // Ensure that no default text is set by checking the button object and its text property
+                  value={buttons.find((b) => b.id === field.id)?.text || ''}
+                  onChange={(e) =>
+                    dispatch(updateButtonText({ id: field.id, text: e.target.value }))
+                  }
+                />
+                <IconButton onClick={() => handleDeleteTextField(id, field.id)}>
                   <Iconify width={20} icon="solar:trash-bin-trash-bold" />
                 </IconButton>
                 <IconButton>
@@ -86,19 +119,22 @@ const RenderTextButtonNode = (
               </Typography>
             </Stack>
           ))}
+
           <Button
             variant="outlined"
             color="primary"
             size="medium"
-            onClick={() => addTextField(id)}
+            onClick={handleAddButton}
             fullWidth
             startIcon={
               <Iconify icon="heroicons:plus-circle-16-solid" style={{ width: 18, height: 18 }} />
             }
+            disabled={textFields.length >= 3}
           >
             Add Button
           </Button>
         </Stack>
+
         {/* Hover Card */}
         <Box
           className="hoverCard"
@@ -122,7 +158,7 @@ const RenderTextButtonNode = (
           }}
         >
           <Tooltip title="Add">
-          <IconButton onClick={() => handleHoverCardClick(id)}>
+            <IconButton onClick={() => handleHoverCardClick(id)}>
               <Iconify width={20} icon="eva:plus-fill" sx={{ color: 'text.secondary' }} />
             </IconButton>
           </Tooltip>
@@ -131,7 +167,7 @@ const RenderTextButtonNode = (
               onClick={() => {
                 console.log('clicked');
                 setShowTextButtonNodeMessagePreview(true);
-                console.log('showTextButtonNodeMessagePreview',showTextButtonNodeMessagePreview);
+                console.log('showTextButtonNodeMessagePreview', showTextButtonNodeMessagePreview);
               }}
             >
               <Iconify width={20} icon="eva:eye-fill" sx={{ color: 'text.secondary' }} />
@@ -150,14 +186,11 @@ const RenderTextButtonNode = (
           )}
         </Box>
       </Card>
+
       <TextButtonNodeMessagePreview
         showTextButtonNodeMessagePreview={showTextButtonNodeMessagePreview}
         setShowTextButtonNodeMessagePreview={setShowTextButtonNodeMessagePreview}
       />
-       {/* <OptInDrawer
-          open={showTextButtonNodeMessagePreview}
-          onClose={() => setShowTextButtonNodeMessagePreview(false)}
-        /> */}
     </>
   );
 };

@@ -6,11 +6,12 @@ import includedArrayReducer from './slices/contactSlice'; // Import the new redu
 import optOutMessageReducer from './slices/optOutRegularMessageSlice';
 import optInMessageReducer from './slices/regularMessageTemplateSlice';
 import optInTemplateTypeReducer from './slices/optInMessageTemplateTypeSlice';
+import textButtonNodeReducer from './slices/textButtonNodeMessagePreviewSlice';
 import optOutTemplateTypeReducer from './slices/optOutMessageTemplateTypeSlice';
 import wellComeMessageReducer from './slices/wellComeMessageRegularTemplateSlice';
 import offHourMessageTemplateTypeReducer from './slices/offHourMessageTemplateTypeSlice';
 import wellComeMessageTemplateTypeReducer from './slices/wellcomeMessageTemplateTypeSlice';
-import offHourMessageRegularMessageReducer from './slices/offHoursMessageRegularTemplateSlice';
+import offHourMessageRegularMessageReducer from './slices/offHoursMessageRegularTemplateSlice'; 
 
 const store = configureStore({
   reducer: {
@@ -20,14 +21,11 @@ const store = configureStore({
     optOutMessage: optOutMessageReducer,
     optInMessageTemplateType: optInTemplateTypeReducer,
     optOutMessageTemplateType: optOutTemplateTypeReducer,
-
     wellComeMessageRegularMessage: wellComeMessageReducer,
-
     offHourRegularMessage: offHourMessageRegularMessageReducer,
-
     wellComeMessageTemplateType: wellComeMessageTemplateTypeReducer,
-
     offHourMessageTemplateType: offHourMessageTemplateTypeReducer,
+    textButtonNode: textButtonNodeReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
