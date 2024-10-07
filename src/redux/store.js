@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import messageReplyReducer from './slices/messageReply';
 import includedArrayReducer from './slices/contactSlice'; // Import the new reducer
+import listNodeReducer from './slices/listNodeMessagePreviewSlice';
 import optOutMessageReducer from './slices/optOutRegularMessageSlice';
 import optInMessageReducer from './slices/regularMessageTemplateSlice';
 import optInTemplateTypeReducer from './slices/optInMessageTemplateTypeSlice';
@@ -10,8 +11,8 @@ import textButtonNodeReducer from './slices/textButtonNodeMessagePreviewSlice';
 import optOutTemplateTypeReducer from './slices/optOutMessageTemplateTypeSlice';
 import wellComeMessageReducer from './slices/wellComeMessageRegularTemplateSlice';
 import offHourMessageTemplateTypeReducer from './slices/offHourMessageTemplateTypeSlice';
-import wellComeMessageTemplateTypeReducer from './slices/wellcomeMessageTemplateTypeSlice';
-import offHourMessageRegularMessageReducer from './slices/offHoursMessageRegularTemplateSlice'; 
+import wellComeMessageTemplateTypeReducer from './slices/wellcomeMessageTemplateTypeSlice'; 
+import offHourMessageRegularMessageReducer from './slices/offHoursMessageRegularTemplateSlice';
 
 const store = configureStore({
   reducer: {
@@ -26,6 +27,7 @@ const store = configureStore({
     wellComeMessageTemplateType: wellComeMessageTemplateTypeReducer,
     offHourMessageTemplateType: offHourMessageTemplateTypeReducer,
     textButtonNode: textButtonNodeReducer,
+    listNode: listNodeReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
