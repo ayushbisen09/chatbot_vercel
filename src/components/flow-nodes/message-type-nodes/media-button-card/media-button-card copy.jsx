@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import {
   Box,
@@ -17,6 +18,8 @@ import {
   FormHelperText,
 } from '@mui/material';
 
+import { setFileUrl, setCaption, resetMediaState } from 'src/redux/slices/mediaButtonNodeMessagePreviewSlice';
+
 import { Iconify } from 'src/components/iconify';
 import { FileUpload } from 'src/components/upload';
 import { ConfirmDialog } from 'src/components/custom-dialog';
@@ -33,16 +36,20 @@ const RenderMediaButtonNode = ({
   selectedFlow,
   handleFlowChange,
 }) => {
+  const dispatch = useDispatch();
   const [uploadedFile, setUploadedFile] = useState(null);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [confirmUrlEdit, setConfirmUrlEdit] = useState(false);
   const [url, setUrl] = useState('');
   const [uploadKey, setUploadKey] = useState(0);
+  const [showMediaButtonNodeMessagePreview, setShowMediaButtonNodeMessagePreview] = useState(false);
 
   const handleFileUpload = (file) => {
     if (file) {
       setUploadedFile(file);
-      setUrl(URL.createObjectURL(file));
+      const fileUrl = URL.createObjectURL(file);
+      setUrl(fileUrl);
+      dispatch(setFileUrl(fileUrl));  // Update Redux with file URL
     }
   };
 
@@ -50,6 +57,7 @@ const RenderMediaButtonNode = ({
     setUploadedFile(null);
     setUrl('');
     setUploadKey((prevKey) => prevKey + 1);
+    dispatch(resetMediaState());  // Reset Redux media state
   };
 
   const handleUrlChange = (e) => {
@@ -64,6 +72,11 @@ const RenderMediaButtonNode = ({
   const confirmUrlEditAction = () => {
     onDeleteUploadedFile();
     setConfirmUrlEdit(false);
+  };
+
+  const handleCaptionChange = (e) => {
+    const caption = e.target.value;
+    dispatch(setCaption(caption));  // Update Redux with caption
   };
 
   const renderPreview = () => {
@@ -91,7 +104,6 @@ const RenderMediaButtonNode = ({
         return null;
     }
   };
-  const [showMediaButtonNodeMessagePreview, setShowMediaButtonNodeMessagePreview] = useState(false)
 
   return (
     <Card
@@ -174,25 +186,8 @@ const RenderMediaButtonNode = ({
           helperText="You can add caption."
           variant="outlined"
           fullWidth
+          onChange={handleCaptionChange}
         />
-
-        {card.textFields.map((field) => (
-          <Stack key={field.id} spacing={3}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <TextField label="Enter Button Text" variant="outlined" fullWidth />
-              <IconButton onClick={() => deleteTextField(card.id, field.id)}>
-                <Iconify width={20} icon="solar:trash-bin-trash-bold" />
-              </IconButton>
-            </Box>
-            <Typography
-              variant="body2"
-              color="textSecondary"
-              sx={{ mt: -2, px: 1.4, fontSize: '12px' }}
-            >
-              Enter button text. 20 letters allowed
-            </Typography>
-          </Stack>
-        ))}
 
         <Button
           variant="outlined"
@@ -236,10 +231,7 @@ const RenderMediaButtonNode = ({
           </Tooltip>
           <Tooltip title="Preview">
             <IconButton
-              onClick={() => {
-                console.log('clicked');
-                setShowMediaButtonNodeMessagePreview(true);
-              }}
+              onClick={() => setShowMediaButtonNodeMessagePreview(true)}
             >
               <Iconify width={20} icon="eva:eye-fill" sx={{ color: 'text.secondary' }} />
             </IconButton>
