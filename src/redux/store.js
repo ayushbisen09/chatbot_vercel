@@ -12,6 +12,7 @@ import textButtonNodeReducer from './slices/textButtonNodeMessagePreviewSlice';
 import optOutTemplateTypeReducer from './slices/optOutMessageTemplateTypeSlice'; 
 import wellComeMessageReducer from './slices/wellComeMessageRegularTemplateSlice';
 import offHourMessageTemplateTypeReducer from './slices/offHourMessageTemplateTypeSlice';
+import catalougeMessageNodeReducer from './slices/cataLougeMessageNodeMessagePreviewSlice'
 import wellComeMessageTemplateTypeReducer from './slices/wellcomeMessageTemplateTypeSlice';
 import offHourMessageRegularMessageReducer from './slices/offHoursMessageRegularTemplateSlice';
 
@@ -30,6 +31,7 @@ const store = configureStore({
     textButtonNode: textButtonNodeReducer,
     listNode: listNodeReducer,
     mediaButtonNode: mediaButtonNodeReducer,
+    catalougeMessageNode: catalougeMessageNodeReducer,
   
   },
   middleware: (getDefaultMiddleware) =>
