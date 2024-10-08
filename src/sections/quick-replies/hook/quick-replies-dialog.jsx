@@ -11,7 +11,6 @@ import {
   Box,
   Card,
   Alert,
-  Avatar,
   Divider,
   Tooltip,
   Snackbar,
@@ -385,31 +384,16 @@ Customize messages with dynamic parameters e.g. - Your verification code is {{1
               >
                 <CardHeader
                   sx={{ mb: 2 }}
-                  avatar={<Avatar aria-label="profile picture">MC</Avatar>}
+                
                   title={
                     <Typography variant="h7" sx={{ fontSize: 14, fontWeight: '700' }}>
                       Mireya Conner
                     </Typography>
                   }
-                  subheader={
-                    <Typography variant="subtitle2" sx={{ fontSize: 12, fontWeight: '400' }}>
-                      Online
-                    </Typography>
-                  }
+                 
                 />
                 <Divider />
-                <Typography
-                  variant="caption"
-                  sx={{
-                    pr: 2,
-                    pt: 3,
-                    display: 'flex',
-                    color: '#919EAB',
-                    justifyContent: 'end',
-                  }}
-                >
-                  4:02 PM
-                </Typography>
+                
                 <Box
                   sx={{
                     p: 2,

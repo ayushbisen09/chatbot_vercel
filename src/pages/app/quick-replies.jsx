@@ -12,6 +12,7 @@ import { Iconify } from 'src/components/iconify';
 import PageHeader from 'src/components/page-header/page-header';
 
 import { QuickRepliesDialog } from 'src/sections/quick-replies/hook/quick-replies-dialog';
+import QuickRepliesTable from 'src/sections/quick-replies/component/table/quick-replies-table';
 import { QuickReplyListView } from 'src/sections/quick-replies/component/quick-reply-list-view';
 
 const columns = [
@@ -174,6 +175,7 @@ const QuickRepliesPage = () => {
       <Box sx={{ mt: 4 }} />
 
       <QuickReplyListView />
+      <QuickRepliesTable/>
     </DashboardContent>
   );
 };
