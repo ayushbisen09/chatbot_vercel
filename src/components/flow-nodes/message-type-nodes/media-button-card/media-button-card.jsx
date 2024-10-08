@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
   Box,
@@ -17,6 +18,8 @@ import {
   FormHelperText,
 } from '@mui/material';
 
+import { setFile, clearFile,addButton,setCaption , selectFileUrl, updateButtonText, selectUploadedFile } from 'src/redux/slices/mediaButtonNodeSlice';
+
 import { Iconify } from 'src/components/iconify';
 import { FileUpload } from 'src/components/upload';
 import { ConfirmDialog } from 'src/components/custom-dialog';
@@ -25,29 +28,39 @@ import { MediaButtonNodeMessagePreview } from './hook/media-button-node-message-
 
 const RenderMediaButtonNode = ({
   card,
-  index,
   addTextField,
   deleteTextField,
-  deleteCard,
-  handleHoverCardClick,
   selectedFlow,
   handleFlowChange,
 }) => {
-  const [uploadedFile, setUploadedFile] = useState(null);
+
+  const dispatch = useDispatch();
+  const uploadedFile = useSelector(selectUploadedFile);
+  const fileUrl = useSelector(selectFileUrl);
+  const buttons = useSelector((state) => state.mediaButtonNode.buttons);
+
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [confirmUrlEdit, setConfirmUrlEdit] = useState(false);
   const [url, setUrl] = useState('');
   const [uploadKey, setUploadKey] = useState(0);
+  const [showMediaButtonNodeMessagePreview, setShowMediaButtonNodeMessagePreview] = useState(false);
 
   const handleFileUpload = (file) => {
     if (file) {
-      setUploadedFile(file);
-      setUrl(URL.createObjectURL(file));
+      const fileType = file.type.startsWith('image')
+        ? 'image'
+        : file.type.startsWith('video')
+        ? 'video'
+        : file.type.startsWith('audio')
+        ? 'audio'
+        : 'file';
+
+      const fileURL = URL.createObjectURL(file);
+      dispatch(setFile({ file, url: fileURL, fileType }));
     }
   };
-
   const onDeleteUploadedFile = () => {
-    setUploadedFile(null);
+    dispatch(clearFile());
     setUrl('');
     setUploadKey((prevKey) => prevKey + 1);
   };
@@ -66,17 +79,18 @@ const RenderMediaButtonNode = ({
     setConfirmUrlEdit(false);
   };
 
+  const handleCaptionChange = (e) => {
+    dispatch(setCaption(e.target.value));
+  };
+
   const renderPreview = () => {
     if (!uploadedFile) return null;
 
-    const fileUrl = URL.createObjectURL(uploadedFile);
-    const fileType = uploadedFile.type;
-
     switch (selectedFlow) {
       case 'image':
-        return <img src={fileUrl} alt="Preview" style={{ maxWidth: '100%', maxHeight: '200px' }} />;
+        return <img src={fileUrl} alt="Preview" style={{ maxWidth: '100%', maxHeight: '200px', borderRadius: '8px' }} />;
       case 'video':
-        return <video src={fileUrl} controls style={{ maxWidth: '100%' }} />;
+        return <video src={fileUrl} controls style={{ maxWidth: '100%',borderRadius: '8px' }} />;
       case 'audio':
         return <audio src={fileUrl} controls />;
       case 'file':
@@ -84,14 +98,25 @@ const RenderMediaButtonNode = ({
           <Box>
             <Typography>File Name: {uploadedFile.name}</Typography>
             <Typography>Size: {(uploadedFile.size / 1024).toFixed(2)} KB</Typography>
-            <Typography>Type: {fileType}</Typography>
+            <Typography>Type: {uploadedFile.type}</Typography>
           </Box>
         );
       default:
         return null;
     }
   };
-  const [showMediaButtonNodeMessagePreview, setShowMediaButtonNodeMessagePreview] = useState(false)
+
+
+  const { id, textFields } = card;
+
+  const handleAddButton = () => {
+    if (textFields.length < 3) {
+      const newButtonId = Date.now().toString();
+      dispatch(addButton({ id: newButtonId, text: '' }));
+      addTextField(id, newButtonId);
+    }
+  };
+
 
   return (
     <Card
@@ -174,12 +199,22 @@ const RenderMediaButtonNode = ({
           helperText="You can add caption."
           variant="outlined"
           fullWidth
+          onChange={handleCaptionChange}
         />
 
         {card.textFields.map((field) => (
           <Stack key={field.id} spacing={3}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <TextField label="Enter Button Text" variant="outlined" fullWidth />
+            <TextField
+                  label="Enter Button Text"
+                  variant="outlined"
+                  fullWidth
+                  // Ensure that no default text is set by checking the button object and its text property
+                  value={buttons.find((b) => b.id === field.id)?.text || ''}
+                  onChange={(e) =>
+                    dispatch(updateButtonText({ id: field.id, text: e.target.value }))
+                  }
+                />
               <IconButton onClick={() => deleteTextField(card.id, field.id)}>
                 <Iconify width={20} icon="solar:trash-bin-trash-bold" />
               </IconButton>
@@ -194,18 +229,19 @@ const RenderMediaButtonNode = ({
           </Stack>
         ))}
 
-        <Button
-          variant="outlined"
-          color="primary"
-          size="medium"
-          onClick={() => addTextField(card.id)}
-          fullWidth
-          startIcon={
-            <Iconify icon="heroicons:plus-circle-16-solid" style={{ width: 18, height: 18 }} />
-          }
-        >
-          Add Button
-        </Button>
+<Button
+            variant="outlined"
+            color="primary"
+            size="medium"
+            onClick={handleAddButton}
+            fullWidth
+            startIcon={
+              <Iconify icon="heroicons:plus-circle-16-solid" style={{ width: 18, height: 18 }} />
+            }
+            disabled={textFields.length >= 3}
+          >
+            Add Button
+          </Button>
       </Stack>
 
       {/* Hover Icons */}

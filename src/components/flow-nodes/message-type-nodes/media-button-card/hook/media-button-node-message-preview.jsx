@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -11,6 +12,8 @@ import {
   Typography,
   CardHeader,
 } from '@mui/material';
+
+import { selectFileUrl, selectCaption, selectFileType } from 'src/redux/slices/mediaButtonNodeSlice';
 
 import { Iconify } from 'src/components/iconify';
 
@@ -30,6 +33,25 @@ export function MediaButtonNodeMessagePreview({
     // Prevent clicks inside the drawer from closing it
     if (event.target === event.currentTarget) {
       onClose();
+    }
+  };
+  const buttons = useSelector((state) => state.mediaButtonNode.buttons);
+  const fileUrl = useSelector(selectFileUrl);
+  const caption = useSelector(selectCaption);
+  const fileType = useSelector(selectFileType);
+
+  const renderMediaPreview = () => {
+    if (!fileUrl) return null;
+
+    switch (fileType) {
+      case 'image':
+        return <CardMedia component="img" image={fileUrl} alt="Uploaded media" sx={{ width: '100%', borderRadius: '8px'  ,mb:2}} />;
+      case 'video':
+        return <CardMedia component="video" src={fileUrl} controls sx={{ width: '100%', borderRadius: '8px',mb:2 }} />;
+      case 'audio':
+        return <CardMedia component="audio" src={fileUrl} controls sx={{ width: '100%', borderRadius: '8px',mb:2 }} />;
+      default:
+        return null;
     }
   };
 
@@ -88,18 +110,7 @@ export function MediaButtonNodeMessagePreview({
               m: 2,
             }}
           >
-            <CardMedia
-              component="img"
-              image="/assets/images/templateImage/template-image1.jpg"
-              alt="Chat image"
-              sx={{
-                width: '100%',
-                height: 'auto',
-                objectFit: 'cover',
-                marginBottom: 2, // Add some space between the image and the text
-                borderRadius: '8px', // Optional: add rounded corners to the image
-              }}
-            />
+            {renderMediaPreview()}
 
             <Typography
               variant="body2"
@@ -113,9 +124,29 @@ export function MediaButtonNodeMessagePreview({
                 // 24px margin bottom
               }}
             >
-              Ayush
+               {caption || 'Default Caption'}
             </Typography>
           </Box>
+          {buttons.map((button) => (
+            <Box
+              key={button.id}
+              sx={{
+                backgroundColor: '#CCF4FE',
+                my: 1,
+                mx: 2,
+
+                borderRadius: '8px',
+                height: '36px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Typography color="#078DEE" fontWeight="600">
+                {button.text}
+              </Typography>
+            </Box>
+          ))}
         </Card>
       </Box>
     </Drawer>
