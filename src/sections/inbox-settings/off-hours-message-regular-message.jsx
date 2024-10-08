@@ -7,7 +7,6 @@ import {
   Box,
   Card,
   Alert,
-  Avatar,
   Button,
   Divider,
   Tooltip,
@@ -313,17 +312,13 @@ export default function OffHourMessageRegularMessage() {
               >
                 <CardHeader
                   sx={{ mb: 2 }}
-                  avatar={<Avatar aria-label="profile picture">MC</Avatar>}
+                  
                   title={
                     <Typography variant="h7" sx={{ fontSize: 14, fontWeight: '700' }}>
                       Mireya Conner
                     </Typography>
                   }
-                  subheader={
-                    <Typography variant="subtitle2" sx={{ fontSize: 12, fontWeight: '400' }}>
-                      Online
-                    </Typography>
-                  }
+                  
                 />
                 <Divider />
                 <Typography
