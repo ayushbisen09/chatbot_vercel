@@ -5,7 +5,14 @@ import { useState, useCallback } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import { useTheme } from '@mui/material/styles';
-import { Tab, Tabs, Table, Tooltip, TableBody, IconButton, useMediaQuery } from '@mui/material';
+import {
+  Table,
+  Tooltip,
+  Divider,
+  TableBody,
+  IconButton,
+  CardHeader,
+} from '@mui/material';
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
@@ -13,16 +20,14 @@ import { useRouter } from 'src/routes/hooks';
 import { useBoolean } from 'src/hooks/use-boolean';
 import { useSetState } from 'src/hooks/use-set-state';
 
-import { fIsAfter, fIsBetween } from 'src/utils/format-time';
+// import { fIsAfter, fIsBetween } from 'src/utils/format-time';
 
-import { CONFIG } from 'src/config-global';
-import { varAlpha } from 'src/theme/styles';
-import { _orders, ORDER_STATUS_OPTIONS } from 'src/_mock';
+
+import { _quickreplies } from 'src/_mock/_quickreplies';
 
 import { Label } from 'src/components/label';
 import { toast } from 'src/components/snackbar';
 import { Iconify } from 'src/components/iconify';
-import { Scrollbar } from 'src/components/scrollbar';
 import {
   useTable,
   emptyRows,
@@ -38,27 +43,33 @@ import {
 import { QuickRepliesTableRow } from './quick-replies-table-row';
 import { QuickRepliesTableToolbar } from './quick-replies-table-toolbar';
 import { QuickRepliesFiltersResult } from './quick-replies-table-filters-result';
- 
-// ----------------------------------------------------------------------
 
-const metadata = { title: `Page one | Dashboard - ${CONFIG.site.name}` };
-const STATUS_OPTIONS = [{ value: 'all', label: 'All', tooltip: 'All added WhatsApp numbers.' }, ...ORDER_STATUS_OPTIONS];
+
 
 const TABLE_HEAD = [
-  { id: 'shortcuts', label: 'Shortcuts', width: 600, tooltip: 'The number associated with the WhatsApp account' },
-  { id: 'text', label: 'Text', width: 1000, tooltip: 'The URL for receiving incoming messages' },
-  { id: 'type', label: 'Type', width: 500, tooltip: 'The date when the entry was created' },
-  
+  {
+    id: 'shortcuts',
+    label: 'Shortcuts',
+    width: 600,
+    tooltip: 'Quick replies message shortcuts',
+  },
+  { id: 'text', label: 'Text', width: 1000, tooltip: 'Quick replies message text' },
+  { id: 'type', label: 'Type', width: 500, tooltip: 'Quick replies message type' },
+
   { id: '', width: 10 },
 ];
 
-export default function QuickRepliesTable({ sx, icon, title, total, color = 'warning', ...other }) {
+export default function QuickRepliesTable({ sx, icon, title, total, color = 'warning' }) {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const table = useTable({ defaultOrderBy: 'orderNumber' });
+
+  const table = useTable({ defaultOrderBy: 'quickReplies' });
+
   const router = useRouter();
+
   const confirm = useBoolean();
-  const [tableData, setTableData] = useState(_orders);
+
+  const [tableData, setTableData] = useState(_quickreplies);
+
   const filters = useSetState({
     name: '',
     status: 'all',
@@ -66,13 +77,13 @@ export default function QuickRepliesTable({ sx, icon, title, total, color = 'war
     endDate: null,
   });
 
-  const dateError = fIsAfter(filters.state.startDate, filters.state.endDate);
+  
 
   const dataFiltered = applyFilter({
     inputData: tableData,
     comparator: getComparator(table.order, table.orderBy),
     filters: filters.state,
-    dateError,
+
   });
 
   const dataInPage = rowInPage(dataFiltered, table.page, table.rowsPerPage);
@@ -82,27 +93,20 @@ export default function QuickRepliesTable({ sx, icon, title, total, color = 'war
     filters.state.status !== 'all' ||
     (!!filters.state.startDate && !!filters.state.endDate);
 
-  const notFound = (!dataFiltered.length && canReset) || !dataFiltered.length;
 
   const handleDeleteRow = useCallback(
     (id) => {
       const deleteRow = tableData.filter((row) => row.id !== id);
-      toast.success('WhatsApp Number Removed Successfully!');
+
+      toast.success('Contact Removed Successfully!');
+
       setTableData(deleteRow);
+
       table.onUpdatePageDeleteRow(dataInPage.length);
     },
     [dataInPage.length, table, tableData]
   );
 
-  const handleDeleteRows = useCallback(() => {
-    const deleteRows = tableData.filter((row) => !table.selected.includes(row.id));
-    toast.success('Delete success!');
-    setTableData(deleteRows);
-    table.onUpdatePageDeleteRows({
-      totalRowsInPage: dataInPage.length,
-      totalRowsFiltered: dataFiltered.length,
-    });
-  }, [dataFiltered.length, dataInPage.length, table, tableData]);
 
   const handleViewRow = useCallback(
     (id) => {
@@ -111,13 +115,6 @@ export default function QuickRepliesTable({ sx, icon, title, total, color = 'war
     [router]
   );
 
-  const handleFilterStatus = useCallback(
-    (event, newValue) => {
-      table.onResetPage();
-      filters.setState({ status: newValue });
-    },
-    [filters, table]
-  );
 
   return (
     <>
@@ -125,49 +122,27 @@ export default function QuickRepliesTable({ sx, icon, title, total, color = 'war
       <Card
         sx={{
           boxShadow: '0px 12px 24px -4px rgba(145, 158, 171, 0.2)',
+
           mt: '24px',
         }}
       >
-        <Tabs
-          value={filters.state.status}
-          onChange={handleFilterStatus}
+        <CardHeader
+          title={
+            <Box sx={{ typography: 'subtitle2', fontSize: '18px', fontWeight: 600 }}>
+              Quick Replies
+            </Box>
+          }
+          action={total && <Label color={color}>{total}</Label>}
           sx={{
-            px: 2.5,
-            boxShadow: (theme1) =>
-              `inset 0 -2px 0 0 ${varAlpha(theme1.vars.palette.grey['500Channel'], 0.08)}`,
+            p: 3,
           }}
-        >
-          {STATUS_OPTIONS.map((tab) => (
-            <Tab
-              key={tab.value}  // <-- Added key here
-              iconPosition="end"
-              value={tab.value}
-              label={tab.label}
-              icon={
-                <Label
-                  variant={
-                    ((tab.value === 'all' || tab.value === filters.state.status) && 'filled') ||
-                    'soft'
-                  }
-                  color={
-                    (tab.value === 'active' && 'success') ||
-                    (tab.value === 'inactive' && 'error') ||
-                    'default'
-                  }
-                >
-                  {['active', 'inactive'].includes(tab.value)
-                    ? tableData.filter((user) => user.status === tab.value).length
-                    : tableData.length}
-                </Label>
-              }
-            />
-          ))}
-        </Tabs>
+        />
+        <Divider />
 
         <QuickRepliesTableToolbar
           filters={filters}
           onResetPage={table.onResetPage}
-          dateError={dateError}
+         
         />
 
         {canReset && (
@@ -192,60 +167,55 @@ export default function QuickRepliesTable({ sx, icon, title, total, color = 'war
             }
             action={
               <Tooltip title="Delete">
-                <span>
-                  <IconButton color="primary" onClick={confirm.onTrue}>
-                    <Iconify icon="solar:trash-bin-trash-bold" />
-                  </IconButton>
-                </span>
+                <IconButton color="primary" onClick={confirm.onTrue}>
+                  <Iconify icon="solar:trash-bin-trash-bold" />
+                </IconButton>
               </Tooltip>
             }
           />
 
-          <Scrollbar sx={{ minHeight: 444 }}>
-            <Table size={table.dense ? 'small' : 'medium'} sx={{ minWidth: 960 }}>
-              <TableHeadCustom
-                showCheckbox={false}
-                order={table.order}
-                orderBy={table.orderBy}
-                headLabel={TABLE_HEAD}
-                rowCount={dataFiltered.length}
-                numSelected={table.selected.length}
-                onSort={table.onSort}
-                onSelectAllRows={(checked) =>
-                  table.onSelectAllRows(
-                    checked,
-                    dataFiltered.map((row) => row.id)
-                  )
-                }
+          <Table size={table.dense ? 'small' : 'medium'}>
+            <TableHeadCustom
+              order={table.order}
+              orderBy={table.orderBy}
+              headLabel={TABLE_HEAD}
+              rowCount={dataFiltered.length}
+              numSelected={table.selected.length}
+              onSort={table.onSort}
+              onSelectAllRows={(checked) =>
+                table.onSelectAllRows(
+                  checked,
+                  dataFiltered.map((row) => row.id)
+                )
+              }
+            />
+
+            <TableBody>
+              {dataFiltered
+                .slice(
+                  table.page * table.rowsPerPage,
+                  table.page * table.rowsPerPage + table.rowsPerPage
+                )
+                .map((row, index) => (
+                  <QuickRepliesTableRow
+                    key={row.id}
+                    row={row}
+                    selected={table.selected.includes(row.id)}
+                    onSelectRow={() => table.onSelectRow(row.id)}
+                    onDeleteRow={() => handleDeleteRow(row.id)}
+                    onViewRow={() => handleViewRow(row.id)}
+                    quickrepliesIndex={table.page * table.rowsPerPage + index}
+                  />
+                ))}
+
+              <TableEmptyRows
+                height={table.dense ? 56 : 56 + 20}
+                emptyRows={emptyRows(table.page, table.rowsPerPage, dataFiltered.length)}
               />
 
-              <TableBody>
-                {dataFiltered
-                  .slice(
-                    table.page * table.rowsPerPage,
-                    table.page * table.rowsPerPage + table.rowsPerPage
-                  )
-                  .map((row, index) => (
-                    <QuickRepliesTableRow
-                      key={row.id}
-                      row={row}
-                      selected={table.selected.includes(row.id)}
-                      onSelectRow={() => table.onSelectRow(row.id)}
-                      onDeleteRow={() => handleDeleteRow(row.id)}
-                      onViewRow={() => handleViewRow(row.id)}
-                      quickrepliesIndex={table.page * table.rowsPerPage + index}
-                    />
-                  ))}
-
-                <TableEmptyRows
-                  height={table.dense ? 56 : 56 + 20}
-                  emptyRows={emptyRows(table.page, table.rowsPerPage, dataFiltered.length)}
-                />
-
-                <TableNoData notFound={!dataFiltered.length} />
-              </TableBody>
-            </Table>
-          </Scrollbar>
+              <TableNoData />
+            </TableBody>
+          </Table>
         </Box>
 
         <TablePaginationCustom
@@ -261,10 +231,9 @@ export default function QuickRepliesTable({ sx, icon, title, total, color = 'war
     </>
   );
 }
-
-function applyFilter({ inputData, comparator, filters, dateError }) {
-  const { status, name, startDate, endDate } = filters;
-
+function applyFilter({ inputData, comparator, filters }) {
+  const { status, name } = filters;
+  console.log(inputData);
   const stabilizedThis = inputData.map((el, index) => [el, index]);
 
   stabilizedThis.sort((a, b) => {
@@ -273,23 +242,20 @@ function applyFilter({ inputData, comparator, filters, dateError }) {
     return a[1] - b[1];
   });
 
-  let filteredData = stabilizedThis.map((el) => el[0]);
+  inputData = stabilizedThis.map((el) => el[0]);
 
   if (name) {
-    filteredData = filteredData.filter(
-      (item) => item.orderNumber.toLowerCase().indexOf(name.toLowerCase()) !== -1
+    inputData = inputData.filter(
+      (order) =>
+        order.quickReplies.toLowerCase().indexOf(name.toLowerCase()) !== -1 
     );
   }
 
   if (status !== 'all') {
-    filteredData = filteredData.filter((item) => item.status === status);
+    inputData = inputData.filter((order) => order.status === status);
   }
 
-  if (startDate && endDate && !dateError) {
-    filteredData = filteredData.filter(
-      (item) => fIsBetween(item.createdAt, startDate, endDate)
-    );
-  }
+  
 
-  return filteredData;
+  return inputData;
 }

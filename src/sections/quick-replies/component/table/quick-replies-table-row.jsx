@@ -1,22 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import { useTheme } from '@mui/material/styles'; // Corrected import
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import { Tooltip } from '@mui/material';
+import MenuList from '@mui/material/MenuList';
+import MenuItem from '@mui/material/MenuItem';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
+import { Alert, Button, Divider, Tooltip, Checkbox, Snackbar } from '@mui/material';
+
+import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Iconify } from 'src/components/iconify';
-import { usePopover } from 'src/components/custom-popover';
+import { ConfirmDialog } from 'src/components/custom-dialog';
+import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
-export function QuickRepliesTableRow({
-  selected,
-  quickrepliesIndex,
-}) {
+export function QuickRepliesTableRow({ row, selected, onSelectRow, quickrepliesIndex }) {
+  const [snackbarOpen, setSnackbarOpen] = useState(false); // State for Snackbar
+  const theme = useTheme(); // Corrected theme import
+
  
+  const handleSnackbarClose = ( reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbarOpen(false);
+  };
+
+  const confirm = useBoolean();
   const popover = usePopover();
 
+  const handleDelete = () => {
+    confirm.onFalse();
+    setSnackbarOpen(true); // Set Snackbar to open on delete
+  };
 
   const quickreplies = [
     '/Hello',
@@ -56,7 +75,14 @@ export function QuickRepliesTableRow({
 
   const renderPrimary = (
     <TableRow hover selected={selected}>
-      <TableCell width={288}>
+      <TableCell padding="checkbox">
+        <Checkbox
+          checked={selected}
+          onClick={onSelectRow}
+          inputProps={{ id: `row-checkbox-${row.id}`, 'aria-label': `Row checkbox` }}
+        />
+      </TableCell>
+      <TableCell width={592}>
         <Stack spacing={2} direction="row" alignItems="center">
           <Stack
             sx={{
@@ -65,10 +91,10 @@ export function QuickRepliesTableRow({
               alignItems: 'flex-start',
             }}
           >
-            <Tooltip title="WhatsApp number you have added." arrow placement="top">
+            <Tooltip title="Qucik replies shortcut messages" arrow placement="top">
               <Box component="span">{quickreplies[quickrepliesIndex % quickreplies.length]}</Box>
             </Tooltip>
-            <Tooltip title="Phone number ID of your WhatsApp Number." arrow placement="top">
+            <Tooltip title="Created by: Agent names." arrow placement="top">
               <Box component="span" sx={{ color: 'text.disabled' }}>
                 {quickrepliescreatedby[quickrepliesIndex % quickrepliescreatedby.length]}
               </Box>
@@ -76,7 +102,6 @@ export function QuickRepliesTableRow({
           </Stack>
         </Stack>
       </TableCell>
-
       <TableCell width={592}>
         <Stack spacing={2} direction="row" alignItems="center">
           <Stack
@@ -86,15 +111,12 @@ export function QuickRepliesTableRow({
               alignItems: 'flex-start',
             }}
           >
-            <Tooltip
-              title="Webhook URL for incoming messages of your WhatsApp Number."
-              arrow
-              placement="top"
-            >
+            <Tooltip title="Message in the quick replies" arrow placement="top">
               <Box component="span">
                 {quickrepliesmessage[quickrepliesIndex % quickrepliesmessage.length]}
               </Box>
             </Tooltip>
+            
           </Stack>
         </Stack>
       </TableCell>
@@ -108,12 +130,9 @@ export function QuickRepliesTableRow({
               alignItems: 'flex-start',
             }}
           >
-            <Tooltip
-              title="Webhook URL for incoming messages of your WhatsApp Number."
-              arrow
-              placement="top"
-            >
+            <Tooltip title="Quick replies message type" arrow placement="top">
               <Box component="span">
+                {' '}
                 {quickrepliestypes[quickrepliesIndex % quickrepliestypes.length]}
               </Box>
             </Tooltip>
@@ -122,7 +141,7 @@ export function QuickRepliesTableRow({
       </TableCell>
 
       <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
-        <Tooltip title="Click to see options." arrow placement="top">
+        <Tooltip title="Actions" arrow placement="top">
           <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
             <Iconify icon="eva:more-vertical-fill" />
           </IconButton>
@@ -131,5 +150,80 @@ export function QuickRepliesTableRow({
     </TableRow>
   );
 
-  return <>{renderPrimary}</>;
+  return (
+    <>
+      {renderPrimary}
+
+      <CustomPopover
+        open={popover.open}
+        anchorEl={popover.anchorEl}
+        onClose={popover.onClose}
+        slotProps={{ arrow: { placement: 'right-top' } }}
+      >
+        <MenuList>
+          <Tooltip title="Click here to view the quick replies message" arrow placement="left">
+            <MenuItem>
+              <Iconify icon="solar:eye-bold" />
+              View
+            </MenuItem>
+          </Tooltip>
+          <Tooltip title="Click here to edit quick replies message" arrow placement="left">
+            <MenuItem>
+              <Iconify icon="solar:pen-bold" />
+              Edit Flow
+            </MenuItem>
+          </Tooltip>
+          <Divider style={{ borderStyle: 'dashed' }} />
+          <Tooltip title="Click here to delete quick replies message" arrow placement="left">
+            <MenuItem
+              onClick={() => {
+                confirm.onTrue();
+                popover.onClose();
+              }}
+              sx={{ color: 'error.main' }}
+            >
+              <Iconify icon="solar:trash-bin-trash-bold" />
+              Delete
+            </MenuItem>
+          </Tooltip>
+        </MenuList>
+      </CustomPopover>
+
+      <ConfirmDialog
+        open={confirm.value}
+        onClose={confirm.onFalse}
+        title="Delete"
+        content={`Are you sure you want to delete quick replies `}
+        action={
+          <Button variant="contained" color="error" onClick={handleDelete}>
+            Delete
+          </Button>
+        }
+      />
+
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={10000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        sx={{
+          boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+        }}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity="success"
+          sx={{
+            width: '100%',
+            fontSize: '14px',
+            fontWeight: 'bold',
+            backgroundColor: theme.palette.background.paper,
+            color: theme.palette.text.primary,
+          }}
+        >
+          Quick Replies Deleted Successfully!
+        </Alert>
+      </Snackbar>
+    </>
+  );
 }
