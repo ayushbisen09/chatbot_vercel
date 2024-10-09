@@ -17,12 +17,17 @@ import { Iconify } from 'src/components/iconify';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
+import { EditQuickRepliesDialog } from '../../hook/edit-quick-replies-dialog';
+import { PreviewQuickRepliesDialog } from '../../hook/preview-quick-replies-dialog';
+
 export function QuickRepliesTableRow({ row, selected, onSelectRow, quickrepliesIndex }) {
   const [snackbarOpen, setSnackbarOpen] = useState(false); // State for Snackbar
   const theme = useTheme(); // Corrected theme import
+  const dialog = useBoolean();
+  const previewDialog = useBoolean();
 
- 
-  const handleSnackbarClose = ( reason) => {
+
+  const handleSnackbarClose = (reason) => {
     if (reason === 'clickaway') {
       return;
     }
@@ -73,6 +78,8 @@ export function QuickRepliesTableRow({ row, selected, onSelectRow, quickrepliesI
     // Add more flow names as needed
   ];
 
+ 
+
   const renderPrimary = (
     <TableRow hover selected={selected}>
       <TableCell padding="checkbox">
@@ -116,7 +123,6 @@ export function QuickRepliesTableRow({ row, selected, onSelectRow, quickrepliesI
                 {quickrepliesmessage[quickrepliesIndex % quickrepliesmessage.length]}
               </Box>
             </Tooltip>
-            
           </Stack>
         </Stack>
       </TableCell>
@@ -162,16 +168,19 @@ export function QuickRepliesTableRow({ row, selected, onSelectRow, quickrepliesI
       >
         <MenuList>
           <Tooltip title="Click here to view the quick replies message" arrow placement="left">
-            <MenuItem>
+            <MenuItem onClick={previewDialog.onTrue}>
               <Iconify icon="solar:eye-bold" />
               View
             </MenuItem>
           </Tooltip>
+          <PreviewQuickRepliesDialog open={previewDialog.value} onClose={previewDialog.onFalse} />
           <Tooltip title="Click here to edit quick replies message" arrow placement="left">
-            <MenuItem>
+            <MenuItem  onClick={dialog.onTrue}>
+             
               <Iconify icon="solar:pen-bold" />
-              Edit Flow
+              Edit
             </MenuItem>
+            <EditQuickRepliesDialog open={dialog.value} onClose={dialog.onFalse} />
           </Tooltip>
           <Divider style={{ borderStyle: 'dashed' }} />
           <Tooltip title="Click here to delete quick replies message" arrow placement="left">
@@ -205,7 +214,7 @@ export function QuickRepliesTableRow({ row, selected, onSelectRow, quickrepliesI
         open={snackbarOpen}
         autoHideDuration={10000}
         onClose={handleSnackbarClose}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         sx={{
           boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
         }}

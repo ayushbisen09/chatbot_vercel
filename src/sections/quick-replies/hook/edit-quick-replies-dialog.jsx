@@ -10,10 +10,8 @@ import DialogContent from '@mui/material/DialogContent';
 import {
   Box,
   Card,
-  Alert,
   Divider,
   Tooltip,
-  Snackbar,
   MenuItem,
   TextField,
   Typography,
@@ -28,7 +26,7 @@ import { Iconify } from 'src/components/iconify';
 import FileUpload from 'src/components/upload/upload';
 
 // ----------------------------------------------------------------------
-export function QuickRepliesDialog({ title, content, action, open, onClose, ...other }) {
+export function EditQuickRepliesDialog({ title, content, action, open, onClose, ...other }) {
   const theme = useTheme();
   const isWeb = useMediaQuery(theme.breakpoints.up('sm'));
   const dialog = useBoolean();
@@ -106,6 +104,7 @@ export function QuickRepliesDialog({ title, content, action, open, onClose, ...o
   const [message, setMessage] = useState(
     'Thank you for opting-out. In future if you ever want to connect again just send "Hello".'
   ); // State to store the entered message
+  
   return (
     <>
       <Dialog
@@ -118,7 +117,7 @@ export function QuickRepliesDialog({ title, content, action, open, onClose, ...o
           sx={{ fontWeight: '700', display: 'flex', justifyContent: 'space-between' }}
           onClick={dialog.onFalse}
         >
-          Quick Replies{' '}
+         Edit Quick Replies{' '}
           <Iconify
             onClick={onClose}
             icon="uil:times"
@@ -427,15 +426,15 @@ Customize messages with dynamic parameters e.g. - Your verification code is {{1
             Cancel
           </Button>
           <Button onClick={handleAdd} variant="contained">
-            Add
+            Update
           </Button>
         </DialogActions>
       </Dialog>
-      <Snackbar
+      {/* <Snackbar
         open={snackbarOpen}
         autoHideDuration={10000}
         onClose={handleSnackbarClose}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         sx={{
           boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
         }}
@@ -451,9 +450,9 @@ Customize messages with dynamic parameters e.g. - Your verification code is {{1
             color: theme.palette.text.primary,
           }}
         >
-          Quick Replies Added Successfully!
+          Quick Replies Updated Successfully!
         </Alert>
-      </Snackbar>
+      </Snackbar> */}
     </>
   );
 }
