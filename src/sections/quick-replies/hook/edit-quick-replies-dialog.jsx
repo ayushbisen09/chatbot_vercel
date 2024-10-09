@@ -372,7 +372,7 @@ export function EditQuickRepliesDialog({ title, content, action, open, onClose, 
 Personalize messages with - $FirstName, $Name, $MobileNumber, $LastName & custom attributes.
 Customize messages with dynamic parameters e.g. - Your verification code is {{1}}."
           />
-          <Tooltip title="Regular message type preview" arrow placement="top">
+          <Tooltip title="Quick replies message type preview" arrow placement="top">
             <Box>
               <Card
                 sx={{

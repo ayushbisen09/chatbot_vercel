@@ -42,7 +42,7 @@ export function PreviewQuickRepliesDialog({ title, content, action, open, onClos
       <Divider sx={{ mb: 3, borderStyle: 'dashed' }} />
 
       <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-        <Tooltip title="Regular message type preview" arrow placement="top">
+        <Tooltip title="Quick replies message type preview" arrow placement="top">
           <Box>
             <Card
               sx={{
