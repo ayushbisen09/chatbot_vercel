@@ -14,6 +14,7 @@ import { CONFIG } from 'src/config-global';
 import { varAlpha } from 'src/theme/styles';
 
 import { Logo } from 'src/components/logo';
+import PabblyAppsMenu from 'src/components/all-apps-drawer/all-apps-drawer';
 
 import { HeaderSection } from './header-section';
 import { Searchbar } from '../components/searchbar';
@@ -58,6 +59,10 @@ export function HeaderBase({
     purchase = true,
     searchbar = true,
     menuButton = true,
+    upgradeButton = true,
+    allapps = true,
+
+
   } = {},
 
   ...other
@@ -148,6 +153,17 @@ export function HeaderBase({
               )}
 
               {searchbar && <Searchbar data-slot="searchbar" data={data?.nav} />}
+              {upgradeButton && (
+                <Button
+                  variant="contained"
+                  color="error"
+                  href="https://www.pabbly.com/chatflow/#pricing"
+                  target="_blank"
+                >
+                  Upgrade
+                </Button>
+              )}
+              {allapps && <PabblyAppsMenu />}
 
               {account && (
                 <Tooltip title="Click here to see account details." arrow placement="bottom">
